@@ -1,0 +1,6 @@
+numpy
+torch
+gymnasium
+pybullet
+gym-pybullet-drones
+tensorboard

@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Outputs
+scripts/runs/
+logs/
+models/
+
+# IDE
+.vscode/
