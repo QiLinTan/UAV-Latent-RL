@@ -1,0 +1,6 @@
+name: drones
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+prefix: /home/tequila/miniconda3/envs/drones
