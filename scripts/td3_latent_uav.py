@@ -742,7 +742,7 @@ def train(args):
         act=ActionType.RPM,
         initial_xyzs=INIT_XYZS,
         initial_rpys=INIT_RPYS,
-        gui=True,
+        gui=False,  # GUI将在评估时临时创建
         pyb_freq=240,
         ctrl_freq=120
     )

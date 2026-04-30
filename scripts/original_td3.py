@@ -35,8 +35,9 @@ class Actor(nn.Module):
 	def forward(self, state):
 		a = F.relu(self.l1(state))
 		a = F.relu(self.l2(a))
-		return self.max_action * torch.tanh(self.l3(a))
-
+		return 0.3 * torch.tanh(self.l3(a))
+	    # 强制限制在 ±0.3，从根源阻止饱和
+    	
 
 class Critic(nn.Module):
 	def __init__(self, state_dim, action_dim):
@@ -85,16 +86,23 @@ class TD3(object):
 		tau=0.005,
 		policy_noise=0.2,
 		noise_clip=0.5,
-		policy_freq=2
+		policy_freq=2,
+		total_steps=200_000
 	):
 
 		self.actor = Actor(state_dim, action_dim, max_action).to(device)
 		self.actor_target = copy.deepcopy(self.actor)
-		self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=3e-4)
+		self.actor_lr = 3e-4
+		self.actor_optimizer = torch.optim.Adam(
+			self.actor.parameters(), lr=self.actor_lr
+		)
 
 		self.critic = Critic(state_dim, action_dim).to(device)
 		self.critic_target = copy.deepcopy(self.critic)
-		self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=3e-4)
+		self.critic_lr = 3e-4
+		self.critic_optimizer = torch.optim.Adam(
+			self.critic.parameters(), lr=self.critic_lr, weight_decay=1e-2
+		)
 
 		self.max_action = max_action
 		self.discount = discount
@@ -105,10 +113,24 @@ class TD3(object):
 
 		self.total_it = 0
 
+		self.actor_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+			self.actor_optimizer, T_max=total_steps, eta_min=self.actor_lr * 0.1
+		)
+		self.critic_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+			self.critic_optimizer, T_max=total_steps, eta_min=self.critic_lr * 0.1
+		)
+
 
 	def select_action(self, state):
 		state = torch.FloatTensor(state.reshape(1, -1)).to(device)
-		return self.actor(state).cpu().data.numpy().flatten()
+		action = self.actor(state).cpu().data.numpy().flatten()
+    
+		# ========== 新增：打印原始动作 ==========
+		if self.total_it % 1000 == 0:  # 每1000步打印一次
+			print(f"[Step {self.total_it}] Raw action: {action}")
+		
+		return action
+	
 
 
 	def train(self, replay_buffer, batch_size=256):
@@ -116,6 +138,13 @@ class TD3(object):
 
 		# Sample replay buffer 
 		state, action, next_state, reward, not_done = replay_buffer.sample(batch_size)
+
+		    # ========== 新增：打印奖励均值和done比例 ==========
+		if self.total_it % 1000 == 0:
+			done_ratio = 1.0 - not_done.mean().item()  # not_done=1-done → done=1-not_done
+			print(f"[Step {self.total_it}] Reward batch mean: {reward.mean().item():.4f}")
+			print(f"[Step {self.total_it}] Done ratio in batch: {done_ratio:.2f}")
+	
 
 		with torch.no_grad():
 			# Select action according to policy and add clipped noise
@@ -132,6 +161,10 @@ class TD3(object):
 			target_Q = torch.min(target_Q1, target_Q2)
 			target_Q = reward + not_done * self.discount * target_Q
 
+			# ========== 新增：打印target Q均值 ==========
+			if self.total_it % 1000 == 0:  # 每1000步打印一次，避免刷屏
+				print(f"[Step {self.total_it}] Target Q mean: {target_Q.mean().item():.2f}")
+
 		# Get current Q estimates
 		current_Q1, current_Q2 = self.critic(state, action)
 
@@ -141,6 +174,7 @@ class TD3(object):
 		# Optimize the critic
 		self.critic_optimizer.zero_grad()
 		critic_loss.backward()
+		torch.nn.utils.clip_grad_norm_(self.critic.parameters(), max_norm=1.0)
 		self.critic_optimizer.step()
 
 		actor_loss_val = None
@@ -149,12 +183,21 @@ class TD3(object):
 		# Delayed policy updates
 		if self.total_it % self.policy_freq == 0:
 
+			# Compute actor loss
+			actor_action = self.actor(state)  # 新增：获取actor当前输出动作
+			Q1, Q2 = self.critic(state, actor_action)  # 新增：计算当前动作的Q值
 			# Compute actor losse
 			actor_loss = -self.critic.Q1(state, self.actor(state)).mean()
 			
+			    # ========== 新增：打印Actor Q值和动作 ==========
+			if self.total_it % 1000 == 0:
+				print(f"[Step {self.total_it}] Actor Q1 mean: {Q1.mean().item():.2f}")
+				print(f"[Step {self.total_it}] Actor action mean/max: {actor_action.mean().item():.2f} / {actor_action.max().item():.2f}")
+
 			# Optimize the actor 
 			self.actor_optimizer.zero_grad()
 			actor_loss.backward()
+			torch.nn.utils.clip_grad_norm_(self.actor.parameters(), max_norm=1.0)
 			self.actor_optimizer.step()
 			actor_loss_val = float(actor_loss.item())
 			actor_updated = True
@@ -418,6 +461,7 @@ def train(args):
 		policy_noise=args.policy_noise,
 		noise_clip=args.noise_clip,
 		policy_freq=args.policy_freq,
+		total_steps=args.total_steps,
 	)
 
 	buffer = ReplayBuffer(state_dim, action_dim, max_size=args.buffer_size)
@@ -450,8 +494,27 @@ def train(args):
 		next_obs, reward, terminated, truncated, _ = env.step(action.reshape(1, -1))
 		done = bool(terminated or truncated)
 
+		# 姿态惩罚：鼓励保持水平姿态
+		rpy = env.rpy[0]
+		attitude_penalty = 0.1 * (rpy[0]**2 + rpy[1]**2)
+
+		# 电机对称性惩罚：鼓励左右电机转速对称
+		motor_rpms = env.HOVER_RPM * (1.0 + 0.05 * action)
+		motor_rpms = np.clip(motor_rpms, 0.0, env.MAX_RPM)
+		symmetry_penalty = 0.001 * (
+			(motor_rpms[0] - motor_rpms[1])**2 + 
+			(motor_rpms[2] - motor_rpms[3])**2
+		)
+
+		# 动作惩罚：大动作 = 扣分，解决 Actor 冲边界
+		action_penalty = 0.05 * np.sum(np.square(action))
+
+		# 综合奖励
+		reward = reward - attitude_penalty - symmetry_penalty - action_penalty
+
 		next_state = _preprocess_state(next_obs.reshape(-1))
-		buffer.push(state, action, reward, next_state, done)
+		reward_scaled = float(np.tanh(reward))
+		buffer.push(state, action, reward_scaled, next_state, done)
 
 		state = next_state
 		episode_return += float(reward)
@@ -460,6 +523,8 @@ def train(args):
 		if t >= args.update_after and buffer.size >= args.batch_size and t % args.train_every == 0:
 			train_info = agent.train(buffer, batch_size=args.batch_size)
 			train_steps_this_tick += 1
+			agent.actor_scheduler.step()
+			agent.critic_scheduler.step()
 			# 记录训练损失（便于 tensorboard 查看）
 			writer.add_scalar("Loss/critic_loss", train_info["critic_loss"], t)
 			if train_info["actor_loss"] is not None:
@@ -559,20 +624,20 @@ def _make_argparser():
 	parser.add_argument("--buffer_size", type=int, default=1_000_000)
 	parser.add_argument("--batch_size", type=int, default=256)
 	parser.add_argument("--total_steps", type=int, default=200_000)
-	parser.add_argument("--start_timesteps", type=int, default=10_000)
-	parser.add_argument("--update_after", type=int, default=10_000)
+	parser.add_argument("--start_timesteps", type=int, default=25_000)
+	parser.add_argument("--update_after", type=int, default=25_000)
 	parser.add_argument("--train_every", type=int, default=1)
 
 	# TD3 hyper-params
 	parser.add_argument("--gamma", type=float, default=0.99)
-	parser.add_argument("--tau", type=float, default=0.005)
+	parser.add_argument("--tau", type=float, default=0.002)
 	parser.add_argument("--policy_noise", type=float, default=0.2)
 	parser.add_argument("--noise_clip", type=float, default=0.5)
-	parser.add_argument("--policy_freq", type=int, default=2)
+	parser.add_argument("--policy_freq", type=int, default=4)
 
 	# Exploration noise schedule
-	parser.add_argument("--expl_noise_start", type=float, default=0.5)
-	parser.add_argument("--expl_noise_end", type=float, default=0.1)
+	parser.add_argument("--expl_noise_start", type=float, default=0.2)
+	parser.add_argument("--expl_noise_end", type=float, default=0.05)
 	parser.add_argument("--noise_decay_steps", type=float, default=100_000)
 
 	# Evaluation
@@ -589,4 +654,3 @@ def _make_argparser():
 if __name__ == "__main__":
 	args = _make_argparser().parse_args()
 	train(args)
-		
