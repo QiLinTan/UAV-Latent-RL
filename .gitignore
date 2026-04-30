@@ -9,3 +9,11 @@ models/
 
 # IDE
 .vscode/
+__pycache__/
+*.pyc
+
+checkpoints/
+runs/
+*.pt
+*.pth
+*.ckpt
