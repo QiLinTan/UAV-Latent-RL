@@ -18,7 +18,45 @@ def _grad_norm(parameters) -> float:
     return float(total_sq ** 0.5)
 
 
-class TD3:
+def _per_sample_mse(pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    return ((pred - target) ** 2).mean(dim=1)
+
+
+def compute_samplewise_trust(
+    rec_err_per_sample: torch.Tensor,
+    dyn_err_per_sample: torch.Tensor,
+    rec_err_ema: float,
+    dyn_err_ema: float,
+    alpha: float = 0.5,
+    beta: float = 0.5,
+    q_min: float = 0.5,
+    q_max: float = 1.0,
+    eps: float = 1e-6,
+) -> torch.Tensor:
+    return compute_recon_trust(
+        rec_err_per_sample=rec_err_per_sample,
+        rec_err_ema=rec_err_ema,
+        alpha=alpha,
+        q_min=q_min,
+        q_max=q_max,
+        eps=eps,
+    )
+
+
+def compute_recon_trust(
+    rec_err_per_sample: torch.Tensor,
+    rec_err_ema: float,
+    alpha: float = 0.5,
+    q_min: float = 0.5,
+    q_max: float = 1.0,
+    eps: float = 1e-6,
+) -> torch.Tensor:
+    rec_rel = rec_err_per_sample / (rec_err_ema + eps)
+    trust = torch.exp(-alpha * torch.relu(rec_rel - 1.0))
+    return trust.clamp(q_min, q_max)
+
+
+class TD3V1Trust:
     def __init__(
         self,
         state_dim,
@@ -30,9 +68,17 @@ class TD3:
         noise_clip=0.5,
         policy_freq=2,
         actor_updates_encoder=False,
+        critic_updates_encoder=True,
         latent_input_scale=0.1,
         grad_clip_norm=1.0,
         latent_dim=16,
+        trust_alpha=0.5,
+        trust_beta=0.5,
+        trust_q_min=0.5,
+        trust_q_max=1.0,
+        trust_ema_momentum=0.99,
+        trust_eps=1e-6,
+        trust_warmup_steps=10000,
         device=None,
     ):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -47,6 +93,16 @@ class TD3:
         self.policy_noise = float(policy_noise)
         self.noise_clip = float(noise_clip)
         self.policy_freq = int(policy_freq)
+        self.critic_updates_encoder = bool(critic_updates_encoder)
+        self.trust_alpha = float(trust_alpha)
+        self.trust_beta = float(trust_beta)
+        self.trust_q_min = float(trust_q_min)
+        self.trust_q_max = float(trust_q_max)
+        self.trust_ema_momentum = float(trust_ema_momentum)
+        self.trust_eps = float(trust_eps)
+        self.trust_warmup_steps = max(0, int(trust_warmup_steps))
+        self.rec_err_ema = 1.0
+        self.dyn_err_ema = 1.0
 
         new_state_dim = int(state_dim) + self.latent_dim
 
@@ -67,11 +123,46 @@ class TD3:
 
         self.total_it = 0
 
+    def _warmup_mix(self, trust: torch.Tensor) -> torch.Tensor:
+        if self.trust_warmup_steps <= 0:
+            return trust
+        warmup_scale = min(1.0, float(self.total_it) / float(self.trust_warmup_steps))
+        return self.trust_q_min + warmup_scale * (trust - self.trust_q_min)
+
+    def _build_state_input(
+        self,
+        state: torch.Tensor,
+        latent: torch.Tensor,
+        trust: torch.Tensor,
+        *,
+        detach_latent: bool = True,
+    ) -> torch.Tensor:
+        trust = trust.detach().unsqueeze(1)
+        latent_for_input = latent.detach() if detach_latent else latent
+        latent_weighted = latent_for_input * (self.latent_input_scale * trust)
+        return torch.cat([state, latent_weighted], dim=1)
+
+    def _compute_action_trust(self, state: torch.Tensor):
+        latent = self.encoder(state)
+        state_12d = state[:, :12]
+        state_recon = self.recon_head(latent)
+        rec_err_per_sample = _per_sample_mse(state_recon, state_12d)
+        trust = compute_recon_trust(
+            rec_err_per_sample=rec_err_per_sample,
+            rec_err_ema=self.rec_err_ema,
+            alpha=self.trust_alpha,
+            q_min=self.trust_q_min,
+            q_max=self.trust_q_max,
+            eps=self.trust_eps,
+        )
+        trust = self._warmup_mix(trust).detach()
+        return latent.detach(), trust
+
     def select_action(self, state):
         state = torch.as_tensor(state, dtype=torch.float32, device=self.device).reshape(1, -1)
         with torch.no_grad():
-            latent = self.encoder(state)
-            state_input = torch.cat([state, latent * self.latent_input_scale], dim=1)
+            latent, trust = self._compute_action_trust(state)
+            state_input = self._build_state_input(state, latent, trust)
             action = self.actor(state_input)
         return action.cpu().numpy().flatten()
 
@@ -85,32 +176,71 @@ class TD3:
         reward = reward.to(self.device)
         not_done = not_done.to(self.device)
 
-        latent = self.encoder(state)
-        latent_next = self.encoder(next_state)
-        state_input = torch.cat([state, latent * self.latent_input_scale], dim=1)
-        next_state_input = torch.cat([next_state, latent_next * self.latent_input_scale], dim=1)
-
         state_12d = state[:, :12]
         next_state_12d = next_state[:, :12]
-        recon_loss = F.mse_loss(self.recon_head(latent), state_12d)
-        dyn_loss = F.mse_loss(self.dyn_head(latent, action), next_state_12d)
+
+        latent = self.encoder(state)
+        latent_next = self.encoder(next_state)
+
+        state_recon = self.recon_head(latent)
+        next_state_recon = self.recon_head(latent_next)
+        next_state_pred = self.dyn_head(latent, action)
+        rec_err_per_sample = _per_sample_mse(state_recon, state_12d)
+        next_rec_err_per_sample = _per_sample_mse(next_state_recon, next_state_12d)
+        dyn_err_per_sample = _per_sample_mse(next_state_pred, next_state_12d)
+        recon_loss = rec_err_per_sample.mean()
+        dyn_loss = dyn_err_per_sample.mean()
+        representation_loss = recon_loss + dyn_loss
 
         with torch.no_grad():
+            batch_rec_mean = float(rec_err_per_sample.detach().mean().item())
+            batch_dyn_mean = float(dyn_err_per_sample.detach().mean().item())
+            self.rec_err_ema = self.trust_ema_momentum * self.rec_err_ema + (1.0 - self.trust_ema_momentum) * batch_rec_mean
+            self.dyn_err_ema = self.trust_ema_momentum * self.dyn_err_ema + (1.0 - self.trust_ema_momentum) * batch_dyn_mean
+
+            trust = compute_recon_trust(
+                rec_err_per_sample=rec_err_per_sample.detach(),
+                rec_err_ema=self.rec_err_ema,
+                alpha=self.trust_alpha,
+                q_min=self.trust_q_min,
+                q_max=self.trust_q_max,
+                eps=self.trust_eps,
+            )
+            trust_next = compute_recon_trust(
+                rec_err_per_sample=next_rec_err_per_sample.detach(),
+                rec_err_ema=self.rec_err_ema,
+                alpha=self.trust_alpha,
+                q_min=self.trust_q_min,
+                q_max=self.trust_q_max,
+                eps=self.trust_eps,
+            )
+            trust = self._warmup_mix(trust).detach()
+            trust_next = self._warmup_mix(trust_next).detach()
+
+        with torch.no_grad():
+            next_state_input = self._build_state_input(next_state, latent_next, trust_next)
             noise = (torch.randn_like(action) * self.policy_noise).clamp(-self.noise_clip, self.noise_clip)
             next_action = (self.actor_target(next_state_input) + noise).clamp(-self.max_action, self.max_action)
             target_q1, target_q2 = self.critic_target(next_state_input, next_action)
             target_q = reward + not_done * self.discount * torch.min(target_q1, target_q2)
 
+        state_input = self._build_state_input(
+            state,
+            latent,
+            trust,
+            detach_latent=not self.critic_updates_encoder,
+        )
         current_q1, current_q2 = self.critic(state_input, action)
         critic_loss = F.mse_loss(current_q1, target_q) + F.mse_loss(current_q2, target_q)
-        total_loss = critic_loss + 0.1 * recon_loss + 0.1 * dyn_loss
+        total_loss = critic_loss + 0.1 * representation_loss
 
         self.encoder_optimizer.zero_grad()
         self.recon_optimizer.zero_grad()
         self.dyn_optimizer.zero_grad()
         self.critic_optimizer.zero_grad()
+
         total_loss.backward()
-        encoder_grad_norm_critic_recon = _grad_norm(self.encoder.parameters())
+        encoder_grad_norm_rep = _grad_norm(self.encoder.parameters())
 
         torch.nn.utils.clip_grad_norm_(self.encoder.parameters(), self.grad_clip_norm)
         torch.nn.utils.clip_grad_norm_(self.recon_head.parameters(), self.grad_clip_norm)
@@ -123,23 +253,38 @@ class TD3:
         self.critic_optimizer.step()
 
         actor_loss_val = None
-        encoder_grad_norm_actor = 0.0
         actor_updated = False
         actor_sat_pct = None
 
         if self.total_it % self.policy_freq == 0:
             if self.actor_updates_encoder:
                 latent_actor = self.encoder(state)
+                actor_rec_err_per_sample = _per_sample_mse(self.recon_head(latent_actor), state_12d)
             else:
-                latent_actor = self.encoder(state).detach()
-            state_input_actor = torch.cat([state, latent_actor * self.latent_input_scale], dim=1)
+                with torch.no_grad():
+                    latent_actor = self.encoder(state)
+                    actor_rec_err_per_sample = _per_sample_mse(self.recon_head(latent_actor), state_12d)
+            trust_actor = compute_recon_trust(
+                rec_err_per_sample=actor_rec_err_per_sample.detach(),
+                rec_err_ema=self.rec_err_ema,
+                alpha=self.trust_alpha,
+                q_min=self.trust_q_min,
+                q_max=self.trust_q_max,
+                eps=self.trust_eps,
+            )
+            trust_actor = self._warmup_mix(trust_actor).detach()
+            state_input_actor = self._build_state_input(
+                state,
+                latent_actor,
+                trust_actor,
+                detach_latent=not self.actor_updates_encoder,
+            )
             actor_loss = -self.critic.Q1(state_input_actor, self.actor(state_input_actor)).mean()
 
             self.encoder_optimizer.zero_grad()
             self.actor_optimizer.zero_grad()
             actor_loss.backward()
             if self.actor_updates_encoder:
-                encoder_grad_norm_actor = _grad_norm(self.encoder.parameters())
                 torch.nn.utils.clip_grad_norm_(self.encoder.parameters(), self.grad_clip_norm)
                 self.encoder_optimizer.step()
             torch.nn.utils.clip_grad_norm_(self.actor.parameters(), self.grad_clip_norm)
@@ -160,9 +305,18 @@ class TD3:
             "critic_loss": float(critic_loss.item()),
             "recon_loss": float(recon_loss.item()),
             "dyn_loss": float(dyn_loss.item()),
-            "encoder_grad_norm_critic_recon": float(encoder_grad_norm_critic_recon),
-            "encoder_grad_norm_actor": float(encoder_grad_norm_actor),
+            "representation_loss": float(representation_loss.item()),
+            "encoder_grad_norm_rep": float(encoder_grad_norm_rep),
+            "encoder_grad_norm_critic_recon": float(encoder_grad_norm_rep),
+            "encoder_grad_norm_actor": 0.0,
+            "critic_updates_encoder": float(self.critic_updates_encoder),
             "latent_std_mean": float(latent.detach().std(dim=0).mean().item()),
+            "trust_mean": float(trust.mean().item()),
+            "trust_min": float(trust.min().item()),
+            "trust_max": float(trust.max().item()),
+            "trust_next_mean": float(trust_next.mean().item()),
+            "rec_err_ema": float(self.rec_err_ema),
+            "dyn_err_ema": float(self.dyn_err_ema),
             "actor_loss": actor_loss_val,
             "actor_updated": actor_updated,
             "actor_sat_pct": actor_sat_pct,
@@ -179,6 +333,15 @@ class TD3:
         torch.save(self.dyn_optimizer.state_dict(), filename + "_dyn_optimizer")
         torch.save(self.actor.state_dict(), filename + "_actor")
         torch.save(self.actor_optimizer.state_dict(), filename + "_actor_optimizer")
+        torch.save(
+            {
+                "rec_err_ema": float(self.rec_err_ema),
+                "dyn_err_ema": float(self.dyn_err_ema),
+                "total_it": int(self.total_it),
+                "critic_updates_encoder": bool(self.critic_updates_encoder),
+            },
+            filename + "_trust_stats",
+        )
 
     def load(self, filename):
         self.critic.load_state_dict(torch.load(filename + "_critic", map_location=self.device))
@@ -193,3 +356,11 @@ class TD3:
         self.actor.load_state_dict(torch.load(filename + "_actor", map_location=self.device))
         self.actor_optimizer.load_state_dict(torch.load(filename + "_actor_optimizer", map_location=self.device))
         self.actor_target = copy.deepcopy(self.actor)
+        try:
+            trust_stats = torch.load(filename + "_trust_stats", map_location=self.device)
+            self.rec_err_ema = float(trust_stats.get("rec_err_ema", self.rec_err_ema))
+            self.dyn_err_ema = float(trust_stats.get("dyn_err_ema", self.dyn_err_ema))
+            self.total_it = int(trust_stats.get("total_it", self.total_it))
+            self.critic_updates_encoder = bool(trust_stats.get("critic_updates_encoder", self.critic_updates_encoder))
+        except FileNotFoundError:
+            pass

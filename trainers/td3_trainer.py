@@ -14,7 +14,8 @@ class TD3Trainer:
 
         state_dim = int(np.prod(env.observation_space.shape))
         action_dim = int(env.action_space.shape[-1])
-        self.max_action = float(env.action_space.high.flatten()[0])
+        action_scale = float(np.clip(getattr(args, "action_scale", 1.0), 0.0, 1.0))
+        self.max_action = float(env.action_space.high.flatten()[0]) * action_scale
 
         self.buffer = ReplayBuffer(state_dim, action_dim, max_size=args.buffer_size)
 

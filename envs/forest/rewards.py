@@ -41,6 +41,9 @@ class ForestRewardModel:
 
 
 class BaselineForestReward(ForestRewardModel):
+    def __init__(self, speed_penalty_weight: float = 0.003):
+        self.speed_penalty_weight = float(speed_penalty_weight)
+
     def compute(
         self,
         *,
@@ -85,7 +88,7 @@ class BaselineForestReward(ForestRewardModel):
             proximity_penalty = 2.5 * ((safe_distance - clearance) / max(safe_distance, 1e-6)) ** 2
 
         attitude_penalty = 0.10 * (abs(roll) + abs(pitch))
-        speed_penalty = 0.003 * float(np.linalg.norm(vel))
+        speed_penalty = self.speed_penalty_weight * float(np.linalg.norm(vel))
         collision_penalty = 25.0 if collision else 0.0
 
         reward = progress_reward + distance_reward + goal_bonus

@@ -3,6 +3,7 @@ from torch.utils.tensorboard import SummaryWriter
 class LoggerCallback:
     def __init__(self, log_dir):
         self.writer = SummaryWriter(log_dir)
+        self._last_logged_eval_step = None
 
     def on_step(self, trainer):
         """记录训练信息（损失值等）"""
@@ -10,6 +11,13 @@ class LoggerCallback:
             for k, v in trainer.last_train_info.items():
                 if v is not None:
                     self.writer.add_scalar(k, v, trainer.total_steps)
+        eval_info = getattr(trainer, "last_eval_info", None)
+        eval_step = getattr(trainer, "last_eval_step", None)
+        if eval_info and eval_step is not None and eval_step != self._last_logged_eval_step:
+            for k, v in eval_info.items():
+                if v is not None:
+                    self.writer.add_scalar(k, v, eval_step)
+            self._last_logged_eval_step = eval_step
 
     def on_episode_end(self, trainer):
         """记录 episode 级别的指标"""
@@ -29,4 +37,11 @@ class LoggerCallback:
                     self.writer.add_scalar(f"env/{k}", val, trainer.total_steps)
 
     def on_train_end(self, trainer):
+        eval_info = getattr(trainer, "last_eval_info", None)
+        eval_step = getattr(trainer, "last_eval_step", None)
+        if eval_info and eval_step is not None and eval_step != self._last_logged_eval_step:
+            for k, v in eval_info.items():
+                if v is not None:
+                    self.writer.add_scalar(k, v, eval_step)
+            self._last_logged_eval_step = eval_step
         self.writer.close()

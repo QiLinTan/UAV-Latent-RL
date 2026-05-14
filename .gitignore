@@ -17,3 +17,9 @@ runs/
 *.pt
 *.pth
 *.ckpt
+
+# Local workspace and experiment artifacts
+.codex
+data/
+experiments/
+events.out.tfevents.*

@@ -23,6 +23,8 @@ def build_base_cmd() -> list[str]:
         "false",
         "--eval_stepsleep",
         "false",
+        "--action_scale",
+        "0.75",
     ]
 
 
@@ -33,12 +35,16 @@ def build_mode_cmd(mode: str) -> list[str]:
         cmd += [
             "--use_latent",
             "true",
+            "--use_v1trust",
+            "false",
             "--latent_input_scale",
             "0.1",
         ]
     elif mode == "v1trust":
         cmd += [
             "--use_latent",
+            "true",
+            "--use_v1trust",
             "true",
             "--actor_updates_encoder",
             "false",
@@ -49,7 +55,7 @@ def build_mode_cmd(mode: str) -> list[str]:
             "--trust_beta",
             "0.5",
             "--trust_q_min",
-            "0.05",
+            "0.5",
             "--trust_q_max",
             "1.0",
             "--trust_ema_momentum",
@@ -57,9 +63,40 @@ def build_mode_cmd(mode: str) -> list[str]:
             "--trust_warmup_steps",
             "10000",
         ]
+    elif mode == "v1trust_detach_trust1":
+        cmd += [
+            "--use_latent",
+            "true",
+            "--use_v1trust",
+            "true",
+            "--actor_updates_encoder",
+            "false",
+            "--critic_updates_encoder",
+            "false",
+            "--latent_input_scale",
+            "0.1",
+            "--trust_alpha",
+            "0.5",
+            "--trust_beta",
+            "0.5",
+            "--trust_q_min",
+            "1.0",
+            "--trust_q_max",
+            "1.0",
+            "--trust_ema_momentum",
+            "0.99",
+            "--trust_warmup_steps",
+            "0",
+            "--log_dir",
+            "runs/v1trust_detach_trust1",
+            "--ckpt_dir",
+            "checkpoints/v1trust_detach_trust1",
+        ]
     elif mode == "nolantent":
         cmd += [
             "--use_latent",
+            "false",
+            "--use_v1trust",
             "false",
         ]
     else:
@@ -72,7 +109,7 @@ def main():
     parser = argparse.ArgumentParser(description="Quick launcher for change_td3 experiment modes.")
     parser.add_argument(
         "mode",
-        choices=["baseline", "v1trust", "nolantent"],
+        choices=["baseline", "v1trust", "v1trust_detach_trust1", "nolantent"],
         help="Experiment preset to launch.",
     )
     parser.add_argument("--seed", type=int, default=None)

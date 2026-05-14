@@ -1,9 +1,9 @@
 import numpy as np
 
-def _physics_monitor_from_env(env, last_action: np.ndarray):
+def _physics_monitor_from_env(env, last_action: np.ndarray, action_limit: float = 1.0):
     """
     Physics monitor based on BaseAviary internal state.
-    Note: last_action is the [-1, 1] normalized RPM action output by the actor/exploration (one dimension per motor).
+    Note: last_action is the normalized RPM action output by the actor/exploration (one dimension per motor).
     """
     target = np.asarray(getattr(env, "TARGET_POS", [0.0, 0.0, 1.0]), dtype=np.float32)
     pos = env.pos[0].astype(np.float32)
@@ -19,7 +19,8 @@ def _physics_monitor_from_env(env, last_action: np.ndarray):
     back_mean = float(motor_rpms[[2, 3]].mean())
     motor_front_back_diff = abs(front_mean - back_mean)
 
-    action_sat = float((np.abs(last_action) >= (1.0 - 1e-3)).mean() * 100.0)
+    action_limit = max(float(action_limit), 1e-6)
+    action_sat = float((np.abs(last_action) >= (action_limit - 1e-3)).mean() * 100.0)
 
     avg_thrust = float((motor_rpms.astype(np.float64) ** 2 * float(env.KF)).mean())
 
@@ -36,6 +37,7 @@ def _physics_monitor_from_env(env, last_action: np.ndarray):
         "sat_pct": sat_pct,
         "motor_front_back_diff": motor_front_back_diff,
         "action_sat_pct": action_sat,
+        "action_limit": action_limit,
         "avg_thrust": avg_thrust,
     }
 
@@ -55,7 +57,7 @@ class MonitorCallback:
         if last_action is None:
             return
 
-        monitor = physics_monitor(env, last_action)
+        monitor = physics_monitor(env, last_action, action_limit=getattr(trainer, "max_action", 1.0))
         train_info = getattr(trainer, "last_train_info", {}) or {}
         last_info = getattr(trainer, "last_info", {}) or {}
         critic_loss = train_info.get("critic_loss", None)
@@ -111,7 +113,8 @@ class MonitorCallback:
         print(f"Motor RPMs: [{', '.join(rpms_list)}] | sat%: [{', '.join(sat_list)}]%")
         print(f"Front-back motor speed difference: {monitor['motor_front_back_diff']:.0f} RPM")
         print(
-            f"Action saturation: {monitor['action_sat_pct']:.1f}% | train_steps_this_tick: {train_steps_this_tick} | "
+            f"Action saturation(@{monitor['action_limit']:.2f}): {monitor['action_sat_pct']:.1f}% | "
+            f"train_steps_this_tick: {train_steps_this_tick} | "
             f"avg_thrust: {monitor['avg_thrust']:.3f} | actor_sat_pct(train): {actor_sat_pct_str}"
         )
         print(
