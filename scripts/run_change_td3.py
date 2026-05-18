@@ -24,7 +24,7 @@ def build_base_cmd() -> list[str]:
         "--eval_stepsleep",
         "false",
         "--action_scale",
-        "0.75",
+        "1.0",
     ]
 
 
@@ -92,7 +92,7 @@ def build_mode_cmd(mode: str) -> list[str]:
             "--ckpt_dir",
             "checkpoints/v1trust_detach_trust1",
         ]
-    elif mode == "nolantent":
+    elif mode in ("nolatent", "nolantent"):
         cmd += [
             "--use_latent",
             "false",
@@ -109,7 +109,7 @@ def main():
     parser = argparse.ArgumentParser(description="Quick launcher for change_td3 experiment modes.")
     parser.add_argument(
         "mode",
-        choices=["baseline", "v1trust", "v1trust_detach_trust1", "nolantent"],
+        choices=["baseline", "v1trust", "v1trust_detach_trust1", "nolatent", "nolantent"],
         help="Experiment preset to launch.",
     )
     parser.add_argument("--seed", type=int, default=None)
