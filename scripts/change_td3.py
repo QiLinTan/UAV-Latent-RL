@@ -18,10 +18,11 @@ from envs.ForestAviary import CustomForestAviary
 from envs.forest.rewards import BaselineForestReward
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 
-from algos.td3 import TD3, TD3Plain, TD3V1Trust
+from algos.td3 import TD3, TD3LatentOnly, TD3Plain, TD3V1Trust
 from trainers.td3_trainer import TD3Trainer
 from trainers.callbacks.checkpoint import CheckpointCallback
 from trainers.callbacks.eval_callback import EvalCallback
+from trainers.callbacks.latent_viz import LatentEmbeddingCallback
 from trainers.callbacks.logger import LoggerCallback
 from trainers.callbacks.monitor import MonitorCallback
 
@@ -61,20 +62,81 @@ def _make_argparser():
     parser.add_argument("--noise_clip", type=float, default=0.5)
     parser.add_argument("--policy_freq", type=int, default=2)
     parser.add_argument("--use_latent", type=str2bool, default=True, help="Enable latent/world-model branch; disable for plain TD3.")
+    parser.add_argument(
+        "--latent_only",
+        type=str2bool,
+        default=False,
+        help="Use z-only actor/critic inputs for latent ablation. Ignored when --use_latent false.",
+    )
     parser.add_argument("--use_v1trust", type=str2bool, default=False, help="Use the V1 trust-gated latent variant.")
     parser.add_argument(
         "--actor_updates_encoder",
         type=str2bool,
         default=False,
-        help="Whether the actor update also backpropagates into the encoder. Critic updates still train the encoder.",
+        help="Legacy switch: if true and no actor_encoder_grad_scale is set, use full actor gradient.",
     )
     parser.add_argument(
         "--critic_updates_encoder",
         type=str2bool,
-        default=True,
-        help="Whether critic loss backpropagates into the encoder in V1 trust mode. Disable for z.detach ablations.",
+        default=False,
+        help="Legacy switch: if true and no critic_encoder_grad_scale is set, use full critic gradient.",
     )
-    parser.add_argument("--latent_input_scale", type=float, default=0.1)
+    parser.add_argument(
+        "--critic_encoder_grad_scale",
+        type=float,
+        default=None,
+        help="Scale critic RL gradients into the encoder. Default is 0.05; use 0.0 for hard detach.",
+    )
+    parser.add_argument(
+        "--critic_encoder_grad_schedule",
+        type=str,
+        default=None,
+        help="Optional env-step schedule such as '0:0.0,50000:0.03,150000:0.05'.",
+    )
+    parser.add_argument(
+        "--actor_encoder_grad_scale",
+        type=float,
+        default=None,
+        help="Scale actor RL gradients into the encoder. Default is 0.0; use 1.0 for the legacy full update.",
+    )
+    parser.add_argument("--latent_dim", type=int, default=16, help="Latent dimension for latent-based agents.")
+    parser.add_argument(
+        "--latent_input_scale",
+        type=float,
+        default=None,
+        help="Scale applied to z before policy/critic input. Defaults to 0.1 for state+z and 1.0 for z-only.",
+    )
+    parser.add_argument(
+        "--latent_viz_interval",
+        type=int,
+        default=10000,
+        help="Log latent embeddings to TensorBoard every N steps; 0 disables.",
+    )
+    parser.add_argument("--latent_viz_samples", type=int, default=1024)
+    parser.add_argument(
+        "--latent_viz_start_after",
+        type=int,
+        default=10000,
+        help="Do not log latent embeddings before this many environment steps.",
+    )
+    parser.add_argument(
+        "--posture_separation_weight",
+        type=float,
+        default=0.0,
+        help="Optional contrastive-style loss weight that separates hover and dive latent centers.",
+    )
+    parser.add_argument(
+        "--posture_separation_margin",
+        type=float,
+        default=1.0,
+        help="Minimum normalized latent-center distance between hover and dive samples.",
+    )
+    parser.add_argument(
+        "--progress_loss_weight",
+        type=float,
+        default=0.0,
+        help="Auxiliary delta-goal progress loss weight for latent-only agents.",
+    )
     parser.add_argument("--grad_clip_norm", type=float, default=1.0)
     parser.add_argument("--trust_alpha", type=float, default=0.5)
     parser.add_argument("--trust_beta", type=float, default=0.5, help="Kept for checkpoint/CLI compatibility; input gate uses recon-only trust.")
@@ -105,6 +167,18 @@ def _make_argparser():
         type=int,
         default=None,
         help="Print the verbose Physics Monitor every N steps. Defaults to eval_interval; 0 disables it.",
+    )
+    parser.add_argument(
+        "--train_log_interval",
+        type=int,
+        default=500,
+        help="Log core train scalars every N env steps. Use 1 for per-step logging; 0 disables core train scalars.",
+    )
+    parser.add_argument(
+        "--debug_log_interval",
+        type=int,
+        default=1000,
+        help="Log verbose/debug train scalars every N env steps. Use 0 to disable debug scalars.",
     )
 
     parser.add_argument("--log_dir", type=str, default="runs")
@@ -164,8 +238,28 @@ def main():
         f"speed_penalty_weight={args.speed_penalty_weight:.4f}"
     )
 
+    latent_input_scale = args.latent_input_scale
+    if latent_input_scale is None:
+        latent_input_scale = 1.0 if args.latent_only else 0.1
+    critic_encoder_grad_scale = args.critic_encoder_grad_scale
+    if critic_encoder_grad_scale is None:
+        critic_encoder_grad_scale = 1.0 if args.critic_updates_encoder else 0.05
+    actor_encoder_grad_scale = args.actor_encoder_grad_scale
+    if actor_encoder_grad_scale is None:
+        actor_encoder_grad_scale = 1.0 if args.actor_updates_encoder else 0.0
+    if args.use_latent:
+        print(
+            f"[INFO] latent_only={args.latent_only}, latent_dim={args.latent_dim}, "
+            f"latent_input_scale={latent_input_scale:.3f}, "
+            f"critic_encoder_grad_scale={critic_encoder_grad_scale:.3f}, "
+            f"actor_encoder_grad_scale={actor_encoder_grad_scale:.3f}, "
+            f"critic_encoder_grad_schedule={args.critic_encoder_grad_schedule or 'none'}"
+        )
+
     if args.use_latent:
         if args.use_v1trust:
+            if args.latent_only:
+                raise ValueError("--latent_only and --use_v1trust are separate ablations; choose one for this launcher.")
             agent = TD3V1Trust(
                 state_dim=state_dim,
                 action_dim=action_dim,
@@ -177,14 +271,43 @@ def main():
                 policy_freq=args.policy_freq,
                 actor_updates_encoder=args.actor_updates_encoder,
                 critic_updates_encoder=args.critic_updates_encoder,
-                latent_input_scale=args.latent_input_scale,
+                actor_encoder_grad_scale=actor_encoder_grad_scale,
+                critic_encoder_grad_scale=critic_encoder_grad_scale,
+                critic_encoder_grad_schedule=args.critic_encoder_grad_schedule,
+                latent_input_scale=latent_input_scale,
                 grad_clip_norm=args.grad_clip_norm,
+                latent_dim=args.latent_dim,
+                posture_separation_weight=args.posture_separation_weight,
+                posture_separation_margin=args.posture_separation_margin,
                 trust_alpha=args.trust_alpha,
                 trust_beta=args.trust_beta,
                 trust_q_min=args.trust_q_min,
                 trust_q_max=args.trust_q_max,
                 trust_ema_momentum=args.trust_ema_momentum,
                 trust_warmup_steps=args.trust_warmup_steps,
+            )
+        elif args.latent_only:
+            agent = TD3LatentOnly(
+                state_dim=state_dim,
+                action_dim=action_dim,
+                max_action=max_action,
+                discount=args.gamma,
+                tau=args.tau,
+                policy_noise=args.policy_noise,
+                noise_clip=args.noise_clip,
+                policy_freq=args.policy_freq,
+                actor_updates_encoder=args.actor_updates_encoder,
+                critic_updates_encoder=args.critic_updates_encoder,
+                actor_encoder_grad_scale=actor_encoder_grad_scale,
+                critic_encoder_grad_scale=critic_encoder_grad_scale,
+                critic_encoder_grad_schedule=args.critic_encoder_grad_schedule,
+                latent_input_scale=latent_input_scale,
+                grad_clip_norm=args.grad_clip_norm,
+                latent_dim=args.latent_dim,
+                posture_separation_weight=args.posture_separation_weight,
+                posture_separation_margin=args.posture_separation_margin,
+                progress_loss_weight=args.progress_loss_weight,
+                target_pos=[3.5, 0.0, 1.0],
             )
         else:
             agent = TD3(
@@ -197,8 +320,15 @@ def main():
                 noise_clip=args.noise_clip,
                 policy_freq=args.policy_freq,
                 actor_updates_encoder=args.actor_updates_encoder,
-                latent_input_scale=args.latent_input_scale,
+                critic_updates_encoder=args.critic_updates_encoder,
+                actor_encoder_grad_scale=actor_encoder_grad_scale,
+                critic_encoder_grad_scale=critic_encoder_grad_scale,
+                critic_encoder_grad_schedule=args.critic_encoder_grad_schedule,
+                latent_input_scale=latent_input_scale,
                 grad_clip_norm=args.grad_clip_norm,
+                latent_dim=args.latent_dim,
+                posture_separation_weight=args.posture_separation_weight,
+                posture_separation_margin=args.posture_separation_margin,
             )
     else:
         agent = TD3Plain(
@@ -214,7 +344,23 @@ def main():
         )
 
     trainer = TD3Trainer(env, agent, args)
-    trainer.add_callback(LoggerCallback(args.log_dir))
+    trainer.add_callback(
+        LoggerCallback(
+            args.log_dir,
+            train_interval=args.train_log_interval,
+            debug_interval=args.debug_log_interval,
+        )
+    )
+    if args.use_latent and args.latent_viz_interval > 0:
+        trainer.add_callback(
+            LatentEmbeddingCallback(
+                args.log_dir,
+                interval=args.latent_viz_interval,
+                num_samples=args.latent_viz_samples,
+                start_after=args.latent_viz_start_after,
+                seed=args.seed,
+            )
+        )
     trainer.add_callback(CheckpointCallback(args.ckpt_dir, interval=args.ckpt_interval))
     trainer.add_callback(
         EvalCallback(

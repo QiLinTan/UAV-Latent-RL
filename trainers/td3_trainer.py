@@ -91,6 +91,8 @@ class TD3Trainer:
             and self.total_steps % args.train_every == 0
         ):
             self.train_steps_this_tick += 1
+            if hasattr(self.agent, "set_env_step"):
+                self.agent.set_env_step(self.total_steps)
             return self.agent.train(self.buffer, batch_size=args.batch_size)
 
         return None

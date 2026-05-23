@@ -37,8 +37,39 @@ def build_mode_cmd(mode: str) -> list[str]:
             "true",
             "--use_v1trust",
             "false",
+            "--actor_updates_encoder",
+            "false",
+            "--critic_updates_encoder",
+            "false",
+            "--critic_encoder_grad_scale",
+            "0.05",
+            "--actor_encoder_grad_scale",
+            "0.0",
             "--latent_input_scale",
             "0.1",
+        ]
+    elif mode == "latent_detach":
+        cmd += [
+            "--use_latent",
+            "true",
+            "--use_v1trust",
+            "false",
+            "--latent_only",
+            "false",
+            "--actor_updates_encoder",
+            "false",
+            "--critic_updates_encoder",
+            "false",
+            "--critic_encoder_grad_scale",
+            "0.0",
+            "--actor_encoder_grad_scale",
+            "0.0",
+            "--latent_input_scale",
+            "0.1",
+            "--log_dir",
+            "runs/latent_detach",
+            "--ckpt_dir",
+            "checkpoints/latent_detach",
         ]
     elif mode == "v1trust":
         cmd += [
@@ -48,6 +79,12 @@ def build_mode_cmd(mode: str) -> list[str]:
             "true",
             "--actor_updates_encoder",
             "false",
+            "--critic_updates_encoder",
+            "false",
+            "--critic_encoder_grad_scale",
+            "0.05",
+            "--actor_encoder_grad_scale",
+            "0.0",
             "--latent_input_scale",
             "0.1",
             "--trust_alpha",
@@ -73,6 +110,10 @@ def build_mode_cmd(mode: str) -> list[str]:
             "false",
             "--critic_updates_encoder",
             "false",
+            "--critic_encoder_grad_scale",
+            "0.0",
+            "--actor_encoder_grad_scale",
+            "0.0",
             "--latent_input_scale",
             "0.1",
             "--trust_alpha",
@@ -92,6 +133,33 @@ def build_mode_cmd(mode: str) -> list[str]:
             "--ckpt_dir",
             "checkpoints/v1trust_detach_trust1",
         ]
+    elif mode == "latent_only":
+        cmd += [
+            "--use_latent",
+            "true",
+            "--use_v1trust",
+            "false",
+            "--latent_only",
+            "true",
+            "--actor_updates_encoder",
+            "false",
+            "--critic_updates_encoder",
+            "false",
+            "--critic_encoder_grad_scale",
+            "0.05",
+            "--critic_encoder_grad_schedule",
+            "0:0.0,50000:0.03,150000:0.05",
+            "--actor_encoder_grad_scale",
+            "0.0",
+            "--latent_input_scale",
+            "1.0",
+            "--progress_loss_weight",
+            "0.0",
+            "--log_dir",
+            "runs/latent_only_soft_beta_schedule",
+            "--ckpt_dir",
+            "checkpoints/latent_only_soft_beta_schedule",
+        ]
     elif mode in ("nolatent", "nolantent"):
         cmd += [
             "--use_latent",
@@ -109,15 +177,22 @@ def main():
     parser = argparse.ArgumentParser(description="Quick launcher for change_td3 experiment modes.")
     parser.add_argument(
         "mode",
-        choices=["baseline", "v1trust", "v1trust_detach_trust1", "nolatent", "nolantent"],
+        choices=[
+            "baseline",
+            "latent_detach",
+            "v1trust",
+            "v1trust_detach_trust1",
+            "latent_only",
+            "nolatent",
+            "nolantent",
+        ],
         help="Experiment preset to launch.",
     )
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--total_steps", type=int, default=None)
     parser.add_argument("--gui", choices=["true", "false"], default=None)
     parser.add_argument("--eval_gui", choices=["true", "false"], default=None)
-    parser.add_argument("--extra", nargs=argparse.REMAINDER)
-    args = parser.parse_args()
+    args, extra = parser.parse_known_args()
 
     cmd = build_mode_cmd(args.mode)
 
@@ -130,8 +205,9 @@ def main():
     if args.eval_gui is not None:
         cmd[cmd.index("--eval_gui") + 1] = args.eval_gui
 
-    if args.extra:
-        extra = args.extra
+    if extra:
+        if extra and extra[0] == "--extra":
+            extra = extra[1:]
         if extra and extra[0] == "--":
             extra = extra[1:]
         cmd.extend(extra)

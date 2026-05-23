@@ -62,10 +62,26 @@ class MonitorCallback:
         last_info = getattr(trainer, "last_info", {}) or {}
         critic_loss = train_info.get("critic_loss", None)
         dyn_loss = train_info.get("dyn_loss", None)
+        recon_loss = train_info.get("recon_loss", None)
+        progress_loss = train_info.get("progress_loss", None)
+        progress_target_mean = train_info.get("progress_target_mean", None)
+        critic_grad_norm = train_info.get("critic_grad_norm", None)
+        actor_grad_norm = train_info.get("actor_grad_norm", None)
+        encoder_grad_norm_main = train_info.get("encoder_grad_norm_main", train_info.get("encoder_grad_norm_total", None))
+        encoder_grad_norm_rep = train_info.get("encoder_grad_norm_rep", None)
+        encoder_grad_norm_critic = train_info.get("encoder_grad_norm_critic", None)
+        encoder_grad_norm_actor = train_info.get("encoder_grad_norm_actor", None)
         actor_sat_pct = train_info.get("actor_sat_pct", None)
         trust_mean = train_info.get("trust_mean", None)
         rec_err_ema = train_info.get("rec_err_ema", None)
         dyn_err_ema = train_info.get("dyn_err_ema", None)
+        latent_input_scale = train_info.get("latent_input_scale", None)
+        latent_effective_scale = train_info.get("latent_effective_scale", None)
+        latent_input_abs_mean = train_info.get("latent_input_abs_mean", None)
+        actor_updates_encoder = train_info.get("actor_updates_encoder", None)
+        critic_updates_encoder = train_info.get("critic_updates_encoder", None)
+        actor_encoder_grad_scale = train_info.get("actor_encoder_grad_scale", None)
+        critic_encoder_grad_scale = train_info.get("critic_encoder_grad_scale", None)
         train_steps_this_tick = getattr(trainer, "train_steps_this_tick", 0)
         step = trainer.total_steps
 
@@ -75,15 +91,44 @@ class MonitorCallback:
 
         critic_loss_str = "N/A" if critic_loss is None else f"{critic_loss:.3f}"
         dyn_loss_str = "N/A" if dyn_loss is None else f"{dyn_loss:.3f}"
+        recon_loss_str = "N/A" if recon_loss is None else f"{recon_loss:.3f}"
+        progress_loss_str = "N/A" if progress_loss is None else f"{progress_loss:.5f}"
+        progress_target_mean_str = "N/A" if progress_target_mean is None else f"{progress_target_mean:+.5f}"
+        critic_grad_norm_str = "N/A" if critic_grad_norm is None else f"{critic_grad_norm:.3f}"
+        actor_grad_norm_str = "N/A" if actor_grad_norm is None else f"{actor_grad_norm:.3f}"
+        encoder_grad_norm_main_str = "N/A" if encoder_grad_norm_main is None else f"{encoder_grad_norm_main:.3f}"
+        encoder_grad_norm_rep_str = "N/A" if encoder_grad_norm_rep is None else f"{encoder_grad_norm_rep:.3f}"
+        encoder_grad_norm_critic_str = "N/A" if encoder_grad_norm_critic is None else f"{encoder_grad_norm_critic:.3f}"
+        encoder_grad_norm_actor_str = "N/A" if encoder_grad_norm_actor is None else f"{encoder_grad_norm_actor:.3f}"
         actor_sat_pct_str = "N/A" if actor_sat_pct is None else f"{actor_sat_pct:.3f}"
         trust_mean_str = "N/A" if trust_mean is None else f"{trust_mean:.3f}"
         rec_err_ema_str = "N/A" if rec_err_ema is None else f"{rec_err_ema:.4f}"
         dyn_err_ema_str = "N/A" if dyn_err_ema is None else f"{dyn_err_ema:.4f}"
+        latent_input_scale_str = "N/A" if latent_input_scale is None else f"{latent_input_scale:.4f}"
+        latent_effective_scale_str = "N/A" if latent_effective_scale is None else f"{latent_effective_scale:.4f}"
+        latent_input_abs_mean_str = "N/A" if latent_input_abs_mean is None else f"{latent_input_abs_mean:.4f}"
+        actor_updates_encoder_str = "N/A" if actor_updates_encoder is None else f"{bool(actor_updates_encoder)}"
+        critic_updates_encoder_str = "N/A" if critic_updates_encoder is None else f"{bool(critic_updates_encoder)}"
+        actor_encoder_grad_scale_str = "N/A" if actor_encoder_grad_scale is None else f"{actor_encoder_grad_scale:.3f}"
+        critic_encoder_grad_scale_str = "N/A" if critic_encoder_grad_scale is None else f"{critic_encoder_grad_scale:.3f}"
 
         print(f"====================== Physics Monitor @ STEP {step} ======================")
         print(
-            f"Critic loss: {critic_loss_str} | dyn_loss: {dyn_loss_str} | "
+            f"Critic loss: {critic_loss_str} | recon_loss: {recon_loss_str} | dyn_loss: {dyn_loss_str} | "
             f"trust_mean: {trust_mean_str}"
+        )
+        print(f"Progress head: loss={progress_loss_str} | target_delta_goal_mean={progress_target_mean_str}")
+        print(
+            f"Grad norms: critic={critic_grad_norm_str} | actor={actor_grad_norm_str} | "
+            f"encoder(main/actor)={encoder_grad_norm_main_str}/{encoder_grad_norm_actor_str}"
+        )
+        print(
+            f"Latent input: scale={latent_input_scale_str} | effective={latent_effective_scale_str} | "
+            f"abs_mean={latent_input_abs_mean_str}"
+        )
+        print(
+            f"Encoder RL grad scale: critic={critic_encoder_grad_scale_str} | actor={actor_encoder_grad_scale_str} | "
+            f"critic_updates_encoder={critic_updates_encoder_str} | actor_updates_encoder={actor_updates_encoder_str}"
         )
         print(f"Position: x={monitor['pos'][0]:+.2f}, y={monitor['pos'][1]:+.2f}, z={monitor['pos'][2]:+.2f}")
         print(f"Attitude(deg): R={r_deg:+.1f}, P={p_deg:+.1f}, Y={y_deg:+.1f}")
