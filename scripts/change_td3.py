@@ -46,6 +46,18 @@ def _make_argparser():
     parser.add_argument("--pyb_freq", type=int, default=240)
     parser.add_argument("--ctrl_freq", type=int, default=120)
     parser.add_argument("--num_trees", type=int, default=24)
+    parser.add_argument(
+        "--route_blocking_tree",
+        type=str2bool,
+        default=True,
+        help="Add one fixed tree on the route between the start and target points.",
+    )
+    parser.add_argument(
+        "--route_tree_fraction",
+        type=float,
+        default=0.5,
+        help="Position of the fixed route tree along start->target; 0.5 means midpoint.",
+    )
     parser.add_argument("--curriculum", type=str2bool, default=True)
     parser.add_argument("--curriculum_milestones", type=int, nargs=3, default=(800, 2500, 6000))
 
@@ -212,6 +224,8 @@ def main():
         curriculum_milestones=args.curriculum_milestones,
 
         num_trees=args.num_trees,  # 避障任务
+        route_blocking_tree=args.route_blocking_tree,
+        route_tree_fraction=args.route_tree_fraction,
         target_pos=[3.5, 0.0, 1.0],
         reward_model=BaselineForestReward(speed_penalty_weight=args.speed_penalty_weight),
     )
@@ -226,6 +240,8 @@ def main():
         curriculum=args.curriculum,
         curriculum_milestones=args.curriculum_milestones,
         num_trees=args.num_trees,
+        route_blocking_tree=args.route_blocking_tree,
+        route_tree_fraction=args.route_tree_fraction,
         target_pos=[3.5, 0.0, 1.0],
         reward_model=BaselineForestReward(speed_penalty_weight=args.speed_penalty_weight),
     )

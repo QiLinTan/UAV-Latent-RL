@@ -16,6 +16,8 @@ class ForestLayoutConfig:
     tree_height_range: tuple[float, float]
     min_tree_separation: float
     centerline_band_width: float
+    route_blocking_tree: bool = True
+    route_tree_fraction: float = 0.5
 
 
 class ForestLayoutGenerator:
@@ -37,9 +39,21 @@ class ForestLayoutGenerator:
         goal_pos = np.asarray(goal_pos, dtype=np.float32)
         tree_specs = []
         attempts = 0
-        max_attempts = max(200, self.config.num_trees * 40)
+        target_tree_count = self.config.num_trees
 
-        while len(tree_specs) < self.config.num_trees and attempts < max_attempts:
+        route_tree_spec = self._create_route_blocking_tree_spec(
+            rng=rng,
+            start_pos=start_pos,
+            goal_pos=goal_pos,
+            corridor_half_width=corridor_half_width,
+        )
+        if route_tree_spec is not None:
+            tree_specs.append(route_tree_spec)
+            target_tree_count += 1
+
+        max_attempts = max(200, target_tree_count * 40)
+
+        while len(tree_specs) < target_tree_count and attempts < max_attempts:
             attempts += 1
             radius = float(rng.uniform(*self.config.tree_radius_range))
             height = float(rng.uniform(*self.config.tree_height_range))
@@ -74,6 +88,42 @@ class ForestLayoutGenerator:
             )
 
         return tree_specs
+
+    def _create_route_blocking_tree_spec(self, *, rng, start_pos, goal_pos, corridor_half_width: float):
+        if not self.config.route_blocking_tree:
+            return None
+
+        start_xy = np.asarray(start_pos[:2], dtype=np.float32)
+        goal_xy = np.asarray(goal_pos[:2], dtype=np.float32)
+        route = goal_xy - start_xy
+        if np.linalg.norm(route) < 1e-8:
+            return None
+
+        radius = float(rng.uniform(*self.config.tree_radius_range))
+        height = float(rng.uniform(*self.config.tree_height_range))
+        fraction = float(np.clip(self.config.route_tree_fraction, 0.05, 0.95))
+        xy = (start_xy + fraction * route).astype(np.float32)
+
+        if np.any(np.abs(xy) > self.config.forest_half_extent - max(radius, 0.05)):
+            return None
+
+        if not self._is_tree_placement_valid(
+            xy=xy,
+            radius=radius,
+            start_pos=start_pos,
+            goal_pos=goal_pos,
+            tree_specs=[],
+            corridor_half_width=corridor_half_width,
+            protect_corridor=False,
+        ):
+            return None
+
+        return {
+            "xy": xy,
+            "radius": radius,
+            "height": height,
+            "route_blocking": True,
+        }
 
     def create_tree_body(self, *, client_id: int, xy, radius: float, height: float):
         collision = p.createCollisionShape(

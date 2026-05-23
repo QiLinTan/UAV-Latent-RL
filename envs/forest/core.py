@@ -52,6 +52,8 @@ class CustomForestAviary(BaseRLAviary):
         narrow_corridor_half_width: float = 0.35,
         centerline_tree_fraction: float = 0.35,
         centerline_band_width: float = 0.40,
+        route_blocking_tree: bool = True,
+        route_tree_fraction: float = 0.5,
         seed: int | None = None,
         reward_model: ForestRewardModel | None = None,
         curriculum_scheduler: ForestCurriculumScheduler | None = None,
@@ -81,6 +83,8 @@ class CustomForestAviary(BaseRLAviary):
         self.NARROW_CORRIDOR_HALF_WIDTH = float(min(narrow_corridor_half_width, self.CORRIDOR_HALF_WIDTH))
         self.CENTERLINE_TREE_FRACTION = float(np.clip(centerline_tree_fraction, 0.0, 1.0))
         self.CENTERLINE_BAND_WIDTH = float(centerline_band_width)
+        self.ROUTE_BLOCKING_TREE = bool(route_blocking_tree)
+        self.ROUTE_TREE_FRACTION = float(np.clip(route_tree_fraction, 0.05, 0.95))
 
         self.NUM_RANGE_RAYS = 8
         self.GOAL_OBS_DIM = 3
@@ -110,6 +114,8 @@ class CustomForestAviary(BaseRLAviary):
                 tree_height_range=self.TREE_HEIGHT_RANGE,
                 min_tree_separation=self.MIN_TREE_SEPARATION,
                 centerline_band_width=self.CENTERLINE_BAND_WIDTH,
+                route_blocking_tree=self.ROUTE_BLOCKING_TREE,
+                route_tree_fraction=self.ROUTE_TREE_FRACTION,
             )
         )
         self._reward_model = reward_model or BaselineForestReward()
@@ -326,6 +332,8 @@ class CustomForestAviary(BaseRLAviary):
             "corridor_protected": bool(self._protect_corridor),
             "corridor_edge_tree_fraction": float(self._corridor_edge_tree_fraction),
             "centerline_tree_fraction": float(self._centerline_bias_fraction),
+            "route_blocking_tree": bool(self.ROUTE_BLOCKING_TREE),
+            "route_tree_fraction": float(self.ROUTE_TREE_FRACTION),
             "start_pos": self.START_POS.copy(),
             "target_pos": self.TARGET_POS.copy(),
             "num_trees": int(len(self._tree_specs)),
