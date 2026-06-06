@@ -18,7 +18,7 @@ from envs.ForestAviary import CustomForestAviary
 from envs.forest.rewards import BaselineForestReward
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 
-from algos.td3 import TD3, TD3LatentOnly, TD3Plain, TD3V1Trust
+from algos.td3 import TD3, TD3LatentAffordance, TD3LatentOnly, TD3Plain, TD3V1Trust
 from trainers.td3_trainer import TD3Trainer
 from trainers.callbacks.checkpoint import CheckpointCallback
 from trainers.callbacks.eval_callback import EvalCallback
@@ -79,6 +79,12 @@ def _make_argparser():
         type=str2bool,
         default=False,
         help="Use z-only actor/critic inputs for latent ablation. Ignored when --use_latent false.",
+    )
+    parser.add_argument(
+        "--latent_only_variant",
+        choices=("base", "affordance"),
+        default="base",
+        help="Latent-only implementation to run. 'base' keeps the original TD3LatentOnly baseline.",
     )
     parser.add_argument("--use_v1trust", type=str2bool, default=False, help="Use the V1 trust-gated latent variant.")
     parser.add_argument(
@@ -148,6 +154,37 @@ def _make_argparser():
         type=float,
         default=0.0,
         help="Auxiliary delta-goal progress loss weight for latent-only agents.",
+    )
+    parser.add_argument(
+        "--affordance_loss_weight",
+        type=float,
+        default=0.005,
+        help="Weak future-affordance auxiliary loss weight for the affordance latent-only variant.",
+    )
+    parser.add_argument(
+        "--affordance_start_step",
+        type=int,
+        default=100000,
+        help="Do not apply future-affordance auxiliary loss before this env step.",
+    )
+    parser.add_argument("--affordance_gamma", type=float, default=0.95)
+    parser.add_argument(
+        "--affordance_bootstrap_warmup_steps",
+        type=int,
+        default=50000,
+        help="Linearly ramp temporal bootstrapping after affordance_start_step.",
+    )
+    parser.add_argument(
+        "--affordance_danger_range",
+        type=float,
+        default=0.20,
+        help="Range-sensor threshold treated as future danger by the affordance head.",
+    )
+    parser.add_argument(
+        "--affordance_goal_tolerance",
+        type=float,
+        default=0.20,
+        help="Distance threshold used for the near-goal affordance target.",
     )
     parser.add_argument("--grad_clip_norm", type=float, default=1.0)
     parser.add_argument("--trust_alpha", type=float, default=0.5)
@@ -264,13 +301,21 @@ def main():
     if actor_encoder_grad_scale is None:
         actor_encoder_grad_scale = 1.0 if args.actor_updates_encoder else 0.0
     if args.use_latent:
-        print(
+        latent_msg = (
             f"[INFO] latent_only={args.latent_only}, latent_dim={args.latent_dim}, "
             f"latent_input_scale={latent_input_scale:.3f}, "
             f"critic_encoder_grad_scale={critic_encoder_grad_scale:.3f}, "
             f"actor_encoder_grad_scale={actor_encoder_grad_scale:.3f}, "
             f"critic_encoder_grad_schedule={args.critic_encoder_grad_schedule or 'none'}"
         )
+        if args.latent_only:
+            latent_msg += f", latent_only_variant={args.latent_only_variant}"
+            if args.latent_only_variant == "affordance":
+                latent_msg += (
+                    f", affordance_loss_weight={args.affordance_loss_weight:.4f}, "
+                    f"affordance_start_step={args.affordance_start_step}"
+                )
+        print(latent_msg)
 
     if args.use_latent:
         if args.use_v1trust:
@@ -303,7 +348,7 @@ def main():
                 trust_warmup_steps=args.trust_warmup_steps,
             )
         elif args.latent_only:
-            agent = TD3LatentOnly(
+            latent_only_kwargs = dict(
                 state_dim=state_dim,
                 action_dim=action_dim,
                 max_action=max_action,
@@ -325,6 +370,19 @@ def main():
                 progress_loss_weight=args.progress_loss_weight,
                 target_pos=[3.5, 0.0, 1.0],
             )
+            if args.latent_only_variant == "affordance":
+                agent = TD3LatentAffordance(
+                    **latent_only_kwargs,
+                    affordance_loss_weight=args.affordance_loss_weight,
+                    affordance_start_step=args.affordance_start_step,
+                    affordance_gamma=args.affordance_gamma,
+                    affordance_bootstrap_warmup_steps=args.affordance_bootstrap_warmup_steps,
+                    affordance_danger_range=args.affordance_danger_range,
+                    affordance_goal_tolerance=args.affordance_goal_tolerance,
+                    start_pos=[-3.5, 0.0, 1.0],
+                )
+            else:
+                agent = TD3LatentOnly(**latent_only_kwargs)
         else:
             agent = TD3(
                 state_dim=state_dim,

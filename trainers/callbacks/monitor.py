@@ -65,6 +65,27 @@ class MonitorCallback:
         recon_loss = train_info.get("recon_loss", None)
         progress_loss = train_info.get("progress_loss", None)
         progress_target_mean = train_info.get("progress_target_mean", None)
+        route_action_loss = train_info.get("route_action_loss", None)
+        safety_action_loss = train_info.get("safety_action_loss", None)
+        action_aux_scale = train_info.get("action_aux_scale", None)
+        route_next_lateral_target_mean = train_info.get("route_next_lateral_target_mean", None)
+        safety_next_min_range_target_mean = train_info.get("safety_next_min_range_target_mean", None)
+        affordance_loss = train_info.get("affordance_loss", None)
+        affordance_scale = train_info.get("affordance_scale", None)
+        affordance_bootstrap_scale = train_info.get("affordance_bootstrap_scale", None)
+        affordance_progress_target_mean = train_info.get("affordance_progress_value_target_mean", None)
+        affordance_clearance_target_mean = train_info.get("affordance_future_clearance_target_mean", None)
+        affordance_danger_pred_mean = train_info.get("affordance_danger_prob_pred_mean", None)
+        affordance_danger_target_mean = train_info.get("affordance_danger_prob_target_mean", None)
+        affordance_near_goal_target_mean = train_info.get("affordance_near_goal_prob_target_mean", None)
+        affordance_immediate_danger_rate = train_info.get("affordance_immediate_danger_rate", None)
+        affordance_immediate_success_rate = train_info.get("affordance_immediate_success_rate", None)
+        obs_action_history_dim = train_info.get("obs_action_history_dim", None)
+        obs_goal_norm_mean = train_info.get("obs_goal_norm_mean", None)
+        obs_range_min_mean = train_info.get("obs_range_min_mean", None)
+        obs_range_max_mean = train_info.get("obs_range_max_mean", None)
+        obs_range_oob_fraction = train_info.get("obs_range_oob_fraction", None)
+        next_obs_range_min_mean = train_info.get("next_obs_range_min_mean", None)
         critic_grad_norm = train_info.get("critic_grad_norm", None)
         actor_grad_norm = train_info.get("actor_grad_norm", None)
         encoder_grad_norm_main = train_info.get("encoder_grad_norm_main", train_info.get("encoder_grad_norm_total", None))
@@ -94,6 +115,59 @@ class MonitorCallback:
         recon_loss_str = "N/A" if recon_loss is None else f"{recon_loss:.3f}"
         progress_loss_str = "N/A" if progress_loss is None else f"{progress_loss:.5f}"
         progress_target_mean_str = "N/A" if progress_target_mean is None else f"{progress_target_mean:+.5f}"
+        route_action_loss_str = "N/A" if route_action_loss is None else f"{route_action_loss:.5f}"
+        safety_action_loss_str = "N/A" if safety_action_loss is None else f"{safety_action_loss:.5f}"
+        action_aux_scale_str = "N/A" if action_aux_scale is None else f"{action_aux_scale:.1f}"
+        route_next_lateral_target_mean_str = (
+            "N/A" if route_next_lateral_target_mean is None else f"{route_next_lateral_target_mean:.4f}"
+        )
+        safety_next_min_range_target_mean_str = (
+            "N/A" if safety_next_min_range_target_mean is None else f"{safety_next_min_range_target_mean:.4f}"
+        )
+        affordance_loss_str = "N/A" if affordance_loss is None else f"{affordance_loss:.5f}"
+        affordance_scale_str = "N/A" if affordance_scale is None else f"{affordance_scale:.1f}"
+        affordance_bootstrap_scale_str = (
+            "N/A" if affordance_bootstrap_scale is None else f"{affordance_bootstrap_scale:.2f}"
+        )
+        affordance_progress_target_mean_str = (
+            "N/A" if affordance_progress_target_mean is None else f"{affordance_progress_target_mean:+.4f}"
+        )
+        affordance_clearance_target_mean_str = (
+            "N/A" if affordance_clearance_target_mean is None else f"{affordance_clearance_target_mean:.4f}"
+        )
+        affordance_danger_pred_mean_str = (
+            "N/A" if affordance_danger_pred_mean is None else f"{affordance_danger_pred_mean:.4f}"
+        )
+        affordance_danger_target_mean_str = (
+            "N/A" if affordance_danger_target_mean is None else f"{affordance_danger_target_mean:.4f}"
+        )
+        affordance_near_goal_target_mean_str = (
+            "N/A" if affordance_near_goal_target_mean is None else f"{affordance_near_goal_target_mean:.4f}"
+        )
+        affordance_immediate_danger_rate_str = (
+            "N/A" if affordance_immediate_danger_rate is None else f"{affordance_immediate_danger_rate:.3f}"
+        )
+        affordance_immediate_success_rate_str = (
+            "N/A" if affordance_immediate_success_rate is None else f"{affordance_immediate_success_rate:.3f}"
+        )
+        obs_action_history_dim_str = (
+            "N/A" if obs_action_history_dim is None else f"{int(obs_action_history_dim)}"
+        )
+        obs_goal_norm_mean_str = (
+            "N/A" if obs_goal_norm_mean is None else f"{obs_goal_norm_mean:.3f}"
+        )
+        obs_range_min_mean_str = (
+            "N/A" if obs_range_min_mean is None else f"{obs_range_min_mean:.3f}"
+        )
+        obs_range_max_mean_str = (
+            "N/A" if obs_range_max_mean is None else f"{obs_range_max_mean:.3f}"
+        )
+        obs_range_oob_fraction_str = (
+            "N/A" if obs_range_oob_fraction is None else f"{obs_range_oob_fraction:.3f}"
+        )
+        next_obs_range_min_mean_str = (
+            "N/A" if next_obs_range_min_mean is None else f"{next_obs_range_min_mean:.3f}"
+        )
         critic_grad_norm_str = "N/A" if critic_grad_norm is None else f"{critic_grad_norm:.3f}"
         actor_grad_norm_str = "N/A" if actor_grad_norm is None else f"{actor_grad_norm:.3f}"
         encoder_grad_norm_main_str = "N/A" if encoder_grad_norm_main is None else f"{encoder_grad_norm_main:.3f}"
@@ -118,6 +192,28 @@ class MonitorCallback:
             f"trust_mean: {trust_mean_str}"
         )
         print(f"Progress head: loss={progress_loss_str} | target_delta_goal_mean={progress_target_mean_str}")
+        if route_action_loss is not None or safety_action_loss is not None or action_aux_scale is not None:
+            print(
+                f"Action-aux heads: scale={action_aux_scale_str} | route_loss={route_action_loss_str} | "
+                f"safety_loss={safety_action_loss_str} | next_lateral={route_next_lateral_target_mean_str} | "
+                f"next_min_range={safety_next_min_range_target_mean_str}"
+            )
+        if affordance_loss is not None:
+            print(
+                f"Affordance head: scale={affordance_scale_str} | bootstrap={affordance_bootstrap_scale_str} | "
+                f"loss={affordance_loss_str} | progress_v={affordance_progress_target_mean_str} | "
+                f"future_clearance={affordance_clearance_target_mean_str} | "
+                f"danger={affordance_danger_pred_mean_str}/{affordance_danger_target_mean_str} | "
+                f"near_goal={affordance_near_goal_target_mean_str} | "
+                f"immediate danger/success={affordance_immediate_danger_rate_str}/"
+                f"{affordance_immediate_success_rate_str}"
+            )
+            print(
+                f"Observation layout: action_hist={obs_action_history_dim_str} | "
+                f"goal_norm={obs_goal_norm_mean_str} | "
+                f"range min/max={obs_range_min_mean_str}/{obs_range_max_mean_str} | "
+                f"next_min={next_obs_range_min_mean_str} | range_oob={obs_range_oob_fraction_str}"
+            )
         print(
             f"Grad norms: critic={critic_grad_norm_str} | actor={actor_grad_norm_str} | "
             f"encoder(main/actor)={encoder_grad_norm_main_str}/{encoder_grad_norm_actor_str}"

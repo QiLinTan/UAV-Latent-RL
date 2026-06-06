@@ -11,6 +11,13 @@ ensure_gym_pybullet_envs_compat()
 from gym_pybullet_drones.envs.BaseRLAviary import BaseRLAviary
 from gym_pybullet_drones.utils.enums import ActionType, DroneModel, ObservationType, Physics
 
+from envs.observation_layout import (
+    GOAL_DIM,
+    RANGE_DIM,
+    ForestObservationLayout,
+    append_forest_task_observation,
+)
+
 from .curriculum import DEFAULT_CURRICULUM_MILESTONES, ForestCurriculumScheduler
 from .layout import ForestLayoutConfig, ForestLayoutGenerator
 from .rewards import BaselineForestReward, ForestRewardModel, default_reward_terms
@@ -86,8 +93,8 @@ class CustomForestAviary(BaseRLAviary):
         self.ROUTE_BLOCKING_TREE = bool(route_blocking_tree)
         self.ROUTE_TREE_FRACTION = float(np.clip(route_tree_fraction, 0.05, 0.95))
 
-        self.NUM_RANGE_RAYS = 8
-        self.GOAL_OBS_DIM = 3
+        self.NUM_RANGE_RAYS = RANGE_DIM
+        self.GOAL_OBS_DIM = GOAL_DIM
         self.OBSTACLE_OBS_DIM = self.GOAL_OBS_DIM + self.NUM_RANGE_RAYS
 
         self._rng = np.random.default_rng(seed)
@@ -208,8 +215,16 @@ class CustomForestAviary(BaseRLAviary):
 
         extra_low = np.array([[-1.0, -1.0, -1.0] + [0.0] * self.NUM_RANGE_RAYS], dtype=np.float32)
         extra_high = np.array([[1.0, 1.0, 1.0] + [1.0] * self.NUM_RANGE_RAYS], dtype=np.float32)
-        low = np.hstack([base_space.low, extra_low])
-        high = np.hstack([base_space.high, extra_high])
+        goal_low = extra_low[..., : self.GOAL_OBS_DIM]
+        range_low = extra_low[..., self.GOAL_OBS_DIM :]
+        goal_high = extra_high[..., : self.GOAL_OBS_DIM]
+        range_high = extra_high[..., self.GOAL_OBS_DIM :]
+        low = append_forest_task_observation(base_space.low, goal_low, range_low)
+        high = append_forest_task_observation(base_space.high, goal_high, range_high)
+        self.observation_layout = ForestObservationLayout.from_total_dim(
+            low.shape[-1],
+            action_dim=self.action_space.shape[-1],
+        )
         return spaces.Box(low=low, high=high, dtype=np.float32)
 
     def _computeObs(self):
@@ -220,7 +235,9 @@ class CustomForestAviary(BaseRLAviary):
         state = self._getDroneStateVector(0)
         goal_obs = self._computeGoalObservation(state[0:3]).reshape(1, -1)
         range_obs = self._computeRangeObservation(state[0:3]).reshape(1, -1)
-        return np.hstack([base_obs, goal_obs, range_obs]).astype(np.float32)
+        obs = append_forest_task_observation(base_obs, goal_obs, range_obs).astype(np.float32)
+        self.observation_layout.split(obs)
+        return obs
 
     def _computeGoalObservation(self, pos):
         rel = (self.TARGET_POS - np.array(pos, dtype=np.float32)).astype(np.float32)
