@@ -31,3 +31,13 @@
 - 增加 affordance 标签诊断：各 bootstrap 标签标准差、即时危险率和即时成功率，用于识别标签越界、塌缩或正例稀缺。
 - 保持 TD3、reward、网络规模和训练参数不变；本轮只修数据布局与可观测性。
 - 验证项：观测布局与 affordance 尾部雷达回归测试共 5 项通过；随机 replay buffer 可训练一步并输出新日志；真实环境观测仍为 263 维且拆分为 `12/240/3/8`；`py_compile` 和 `git diff --check` 通过。
+
+## 2026-06-08
+
+- 将 AvoidBench 接口从不存在的 `flightgym.AvoidVisionEnv_v1` 改为实际的 `avoidbridge.AvoidbenchBridge`，补充 Python adapter 和 probe 脚本。
+- 新增 `getUnityDepthImages()`，在 `perform_sgm: false` 时返回 RGB `uint8` 和 Unity depth `float32`，同时保留原 stereo SGM 接口。
+- pybind11 图像返回改为 NumPy 自有内存副本，避免引用已释放的 `cv::Mat`。
+- 定位并修复 Python 退出时的 `double free`：根因是 `quadrotor_common` 与 avoidlib 的 C++/Eigen ABI 对齐不一致。
+- 使用 Python state proxy，并在 `updateUnity()` 中临时构造原生状态；同时将 avoidlib Eigen 对齐固定为 16 字节。
+- 单目 Unity-depth 模式不再创建无用的 CUDA SGM 对象。
+- 验证项：Unity 连接、障碍物生成、场景变化、RGB/depth、碰撞检测和吞吐率正常；probe 返回 `EXIT_CODE=0`，项目测试 `13 passed`。

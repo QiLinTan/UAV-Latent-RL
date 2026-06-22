@@ -1,0 +1,254 @@
+diff --git a/src/avoidbench/avoidlib/CMakeLists.txt b/src/avoidbench/avoidlib/CMakeLists.txt
+index 1b3c50d..a94308b 100644
+--- a/src/avoidbench/avoidlib/CMakeLists.txt
++++ b/src/avoidbench/avoidlib/CMakeLists.txt
+@@ -93,6 +93,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -fPIC -Wall -DNDEBUG  -fopenmp")
+ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -fPIC -Wall -g -fopenmp")
+ set(CMAKE_CXX_STANDARD 17)
+
++# quadrotor_common is built as C++11 without AVX and exposes Eigen types in its
++# public ABI. Keep Eigen's alignment identical in all avoidlib translation
++# units even when -march=native enables wider vectorization here.
++add_definitions(-DEIGEN_MAX_ALIGN_BYTES=16)
++add_definitions(-DEIGEN_MAX_STATIC_ALIGN_BYTES=16)
++
+ # Architectural flags
+ if("${CMAKE_HOST_SYSTEM_PROCESSOR}" STREQUAL "armv7l")
+   message(STATUS "Using ARMv7 optimized flags!")
+diff --git a/src/avoidbench/avoidlib/src/bridges/avoidbench_bridge.cpp b/src/avoidbench/avoidlib/src/bridges/avoidbench_bridge.cpp
+index 6e2d41d..a97154f 100644
+--- a/src/avoidbench/avoidlib/src/bridges/avoidbench_bridge.cpp
++++ b/src/avoidbench/avoidlib/src/bridges/avoidbench_bridge.cpp
+@@ -55,7 +55,9 @@ AvoidbenchBridge::AvoidbenchBridge(const std::string &cfg_path)
+   quad_ptr_->reset(quad_state_);
+   unity_bridge_ptr_ = UnityBridge::getInstance();
+   unity_bridge_ptr_->addQuadrotor(quad_ptr_);
+-  sgm_.reset(new sgm_gpu::SgmGpu(img_cols_, img_rows_));
++  if (perform_sgm_) {
++    sgm_.reset(new sgm_gpu::SgmGpu(img_cols_, img_rows_));
++  }
+   // ros::Duration(2.0).sleep();
+   usleep(2.0*1e6);
+
+diff --git a/src/avoidbench/avoidlib/src/wrapper/avoidbench_wrapper.cpp b/src/avoidbench/avoidlib/src/wrapper/avoidbench_wrapper.cpp
+index 22f6e26..eeddb4e 100644
+--- a/src/avoidbench/avoidlib/src/wrapper/avoidbench_wrapper.cpp
++++ b/src/avoidbench/avoidlib/src/wrapper/avoidbench_wrapper.cpp
+@@ -3,6 +3,11 @@
+ #include <pybind11/pybind11.h>
+ #include <pybind11/stl.h>
+ #include<pybind11/numpy.h>
++#include <algorithm>
++#include <array>
++#include <cstring>
++#include <stdexcept>
++#include <string>
+ #include <thread>
+
+ #include "avoidlib/bridges/avoidbench_bridge.hpp"
+@@ -30,33 +35,141 @@ void PointCloudThread(AvoidbenchBridge& bridge, std::string data_dir, Eigen::Vec
+   bridge.getPointCloud(data_dir, range, origin);
+ }
+
+-void setStateEstimate(QuadStateEstimate& state, py::array_t<double> pos, py::array_t<double> ori, py::array_t<double> vel, double time)
++template <typename T>
++py::array_t<T> cvMatToNumpyCopy(const cv::Mat& image, const int channels)
+ {
+-  py::buffer_info pos_buf = pos.request();
+-  py::buffer_info ori_buf = ori.request();
+-  py::buffer_info vel_buf = vel.request();
+-  double* pos_ptr = (double*)pos_buf.ptr;
+-  double* ori_ptr = (double*)ori_buf.ptr;
+-  double* vel_ptr = (double*)vel_buf.ptr;
+-
+-  state.position.x() = pos_ptr[0];
+-  state.position.y() = pos_ptr[1];
+-  state.position.z() = pos_ptr[2];
+-  state.velocity.x() = vel_ptr[0];
+-  state.velocity.y() = vel_ptr[1];
+-  state.velocity.z() = vel_ptr[2];
+-  state.orientation.x() = ori_ptr[0];
+-  state.orientation.y() = ori_ptr[1];
+-  state.orientation.z() = ori_ptr[2];
+-  state.orientation.w() = ori_ptr[3];
+-  state.timestamp = ros::Time(time);
+-  // std::cout<<pos_ptr[0]<<" "<<pos_ptr[1]<<" "<<pos_ptr[2]<<std::endl;
++  if (image.empty()) {
++    return py::array_t<T>({0, 0, channels});
++  }
++  if (image.channels() != channels) {
++    throw std::runtime_error("Unexpected OpenCV channel count.");
++  }
++
++  const cv::Mat contiguous = image.isContinuous() ? image : image.clone();
++  py::array_t<T> output({image.rows, image.cols, channels});
++  py::buffer_info output_buffer = output.request();
++  std::memcpy(
++    output_buffer.ptr,
++    contiguous.data,
++    contiguous.total() * contiguous.elemSize());
++  return output;
++}
++
++py::tuple getStereoImages(AvoidbenchBridge& bridge)
++{
++  cv::Mat left_cv, right_cv, depth_cv, disp_cv;
++  bridge.getImages(&left_cv, &right_cv, &depth_cv, &disp_cv);
++  if (left_cv.empty() || right_cv.empty() || depth_cv.empty()) {
++    throw std::runtime_error(
++      "Stereo images are empty. Set camera.perform_sgm=true or call "
++      "getUnityDepthImages() for Unity depth.");
++  }
++  if (left_cv.type() != CV_8UC3 || right_cv.type() != CV_8UC3 ||
++      depth_cv.type() != CV_16UC1) {
++    throw std::runtime_error("Unexpected stereo image OpenCV type.");
++  }
++  return py::make_tuple(
++    cvMatToNumpyCopy<unsigned char>(left_cv, 3),
++    cvMatToNumpyCopy<unsigned char>(right_cv, 3),
++    cvMatToNumpyCopy<unsigned short>(depth_cv, 1));
++}
++
++py::tuple getUnityDepthImages(AvoidbenchBridge& bridge)
++{
++  cv::Mat left_cv, depth_cv;
++  bridge.getImages(&left_cv, &depth_cv);
++  if (left_cv.empty() || depth_cv.empty()) {
++    throw std::runtime_error(
++      "Unity RGB/depth images are empty. Call updateUnity(state) before "
++      "requesting images and ensure camera.perform_sgm=false.");
++  }
++  if (left_cv.type() != CV_8UC3 || depth_cv.type() != CV_32FC1) {
++    throw std::runtime_error("Unexpected Unity RGB/depth OpenCV type.");
++  }
++  return py::make_tuple(
++    cvMatToNumpyCopy<unsigned char>(left_cv, 3),
++    cvMatToNumpyCopy<float>(depth_cv, 1));
++}
++
++struct PyQuadStateEstimate
++{
++  std::array<double, 3> position{{0.0, 0.0, 0.0}};
++  std::array<double, 4> orientation{{0.0, 0.0, 0.0, 1.0}};
++  std::array<double, 3> velocity{{0.0, 0.0, 0.0}};
++  double timestamp{0.0};
++};
++
++using DoubleArray =
++  py::array_t<double, py::array::c_style | py::array::forcecast>;
++
++template <std::size_t Size>
++std::array<double, Size> copyStateArray(
++  const DoubleArray& input, const char* name)
++{
++  if (input.ndim() != 1 || input.shape(0) != static_cast<py::ssize_t>(Size)) {
++    throw std::invalid_argument(
++      std::string(name) + " must be a one-dimensional array of length " +
++      std::to_string(Size) + ".");
++  }
++  const py::buffer_info buffer = input.request();
++  const auto* data = static_cast<const double*>(buffer.ptr);
++  std::array<double, Size> output{};
++  std::copy(data, data + Size, output.begin());
++  return output;
++}
++
++void setStateEstimate(
++  PyQuadStateEstimate& state,
++  const DoubleArray& position,
++  const DoubleArray& orientation,
++  const DoubleArray& velocity,
++  const double timestamp)
++{
++  state.position = copyStateArray<3>(position, "position");
++  state.orientation = copyStateArray<4>(orientation, "orientation");
++  state.velocity = copyStateArray<3>(velocity, "velocity");
++  state.timestamp = timestamp;
++}
++
++void populateNativeState(
++  const PyQuadStateEstimate& source, QuadStateEstimate& destination)
++{
++  destination.position =
++    Eigen::Vector3d(source.position[0], source.position[1], source.position[2]);
++  destination.velocity =
++    Eigen::Vector3d(source.velocity[0], source.velocity[1], source.velocity[2]);
++  destination.orientation = Eigen::Quaterniond(
++    source.orientation[3],
++    source.orientation[0],
++    source.orientation[1],
++    source.orientation[2]);
++  destination.timestamp = ros::Time(source.timestamp);
++  destination.coordinate_frame = QuadStateEstimate::CoordinateFrame::WORLD;
++}
++
++bool updateUnity(
++  AvoidbenchBridge& bridge, const PyQuadStateEstimate& python_state)
++{
++  QuadStateEstimate native_state;
++  populateNativeState(python_state, native_state);
++  return bridge.updateUnity(native_state);
++}
++
++void transformVelocityToWorldFrame(PyQuadStateEstimate& python_state)
++{
++  QuadStateEstimate native_state;
++  populateNativeState(python_state, native_state);
++  native_state.transformVelocityToWorldFrame();
++  python_state.velocity = {{
++    native_state.velocity.x(),
++    native_state.velocity.y(),
++    native_state.velocity.z()}};
+ }
+
+ PYBIND11_MODULE(avoidbridge, m) {
+   py::class_<AvoidbenchBridge, std::shared_ptr<AvoidbenchBridge>>(m, "AvoidbenchBridge")
+     .def(py::init<const std::string&>())
+-    .def("updateUnity", &AvoidbenchBridge::updateUnity)
++    .def("updateUnity", &updateUnity)
+     .def("getQuadCollisionState", &AvoidbenchBridge::getQuadCollisionState)
+     .def("setParamFromMission", &AvoidbenchBridge::setParamFromMission)
+     .def("spawnObstacles", &AvoidbenchBridge::spawnObstacles)
+@@ -70,17 +183,10 @@ PYBIND11_MODULE(avoidbridge, m) {
+       std::thread PCThread(PointCloudThread, std::ref(bridge), data_dir, range, origin);
+       PCThread.detach();
+     })
+-    .def("getImages", [](AvoidbenchBridge& bridge) {
+-      cv::Mat left_cv, right_cv, depth_cv, disp_cv;
+-      bridge.getImages(&left_cv, &right_cv, &depth_cv, &disp_cv);
+-      py::array_t<unsigned char> left_py = py::array_t<unsigned char>({ left_cv.rows,left_cv.cols,3}, left_cv.data);
+-      py::array_t<unsigned char> right_py = py::array_t<unsigned char>({ right_cv.rows,right_cv.cols,3}, right_cv.data);
+-      py::array_t<unsigned short> depth_py = py::array_t<unsigned short>({ depth_cv.rows,depth_cv.cols,1}, (ushort*)depth_cv.data);
+-      // py::array_t<unsigned char> disp_py = py::array_t<unsigned char>({ disp_cv.rows,disp_cv.cols,1}, disp_cv.data);
+-      std::tuple<py::array_t<unsigned char>, py::array_t<unsigned char>, py::array_t<unsigned short>> images
+-                                                                                (left_py, right_py, depth_py);
+-      return images;
+-    })
++    .def("getImages", &getStereoImages,
++         "Return left RGB, right RGB and uint16 SGM depth.")
++    .def("getUnityDepthImages", &getUnityDepthImages,
++         "Return left RGB and float32 Unity depth without stereo SGM.")
+     .def_readwrite("finish_check", &AvoidbenchBridge::finish_check)
+     .def_readwrite("finish_pc_save", &AvoidbenchBridge::finish_pc_save);
+
+@@ -88,14 +194,14 @@ PYBIND11_MODULE(avoidbridge, m) {
+       return checking_result;
+     });
+
+-  py::class_<QuadStateEstimate>(m, "quadStateEstimate")
++  py::class_<PyQuadStateEstimate>(m, "quadStateEstimate")
+     .def(py::init<>())
+-    .def(py::init<const nav_msgs::Odometry&>())
+-    .def("transformVelocityToWorldFrame", &QuadStateEstimate::transformVelocityToWorldFrame)
++    .def("transformVelocityToWorldFrame", &transformVelocityToWorldFrame)
+     .def("setStateEstimate", &setStateEstimate)
+-    .def_readwrite("timestamp", &QuadStateEstimate::timestamp)
+-    .def_readwrite("position", &QuadStateEstimate::position)
+-    .def_readwrite("velocity", &QuadStateEstimate::velocity);
++    .def_readwrite("timestamp", &PyQuadStateEstimate::timestamp)
++    .def_readwrite("position", &PyQuadStateEstimate::position)
++    .def_readwrite("orientation", &PyQuadStateEstimate::orientation)
++    .def_readwrite("velocity", &PyQuadStateEstimate::velocity);
+
+   py::class_<mission_parameter>(m, "mission_parameter")
+     .def(py::init<>())
