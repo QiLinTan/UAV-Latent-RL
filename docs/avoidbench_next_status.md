@@ -1,5 +1,161 @@
 # AvoidBench Next Status
 
+## 2026-06-22 Baseline Update
+
+Branch:
+
+```text
+avoidbench-rl-env-smoke
+```
+
+Local freeze commits:
+
+```text
+a2601b31ac5a11c4ae650086bb08cc2ffe8f2f54
+7c07126ab30dff7cf858557a892b98ed66c6f455
+```
+
+The first commit freezes the AvoidBench RL environment and Plain TD3 smoke
+baseline. The second records the freeze status and evidence paths.
+
+### Workspace Container
+
+`noetic_ab_workspace` was recreated from
+`noetic_avoidbench_unitydepth_fixed:local` without NVIDIA GPU device requests.
+The previous GPU-bound container could not start while the host NVIDIA driver
+was unavailable:
+
+```text
+nvidia-container-cli: initialization error: nvml error: driver not loaded
+```
+
+`tools/avoidbench_container.sh` now defaults to `AVOIDBENCH_ENABLE_GPU=0`.
+Set `AVOIDBENCH_ENABLE_GPU=1` only when the NVIDIA runtime is known to work.
+
+Mesa launch script:
+
+```text
+scripts/launch_avoidbench_ros_mesa.sh
+```
+
+The script prints the display and Mesa variables, sources the AvoidBench
+environment, and starts:
+
+```bash
+roslaunch avoid_manage rotors_gazebo.launch
+```
+
+Host X11 access is required for Unity in the container:
+
+```bash
+xhost +SI:localuser:root
+```
+
+Latest container checks:
+
+- `./tools/avoidbench_container.sh recreate`: passed
+- `./tools/avoidbench_container.sh check`: passed
+- Mesa launch: Unity connected to Flightmare
+- strict ROS probe: `ROS_INTERFACES_READY`
+- expected ROS endpoints: `10/10`
+- topics/services: `83/47`
+- standalone Unity RGB/depth probe with `--spawn-obstacles false`: passed
+- default indoor dynamic scene-change probe: still fails with
+  `Scene changed: False`
+
+### Navigation Smoke Analysis
+
+New analysis script:
+
+```text
+scripts/analyze_avoidbench_navigation.py
+```
+
+Outputs:
+
+```text
+docs/avoidbench_navigation_smoke_analysis.md
+runs/avoidbench_plain_td3_smoke/20260609-141223-navigation_smoke/navigation_analysis_summary.json
+```
+
+Result for `20260609-141223-navigation_smoke`:
+
+- episodes: `25`
+- done reasons: `{"timeout": 25}`
+- mean distance delta: `-0.008545 m`
+- positive-progress episodes: `8/25`
+- collision count: `0`
+- mean height: `1.200355 m`
+- most active scaled action dimension: `yaw_rate`
+- mean raw actor action: `vx=-0.015252`, `vy=0.177500`
+- goal delta is present in observation indices `13:16`
+- goal delta is numerically consistent with `distance_to_goal`
+- progress signal is weak: absolute progress reward is about `2.13%` of
+  progress-plus-regularization magnitude
+
+Conclusion:
+
+- the old navigation smoke learned stable flight, not navigation;
+- the policy biases sideways instead of toward the mostly `+x` goal;
+- reward weighting is suspect because regularization dominates tiny progress;
+- action frame/mapping still requires live probing;
+- longer navigation training is not justified yet.
+
+### Goal-Direction Hand Policy Probe
+
+New probe:
+
+```text
+scripts/probe_avoidbench_goal_direction_policy.py
+```
+
+Latest run:
+
+```text
+runs/avoidbench_goal_direction_probe/20260622-133135/
+```
+
+Result:
+
+| Strategy | Frame | Distance Delta | Done Reason | Collision |
+| --- | --- | ---: | --- | --- |
+| zero | world | 0.000000 m | collision | true |
+| constant_forward | world | 0.000092 m | collision | true |
+| goal_direction | world | 0.001510 m | collision | true |
+| goal_direction | body | 0.001509 m | collision | true |
+
+The probe did not pass. Goal-direction produced a tiny positive x displacement,
+but every episode terminated on collision and `/hummingbird/collision`
+remained true afterward.
+
+### Stage 1 Decision
+
+Stage 1 `stage1_short_nav` training was not started.
+
+Reason:
+
+- the hand-coded goal-direction policy did not satisfy the gate;
+- collision state is currently unreliable after reset;
+- native `avoid_manage_node` mission/collision ownership still interferes with
+  RL episode ownership.
+
+Current permission status:
+
+- longer Plain TD3 navigation: blocked
+- Stage 1 short navigation training: blocked until collision/reset ownership is
+  fixed
+- latent-only/depth/auxiliary-loss work: blocked
+- four-motor RPM work: blocked
+
+Recommended next step:
+
+1. isolate or disable native `avoid_manage_node` mission lifecycle during RL
+   control probes;
+2. make reset wait for `/hummingbird/collision == False`;
+3. rerun the goal-direction probe until at least one frame gives clear distance
+   decrease without collision;
+4. only then create `stage1_short_nav`.
+
 Date: 2026-06-09
 
 Branch used for this gated run:

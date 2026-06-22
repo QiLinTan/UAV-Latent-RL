@@ -8,6 +8,7 @@ PROJECT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 CONTAINER_NAME="${AVOIDBENCH_CONTAINER_NAME:-noetic_ab_workspace}"
 IMAGE="${AVOIDBENCH_IMAGE:-noetic_avoidbench_unitydepth_fixed:local}"
 CONTAINER_PROJECT_DIR="/workspace/UAV-AvoidBench-RL"
+ENABLE_GPU="${AVOIDBENCH_ENABLE_GPU:-0}"
 
 usage() {
   cat <<EOF
@@ -16,6 +17,7 @@ Usage: $0 <create|start|enter|check|recreate|status>
 Environment overrides:
   AVOIDBENCH_CONTAINER_NAME  Container name (default: ${CONTAINER_NAME})
   AVOIDBENCH_IMAGE           Docker image (default: ${IMAGE})
+  AVOIDBENCH_ENABLE_GPU      Request NVIDIA GPU devices (default: ${ENABLE_GPU})
 
 Typical workflow:
   $0 create
@@ -41,25 +43,33 @@ create_container() {
     return 1
   fi
 
+  gpu_args=()
+  if [[ "${ENABLE_GPU}" == "1" ]]; then
+    gpu_args=(
+      --gpus all
+      -e NVIDIA_VISIBLE_DEVICES=all
+      -e NVIDIA_DRIVER_CAPABILITIES=all
+    )
+  fi
+
   docker run -d \
     --name "${CONTAINER_NAME}" \
     --network host \
     --ipc host \
-    --gpus all \
     --device /dev/dri:/dev/dri \
     -e DISPLAY="${DISPLAY:-:0}" \
     -e QT_X11_NO_MITSHM=1 \
-    -e NVIDIA_VISIBLE_DEVICES=all \
-    -e NVIDIA_DRIVER_CAPABILITIES=all \
     -e UAV_AVOIDBENCH_RL_DIR="${CONTAINER_PROJECT_DIR}" \
     -e PYTHONPATH="${CONTAINER_PROJECT_DIR}" \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v "${PROJECT_DIR}:${CONTAINER_PROJECT_DIR}" \
     --workdir "${CONTAINER_PROJECT_DIR}" \
+    "${gpu_args[@]}" \
     "${IMAGE}" \
     sleep infinity
 
   echo "Created ${CONTAINER_NAME} from ${IMAGE}."
+  echo "GPU requested: ${ENABLE_GPU}."
 }
 
 start_container() {

@@ -1,6 +1,6 @@
 # AvoidBench Workspace Container
 
-Date: 2026-06-10
+Date: 2026-06-22
 
 ## Current container
 
@@ -28,6 +28,21 @@ cd /home/tequial/projects/UAV-AvoidBench-RL
 
 The container check confirms the bind mount, ROS environment, Python module
 imports, and stress-test entry point.
+
+The current default container creation path does not request NVIDIA GPU
+devices. This avoids Docker startup failure when the host NVIDIA driver is not
+loaded. To opt into GPU devices explicitly:
+
+```bash
+AVOIDBENCH_ENABLE_GPU=1 ./tools/avoidbench_container.sh recreate
+```
+
+When the host X server has access control enabled, allow the container's root
+user before starting Unity:
+
+```bash
+xhost +SI:localuser:root
+```
 
 ## Stable ROS launch
 
@@ -87,9 +102,39 @@ export LIBGL_ALWAYS_INDIRECT=0
 This selects Mesa llvmpipe. It is CPU-rendered and slower than working GPU
 rendering, but it provides a stable Unity and ROS integration runtime.
 
+On 2026-06-22, the old GPU-bound `noetic_ab_workspace` could not start:
+
+```text
+nvidia-container-cli: initialization error: nvml error: driver not loaded
+```
+
+It was preserved as:
+
+```text
+noetic_ab_workspace_backup_20260622_211930
+```
+
+and the active `noetic_ab_workspace` was recreated without GPU device
+requests.
+
 ## Validation status
 
 Validation performed on 2026-06-10 produced the following results.
+
+Additional validation on 2026-06-22:
+
+- no-GPU `noetic_ab_workspace` recreate: passed;
+- container helper check: passed;
+- Mesa launch printed the expected environment variables;
+- Unity connected to Flightmare after host X11 allowed `localuser:root`;
+- strict ROS probe: `ROS_INTERFACES_READY`;
+- expected ROS endpoints: `10/10`;
+- topics/services: `83/47`;
+- standalone Unity RGB/depth bridge probe with `--spawn-obstacles false`:
+  passed;
+- default indoor dynamic scene-change probe: still failed with
+  `Scene changed: False`;
+- goal-direction policy probe was blocked by sticky collision state.
 
 Passed:
 
