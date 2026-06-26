@@ -54,6 +54,7 @@ runs/avoidbench_collision_ownership/20260626-105044/summary.json
 runs/avoidbench_collision_ownership/20260626-112506/summary.json
 runs/avoidbench_collision_ownership/20260626-112735/summary.json
 runs/avoidbench_collision_ownership/20260626-113015/summary.json
+runs/avoidbench_collision_ownership/20260626-121259/summary.json
 ```
 
 Observed facts:
@@ -75,6 +76,9 @@ Observed facts:
 - `bridge-static` started directly at `(0,0,5)` and still reported
   `initial_direct_bridge.collision=True`, so the high-altitude result is not
   just contamination from a previous low-altitude sample in the same process.
+- `bridge-init-sequence` at `(0,0,5)` reported
+  `before_update_collision=false` and `after_first_update_collision=true`.
+  This proves the true value arrives during the first successful Unity update.
 - Unity direct-bridge log repeatedly reported collision with `asphalt_tile`:
   `/tmp/avoidbench_direct_bridge_collision.log`.
 
@@ -88,6 +92,8 @@ Current interpretation:
 - The active suspect is Unity collision geometry/layers around the ground tile
   (`asphalt_tile`), plus scene-change/spawn not completing in the direct bridge
   path. This is no longer a policy or reward issue.
+- Clean lifecycle tests must run one Python bridge process per case because
+  native `UnityBridge::getInstance()` keeps process-local state.
 
 ## Experiment A: Official Manager Runtime
 

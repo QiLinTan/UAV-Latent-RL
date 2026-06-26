@@ -118,6 +118,7 @@ runs/avoidbench_collision_ownership/20260626-105044/
 runs/avoidbench_collision_ownership/20260626-112506/
 runs/avoidbench_collision_ownership/20260626-112735/
 runs/avoidbench_collision_ownership/20260626-113015/
+runs/avoidbench_collision_ownership/20260626-121259/
 ```
 
 Result:
@@ -133,6 +134,8 @@ Result:
   `scene_changed=False` and collision true everywhere;
 - direct bridge static started directly at `(0,0,5)` and still reports initial
   collision true;
+- bridge init sequence at `(0,0,5)` reports collision false before any Unity
+  update and true after the first successful `updateUnity()`;
 - the standalone Unity log repeatedly names `asphalt_tile` as the collision
   collider;
 - the current evidence therefore does not support TD3/action-frame or Gazebo
@@ -143,6 +146,8 @@ Current diagnosis:
 - active suspect: Unity ground/asphalt collision layer, vehicle collider size or
   ROS-to-Unity pose transform, plus scene-change/spawn not completing in direct
   bridge mode;
+- lifecycle caveat: native `UnityBridge::getInstance()` is process-local, so
+  clean multi-position tests require one Python bridge process per case;
 - `AvoidBenchRLEnv.reset()` info has been corrected so reset-time collision is
   no longer hidden as `done_reason=running`;
 - Stage 1 remains blocked until scene initialization and collision ownership

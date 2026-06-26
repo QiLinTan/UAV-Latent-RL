@@ -772,6 +772,173 @@ def run_bridge_sweep(args) -> dict[str, Any]:
     return {"summary": summary, "samples": samples}
 
 
+def run_bridge_init_sequence(args) -> dict[str, Any]:
+    bridge = DirectBridgeProbe(
+        args.config,
+        spawn_obstacles=False,
+        mission_end=tuple(args.mission_end),
+        mission_radius=args.mission_radius,
+        mission_seed=args.mission_seed,
+    )
+    position = list(args.reset_position)
+    velocity = [0.0, 0.0, 0.0]
+    state = bridge.adapter.create_state(
+        position=position,
+        orientation=(0.0, 0.0, 0.0, 1.0),
+        velocity=velocity,
+        timestamp=0.0,
+    )
+    started = time.monotonic()
+    samples: list[dict[str, Any]] = []
+    update_success_count = 0
+    first_collision_read_time: float | None = None
+    scene_changed = None
+    spawn_return = None
+
+    def safe_collision() -> bool | None:
+        nonlocal first_collision_read_time
+        try:
+            collision = bool(bridge.adapter.collision())
+        except Exception:
+            return None
+        if first_collision_read_time is None:
+            first_collision_read_time = time.monotonic() - started
+        return collision
+
+    def safe_scene_changed() -> bool | None:
+        try:
+            return bool(bridge.adapter.bridge.ifSceneChanged())
+        except Exception:
+            return None
+
+    def record(
+        phase: str,
+        *,
+        update_return: bool | None = None,
+        error: str = "",
+    ) -> None:
+        samples.append(
+            {
+                "elapsed_s": time.monotonic() - started,
+                "phase": phase,
+                "position": position,
+                "velocity": velocity,
+                "height": float(position[2]),
+                "direct_bridge_unity_ready": update_return,
+                "direct_bridge_scene_changed": safe_scene_changed(),
+                "direct_bridge_collision": safe_collision(),
+                "updateUnity_success_count": int(update_success_count),
+                "spawn_return": spawn_return,
+                "scene_changed": scene_changed,
+                "error": error,
+            }
+        )
+
+    record("before_update")
+
+    try:
+        update_return = bool(bridge.adapter.update_unity(state))
+        update_success_count += int(update_return)
+        record("after_first_update", update_return=update_return)
+    except Exception as exc:
+        record("after_first_update", error=f"{type(exc).__name__}: {exc}")
+
+    for index in range(9):
+        time.sleep(args.sample_period)
+        try:
+            update_state = bridge.adapter.create_state(
+                position=position,
+                orientation=(0.0, 0.0, 0.0, 1.0),
+                velocity=velocity,
+                timestamp=float(index + 1) * args.sample_period,
+            )
+            update_return = bool(bridge.adapter.update_unity(update_state))
+            update_success_count += int(update_return)
+        except Exception as exc:
+            record("update_error", error=f"{type(exc).__name__}: {exc}")
+            break
+    record("after_10_updates", update_return=update_success_count >= 10)
+
+    time_to_scene_changed: float | None = None
+    if args.spawn_obstacles:
+        bridge.adapter.configure_mission(
+            start_point=(*position, 0.0),
+            end_point=tuple(args.mission_end),
+            trials=1,
+            radius=args.mission_radius,
+            seed=args.mission_seed,
+            opacity=0.5,
+            pointcloud_file="pointcloud-collision-init-sequence",
+        )
+        try:
+            spawn_return = bool(bridge.adapter.bridge.spawnObstacles())
+        except Exception as exc:
+            record("after_scene_spawn", error=f"{type(exc).__name__}: {exc}")
+            spawn_return = None
+        record("after_scene_spawn")
+
+        scene_deadline = time.monotonic() + args.scene_change_timeout
+        scene_update_index = 0
+        while time.monotonic() < scene_deadline:
+            try:
+                bridge.adapter.bridge.SpawnNewObs()
+                update_state = bridge.adapter.create_state(
+                    position=position,
+                    orientation=(0.0, 0.0, 0.0, 1.0),
+                    velocity=velocity,
+                    timestamp=10.0 + scene_update_index * args.sample_period,
+                )
+                update_return = bool(bridge.adapter.update_unity(update_state))
+                update_success_count += int(update_return)
+                scene_changed = safe_scene_changed()
+                if scene_changed:
+                    time_to_scene_changed = time.monotonic() - started
+                    break
+            except Exception as exc:
+                record("scene_wait_error", error=f"{type(exc).__name__}: {exc}")
+                break
+            scene_update_index += 1
+            time.sleep(args.sample_period)
+        record(
+            "after_scene_changed" if scene_changed else "after_scene_wait_timeout",
+            update_return=scene_changed,
+        )
+    else:
+        record("after_scene_spawn_skipped")
+        record("after_scene_changed_skipped")
+
+    by_phase = {sample["phase"]: sample for sample in samples}
+    summary = summarize_samples(samples)
+    summary.update(
+        {
+            "mode": "bridge-init-sequence",
+            "spawn_obstacles": bool(args.spawn_obstacles),
+            "before_update_collision": by_phase.get("before_update", {}).get(
+                "direct_bridge_collision"
+            ),
+            "after_first_update_collision": by_phase.get("after_first_update", {}).get(
+                "direct_bridge_collision"
+            ),
+            "after_10_updates_collision": by_phase.get("after_10_updates", {}).get(
+                "direct_bridge_collision"
+            ),
+            "after_scene_spawn_collision": by_phase.get("after_scene_spawn", {}).get(
+                "direct_bridge_collision"
+            ),
+            "after_scene_changed_collision": (
+                by_phase.get("after_scene_changed", {})
+                or by_phase.get("after_scene_wait_timeout", {})
+            ).get("direct_bridge_collision"),
+            "updateUnity_success_count": int(update_success_count),
+            "scene_changed": scene_changed,
+            "time_to_scene_changed": time_to_scene_changed,
+            "spawn_return": spawn_return,
+            "first_collision_read_time": first_collision_read_time,
+        }
+    )
+    return {"summary": summary, "samples": samples}
+
+
 def make_csv_rows(samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for sample in samples:
@@ -794,7 +961,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--mode",
-        choices=("official-reset", "bridge-static", "bridge-sweep"),
+        choices=("official-reset", "bridge-static", "bridge-sweep", "bridge-init-sequence"),
         default="official-reset",
     )
     parser.add_argument("--namespace", default="/hummingbird")
@@ -814,6 +981,7 @@ def main() -> int:
         ),
     )
     parser.add_argument("--spawn-obstacles", action="store_true")
+    parser.add_argument("--scene-change-timeout", type=float, default=5.0)
     parser.add_argument("--mission-end", type=float, nargs=3, default=(0.0, 15.0, 2.0))
     parser.add_argument("--mission-radius", type=float, default=2.0)
     parser.add_argument("--mission-seed", type=int, default=32)
@@ -835,7 +1003,7 @@ def main() -> int:
         parser.error("--observe-seconds must be positive.")
     if args.sample_period <= 0.0:
         parser.error("--sample-period must be positive.")
-    if args.mode in {"bridge-static", "bridge-sweep"} and not args.config.is_file():
+    if args.mode in {"bridge-static", "bridge-sweep", "bridge-init-sequence"} and not args.config.is_file():
         parser.error(f"--config does not exist: {args.config}")
 
     output_dir = args.output_root / timestamp_slug()
@@ -845,8 +1013,10 @@ def main() -> int:
         result = run_official_reset(args)
     elif args.mode == "bridge-static":
         result = run_bridge_static(args)
-    else:
+    elif args.mode == "bridge-sweep":
         result = run_bridge_sweep(args)
+    else:
+        result = run_bridge_init_sequence(args)
 
     summary = {
         **result["summary"],
