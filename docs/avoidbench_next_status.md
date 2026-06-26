@@ -63,6 +63,99 @@ Latest container checks:
 - default indoor dynamic scene-change probe: still fails with
   `Scene changed: False`
 
+### Collision Triage Update
+
+New triage report:
+
+```text
+docs/avoidbench_collision_triage.md
+```
+
+Ownership isolation procedure and probe:
+
+```text
+docs/avoidbench_collision_ownership_isolation.md
+scripts/probe_avoidbench_collision_ownership.py
+```
+
+The authoritative single-active-Unity run is:
+
+```text
+runs/avoidbench_collision_triage/20260622-143520/
+```
+
+Follow-up sticky-collision reproduction:
+
+```text
+runs/avoidbench_collision_triage/20260622-143638/
+```
+
+Result:
+
+- reset-only observation fails: collision can be true before any RL action, or
+  become true during the no-action observation window;
+- four-direction low-speed commands are interrupted by collision; observed
+  horizontal signs mostly match the command axes, so action-frame reversal is
+  not the primary supported diagnosis;
+- zero action also terminates by collision, so the goal-direction hand policy
+  cannot yet be judged as a true obstacle-collision failure;
+- Stage 1 short navigation remains blocked.
+
+Current diagnosis:
+
+- highest priority: collision reset/ownership between RL reset,
+  `avoid_manage_node`, Unity, and Gazebo;
+- do not continue Stage 1 training until reset-only collision sanity and
+  four-direction action mapping both pass without collision.
+
+### 2026-06-26 Collision Ownership Update
+
+Manual A/B data and the follow-up bridge sweep are recorded under:
+
+```text
+runs/avoidbench_collision_ownership/20260626-103344/
+runs/avoidbench_collision_ownership/20260626-105044/
+runs/avoidbench_collision_ownership/20260626-112506/
+runs/avoidbench_collision_ownership/20260626-112735/
+runs/avoidbench_collision_ownership/20260626-113015/
+```
+
+Result:
+
+- official-manager reset reports `/hummingbird/collision=True` from the first
+  samples, while Gazebo model state stays stable near `(0, 0, 1.2)` and no
+  Gazebo contact signal reports active contact;
+- direct bridge-only static probing also reports
+  `avoidbridge.getQuadCollisionState()==True` from the first sample;
+- direct bridge sweep reports collision true at multiple high/offset positions,
+  including `(0,0,5)`, `(5,0,2)`, and `(-5,0,2)`;
+- direct bridge sweep with `--spawn-obstacles` still reports
+  `scene_changed=False` and collision true everywhere;
+- direct bridge static started directly at `(0,0,5)` and still reports initial
+  collision true;
+- the standalone Unity log repeatedly names `asphalt_tile` as the collision
+  collider;
+- the current evidence therefore does not support TD3/action-frame or Gazebo
+  physical contact as the primary cause.
+
+Current diagnosis:
+
+- active suspect: Unity ground/asphalt collision layer, vehicle collider size or
+  ROS-to-Unity pose transform, plus scene-change/spawn not completing in direct
+  bridge mode;
+- `AvoidBenchRLEnv.reset()` info has been corrected so reset-time collision is
+  no longer hidden as `done_reason=running`;
+- Stage 1 remains blocked until scene initialization and collision ownership
+  are fixed.
+
+Next required work:
+
+1. inspect/fix Unity `asphalt_tile` collision ownership or vehicle collider
+   overlap;
+2. make `spawnObstacles()/SpawnNewObs()` produce `scene_changed=True` in the
+   intended runtime mode;
+3. only then rerun reset sanity, action-map, and goal-direction probes.
+
 ### Navigation Smoke Analysis
 
 New analysis script:

@@ -225,17 +225,27 @@ class AvoidBenchRLEnv:
 
         self._episode_step = 0
         self._prev_distance = self._distance_to_goal(snapshot.position)
-        self._last_done_reason = "running"
+        reset_collision = bool(self._latest_collision)
+        reset_done_reason = self._compute_done_reason(
+            snapshot,
+            distance=self._prev_distance,
+            collision=reset_collision,
+            odometry_timeout=False,
+        )
+        self._last_done_reason = reset_done_reason
         obs = self._build_observation(snapshot)
         info = self._build_info(
             snapshot,
             previous_distance=self._prev_distance,
             progress=0.0,
-            collision=self._latest_collision,
-            done_reason="running",
+            collision=reset_collision,
+            done_reason=reset_done_reason,
             action_norm=0.0,
             step_time=0.0,
         )
+        info["reset_collision"] = reset_collision
+        info["reset_done_reason"] = reset_done_reason
+        info["reset_valid"] = reset_done_reason == "running"
         info["reset_retry_count"] = self._last_reset_retry_count
         info["reset_failure_reason"] = self._last_reset_failure_reason
         info["reset_publish_counts"] = dict(self._last_reset_publish_counts)
