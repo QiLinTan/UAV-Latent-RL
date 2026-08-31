@@ -1,0 +1,9 @@
+{
+  "dataset_version": "legacy_projected_v1",
+  "motor_action_codec": "legacy_projected",
+  "teacher_controller": "DSLPIDControl",
+  "teacher_reset_enabled": false,
+  "quarantined": true,
+  "training_allowed": false,
+  "reason": "Historical labels used the fixed 0.05 RPM scaling and collective/differential projection. Existing checkpoints and validation artifacts were not moved or deleted."
+}

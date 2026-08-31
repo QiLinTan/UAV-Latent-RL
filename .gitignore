@@ -5,7 +5,6 @@ __pycache__/
 # Outputs
 scripts/runs/
 logs/
-models/
 
 # IDE
 .vscode/
@@ -20,6 +19,5 @@ runs/
 
 # Local workspace and experiment artifacts
 .codex
-data/
 experiments/
 events.out.tfevents.*

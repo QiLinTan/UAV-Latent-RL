@@ -9,6 +9,7 @@ def default_reward_terms():
     return {
         "progress_reward": 0.0,
         "distance_reward": 0.0,
+        "time_penalty": 0.0,
         "goal_bonus": 0.0,
         "height_penalty": 0.0,
         "vertical_speed_penalty": 0.0,
@@ -17,6 +18,7 @@ def default_reward_terms():
         "attitude_penalty": 0.0,
         "speed_penalty": 0.0,
         "collision_penalty": 0.0,
+        "safety_boundary_penalty": 0.0,
         "route_lateral_offset": 0.0,
         "goal_progress": 0.0,
         "route_progress": 0.0,
@@ -41,8 +43,21 @@ class ForestRewardModel:
 
 
 class BaselineForestReward(ForestRewardModel):
-    def __init__(self, speed_penalty_weight: float = 0.003):
+    def __init__(
+        self,
+        speed_penalty_weight: float = 0.003,
+        safety_boundary_penalty_weight: float = 25.0,
+        attitude_warning_rad: float = 0.50,
+        attitude_limit_rad: float = 0.65,
+        distance_reward_weight: float = 0.5,
+        time_penalty_weight: float = 0.0,
+    ):
         self.speed_penalty_weight = float(speed_penalty_weight)
+        self.safety_boundary_penalty_weight = float(safety_boundary_penalty_weight)
+        self.attitude_warning_rad = float(attitude_warning_rad)
+        self.attitude_limit_rad = float(attitude_limit_rad)
+        self.distance_reward_weight = float(distance_reward_weight)
+        self.time_penalty_weight = float(time_penalty_weight)
 
     def compute(
         self,
@@ -74,7 +89,8 @@ class BaselineForestReward(ForestRewardModel):
         )
 
         progress_reward = 35.0 * route_progress + 15.0 * goal_progress
-        distance_reward = 0.5 / (1.0 + goal_dist)
+        distance_reward = self.distance_reward_weight / (1.0 + goal_dist)
+        time_penalty = self.time_penalty_weight
         goal_bonus = 120.0 if goal_dist < goal_tolerance else 0.0
 
         target_z = float(target_pos[2])
@@ -90,14 +106,32 @@ class BaselineForestReward(ForestRewardModel):
         attitude_penalty = 0.10 * (abs(roll) + abs(pitch))
         speed_penalty = self.speed_penalty_weight * float(np.linalg.norm(vel))
         collision_penalty = 25.0 if collision else 0.0
+        max_attitude = max(abs(float(roll)), abs(float(pitch)))
+        attitude_boundary_ratio = np.clip(
+            (max_attitude - self.attitude_warning_rad)
+            / max(self.attitude_limit_rad - self.attitude_warning_rad, 1e-6),
+            0.0,
+            1.5,
+        )
+        height_boundary_ratio = max(
+            np.clip((0.15 - float(pos[2])) / 0.07, 0.0, 1.5),
+            np.clip((float(pos[2]) - 2.60) / 0.15, 0.0, 1.5),
+        )
+        safety_boundary_penalty = self.safety_boundary_penalty_weight * max(
+            attitude_boundary_ratio,
+            height_boundary_ratio,
+        ) ** 2
 
         reward = progress_reward + distance_reward + goal_bonus
         reward -= height_penalty + vertical_speed_penalty + lateral_penalty
         reward -= proximity_penalty + attitude_penalty + speed_penalty + collision_penalty
+        reward -= safety_boundary_penalty
+        reward -= time_penalty
 
         reward_terms = {
             "progress_reward": float(progress_reward),
             "distance_reward": float(distance_reward),
+            "time_penalty": float(time_penalty),
             "goal_bonus": float(goal_bonus),
             "height_penalty": float(height_penalty),
             "vertical_speed_penalty": float(vertical_speed_penalty),
@@ -106,6 +140,7 @@ class BaselineForestReward(ForestRewardModel):
             "attitude_penalty": float(attitude_penalty),
             "speed_penalty": float(speed_penalty),
             "collision_penalty": float(collision_penalty),
+            "safety_boundary_penalty": float(safety_boundary_penalty),
             "route_lateral_offset": float(route_lateral_offset),
             "goal_progress": float(goal_progress),
             "route_progress": float(route_progress),

@@ -55,12 +55,19 @@ class CustomForestAviary(BaseRLAviary):
         goal_tolerance: float = 0.20,
         curriculum: bool = True,
         curriculum_milestones=DEFAULT_CURRICULUM_MILESTONES,
+        curriculum_success_gated: bool = False,
+        curriculum_success_window: int = 100,
+        curriculum_success_thresholds=(0.10, 0.20, 0.30),
+        curriculum_minimum_stage_episodes: int = 50,
         wide_corridor_half_width: float = 1.35,
         narrow_corridor_half_width: float = 0.35,
         centerline_tree_fraction: float = 0.35,
         centerline_band_width: float = 0.40,
         route_blocking_tree: bool = True,
         route_tree_fraction: float = 0.5,
+        route_blocking_tree_count: int = 1,
+        route_tree_lateral_range: float = 0.55,
+        route_tree_layout: str = "random",
         seed: int | None = None,
         reward_model: ForestRewardModel | None = None,
         curriculum_scheduler: ForestCurriculumScheduler | None = None,
@@ -92,6 +99,9 @@ class CustomForestAviary(BaseRLAviary):
         self.CENTERLINE_BAND_WIDTH = float(centerline_band_width)
         self.ROUTE_BLOCKING_TREE = bool(route_blocking_tree)
         self.ROUTE_TREE_FRACTION = float(np.clip(route_tree_fraction, 0.05, 0.95))
+        self.ROUTE_BLOCKING_TREE_COUNT = max(0, int(route_blocking_tree_count))
+        self.ROUTE_TREE_LATERAL_RANGE = max(0.0, float(route_tree_lateral_range))
+        self.ROUTE_TREE_LAYOUT = str(route_tree_layout)
 
         self.NUM_RANGE_RAYS = RANGE_DIM
         self.GOAL_OBS_DIM = GOAL_DIM
@@ -105,6 +115,9 @@ class CustomForestAviary(BaseRLAviary):
         self._last_collision = False
         self._last_clearance = np.inf
         self._last_reward_terms = {}
+        self._last_done_reason = "running"
+        self.motor_action_codec = None
+        self._last_motor_rpm = None
         self._reset_count = 0
         self._curriculum_stage = 0
         self._curriculum_stage_override = None
@@ -123,6 +136,9 @@ class CustomForestAviary(BaseRLAviary):
                 centerline_band_width=self.CENTERLINE_BAND_WIDTH,
                 route_blocking_tree=self.ROUTE_BLOCKING_TREE,
                 route_tree_fraction=self.ROUTE_TREE_FRACTION,
+                route_blocking_tree_count=self.ROUTE_BLOCKING_TREE_COUNT,
+                route_tree_lateral_range=self.ROUTE_TREE_LATERAL_RANGE,
+                route_tree_layout=self.ROUTE_TREE_LAYOUT,
             )
         )
         self._reward_model = reward_model or BaselineForestReward()
@@ -133,6 +149,10 @@ class CustomForestAviary(BaseRLAviary):
             wide_corridor_half_width=self.WIDE_CORRIDOR_HALF_WIDTH,
             narrow_corridor_half_width=self.NARROW_CORRIDOR_HALF_WIDTH,
             centerline_tree_fraction=self.CENTERLINE_TREE_FRACTION,
+            success_gated=curriculum_success_gated,
+            success_window=curriculum_success_window,
+            success_thresholds=curriculum_success_thresholds,
+            minimum_stage_episodes=curriculum_minimum_stage_episodes,
         )
         self._applyCurriculum()
 
@@ -166,9 +186,37 @@ class CustomForestAviary(BaseRLAviary):
         self._last_collision = self._checkCollision()
         self._last_clearance = self._computeNearestTreeClearance(state[0:3])
         self._last_reward_terms = default_reward_terms()
+        self._last_done_reason = "running"
+        self._last_motor_rpm = None
 
         info = self._computeInfo()
         return obs, info
+
+    def set_motor_action_codec(self, codec):
+        """Use an explicit normalized-action/RPM codec for direct motor control."""
+
+        self.motor_action_codec = codec
+        self._last_motor_rpm = None
+
+    def _preprocessAction(self, action):
+        if self.ACT_TYPE != ActionType.RPM or self.motor_action_codec is None:
+            return super()._preprocessAction(action)
+
+        action = np.asarray(action, dtype=np.float64).reshape(self.NUM_DRONES, 4)
+        self.action_buffer.append(action.astype(np.float32))
+        rpm = np.vstack(
+            [
+                self.motor_action_codec.normalized_action_to_rpm(
+                    motor_action,
+                    previous_rpm=(
+                        None if self._last_motor_rpm is None else self._last_motor_rpm[index]
+                    ),
+                )
+                for index, motor_action in enumerate(action)
+            ]
+        )
+        self._last_motor_rpm = rpm.copy()
+        return rpm
 
     def _resetActionBuffer(self):
         action_dim = int(self.action_space.shape[-1])
@@ -310,8 +358,10 @@ class CustomForestAviary(BaseRLAviary):
         goal_dist = np.linalg.norm(self.TARGET_POS - state[0:3])
 
         if goal_dist < self.GOAL_TOLERANCE:
+            self._last_done_reason = "success"
             return True
         if self._checkCollision():
+            self._last_done_reason = "collision"
             return True
         return False
 
@@ -325,12 +375,16 @@ class CustomForestAviary(BaseRLAviary):
         )
 
         if abs(pos[0]) > xy_limit or abs(pos[1]) > xy_limit:
+            self._last_done_reason = "xy_bound"
             return True
         if pos[2] < 0.08 or pos[2] > 2.75:
+            self._last_done_reason = "height_bound"
             return True
         if abs(state[7]) > 0.65 or abs(state[8]) > 0.65:
+            self._last_done_reason = "attitude_bound"
             return True
         if self.step_counter / self.PYB_FREQ > self.EPISODE_LEN_SEC:
+            self._last_done_reason = "timeout"
             return True
         return False
 
@@ -343,14 +397,28 @@ class CustomForestAviary(BaseRLAviary):
             "collision": bool(self._last_collision),
             "min_tree_clearance": float(self._last_clearance),
             "success": bool(goal_dist < self.GOAL_TOLERANCE),
+            "done_reason": self._last_done_reason,
+            "done_reason/success": float(self._last_done_reason == "success"),
+            "done_reason/collision": float(self._last_done_reason == "collision"),
+            "done_reason/xy_bound": float(self._last_done_reason == "xy_bound"),
+            "done_reason/height_bound": float(self._last_done_reason == "height_bound"),
+            "done_reason/attitude_bound": float(self._last_done_reason == "attitude_bound"),
+            "done_reason/timeout": float(self._last_done_reason == "timeout"),
             "curriculum_stage": int(self._curriculum_stage),
             "curriculum_episode": int(max(0, self._reset_count - 1)),
+            "curriculum_success_gated": bool(self._curriculum_scheduler.success_gated),
+            "curriculum_recent_success_rate": float(self._curriculum_scheduler.success_rate),
+            "curriculum_recent_episode_count": int(
+                self._curriculum_scheduler.recent_episode_count
+            ),
             "corridor_half_width": float(self._current_corridor_half_width),
             "corridor_protected": bool(self._protect_corridor),
             "corridor_edge_tree_fraction": float(self._corridor_edge_tree_fraction),
             "centerline_tree_fraction": float(self._centerline_bias_fraction),
             "route_blocking_tree": bool(self.ROUTE_BLOCKING_TREE),
             "route_tree_fraction": float(self.ROUTE_TREE_FRACTION),
+            "route_blocking_tree_count": int(self.ROUTE_BLOCKING_TREE_COUNT),
+            "route_tree_layout": self.ROUTE_TREE_LAYOUT,
             "start_pos": self.START_POS.copy(),
             "target_pos": self.TARGET_POS.copy(),
             "num_trees": int(len(self._tree_specs)),
@@ -381,6 +449,9 @@ class CustomForestAviary(BaseRLAviary):
 
     def get_curriculum_stage(self) -> int:
         return int(self._curriculum_stage)
+
+    def record_episode_outcome(self, success: bool):
+        self._curriculum_scheduler.record_episode_outcome(success)
 
     def _applyCurriculum(self):
         completed_episodes = max(0, self._reset_count - 1)

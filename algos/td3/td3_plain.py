@@ -83,6 +83,7 @@ class TD3Plain:
         actor_loss_val = None
         actor_grad_norm = 0.0
         actor_updated = False
+        actor_sat_pct = None
 
         if self.total_it % self.policy_freq == 0:
             actor_loss = -self.critic.Q1(state, self.actor(state)).mean()
@@ -95,6 +96,9 @@ class TD3Plain:
 
             actor_loss_val = float(actor_loss.item())
             actor_updated = True
+            with torch.no_grad():
+                actor_actions = self.actor(state)
+                actor_sat_pct = float((actor_actions.abs() >= (self.max_action - 1e-3)).float().mean().item())
 
             for param, target_param in zip(self.critic.parameters(), self.critic_target.parameters()):
                 target_param.data.copy_(self.tau * param.data + (1 - self.tau) * target_param.data)
@@ -107,6 +111,7 @@ class TD3Plain:
             "actor_grad_norm": float(actor_grad_norm),
             "actor_loss": actor_loss_val,
             "actor_updated": actor_updated,
+            "actor_sat_pct": actor_sat_pct,
         }
 
     def save(self, filename):

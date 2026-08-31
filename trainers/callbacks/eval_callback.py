@@ -65,6 +65,10 @@ class EvalCallback:
         successes = []
         collisions = []
         truncated_flags = []
+        done_reasons = []
+        tracking_position_errors = []
+        tracking_velocity_errors = []
+        max_attitudes = []
 
         if not self.quiet:
             print(f"[Eval @ {trainer.total_steps}] Starting evaluation...")
@@ -77,6 +81,10 @@ class EvalCallback:
                 for ep in range(self.episodes):
                     obs, _ = eval_env.reset(seed=ep)
                     state = preprocess_state(obs.reshape(-1))
+                    if hasattr(trainer.agent, "reset_episode"):
+                        trainer.agent.reset_episode()
+                    if hasattr(trainer.agent, "configure_motor_action_interface"):
+                        trainer.agent.configure_motor_action_interface(eval_env)
                     done = False
                     ep_ret = 0.0
                     start_time = time.time()
@@ -86,6 +94,9 @@ class EvalCallback:
                     ep_z_errors = []
                     last_info = {}
                     last_truncated = False
+                    ep_tracking_position_errors = []
+                    ep_tracking_velocity_errors = []
+                    ep_max_attitude = 0.0
 
                     while not done:
                         action = trainer.agent.select_action(state)
@@ -104,6 +115,40 @@ class EvalCallback:
                             ep_zs.append(z)
                             ep_z_vels.append(z_vel)
                             ep_z_errors.append(abs(z - target_z))
+                            reference_sample = getattr(
+                                trainer.agent,
+                                "last_reference_sample",
+                                None,
+                            )
+                            if reference_sample is None:
+                                reference_sample = getattr(
+                                    eval_env,
+                                    "last_reference_sample",
+                                    None,
+                                )
+                            if reference_sample is not None:
+                                ep_tracking_position_errors.append(
+                                    float(
+                                        np.linalg.norm(
+                                            eval_env.pos[0]
+                                            - reference_sample["lookahead_position"]
+                                        )
+                                    )
+                                )
+                                ep_tracking_velocity_errors.append(
+                                    float(
+                                        np.linalg.norm(
+                                            eval_env.vel[0]
+                                            - reference_sample["lookahead_velocity"]
+                                        )
+                                    )
+                                )
+                            if hasattr(eval_env, "rpy"):
+                                ep_max_attitude = max(
+                                    ep_max_attitude,
+                                    abs(float(eval_env.rpy[0][0])),
+                                    abs(float(eval_env.rpy[0][1])),
+                                )
 
                         if self.step_sleep:
                             sync(step_idx, start_time, eval_env.CTRL_TIMESTEP)
@@ -119,6 +164,15 @@ class EvalCallback:
                     successes.append(float(last_info.get("success", False)))
                     collisions.append(float(last_info.get("collision", False)))
                     truncated_flags.append(float(last_truncated))
+                    done_reasons.append(str(last_info.get("done_reason", "unknown")))
+                    if ep_tracking_position_errors:
+                        tracking_position_errors.append(
+                            float(np.mean(ep_tracking_position_errors))
+                        )
+                        tracking_velocity_errors.append(
+                            float(np.mean(ep_tracking_velocity_errors))
+                        )
+                    max_attitudes.append(ep_max_attitude)
             finally:
                 eval_env.close()
 
@@ -137,6 +191,37 @@ class EvalCallback:
                 "eval/success_rate": float(np.mean(successes)),
                 "eval/collision_rate": float(np.mean(collisions)),
                 "eval/truncated_rate": float(np.mean(truncated_flags)),
+                "eval/done_reason_success_rate": float(
+                    np.mean([reason == "success" for reason in done_reasons])
+                ),
+                "eval/done_reason_collision_rate": float(
+                    np.mean([reason == "collision" for reason in done_reasons])
+                ),
+                "eval/done_reason_attitude_bound_rate": float(
+                    np.mean([reason == "attitude_bound" for reason in done_reasons])
+                ),
+                "eval/done_reason_height_bound_rate": float(
+                    np.mean([reason == "height_bound" for reason in done_reasons])
+                ),
+                "eval/done_reason_xy_bound_rate": float(
+                    np.mean([reason == "xy_bound" for reason in done_reasons])
+                ),
+                "eval/done_reason_timeout_rate": float(
+                    np.mean([reason == "timeout" for reason in done_reasons])
+                ),
+                "eval/tracking_position_rmse": (
+                    float(np.mean(tracking_position_errors))
+                    if tracking_position_errors
+                    else float("nan")
+                ),
+                "eval/tracking_velocity_rmse": (
+                    float(np.mean(tracking_velocity_errors))
+                    if tracking_velocity_errors
+                    else float("nan")
+                ),
+                "eval/max_roll_pitch": (
+                    float(np.mean(max_attitudes)) if max_attitudes else float("nan")
+                ),
             }
             trainer.last_eval_step = trainer.total_steps
             print(
@@ -147,6 +232,8 @@ class EvalCallback:
                 f"mean_z_err={trainer.last_eval_info['eval/mean_abs_z_error']:.2f} | "
                 f"mean_z_vel={trainer.last_eval_info['eval/mean_z_vel']:+.3f} | "
                 f"final_dist={trainer.last_eval_info['eval/final_goal_distance']:.2f} | "
+                f"track_rmse={trainer.last_eval_info['eval/tracking_position_rmse']:.2f} | "
+                f"max_att={trainer.last_eval_info['eval/max_roll_pitch']:.2f} | "
                 f"success={trainer.last_eval_info['eval/success_rate']:.2f} | "
                 f"truncated={trainer.last_eval_info['eval/truncated_rate']:.2f}"
             )

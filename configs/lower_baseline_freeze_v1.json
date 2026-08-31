@@ -1,0 +1,68 @@
+{
+  "freeze_version": "dual_lower_baseline_v1",
+  "created_for_stage": "rule_upper_async_architecture_validation",
+  "project": {
+    "commit": "5a4bfe324941d4ffa798399f0abf8180b35138a2",
+    "dirty": true
+  },
+  "shared_contract": {
+    "motor_action_codec": "asymmetric_rpm",
+    "motor_physical_parameters": {
+      "min_rpm": 0.0,
+      "hover_rpm": 14468.429183500699,
+      "max_rpm": 21702.64377525105,
+      "kf": 3.16e-10,
+      "km": 7.94e-12,
+      "arm_length": 0.0397
+    },
+    "control_frequency_hz": 120,
+    "physics_frequency_hz": 240,
+    "reference_packet_sequence_length": 15,
+    "reference_horizon_seconds": 1.0,
+    "reference_frame": "world",
+    "teacher_or_actor_takeover": false
+  },
+  "L0_teacher_t3": {
+    "controller": "DSLPIDControl",
+    "source_path": "/home/tequial/projects/gym-pybullet-drones/gym_pybullet_drones/control/DSLPIDControl.py",
+    "source_sha256": "5cd645d9b27f84342721863399fd5b4e36ce8493fb9ecce3e076b492004f6605",
+    "reset_each_episode": true,
+    "output_chain": "DSLPID raw RPM -> asymmetric_rpm encode -> normalized motor action -> asymmetric_rpm decode -> environment RPM",
+    "role": "traditional lower-controller reference baseline"
+  },
+  "L1_bc_mlp_t3": {
+    "controller": "plain_mlp",
+    "checkpoint_path": "/home/tequial/projects/UAV-Latent-RL/checkpoints/behavior_cloning/asymmetric_rpm_v2_plain_mlp_b4096/actor_best.pt",
+    "checkpoint_sha256": "ca6f013fd3ad982b8dc3eceb52fc55c2813bd7f545106cc89ff3538dc74b560e",
+    "dataset_version": "asymmetric_rpm_v2",
+    "dataset_samples_sha256": "71a2f5b4e97becfd0f29a96cf3c7a7baf1497d0444c792cf2cb5f823f6c99822",
+    "architecture": {
+      "type": "plain_mlp",
+      "input_dim": 30,
+      "hidden_dims": [
+        256,
+        256
+      ],
+      "output_dim": 4,
+      "output_activation": "tanh",
+      "max_action": 1.0,
+      "multi_step_action_history": 0
+    },
+    "context_definition": "normalized kinematics[12] + current position/velocity error[6] + lookahead position/velocity error[6] + reference age/valid[2] + previous applied action[4]; no multi-step action history",
+    "role": "learned direct-motor lower-controller baseline",
+    "known_gates": {
+      "actor_hover_gate_passed": true,
+      "actor_dynamic_recovery_observed": true,
+      "strict_teacher_imitation_fidelity_passed": false,
+      "td3_training_allowed": false
+    }
+  },
+  "excluded_from_mainline": {
+    "checkpoint": "checkpoints/behavior_cloning/asymmetric_rpm_v2_plain_mlp_dagger1_b4096/actor_best.pt",
+    "reason": "DAgger iteration introduced steady angular-rate oscillation."
+  },
+  "change_control": {
+    "frozen_means": "No weight, input-layout, codec, controller-gain, or fallback change is allowed during dual-baseline comparisons.",
+    "new_version_required_for_changes": true
+  }
+}

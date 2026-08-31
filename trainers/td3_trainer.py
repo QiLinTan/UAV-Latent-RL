@@ -2,6 +2,7 @@ import numpy as np
 import torch
 
 from data.replay_buffer import ReplayBuffer
+from data.hierarchical_replay_buffer import HierarchicalReplayBuffer
 from envs.preprocess import preprocess_state
 from trainers.callbacks.noise import NoiseScheduler
 
@@ -17,10 +18,22 @@ class TD3Trainer:
         action_scale = float(np.clip(getattr(args, "action_scale", 1.0), 0.0, 1.0))
         self.max_action = float(env.action_space.high.flatten()[0]) * action_scale
 
-        self.buffer = ReplayBuffer(state_dim, action_dim, max_size=args.buffer_size)
+        if getattr(agent, "uses_context_replay", False):
+            self.buffer = HierarchicalReplayBuffer(
+                state_dim,
+                action_dim,
+                context_dim=agent.context_dim,
+                max_size=args.buffer_size,
+            )
+        else:
+            self.buffer = ReplayBuffer(state_dim, action_dim, max_size=args.buffer_size)
 
         self.state, _ = self.env.reset(seed=args.seed)
         self.state = preprocess_state(self.state.reshape(-1))
+        if hasattr(self.agent, "reset_episode"):
+            self.agent.reset_episode()
+        if hasattr(self.agent, "configure_motor_action_interface"):
+            self.agent.configure_motor_action_interface(self.env)
 
         self.noise_scheduler = NoiseScheduler(
             start=args.expl_noise_start,
@@ -41,29 +54,101 @@ class TD3Trainer:
 
     def step_env(self):
         args = self.args
+        uses_context_replay = bool(getattr(self.agent, "uses_context_replay", False))
+        context = None
+        if uses_context_replay:
+            context = self.agent.prepare_runtime_context(self.state)
 
-        # exploration
-        if self.total_steps < args.start_timesteps:
-            action = np.random.uniform(
-                -self.max_action,
-                self.max_action,
-                size=(self.env.action_space.shape[-1],),
-            )
+        teacher_timesteps = int(getattr(args, "teacher_timesteps", 0))
+        teacher_supervision_timesteps = int(
+            getattr(args, "teacher_supervision_timesteps", teacher_timesteps)
+        )
+        if teacher_supervision_timesteps <= 0:
+            teacher_supervision_timesteps = teacher_timesteps
+        teacher_action = None
+        if (
+            uses_context_replay
+            and self.total_steps <= teacher_supervision_timesteps
+            and hasattr(self.agent, "teacher_action_from_env")
+        ):
+            teacher_action = self.agent.teacher_action_from_env(self.env)
+            if hasattr(self.agent, "supervised_actor_step"):
+                self.agent.supervised_actor_step(
+                    context,
+                    teacher_action,
+                    updates=int(getattr(args, "teacher_bc_updates_per_step", 1)),
+                )
+        using_teacher = (
+            teacher_action is not None and self.total_steps <= teacher_timesteps
+        )
+
+        # A conventional controller supplies a stable warm start for the
+        # low-level tracking-only experiment. It is not used by the final actor.
+        if using_teacher:
+            teacher_noise = float(getattr(args, "teacher_exploration_noise", 0.0))
+            if teacher_noise > 0.0 and hasattr(self.agent, "add_safe_exploration_noise"):
+                action = self.agent.add_safe_exploration_noise(
+                    teacher_action,
+                    teacher_noise,
+                )
+            else:
+                action = teacher_action
+        elif self.total_steps < args.start_timesteps:
+            if uses_context_replay and hasattr(self.agent, "sample_safe_random_action"):
+                action = self.agent.sample_safe_random_action()
+            else:
+                action = np.random.uniform(
+                    -self.max_action,
+                    self.max_action,
+                    size=(self.env.action_space.shape[-1],),
+                )
         else:
-            action = self.agent.select_action(self.state)
+            if uses_context_replay:
+                action = self.agent.action_from_context(context)
+            else:
+                action = self.agent.select_action(self.state)
 
             noise = self.noise_scheduler.get_noise(self.total_steps)
-            action = action + noise * np.random.randn(*action.shape)
+            if uses_context_replay and hasattr(self.agent, "add_safe_exploration_noise"):
+                action = self.agent.add_safe_exploration_noise(action, noise)
+            else:
+                action = action + noise * np.random.randn(*action.shape)
 
         action = np.clip(action, -self.max_action, self.max_action)
+        if uses_context_replay:
+            self.agent.record_executed_action(action)
 
         next_obs, reward, terminated, truncated, info = self.env.step(action.reshape(1, -1))
         done = terminated or truncated
-        scaled_reward = float(reward) * float(args.reward_scale)
 
         next_state = preprocess_state(next_obs.reshape(-1))
 
-        self.buffer.push(self.state, action, scaled_reward, next_state, done)
+        if uses_context_replay:
+            self.agent.advance_runtime_step()
+            next_context = self.agent.prepare_runtime_context(next_state)
+            training_reward = float(reward)
+            if hasattr(self.agent, "compute_training_reward"):
+                training_reward = self.agent.compute_training_reward(
+                    context=context,
+                    next_context=next_context,
+                    next_state=next_state,
+                    environment_reward=reward,
+                    done=done,
+                    info=info,
+                )
+            scaled_reward = training_reward * float(args.reward_scale)
+            self.buffer.push(
+                self.state,
+                action,
+                scaled_reward,
+                next_state,
+                done,
+                context=context,
+                next_context=next_context,
+            )
+        else:
+            scaled_reward = float(reward) * float(args.reward_scale)
+            self.buffer.push(self.state, action, scaled_reward, next_state, done)
 
         self.last_action = action
         self.last_info = info  # 保存环境 info
@@ -73,12 +158,16 @@ class TD3Trainer:
         self.episode_step += 1
 
         if done:
+            if hasattr(self.env, "record_episode_outcome"):
+                self.env.record_episode_outcome(bool(info.get("success", False)))
             # ✅ episode结束回调
             for cb in self.callbacks:
                 cb.on_episode_end(self)
 
             self.state, _ = self.env.reset()
             self.state = preprocess_state(self.state.reshape(-1))
+            if hasattr(self.agent, "reset_episode"):
+                self.agent.reset_episode()
             self.episode_return = 0
             self.episode_step = 0
 

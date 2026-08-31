@@ -18,6 +18,9 @@ class ForestLayoutConfig:
     centerline_band_width: float
     route_blocking_tree: bool = True
     route_tree_fraction: float = 0.5
+    route_blocking_tree_count: int = 1
+    route_tree_lateral_range: float = 0.55
+    route_tree_layout: str = "random"
 
 
 class ForestLayoutGenerator:
@@ -41,17 +44,17 @@ class ForestLayoutGenerator:
         attempts = 0
         target_tree_count = self.config.num_trees
 
-        route_tree_spec = self._create_route_blocking_tree_spec(
+        route_tree_specs = self._create_route_blocking_tree_specs(
             rng=rng,
             start_pos=start_pos,
             goal_pos=goal_pos,
             corridor_half_width=corridor_half_width,
         )
-        if route_tree_spec is not None:
-            tree_specs.append(route_tree_spec)
-            target_tree_count += 1
+        tree_specs.extend(route_tree_specs)
+        target_tree_count += len(route_tree_specs)
 
-        max_attempts = max(200, target_tree_count * 40)
+        attempts_per_tree = 250 if self.config.route_tree_layout == "fixed_safe_five" else 40
+        max_attempts = max(200, target_tree_count * attempts_per_tree)
 
         while len(tree_specs) < target_tree_count and attempts < max_attempts:
             attempts += 1
@@ -87,43 +90,87 @@ class ForestLayoutGenerator:
                 }
             )
 
+        if len(tree_specs) != target_tree_count:
+            raise RuntimeError(
+                f"Unable to generate requested forest layout: placed {len(tree_specs)} "
+                f"of {target_tree_count} trees after {max_attempts} attempts"
+            )
         return tree_specs
 
-    def _create_route_blocking_tree_spec(self, *, rng, start_pos, goal_pos, corridor_half_width: float):
+    def _create_route_blocking_tree_specs(self, *, rng, start_pos, goal_pos, corridor_half_width: float):
         if not self.config.route_blocking_tree:
-            return None
+            return []
 
         start_xy = np.asarray(start_pos[:2], dtype=np.float32)
         goal_xy = np.asarray(goal_pos[:2], dtype=np.float32)
         route = goal_xy - start_xy
         if np.linalg.norm(route) < 1e-8:
-            return None
+            return []
 
-        radius = float(rng.uniform(*self.config.tree_radius_range))
-        height = float(rng.uniform(*self.config.tree_height_range))
-        fraction = float(np.clip(self.config.route_tree_fraction, 0.05, 0.95))
-        xy = (start_xy + fraction * route).astype(np.float32)
-
-        if np.any(np.abs(xy) > self.config.forest_half_extent - max(radius, 0.05)):
-            return None
-
-        if not self._is_tree_placement_valid(
-            xy=xy,
-            radius=radius,
-            start_pos=start_pos,
-            goal_pos=goal_pos,
-            tree_specs=[],
-            corridor_half_width=corridor_half_width,
-            protect_corridor=False,
-        ):
-            return None
-
-        return {
-            "xy": xy,
-            "radius": radius,
-            "height": height,
-            "route_blocking": True,
-        }
+        count = max(0, int(self.config.route_blocking_tree_count))
+        if self.config.route_tree_layout == "fixed_safe_five":
+            if count != 5:
+                raise ValueError("fixed_safe_five requires route_blocking_tree_count=5")
+            fixed = (
+                (0.243, 0.15),
+                (0.357, -0.55),
+                (0.493, 0.45),
+                (0.643, -0.35),
+                (0.771, 0.25),
+            )
+            radius = 0.16
+            height = 2.0
+            return [
+                {
+                    "xy": (start_xy + fraction * route + lateral * route_direction_xy(start_xy, goal_xy)[1]).astype(np.float32),
+                    "radius": radius,
+                    "height": height,
+                    "route_blocking": True,
+                    "route_fraction": fraction,
+                    "route_lateral_offset": lateral,
+                }
+                for fraction, lateral in fixed
+            ]
+        route_specs = []
+        route_dir, perp_dir = route_direction_xy(start_xy, goal_xy)
+        attempts = 0
+        max_attempts = max(100, count * 100)
+        while len(route_specs) < count and attempts < max_attempts:
+            attempts += 1
+            radius = float(rng.uniform(*self.config.tree_radius_range))
+            height = float(rng.uniform(*self.config.tree_height_range))
+            if count == 1:
+                fraction = float(np.clip(self.config.route_tree_fraction, 0.05, 0.95))
+                lateral_offset = 0.0
+            else:
+                fraction = float(rng.uniform(0.08, 0.92))
+                lateral_offset = float(
+                    rng.uniform(-self.config.route_tree_lateral_range, self.config.route_tree_lateral_range)
+                )
+            xy = (start_xy + fraction * route + lateral_offset * perp_dir).astype(np.float32)
+            if np.any(np.abs(xy) > self.config.forest_half_extent - max(radius, 0.05)):
+                continue
+            if not self._is_tree_placement_valid(
+                xy=xy,
+                radius=radius,
+                start_pos=start_pos,
+                goal_pos=goal_pos,
+                tree_specs=route_specs,
+                corridor_half_width=corridor_half_width,
+                protect_corridor=False,
+            ):
+                continue
+            route_specs.append(
+                {
+                    "xy": xy,
+                    "radius": radius,
+                    "height": height,
+                    "route_blocking": True,
+                    "route_fraction": fraction,
+                    "route_lateral_offset": lateral_offset,
+                }
+            )
+        return route_specs
 
     def create_tree_body(self, *, client_id: int, xy, radius: float, height: float):
         collision = p.createCollisionShape(
@@ -179,6 +226,22 @@ class ForestLayoutGenerator:
 
         if protect_corridor and distance_point_to_segment_2d(xy, start_xy, goal_xy) < (radius + corridor_half_width):
             return False
+
+        if self.config.route_tree_layout == "fixed_safe_five":
+            route = goal_xy - start_xy
+            _, perp_dir = route_direction_xy(start_xy, goal_xy)
+            safe_path = (
+                start_xy,
+                start_xy + 0.143 * route + 1.1 * perp_dir,
+                start_xy + 0.857 * route + 1.1 * perp_dir,
+                goal_xy,
+            )
+            required_centerline_distance = radius + 0.06 + 0.35
+            if any(
+                distance_point_to_segment_2d(xy, begin, end) < required_centerline_distance
+                for begin, end in zip(safe_path, safe_path[1:])
+            ):
+                return False
 
         for spec in tree_specs:
             min_sep = radius + spec["radius"] + self.config.min_tree_separation

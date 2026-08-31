@@ -11,7 +11,16 @@ def _physics_monitor_from_env(env, last_action: np.ndarray, action_limit: float 
     vel = env.vel[0].astype(np.float32)
 
     last_action = np.asarray(last_action, dtype=np.float32).reshape(-1)
-    motor_rpms = (env.HOVER_RPM * (1.0 + 0.05 * last_action)).astype(np.float32)
+    codec = getattr(env, "motor_codec", None)
+    if codec is None:
+        codec = getattr(env, "motor_action_codec", None)
+    if codec is not None:
+        motor_rpms = np.asarray(
+            codec.normalized_action_to_rpm(last_action),
+            dtype=np.float32,
+        )
+    else:
+        motor_rpms = (env.HOVER_RPM * (1.0 + 0.05 * last_action)).astype(np.float32)
     motor_rpms = np.clip(motor_rpms, 0.0, env.MAX_RPM).astype(np.float32)
     sat_pct = (motor_rpms / env.MAX_RPM * 100.0).astype(np.float32)
 
@@ -56,6 +65,9 @@ class MonitorCallback:
 
         if last_action is None:
             return
+
+        if np.asarray(last_action).size != 4 and hasattr(env, "last_motor_action"):
+            last_action = env.last_motor_action
 
         monitor = physics_monitor(env, last_action, action_limit=getattr(trainer, "max_action", 1.0))
         train_info = getattr(trainer, "last_train_info", {}) or {}

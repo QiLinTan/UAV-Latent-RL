@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import deque
 from dataclasses import dataclass
 
 
@@ -24,6 +25,10 @@ class ForestCurriculumScheduler:
         wide_corridor_half_width: float,
         narrow_corridor_half_width: float,
         centerline_tree_fraction: float,
+        success_gated: bool = False,
+        success_window: int = 100,
+        success_thresholds=(0.10, 0.20, 0.30),
+        minimum_stage_episodes: int = 50,
     ):
         self.enabled = bool(enabled)
         self.milestones = tuple(int(x) for x in milestones)
@@ -34,6 +39,43 @@ class ForestCurriculumScheduler:
         self.wide_corridor_half_width = float(max(wide_corridor_half_width, corridor_half_width))
         self.narrow_corridor_half_width = float(min(narrow_corridor_half_width, corridor_half_width))
         self.centerline_tree_fraction = float(centerline_tree_fraction)
+        self.success_gated = bool(success_gated)
+        self.success_window = int(success_window)
+        self.success_thresholds = tuple(float(x) for x in success_thresholds)
+        self.minimum_stage_episodes = int(minimum_stage_episodes)
+        if len(self.success_thresholds) != 3:
+            raise ValueError("success_thresholds must contain exactly 3 values")
+        if self.success_window <= 0 or self.minimum_stage_episodes <= 0:
+            raise ValueError("success_window and minimum_stage_episodes must be positive")
+        self._performance_stage = 0
+        self._stage_episode_count = 0
+        self._recent_successes = deque(maxlen=self.success_window)
+
+    def record_episode_outcome(self, success: bool):
+        if not self.enabled or not self.success_gated:
+            return
+        self._recent_successes.append(float(bool(success)))
+        self._stage_episode_count += 1
+        if self._performance_stage >= 3:
+            return
+        enough_samples = (
+            self._stage_episode_count >= self.minimum_stage_episodes
+            and len(self._recent_successes) >= min(self.success_window, self.minimum_stage_episodes)
+        )
+        if enough_samples and self.success_rate >= self.success_thresholds[self._performance_stage]:
+            self._performance_stage += 1
+            self._stage_episode_count = 0
+            self._recent_successes.clear()
+
+    @property
+    def success_rate(self) -> float:
+        if not self._recent_successes:
+            return 0.0
+        return float(sum(self._recent_successes) / len(self._recent_successes))
+
+    @property
+    def recent_episode_count(self) -> int:
+        return len(self._recent_successes)
 
     def stage_from_episode_count(self, completed_episodes: int) -> int:
         first, second, third = self.milestones
@@ -81,5 +123,12 @@ class ForestCurriculumScheduler:
         )
 
     def resolve(self, completed_episodes: int, override_stage: int | None = None) -> tuple[int, ForestCurriculumStage]:
-        stage = self.stage_from_episode_count(completed_episodes) if override_stage is None else int(override_stage)
+        if override_stage is not None:
+            stage = int(override_stage)
+        elif not self.enabled:
+            stage = 3
+        elif self.success_gated:
+            stage = self._performance_stage
+        else:
+            stage = self.stage_from_episode_count(completed_episodes)
         return int(stage), self.stage_config(int(stage))
