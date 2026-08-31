@@ -47,6 +47,10 @@ def build_mode_cmd(mode: str) -> list[str]:
             "0.0",
             "--latent_input_scale",
             "0.1",
+            "--log_dir",
+            "runs/baseline",
+            "--ckpt_dir",
+            "checkpoints/baseline",
         ]
     elif mode == "latent_detach":
         cmd += [
@@ -99,6 +103,10 @@ def build_mode_cmd(mode: str) -> list[str]:
             "0.99",
             "--trust_warmup_steps",
             "10000",
+            "--log_dir",
+            "runs/v1trust",
+            "--ckpt_dir",
+            "checkpoints/v1trust",
         ]
     elif mode == "v1trust_detach_trust1":
         cmd += [
@@ -209,6 +217,10 @@ def build_mode_cmd(mode: str) -> list[str]:
             "false",
             "--use_v1trust",
             "false",
+            "--log_dir",
+            "runs/nolatent",
+            "--ckpt_dir",
+            "checkpoints/nolatent",
         ]
     else:
         raise ValueError(f"Unsupported mode: {mode}")
