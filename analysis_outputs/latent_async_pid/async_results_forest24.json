@@ -1,0 +1,908 @@
+{
+  "checkpoint": "checkpoints/latent_only_affordance_dim16/model_final",
+  "checkpoint_loaded_read_only": true,
+  "controller": "DSLPIDControl",
+  "environment": {
+    "episode_len_sec": 12.0,
+    "num_trees": 24,
+    "route_blocking_tree": true
+  },
+  "latent_dim": 16,
+  "low_frequency_hz": 120.0,
+  "profiles": {
+    "A_sync_baseline": {
+      "config": {
+        "delay_max_seconds": 0.0,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 120.0,
+        "name": "A_sync_baseline",
+        "skip_probability": 0.0
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 503,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.793464709228677,
+          "low_level": {
+            "low_level_cycles": 503,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 1.1546319456101628e-14,
+            "mean_packet_age_seconds": 4.8261317628356424e-15,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 1.0658141036401503e-14,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 503
+          },
+          "max_packet_age_seconds": 1.1546319456101628e-14,
+          "mean_packet_age_seconds": 4.8261317628356424e-15,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -157.26162438467145,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 503,
+            "high_level_skips": 0,
+            "high_level_starts": 503,
+            "max_compute_delay_seconds": 1.1546319456101628e-14,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 4.8261317628356424e-15,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 503,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 298,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.8088915651647115,
+          "low_level": {
+            "low_level_cycles": 298,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 6.217248937900877e-15,
+            "mean_packet_age_seconds": 2.238841103559329e-15,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 5.773159728050814e-15,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 298
+          },
+          "max_packet_age_seconds": 6.217248937900877e-15,
+          "mean_packet_age_seconds": 2.238841103559329e-15,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -11.206322107464075,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 298,
+            "high_level_skips": 0,
+            "high_level_starts": 298,
+            "max_compute_delay_seconds": 6.217248937900877e-15,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 2.238841103559329e-15,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 298,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 531,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.657557702864387,
+          "low_level": {
+            "low_level_cycles": 531,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 1.1546319456101628e-14,
+            "mean_packet_age_seconds": 4.581682386486872e-15,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 1.0658141036401503e-14,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 531
+          },
+          "max_packet_age_seconds": 1.1546319456101628e-14,
+          "mean_packet_age_seconds": 4.581682386486872e-15,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -98.68554959818721,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 531,
+            "high_level_skips": 0,
+            "high_level_starts": 531,
+            "max_compute_delay_seconds": 1.1546319456101628e-14,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 4.581682386486872e-15,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 531,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.086637992419258,
+        "mean_packet_age_seconds": 3.882218417627281e-15,
+        "mean_reward": -89.05116536344092,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 9.02981393361794e-15,
+        "success_rate": 0.0,
+        "total_high_level_skips": 0,
+        "total_missing_packet_cycles": 0,
+        "total_stale_packet_cycles": 0
+      }
+    },
+    "B_async_no_delay_15hz": {
+      "config": {
+        "delay_max_seconds": 0.0,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 15.0,
+        "name": "B_async_no_delay_15hz",
+        "skip_probability": 0.0
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 63,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.793538139774901,
+          "low_level": {
+            "low_level_cycles": 501,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.05833333333333357,
+            "mean_packet_age_seconds": 0.029041916167664703,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.05833333333333335,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 501
+          },
+          "max_packet_age_seconds": 0.05833333333333357,
+          "mean_packet_age_seconds": 0.029041916167664703,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -157.1484232917428,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 63,
+            "high_level_skips": 0,
+            "high_level_starts": 63,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 3.348291661567932e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 501,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 37,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.8089621407961705,
+          "low_level": {
+            "low_level_cycles": 296,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.05833333333333357,
+            "mean_packet_age_seconds": 0.029166666666666712,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.05833333333333335,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 296
+          },
+          "max_packet_age_seconds": 0.05833333333333357,
+          "mean_packet_age_seconds": 0.029166666666666712,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -11.024860940873623,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 37,
+            "high_level_skips": 0,
+            "high_level_starts": 37,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 5.701145261588641e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 296,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 67,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.657484044221472,
+          "low_level": {
+            "low_level_cycles": 529,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.05833333333333357,
+            "mean_packet_age_seconds": 0.02911153119092631,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.05833333333333335,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 529
+          },
+          "max_packet_age_seconds": 0.05833333333333357,
+          "mean_packet_age_seconds": 0.02911153119092631,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -98.60245677828789,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 67,
+            "high_level_skips": 0,
+            "high_level_starts": 67,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 3.1483936519220856e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 529,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.086661441597514,
+        "mean_packet_age_seconds": 0.02910670467508591,
+        "mean_reward": -88.92524700363477,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 0.05833333333333335,
+        "success_rate": 0.0,
+        "total_high_level_skips": 0,
+        "total_missing_packet_cycles": 0,
+        "total_stale_packet_cycles": 0
+      }
+    },
+    "C_async_delay_0_100ms": {
+      "config": {
+        "delay_max_seconds": 0.1,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 15.0,
+        "name": "C_async_delay_0_100ms",
+        "skip_probability": 0.0
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 59,
+            "rejected_packets": 4,
+            "rejected_versions": 4
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.793589812322332,
+          "low_level": {
+            "low_level_cycles": 503,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.15833333333333366,
+            "mean_packet_age_seconds": 0.08575484301937211,
+            "missing_packet_cycles": 4,
+            "p95_packet_age_seconds": 0.14166666666666705,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 499
+          },
+          "max_packet_age_seconds": 0.15833333333333366,
+          "mean_packet_age_seconds": 0.08575484301937211,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -156.77242308482528,
+          "scheduler": {
+            "commit_rejections": 4,
+            "high_level_completed": 63,
+            "high_level_skips": 0,
+            "high_level_starts": 63,
+            "max_compute_delay_seconds": 0.10000000000000009,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 2,
+            "mean_compute_delay_seconds": 0.05508474576271192,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 503,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 36,
+            "rejected_packets": 2,
+            "rejected_versions": 2
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.808890985571484,
+          "low_level": {
+            "low_level_cycles": 307,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.15833333333333344,
+            "mean_packet_age_seconds": 0.0861299435028249,
+            "missing_packet_cycles": 12,
+            "p95_packet_age_seconds": 0.14166666666666672,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 295
+          },
+          "max_packet_age_seconds": 0.15833333333333344,
+          "mean_packet_age_seconds": 0.0861299435028249,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -10.521236211061478,
+          "scheduler": {
+            "commit_rejections": 2,
+            "high_level_completed": 38,
+            "high_level_skips": 0,
+            "high_level_starts": 39,
+            "max_compute_delay_seconds": 0.10000000000000009,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 2,
+            "mean_compute_delay_seconds": 0.05694444444444449,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 1
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 307,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 63,
+            "rejected_packets": 4,
+            "rejected_versions": 4
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.657528632828687,
+          "low_level": {
+            "low_level_cycles": 531,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.15833333333333344,
+            "mean_packet_age_seconds": 0.08078747628083496,
+            "missing_packet_cycles": 4,
+            "p95_packet_age_seconds": 0.13333333333333353,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 527
+          },
+          "max_packet_age_seconds": 0.15833333333333344,
+          "mean_packet_age_seconds": 0.08078747628083496,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -98.93906140327454,
+          "scheduler": {
+            "commit_rejections": 4,
+            "high_level_completed": 67,
+            "high_level_skips": 0,
+            "high_level_starts": 67,
+            "max_compute_delay_seconds": 0.10000000000000009,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 2,
+            "mean_compute_delay_seconds": 0.04947089947089949,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 531,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.086669810240834,
+        "mean_packet_age_seconds": 0.08422408760101067,
+        "mean_reward": -88.74424023305376,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 0.1388888888888891,
+        "success_rate": 0.0,
+        "total_high_level_skips": 0,
+        "total_missing_packet_cycles": 20,
+        "total_stale_packet_cycles": 0
+      }
+    },
+    "C_async_delay_0_20ms": {
+      "config": {
+        "delay_max_seconds": 0.02,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 15.0,
+        "name": "C_async_delay_0_20ms",
+        "skip_probability": 0.0
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 63,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.793137547218766,
+          "low_level": {
+            "low_level_cycles": 502,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.08333333333333348,
+            "mean_packet_age_seconds": 0.044693945442448466,
+            "missing_packet_cycles": 1,
+            "p95_packet_age_seconds": 0.07500000000000018,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 501
+          },
+          "max_packet_age_seconds": 0.08333333333333348,
+          "mean_packet_age_seconds": 0.044693945442448466,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -157.7720669284463,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 63,
+            "high_level_skips": 0,
+            "high_level_starts": 63,
+            "max_compute_delay_seconds": 0.025000000000000355,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.015608465608465637,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 502,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 38,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.808898087252595,
+          "low_level": {
+            "low_level_cycles": 299,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.08333333333333348,
+            "mean_packet_age_seconds": 0.04448198198198203,
+            "missing_packet_cycles": 3,
+            "p95_packet_age_seconds": 0.07500000000000018,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 296
+          },
+          "max_packet_age_seconds": 0.08333333333333348,
+          "mean_packet_age_seconds": 0.04448198198198203,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -11.049221463501453,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 38,
+            "high_level_skips": 0,
+            "high_level_starts": 38,
+            "max_compute_delay_seconds": 0.025000000000000133,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.015570175438596541,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 299,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 67,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.657520482143081,
+          "low_level": {
+            "low_level_cycles": 530,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.08333333333333348,
+            "mean_packet_age_seconds": 0.04311594202898554,
+            "missing_packet_cycles": 1,
+            "p95_packet_age_seconds": 0.07500000000000007,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 529
+          },
+          "max_packet_age_seconds": 0.08333333333333348,
+          "mean_packet_age_seconds": 0.04311594202898554,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -99.09569672495127,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 67,
+            "high_level_skips": 0,
+            "high_level_starts": 67,
+            "max_compute_delay_seconds": 0.025000000000000133,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.0139303482587065,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 530,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.086518705538147,
+        "mean_packet_age_seconds": 0.04409728981780534,
+        "mean_reward": -89.305661705633,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 0.07500000000000014,
+        "success_rate": 0.0,
+        "total_high_level_skips": 0,
+        "total_missing_packet_cycles": 5,
+        "total_stale_packet_cycles": 0
+      }
+    },
+    "C_async_delay_0_50ms": {
+      "config": {
+        "delay_max_seconds": 0.05,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 15.0,
+        "name": "C_async_delay_0_50ms",
+        "skip_probability": 0.0
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 63,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.792830905541179,
+          "low_level": {
+            "low_level_cycles": 503,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.10833333333333339,
+            "mean_packet_age_seconds": 0.05994677312042584,
+            "missing_packet_cycles": 2,
+            "p95_packet_age_seconds": 0.10000000000000009,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 501
+          },
+          "max_packet_age_seconds": 0.10833333333333339,
+          "mean_packet_age_seconds": 0.05994677312042584,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -158.76342782005668,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 63,
+            "high_level_skips": 0,
+            "high_level_starts": 63,
+            "max_compute_delay_seconds": 0.050000000000000266,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.03082010582010587,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 503,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 38,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.808768965255656,
+          "low_level": {
+            "low_level_cycles": 302,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.10833333333333339,
+            "mean_packet_age_seconds": 0.059572072072072116,
+            "missing_packet_cycles": 6,
+            "p95_packet_age_seconds": 0.10000000000000009,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 296
+          },
+          "max_packet_age_seconds": 0.10833333333333339,
+          "mean_packet_age_seconds": 0.059572072072072116,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -11.367843046784401,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 38,
+            "high_level_skips": 0,
+            "high_level_starts": 38,
+            "max_compute_delay_seconds": 0.050000000000000266,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.030921052631578995,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 302,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 67,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.657535659371202,
+          "low_level": {
+            "low_level_cycles": 530,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.1083333333333335,
+            "mean_packet_age_seconds": 0.05732323232323236,
+            "missing_packet_cycles": 2,
+            "p95_packet_age_seconds": 0.09999999999999998,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 528
+          },
+          "max_packet_age_seconds": 0.1083333333333335,
+          "mean_packet_age_seconds": 0.05732323232323236,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -97.8717773295939,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 67,
+            "high_level_skips": 0,
+            "high_level_starts": 67,
+            "max_compute_delay_seconds": 0.050000000000000266,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 0.02798507462686569,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 530,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.086378510056012,
+        "mean_packet_age_seconds": 0.0589473591719101,
+        "mean_reward": -89.33434939881165,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 0.10000000000000005,
+        "success_rate": 0.0,
+        "total_high_level_skips": 0,
+        "total_missing_packet_cycles": 10,
+        "total_stale_packet_cycles": 0
+      }
+    },
+    "D_async_skip_10pct": {
+      "config": {
+        "delay_max_seconds": 0.0,
+        "delay_min_seconds": 0.0,
+        "high_frequency_hz": 15.0,
+        "name": "D_async_skip_10pct",
+        "skip_probability": 0.1
+      },
+      "episodes": [
+        {
+          "buffer": {
+            "accepted_packets": 57,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.793078939370596,
+          "low_level": {
+            "low_level_cycles": 498,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.19166666666666665,
+            "mean_packet_age_seconds": 0.036562918340026805,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.10000000000000009,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 498
+          },
+          "max_packet_age_seconds": 0.19166666666666665,
+          "mean_packet_age_seconds": 0.036562918340026805,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -158.45421056076884,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 57,
+            "high_level_skips": 6,
+            "high_level_starts": 63,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 3.311191476952221e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 0,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 498,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 35,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 5.8088609324494636,
+          "low_level": {
+            "low_level_cycles": 296,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.125,
+            "mean_packet_age_seconds": 0.03277027027027032,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.06666666666666665,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 296
+          },
+          "max_packet_age_seconds": 0.125,
+          "mean_packet_age_seconds": 0.03277027027027032,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -11.404003746807575,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 35,
+            "high_level_skips": 2,
+            "high_level_starts": 37,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 6.026924990822278e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 1,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 296,
+          "success": false
+        },
+        {
+          "buffer": {
+            "accepted_packets": 62,
+            "rejected_packets": 0,
+            "rejected_versions": 0
+          },
+          "collision": true,
+          "done_reason": "collision",
+          "final_distance": 4.65747632009558,
+          "low_level": {
+            "low_level_cycles": 529,
+            "low_level_interruptions": 0,
+            "max_packet_age_seconds": 0.12500000000000044,
+            "mean_packet_age_seconds": 0.0341524889729049,
+            "missing_packet_cycles": 0,
+            "p95_packet_age_seconds": 0.08333333333333348,
+            "stale_packet_cycles": 0,
+            "stale_ratio": 0.0,
+            "valid_packet_cycles": 529
+          },
+          "max_packet_age_seconds": 0.12500000000000044,
+          "mean_packet_age_seconds": 0.0341524889729049,
+          "reference_switching_error_from_trace": 0.0,
+          "reward": -98.62415000796318,
+          "scheduler": {
+            "commit_rejections": 0,
+            "high_level_completed": 62,
+            "high_level_skips": 5,
+            "high_level_starts": 67,
+            "max_compute_delay_seconds": 2.220446049250313e-16,
+            "max_reference_switching_error": 0.0,
+            "maximum_pending_packets": 1,
+            "mean_compute_delay_seconds": 3.40229636578677e-17,
+            "mean_reference_switching_error": 0.0,
+            "pending_packets": 0
+          },
+          "seed": 2,
+          "stale_ratio_from_trace": 0.0,
+          "steps": 529,
+          "success": false
+        }
+      ],
+      "summary": {
+        "collision_rate": 1.0,
+        "episode_count": 3,
+        "low_level_interruptions": 0,
+        "max_reference_switching_error": 0.0,
+        "mean_final_distance": 5.08647206397188,
+        "mean_packet_age_seconds": 0.03449522586106734,
+        "mean_reward": -89.4941214385132,
+        "mean_stale_ratio": 0.0,
+        "p95_packet_age_seconds": 0.08333333333333341,
+        "success_rate": 0.0,
+        "total_high_level_skips": 13,
+        "total_missing_packet_cycles": 0,
+        "total_stale_packet_cycles": 0
+      }
+    }
+  }
+}
