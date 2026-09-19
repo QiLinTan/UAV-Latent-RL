@@ -2,6 +2,7 @@ import numpy as np
 import torch
 
 from data.replay_buffer import ReplayBuffer
+from data.stratified_replay_buffer import DifficultyStratifiedReplayBuffer
 from data.hierarchical_replay_buffer import HierarchicalReplayBuffer
 from envs.preprocess import preprocess_state
 from trainers.callbacks.noise import NoiseScheduler
@@ -28,6 +29,33 @@ class TD3Trainer:
         else:
             self.buffer = ReplayBuffer(state_dim, action_dim, max_size=args.buffer_size)
 
+        success_replay_fraction = float(
+            np.clip(getattr(args, "success_replay_fraction", 0.0), 0.0, 1.0)
+        )
+        self.success_replay_fraction = success_replay_fraction
+        self.success_buffer = None
+        if (
+            success_replay_fraction > 0.0
+            and bool(getattr(agent, "uses_success_replay", False))
+            and not getattr(agent, "uses_context_replay", False)
+        ):
+            if bool(getattr(args, "success_replay_stratified", False)):
+                self.success_buffer = DifficultyStratifiedReplayBuffer(
+                    state_dim,
+                    action_dim,
+                    max_size=int(getattr(args, "success_replay_size", 50_000)),
+                    difficulties=getattr(
+                        args, "success_replay_difficulties", (1, 2, 3, 5)
+                    ),
+                )
+            else:
+                self.success_buffer = ReplayBuffer(
+                    state_dim,
+                    action_dim,
+                    max_size=int(getattr(args, "success_replay_size", 50_000)),
+                )
+        self._episode_success_transitions = []
+
         self.state, _ = self.env.reset(seed=args.seed)
         self.state = preprocess_state(self.state.reshape(-1))
         if hasattr(self.agent, "reset_episode"):
@@ -51,6 +79,8 @@ class TD3Trainer:
         self.last_action = None
         self.last_info = {}
         self.last_train_info = None
+        self.request_stop = False
+        self.stop_reason = None
 
     def step_env(self):
         args = self.args
@@ -149,17 +179,53 @@ class TD3Trainer:
         else:
             scaled_reward = float(reward) * float(args.reward_scale)
             self.buffer.push(self.state, action, scaled_reward, next_state, done)
+            if self.success_buffer is not None:
+                self._episode_success_transitions.append(
+                    (
+                        self.state.copy(),
+                        np.asarray(action, dtype=np.float32).copy(),
+                        float(scaled_reward),
+                        next_state.copy(),
+                        bool(done),
+                    )
+                )
+
+        info = dict(info or {})
+        replay_size = int(self.buffer.size)
+        if hasattr(self.env, "set_replay_size"):
+            self.env.set_replay_size(replay_size)
+        info["replay_size"] = replay_size
 
         self.last_action = action
-        self.last_info = info  # 保存环境 info
 
         self.state = next_state
         self.episode_return += reward
         self.episode_step += 1
 
         if done:
+            if self.success_buffer is not None:
+                if bool(info.get("success", False)):
+                    for transition in self._episode_success_transitions:
+                        if isinstance(
+                            self.success_buffer, DifficultyStratifiedReplayBuffer
+                        ):
+                            self.success_buffer.push(
+                                int(info.get("route_blocking_tree_count", 0)),
+                                *transition,
+                            )
+                        else:
+                            self.success_buffer.push(*transition)
+                self._episode_success_transitions.clear()
             if hasattr(self.env, "record_episode_outcome"):
-                self.env.record_episode_outcome(bool(info.get("success", False)))
+                self.env.record_episode_outcome(
+                    success=bool(info.get("success", False)),
+                    collision=bool(info.get("collision", False)),
+                    done_reason=info.get("done_reason"),
+                )
+            if hasattr(self.env, "get_curriculum_metrics"):
+                info.update(self.env.get_curriculum_metrics())
+            info["replay_size"] = replay_size
+            self.last_info = info
             # ✅ episode结束回调
             for cb in self.callbacks:
                 cb.on_episode_end(self)
@@ -170,6 +236,8 @@ class TD3Trainer:
                 self.agent.reset_episode()
             self.episode_return = 0
             self.episode_step = 0
+        else:
+            self.last_info = info
 
     def train_step(self):
         args = self.args
@@ -182,6 +250,29 @@ class TD3Trainer:
             self.train_steps_this_tick += 1
             if hasattr(self.agent, "set_env_step"):
                 self.agent.set_env_step(self.total_steps)
+            if self.success_buffer is not None:
+                train_info = self.agent.train(
+                    self.buffer,
+                    batch_size=args.batch_size,
+                    success_replay_buffer=self.success_buffer,
+                    success_replay_fraction=self.success_replay_fraction,
+                )
+                if isinstance(
+                    self.success_buffer, DifficultyStratifiedReplayBuffer
+                ):
+                    train_info.update(
+                        {
+                            f"success_replay/level_{level}_size": float(size)
+                            for level, size in self.success_buffer.strata_sizes.items()
+                        }
+                    )
+                    train_info.update(
+                        {
+                            f"success_replay/level_{level}_sample_count": float(count)
+                            for level, count in self.success_buffer.last_sample_counts.items()
+                        }
+                    )
+                return train_info
             return self.agent.train(self.buffer, batch_size=args.batch_size)
 
         return None
@@ -203,6 +294,10 @@ class TD3Trainer:
 
             for cb in self.callbacks:
                 cb.on_step(self)
+
+            if self.request_stop:
+                print(f"[Train stop] {self.stop_reason or 'requested by callback'}")
+                break
 
             if t % 1000 == 0:
                 print(f"[Step {t}] buffer={self.buffer.size}")

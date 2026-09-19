@@ -17,6 +17,7 @@
 
 import os
 os.environ['MUJOCO_GL'] = 'glfw'
+import sys
 import argparse
 import random
 from collections import deque
@@ -25,11 +26,22 @@ from typing import Tuple, Optional, Dict, List
 from torch.utils.tensorboard import SummaryWriter
 from datetime import datetime
 
+# Make repository-local modules importable when this file is run directly.
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 import gymnasium as gym
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+# Some editable gym-pybullet-drones installs have a stale envs package
+# initializer that imports a removed ForestAviary module.
+from utils.gym_pybullet_compat import ensure_gym_pybullet_envs_compat
+
+ensure_gym_pybullet_envs_compat()
 
 try:
     from gym_pybullet_drones.envs.HoverAviary import HoverAviary
@@ -74,6 +86,11 @@ def split_state_uav(state: np.ndarray, state_dim: int) -> Tuple[np.ndarray, np.n
     # s_high: 60-dim action history (15 steps * 4 dims)
     s_high = state[12:]
     return s_high, s_low
+
+
+def extract_kinematic_obs(obs: np.ndarray) -> np.ndarray:
+    """Extract the 12-D kinematic state from the environment observation."""
+    return np.asarray(obs, dtype=np.float32).reshape(-1)[:12]
 
 
 # =============================================================
@@ -682,6 +699,7 @@ def evaluate(env: gym.Env, agent: TD3LatentUAV, episodes: int = 10, noise: float
     returns = []
     for ep in range(episodes):
         raw_obs, _ = env.reset()
+        raw_obs = extract_kinematic_obs(raw_obs)
         action_deque = deque(maxlen=15)
         for _ in range(15):
             action_deque.append(np.zeros(4))
@@ -697,6 +715,7 @@ def evaluate(env: gym.Env, agent: TD3LatentUAV, episodes: int = 10, noise: float
             action = agent.select_action(state, noise_std=noise, reset_hidden=reset_hidden)
             
             raw_obs, reward, terminated, truncated, _ = env.step(action.reshape(1, -1))
+            raw_obs = extract_kinematic_obs(raw_obs)
             done = terminated or truncated
             
             # 维护历史
@@ -749,10 +768,10 @@ def train(args):
 
     writer = SummaryWriter(log_dir=f"runs/TD3_Latent_UAV_{args.seed}")
 
-    state_dim = env.observation_space.shape[0]
-    assert state_dim == 72, f"Expected state_dim==72 but got {state_dim}. Ensure env observation space matches processed obs."
-    print(f"Corrected state_dim: {state_dim}") # 通常应该是 72
-    action_dim = env.action_space.shape[0]
+    state_dim = 72  # 12-D kinematics + 15 steps of 4-D action history
+    action_dim = int(np.prod(env.action_space.shape))
+    assert action_dim == 4, f"Expected a 4-D single-drone action, got {action_dim}."
+    print(f"Corrected state_dim: {state_dim}")
     # action_max = float(env.action_space.high[0]) # 原始是 1.0
     action_max = 1.0 # 标准化动作范围 [-1, 1]（由 tanh 输出）
 
@@ -783,7 +802,8 @@ def train(args):
     buffer = SimpleReplayBuffer(state_dim, action_dim, capacity=args.buffer_size)
 
     # 初始化 KIN 观测处理
-    raw_obs, _ = env.reset(seed=args.seed)  # 原始 12 维 KIN 观测
+    raw_obs, _ = env.reset(seed=args.seed)
+    raw_obs = extract_kinematic_obs(raw_obs)
     action_deque = deque(maxlen=15)  # 维护 15 步历史
     for _ in range(15):
         action_deque.append(np.zeros(4))
@@ -820,6 +840,7 @@ def train(args):
 
             # 执行环境步进（HoverAviary 原生输出 12 维 KIN 观测）
             raw_obs, reward, terminated, truncated, _ = env.step(action.reshape(1, -1))
+            raw_obs = extract_kinematic_obs(raw_obs)
             done = terminated or truncated
             
             # 维护历史动作队列
@@ -856,6 +877,7 @@ def train(args):
                 print(f"Episode end @ step {t}: Total Reward = {episode_reward:.2f}")
                 
                 raw_obs, _ = env.reset()
+                raw_obs = extract_kinematic_obs(raw_obs)
                 action_deque.clear()
                 for _ in range(15):
                     action_deque.append(np.zeros(4))
@@ -956,6 +978,7 @@ if __name__ == "__main__":
     
     for i in range(5):
         raw_obs, _ = render_env.reset()
+        raw_obs = extract_kinematic_obs(raw_obs)
         action_deque = deque(maxlen=15)
         for _ in range(15):
             action_deque.append(np.zeros(4))
@@ -971,6 +994,7 @@ if __name__ == "__main__":
             action = agent.select_action(state, noise_std=0.0, reset_hidden=reset_hidden)
             
             raw_obs, _, terminated, truncated, _ = render_env.step(action.reshape(1, -1))
+            raw_obs = extract_kinematic_obs(raw_obs)
             done = terminated or truncated
             
             # 维护历史

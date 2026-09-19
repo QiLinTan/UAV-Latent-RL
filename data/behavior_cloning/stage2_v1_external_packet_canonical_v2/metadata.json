@@ -1,0 +1,1089 @@
+{
+  "dataset_version": "stage2_v1_external_packet_canonical_v2",
+  "profile": "formal_bc_candidate",
+  "training_allowed": false,
+  "training_release_requires": "quality_gate.json with ambiguity_gate_passed=true",
+  "collection_gate_passed": true,
+  "dataset_gate_passed": true,
+  "dataset_gate_checks": {
+    "all_episode_gates": true,
+    "minimum_sample_count": true,
+    "context_reconstruction": true,
+    "rpm_roundtrip": true,
+    "packets_valid": true,
+    "motor_saturation_zero": true,
+    "split_seed_disjointness": true,
+    "canonical_teacher_contract": true
+  },
+  "context_contract_id": "stage2_v1_external_packet_30d",
+  "context_dim": 30,
+  "context_contract": [
+    {
+      "index": 0,
+      "name": "position_x",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 0.5"
+    },
+    {
+      "index": 1,
+      "name": "position_y",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 0.5"
+    },
+    {
+      "index": 2,
+      "name": "position_z",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 1.0) / 0.5"
+    },
+    {
+      "index": 3,
+      "name": "roll",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 4,
+      "name": "pitch",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 5,
+      "name": "yaw",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 6,
+      "name": "velocity_x",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 7,
+      "name": "velocity_y",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 8,
+      "name": "velocity_z",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 9,
+      "name": "angular_velocity_x",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 10,
+      "name": "angular_velocity_y",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 11,
+      "name": "angular_velocity_z",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 12,
+      "name": "current_position_error_x",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 13,
+      "name": "current_position_error_y",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 14,
+      "name": "current_position_error_z",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 15,
+      "name": "current_velocity_error_x",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 16,
+      "name": "current_velocity_error_y",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 17,
+      "name": "current_velocity_error_z",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 18,
+      "name": "future_position_error_x",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 19,
+      "name": "future_position_error_y",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 20,
+      "name": "future_position_error_z",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 21,
+      "name": "future_velocity_error_x",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 22,
+      "name": "future_velocity_error_y",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 23,
+      "name": "future_velocity_error_z",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 24,
+      "name": "reference_age_ratio",
+      "physical_unit": "1",
+      "meaning": "(control_time - packet.t_gen) / packet.valid_duration",
+      "normalization": "clip(value, 0, 1)"
+    },
+    {
+      "index": 25,
+      "name": "reference_valid",
+      "physical_unit": "bool",
+      "meaning": "packet validity at control_time",
+      "normalization": "false=0, true=1"
+    },
+    {
+      "index": 26,
+      "name": "previous_motor_action_0",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 27,
+      "name": "previous_motor_action_1",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 28,
+      "name": "previous_motor_action_2",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 29,
+      "name": "previous_motor_action_3",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    }
+  ],
+  "reference_source": "external_packet",
+  "reference_packet": "models.reference_packet.ReferencePacket",
+  "packet_source": "models.continuous_world_reference.ContinuousWorldPacketSource",
+  "coordinate_frame": "world",
+  "control_time_definition": "sim_time + 1/control_frequency_hz",
+  "teacher_target": "current_reference_at_control_time",
+  "teacher_contract_id": "stage2_v1_canonical_dslpid_world_rate",
+  "future_reference_time": "control_time + 0.2 seconds",
+  "motor_action_codec": "asymmetric_rpm",
+  "teacher_controller": "models.canonical_dslpid_teacher.CanonicalDSLPIDTeacher",
+  "teacher_rate_mode": "world_angular_velocity",
+  "teacher_hidden_state_policy": "reset_integrals_each_label_and_infer_last_rpy_from_world_angular_velocity",
+  "teacher_reset_enabled": true,
+  "teacher_action_noise": 0.0,
+  "teacher_intervention_ratio": 1.0,
+  "actor_control_ratio": 0.0,
+  "config": {
+    "start_position": [
+      -3.5,
+      0.0,
+      1.0
+    ],
+    "target_position": [
+      3.5,
+      0.0,
+      1.0
+    ],
+    "max_speed": 0.6,
+    "max_acceleration": 1.5,
+    "packet_frequency_hz": 15,
+    "control_frequency_hz": 120,
+    "physics_frequency_hz": 240,
+    "window_seconds": 1.0,
+    "sequence_length": 16,
+    "lookahead_seconds": 0.2,
+    "settle_seconds": 2.0,
+    "hover_duration_seconds": 30.0,
+    "goal_tolerance": 0.2,
+    "attitude_limit": 0.65
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50
+  ],
+  "task_id_mapping": {
+    "hover": 0,
+    "straight": 1
+  },
+  "disturbance_profile_mapping": {
+    "nominal": 0,
+    "paired_positive_001": 1,
+    "paired_negative_001": 2,
+    "paired_positive_002": 3,
+    "paired_negative_002": 4,
+    "paired_positive_003": 5,
+    "paired_negative_003": 6,
+    "paired_positive_004": 7,
+    "paired_negative_004": 8,
+    "paired_positive_005": 9,
+    "paired_negative_005": 10,
+    "paired_positive_006": 11,
+    "paired_negative_006": 12,
+    "paired_positive_007": 13,
+    "paired_negative_007": 14,
+    "paired_positive_008": 15,
+    "paired_negative_008": 16,
+    "paired_positive_009": 17,
+    "paired_negative_009": 18,
+    "paired_positive_010": 19,
+    "paired_negative_010": 20,
+    "paired_positive_011": 21,
+    "paired_negative_011": 22,
+    "paired_positive_012": 23,
+    "paired_negative_012": 24,
+    "paired_positive_013": 25,
+    "paired_negative_013": 26,
+    "paired_positive_014": 27,
+    "paired_negative_014": 28,
+    "paired_positive_015": 29,
+    "paired_negative_015": 30,
+    "paired_positive_016": 31,
+    "paired_negative_016": 32,
+    "paired_positive_017": 33,
+    "paired_negative_017": 34,
+    "paired_positive_018": 35,
+    "paired_negative_018": 36,
+    "paired_positive_019": 37,
+    "paired_negative_019": 38,
+    "paired_positive_020": 39,
+    "paired_negative_020": 40,
+    "paired_positive_021": 41,
+    "paired_negative_021": 42,
+    "paired_positive_022": 43,
+    "paired_negative_022": 44,
+    "paired_positive_023": 45,
+    "paired_negative_023": 46,
+    "paired_positive_024": 47,
+    "paired_negative_024": 48,
+    "paired_positive_025": 49,
+    "paired_negative_025": 50
+  },
+  "sample_count": 254286,
+  "episode_count": 102,
+  "minimum_sample_count": 250000,
+  "splits": {
+    "train": {
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "episode_count": 78,
+      "sample_count": 194454
+    },
+    "validation": {
+      "seeds": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "episode_count": 12,
+      "sample_count": 29916
+    },
+    "test": {
+      "seeds": [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "episode_count": 12,
+      "sample_count": 29916
+    }
+  },
+  "episode_gate_passed": true,
+  "pilot_gate_passed": true,
+  "episode_gate_results": [
+    {
+      "episode_id": 0,
+      "task": "hover",
+      "seed": 0,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 1,
+      "task": "straight",
+      "seed": 0,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 2,
+      "task": "hover",
+      "seed": 1,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 3,
+      "task": "straight",
+      "seed": 1,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 4,
+      "task": "hover",
+      "seed": 2,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 5,
+      "task": "straight",
+      "seed": 2,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 6,
+      "task": "hover",
+      "seed": 3,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 7,
+      "task": "straight",
+      "seed": 3,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 8,
+      "task": "hover",
+      "seed": 4,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 9,
+      "task": "straight",
+      "seed": 4,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 10,
+      "task": "hover",
+      "seed": 5,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 11,
+      "task": "straight",
+      "seed": 5,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 12,
+      "task": "hover",
+      "seed": 6,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 13,
+      "task": "straight",
+      "seed": 6,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 14,
+      "task": "hover",
+      "seed": 7,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 15,
+      "task": "straight",
+      "seed": 7,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 16,
+      "task": "hover",
+      "seed": 8,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 17,
+      "task": "straight",
+      "seed": 8,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 18,
+      "task": "hover",
+      "seed": 9,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 19,
+      "task": "straight",
+      "seed": 9,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 20,
+      "task": "hover",
+      "seed": 10,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 21,
+      "task": "straight",
+      "seed": 10,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 22,
+      "task": "hover",
+      "seed": 11,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 23,
+      "task": "straight",
+      "seed": 11,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 24,
+      "task": "hover",
+      "seed": 12,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 25,
+      "task": "straight",
+      "seed": 12,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 26,
+      "task": "hover",
+      "seed": 13,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 27,
+      "task": "straight",
+      "seed": 13,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 28,
+      "task": "hover",
+      "seed": 14,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 29,
+      "task": "straight",
+      "seed": 14,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 30,
+      "task": "hover",
+      "seed": 15,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 31,
+      "task": "straight",
+      "seed": 15,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 32,
+      "task": "hover",
+      "seed": 16,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 33,
+      "task": "straight",
+      "seed": 16,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 34,
+      "task": "hover",
+      "seed": 17,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 35,
+      "task": "straight",
+      "seed": 17,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 36,
+      "task": "hover",
+      "seed": 18,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 37,
+      "task": "straight",
+      "seed": 18,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 38,
+      "task": "hover",
+      "seed": 19,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 39,
+      "task": "straight",
+      "seed": 19,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 40,
+      "task": "hover",
+      "seed": 20,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 41,
+      "task": "straight",
+      "seed": 20,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 42,
+      "task": "hover",
+      "seed": 21,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 43,
+      "task": "straight",
+      "seed": 21,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 44,
+      "task": "hover",
+      "seed": 22,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 45,
+      "task": "straight",
+      "seed": 22,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 46,
+      "task": "hover",
+      "seed": 23,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 47,
+      "task": "straight",
+      "seed": 23,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 48,
+      "task": "hover",
+      "seed": 24,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 49,
+      "task": "straight",
+      "seed": 24,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 50,
+      "task": "hover",
+      "seed": 25,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 51,
+      "task": "straight",
+      "seed": 25,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 52,
+      "task": "hover",
+      "seed": 26,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 53,
+      "task": "straight",
+      "seed": 26,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 54,
+      "task": "hover",
+      "seed": 27,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 55,
+      "task": "straight",
+      "seed": 27,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 56,
+      "task": "hover",
+      "seed": 28,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 57,
+      "task": "straight",
+      "seed": 28,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 58,
+      "task": "hover",
+      "seed": 29,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 59,
+      "task": "straight",
+      "seed": 29,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 60,
+      "task": "hover",
+      "seed": 30,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 61,
+      "task": "straight",
+      "seed": 30,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 62,
+      "task": "hover",
+      "seed": 31,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 63,
+      "task": "straight",
+      "seed": 31,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 64,
+      "task": "hover",
+      "seed": 32,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 65,
+      "task": "straight",
+      "seed": 32,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 66,
+      "task": "hover",
+      "seed": 33,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 67,
+      "task": "straight",
+      "seed": 33,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 68,
+      "task": "hover",
+      "seed": 34,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 69,
+      "task": "straight",
+      "seed": 34,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 70,
+      "task": "hover",
+      "seed": 35,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 71,
+      "task": "straight",
+      "seed": 35,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 72,
+      "task": "hover",
+      "seed": 36,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 73,
+      "task": "straight",
+      "seed": 36,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 74,
+      "task": "hover",
+      "seed": 37,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 75,
+      "task": "straight",
+      "seed": 37,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 76,
+      "task": "hover",
+      "seed": 38,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 77,
+      "task": "straight",
+      "seed": 38,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 78,
+      "task": "hover",
+      "seed": 39,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 79,
+      "task": "straight",
+      "seed": 39,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 80,
+      "task": "hover",
+      "seed": 40,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 81,
+      "task": "straight",
+      "seed": 40,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 82,
+      "task": "hover",
+      "seed": 41,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 83,
+      "task": "straight",
+      "seed": 41,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 84,
+      "task": "hover",
+      "seed": 42,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 85,
+      "task": "straight",
+      "seed": 42,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 86,
+      "task": "hover",
+      "seed": 43,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 87,
+      "task": "straight",
+      "seed": 43,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 88,
+      "task": "hover",
+      "seed": 44,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 89,
+      "task": "straight",
+      "seed": 44,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 90,
+      "task": "hover",
+      "seed": 45,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 91,
+      "task": "straight",
+      "seed": 45,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 92,
+      "task": "hover",
+      "seed": 46,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 93,
+      "task": "straight",
+      "seed": 46,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 94,
+      "task": "hover",
+      "seed": 47,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 95,
+      "task": "straight",
+      "seed": 47,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 96,
+      "task": "hover",
+      "seed": 48,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 97,
+      "task": "straight",
+      "seed": 48,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 98,
+      "task": "hover",
+      "seed": 49,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 99,
+      "task": "straight",
+      "seed": 49,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 100,
+      "task": "hover",
+      "seed": 50,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 101,
+      "task": "straight",
+      "seed": 50,
+      "gate_passed": true
+    }
+  ],
+  "physical_parameters": {
+    "min_rpm": 0.0,
+    "hover_rpm": 14468.429183500699,
+    "max_rpm": 21702.64377525105,
+    "kf": 3.16e-10,
+    "km": 7.94e-12,
+    "arm_length": 0.0397
+  },
+  "max_context_reconstruction_error": 0.0,
+  "max_rpm_roundtrip_error": 0.00010757315249065869,
+  "max_canonical_hidden_contract_error": 1.4401072390146652e-08,
+  "motor_saturation_ratio": 0.0,
+  "samples_sha256": "8be05a97851746d07ed50f2405288b62acd0891c0cc1e0712f942e6c0dd62271",
+  "project_commit": "ba53e8fcb889cf248f55369aa03a1630931a21bf",
+  "project_dirty": true,
+  "environment_commit": "3a59b6f1c435da8ed4f559aca94cdecc4f428962",
+  "environment_dirty": true
+}

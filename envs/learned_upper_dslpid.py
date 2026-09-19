@@ -8,7 +8,7 @@ from gymnasium import Env, spaces
 
 from gym_pybullet_drones.control.DSLPIDControl import DSLPIDControl
 
-from envs.observation_layout import FOREST_TASK_DIM, KIN_DIM, ForestObservationLayout
+from envs.observation_layout import GOAL_DIM, KIN_DIM, ForestObservationLayout
 from models.motor_action_codec import ASYMMETRIC_RPM, MotorActionCodec, MotorPhysicalLimits
 from models.reference_packet import ReferencePacket
 
@@ -37,6 +37,8 @@ class LearnedUpperDSLPIDEnv(Env):
         max_reference_vertical_speed: float = 0.4,
         max_reference_vertical_acceleration: float = 0.5,
         semantic_history_length: int = 0,
+        planar_only: bool = False,
+        height_hold_gain: float = 1.0,
     ):
         super().__init__()
         if int(upper_control_interval) <= 0:
@@ -61,7 +63,13 @@ class LearnedUpperDSLPIDEnv(Env):
             max_reference_vertical_acceleration
         )
         self.semantic_history_length = max(0, int(semantic_history_length))
-        self.semantic_frame_dim = 8 + 3 + 1
+        self.planar_only = bool(planar_only)
+        self.height_hold_gain = float(height_hold_gain)
+        if self.planar_only and self.height_hold_gain <= 0.0:
+            raise ValueError("height_hold_gain must be positive when planar_only is enabled.")
+        self.height_hold_target = 0.0
+        self.range_dim = int(getattr(base_env, "NUM_RANGE_RAYS", 8))
+        self.semantic_frame_dim = self.range_dim + 3 + 1
         self._semantic_history = deque(maxlen=max(1, self.semantic_history_length))
         if self.reference_sequence_length < 3:
             raise ValueError("reference_sequence_length must be at least 3.")
@@ -78,11 +86,12 @@ class LearnedUpperDSLPIDEnv(Env):
         base_layout = ForestObservationLayout.from_total_dim(
             int(np.prod(base_env.observation_space.shape)),
             action_dim=int(base_env.action_space.shape[-1]),
+            range_dim=self.range_dim,
         )
         self._base_layout = base_layout
         # The persistent adapter state changes future transitions. Expose it to
         # the upper policy so the 15 Hz process remains observable.
-        self.base_upper_obs_dim = KIN_DIM + FOREST_TASK_DIM + 3 + 3
+        self.base_upper_obs_dim = KIN_DIM + GOAL_DIM + self.range_dim + 3 + 3
         upper_obs_dim = (
             self.base_upper_obs_dim
             + self.semantic_history_length * self.semantic_frame_dim
@@ -96,7 +105,7 @@ class LearnedUpperDSLPIDEnv(Env):
         self.action_space = spaces.Box(
             low=-1.0,
             high=1.0,
-            shape=(1, 3),
+            shape=(1, 2 if self.planar_only else 3),
             dtype=np.float32,
         )
         self.teacher = DSLPIDControl(drone_model=base_env.DRONE_MODEL)
@@ -179,6 +188,7 @@ class LearnedUpperDSLPIDEnv(Env):
         self.reference_velocity.fill(0.0)
         self.command_velocity.fill(0.0)
         self.reference_acceleration.fill(0.0)
+        self.height_hold_target = float(self.base_env.TARGET_POS[2])
         self.packet_generation_count = 0
         self._semantic_history.clear()
         if self.semantic_history_length:
@@ -190,23 +200,36 @@ class LearnedUpperDSLPIDEnv(Env):
             "controller_mode": "learned_upper_dslpid",
             "upper_control_interval": self.upper_control_interval,
             "semantic_history_length": self.semantic_history_length,
+            "planar_only": self.planar_only,
+            "height_hold_target": self.height_hold_target,
         }
 
     def _velocity_command(self, upper_action) -> np.ndarray:
-        action = np.clip(
-            np.asarray(upper_action, dtype=np.float32).reshape(3),
-            -1.0,
-            1.0,
-        )
+        expected_action_dim = 2 if self.planar_only else 3
+        action = np.asarray(upper_action, dtype=np.float32).reshape(-1)
+        if action.size != expected_action_dim:
+            raise ValueError(
+                f"Expected {expected_action_dim} upper action values, got {action.size}."
+            )
+        action = np.clip(action, -1.0, 1.0)
         planar = action[:2].astype(np.float64)
         planar_norm = float(np.linalg.norm(planar))
         if planar_norm > 1.0:
             planar /= planar_norm
+        if self.planar_only:
+            height_error = self.height_hold_target - float(self.base_env.pos[0][2])
+            vertical_command = np.clip(
+                self.height_hold_gain * height_error,
+                -self.max_reference_vertical_speed,
+                self.max_reference_vertical_speed,
+            )
+        else:
+            vertical_command = float(action[2]) * self.max_reference_vertical_speed
         return np.array(
             (
                 planar[0] * self.max_reference_speed,
                 planar[1] * self.max_reference_speed,
-                float(action[2]) * self.max_reference_vertical_speed,
+                vertical_command,
             ),
             dtype=np.float32,
         )
@@ -296,6 +319,7 @@ class LearnedUpperDSLPIDEnv(Env):
         observation = None
         tracking_errors = []
         motor_saturation = []
+        interval_reward_terms = {}
 
         for _ in range(self.upper_control_interval):
             lower_now = self.runtime_lower_step * self.lower_control_dt
@@ -334,6 +358,11 @@ class LearnedUpperDSLPIDEnv(Env):
             )
             self.runtime_lower_step += 1
             reward_sum += float(reward)
+            for key, value in dict(info).items():
+                if key.startswith("reward/") and np.isscalar(value):
+                    interval_reward_terms[key] = (
+                        interval_reward_terms.get(key, 0.0) + float(value)
+                    )
             tracking_errors.append(
                 float(
                     np.linalg.norm(
@@ -348,8 +377,15 @@ class LearnedUpperDSLPIDEnv(Env):
 
         enriched_info = {
             **dict(info),
+            **interval_reward_terms,
+            "reward/interval_total": float(reward_sum),
             "controller_mode": "learned_upper_dslpid",
             "upper_control_interval": self.upper_control_interval,
+            "planar_only": self.planar_only,
+            "height_hold_target": self.height_hold_target,
+            "height_hold_error": float(
+                self.height_hold_target - float(self.base_env.pos[0][2])
+            ),
             "lower_steps_executed": len(tracking_errors),
             "reference_packet_version": int(packet.version),
             "reference_packet_valid": bool(
@@ -406,9 +442,28 @@ class LearnedUpperDSLPIDEnv(Env):
     def close(self):
         return self.base_env.close()
 
-    def record_episode_outcome(self, success: bool):
+    def get_curriculum_metrics(self):
+        if hasattr(self.base_env, "get_curriculum_metrics"):
+            return self.base_env.get_curriculum_metrics()
+        return {}
+
+    def set_replay_size(self, replay_size: int):
+        if hasattr(self.base_env, "set_replay_size"):
+            return self.base_env.set_replay_size(replay_size)
+        return None
+
+    def record_episode_outcome(
+        self,
+        success: bool,
+        collision: bool = False,
+        done_reason: str | None = None,
+    ):
         if hasattr(self.base_env, "record_episode_outcome"):
-            return self.base_env.record_episode_outcome(success)
+            return self.base_env.record_episode_outcome(
+                success=success,
+                collision=collision,
+                done_reason=done_reason,
+            )
         return None
 
 
@@ -424,6 +479,8 @@ class LearnedUpperDSLPIDForestEnv(LearnedUpperDSLPIDEnv):
         "max_reference_vertical_speed",
         "max_reference_vertical_acceleration",
         "semantic_history_length",
+        "planar_only",
+        "height_hold_gain",
     }
 
     def __init__(self, **kwargs):

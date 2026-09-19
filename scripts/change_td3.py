@@ -2,6 +2,7 @@ import argparse
 import pathlib
 import random
 import sys
+from types import SimpleNamespace
 
 import numpy as np
 import torch
@@ -15,8 +16,15 @@ from utils.gym_pybullet_compat import ensure_gym_pybullet_envs_compat
 ensure_gym_pybullet_envs_compat()
 
 from envs.ForestAviary import CustomForestAviary
-from envs.forest.rewards import BaselineForestReward
+from envs.forest.rewards import (
+    BaselineForestReward,
+    MAVRLSafeSpeedForestReward,
+    OutcomeSeparatedForestReward,
+    RateIntegratedOutcomeForestReward,
+    SafeTerminalForestReward,
+)
 from envs.learned_upper_dslpid import LearnedUpperDSLPIDForestEnv
+from envs.map_atlas import MapCatalog
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 
 from algos.td3 import (
@@ -26,15 +34,24 @@ from algos.td3 import (
     TD3LatentOnly,
     TD3Plain,
     TD3ReferenceTracking,
+    TD3UpperRecurrent,
     TD3UpperSemanticLatent,
     TD3V1Trust,
 )
 from trainers.td3_trainer import TD3Trainer
-from trainers.callbacks.checkpoint import BestCheckpointCallback, CheckpointCallback
+from trainers.callbacks.checkpoint import (
+    BestCheckpointCallback,
+    CheckpointCallback,
+    ConvergenceGuardCallback,
+)
 from trainers.callbacks.eval_callback import EvalCallback
 from trainers.callbacks.latent_viz import LatentEmbeddingCallback
 from trainers.callbacks.logger import LoggerCallback
 from trainers.callbacks.monitor import MonitorCallback
+from trainers.recurrent_diagnostics import (
+    recurrent_observation_contract,
+    replay_buffer_memory_bytes,
+)
 
 
 def _make_argparser():
@@ -57,6 +74,30 @@ def _make_argparser():
     parser.add_argument("--ctrl_freq", type=int, default=120)
     parser.add_argument("--num_trees", type=int, default=24)
     parser.add_argument(
+        "--map_id",
+        type=str,
+        default=None,
+        help=(
+            "Optional v2-lite atlas map ID. A selected map owns its start/goal, "
+            "collision geometry, sensor range, and registered train/validation/test split."
+        ),
+    )
+    parser.add_argument(
+        "--map_catalog",
+        type=str,
+        default=str(REPO_ROOT / "data" / "map_atlas" / "catalog_v1.json"),
+        help="Path to the JSON map catalog used with --map_id.",
+    )
+    parser.add_argument(
+        "--eval_map_id",
+        type=str,
+        default=None,
+        help=(
+            "Optional separate atlas map used only by EvalCallback. If omitted, "
+            "evaluation uses --map_id (or the legacy forest configuration)."
+        ),
+    )
+    parser.add_argument(
         "--route_blocking_tree",
         type=str2bool,
         default=True,
@@ -69,10 +110,14 @@ def _make_argparser():
         help="Position of the fixed route tree along start->target; 0.5 means midpoint.",
     )
     parser.add_argument("--route_blocking_tree_count", type=int, default=1)
+    parser.add_argument("--range_azimuth_count", type=int, default=8)
+    parser.add_argument(
+        "--range_elevation_degrees", type=float, nargs="+", default=(0.0,)
+    )
     parser.add_argument("--route_tree_lateral_range", type=float, default=0.55)
     parser.add_argument(
         "--route_tree_layout",
-        choices=("random", "fixed_safe_five"),
+        choices=("random", "fixed_safe_five", "fixed_safe_five_mirror"),
         default="random",
     )
     parser.add_argument("--curriculum", type=str2bool, default=True)
@@ -92,7 +137,20 @@ def _make_argparser():
         nargs=3,
         default=(0.10, 0.20, 0.30),
     )
+    parser.add_argument(
+        "--curriculum_max_collision_rates",
+        type=float,
+        nargs=3,
+        default=(1.0, 1.0, 1.0),
+    )
     parser.add_argument("--curriculum_minimum_stage_episodes", type=int, default=50)
+    parser.add_argument("--route_count_curriculum", type=str2bool, default=False)
+    parser.add_argument(
+        "--route_count_curriculum_counts", type=int, nargs=4, default=(1, 2, 3, 5)
+    )
+    parser.add_argument(
+        "--curriculum_simple_mix_probability", type=float, default=0.20
+    )
 
     parser.add_argument("--buffer_size", type=int, default=1_000_000)
     parser.add_argument("--batch_size", type=int, default=256)
@@ -100,12 +158,42 @@ def _make_argparser():
     parser.add_argument("--start_timesteps", type=int, default=10_000)
     parser.add_argument("--update_after", type=int, default=10_000)
     parser.add_argument("--train_every", type=int, default=1)
+    parser.add_argument(
+        "--success_replay_fraction",
+        type=float,
+        default=0.0,
+        help="Fraction of each recurrent-TD3 batch retained from completed successful episodes.",
+    )
+    parser.add_argument("--success_replay_size", type=int, default=50_000)
+    parser.add_argument("--success_replay_stratified", type=str2bool, default=False)
+    parser.add_argument(
+        "--success_replay_difficulties", type=int, nargs="+", default=(1, 2, 3, 5)
+    )
 
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--tau", type=float, default=0.005)
     parser.add_argument("--policy_noise", type=float, default=0.2)
     parser.add_argument("--noise_clip", type=float, default=0.5)
     parser.add_argument("--policy_freq", type=int, default=2)
+    parser.add_argument("--upper_actor_lr", type=float, default=3e-4)
+    parser.add_argument("--upper_critic_lr", type=float, default=3e-4)
+    parser.add_argument("--upper_conservative_actor_lr", type=float, default=None)
+    parser.add_argument("--upper_conservative_critic_lr", type=float, default=None)
+    parser.add_argument("--upper_conservative_policy_noise", type=float, default=None)
+    parser.add_argument("--upper_conservative_policy_freq", type=int, default=None)
+    parser.add_argument("--policy_anchor_weight", type=float, default=0.0)
+    parser.add_argument(
+        "--convergence_guard",
+        type=str2bool,
+        default=False,
+        help="Restore model_best and stop after persistent post-convergence degradation.",
+    )
+    parser.add_argument("--guard_min_success_rate", type=float, default=0.8)
+    parser.add_argument("--guard_max_collision_rate", type=float, default=0.2)
+    parser.add_argument("--guard_patience_evals", type=int, default=3)
+    parser.add_argument("--best_window_size", type=int, default=3)
+    parser.add_argument("--best_min_success_rate", type=float, default=0.9)
+    parser.add_argument("--best_max_collision_rate", type=float, default=0.0)
     parser.add_argument("--use_latent", type=str2bool, default=True, help="Enable latent/world-model branch; disable for plain TD3.")
     parser.add_argument(
         "--latent_only",
@@ -136,6 +224,16 @@ def _make_argparser():
         ),
     )
     parser.add_argument("--upper_semantic_latent", type=str2bool, default=False)
+    parser.add_argument(
+        "--upper_recurrent",
+        type=str2bool,
+        default=False,
+        help=(
+            "Use a GRU actor and two independent GRU critics for the "
+            "learned_upper_dslpid ReferencePacket policy."
+        ),
+    )
+    parser.add_argument("--upper_recurrent_hidden_dim", type=int, default=32)
     parser.add_argument("--semantic_history_length", type=int, default=0)
     parser.add_argument("--semantic_residual_scale", type=float, default=0.25)
     parser.add_argument("--semantic_loss_weight", type=float, default=0.2)
@@ -167,6 +265,21 @@ def _make_argparser():
         "--max_reference_vertical_acceleration",
         type=float,
         default=0.5,
+    )
+    parser.add_argument(
+        "--upper_planar_only",
+        type=str2bool,
+        default=False,
+        help=(
+            "Expose only vx/vy reference actions to learned_upper_dslpid; "
+            "a deterministic height hold generates vz."
+        ),
+    )
+    parser.add_argument(
+        "--upper_height_hold_gain",
+        type=float,
+        default=1.0,
+        help="Proportional gain for deterministic target-height velocity hold.",
     )
     parser.add_argument(
         "--tracking_environment_reward_weight",
@@ -353,6 +466,49 @@ def _make_argparser():
     parser.add_argument("--safety_boundary_penalty_weight", type=float, default=25.0)
     parser.add_argument("--distance_reward_weight", type=float, default=0.5)
     parser.add_argument("--time_penalty_weight", type=float, default=0.0)
+    parser.add_argument(
+        "--reward_variant",
+        choices=(
+            "legacy",
+            "safe_terminal_v2",
+            "outcome_separated_v3",
+            "rate_integrated_v4",
+            "mavrl_safe_speed_v1",
+        ),
+        default="legacy",
+        help="Navigation reward contract; legacy remains the reproducible pre-v2 baseline.",
+    )
+    parser.add_argument("--proximity_penalty_weight", type=float, default=5.0)
+    parser.add_argument("--near_goal_radius", type=float, default=0.8)
+    parser.add_argument("--near_goal_speed_penalty_weight", type=float, default=1.5)
+    parser.add_argument("--near_goal_away_penalty_weight", type=float, default=3.0)
+    parser.add_argument("--route_overshoot_penalty_weight", type=float, default=1.0)
+    parser.add_argument("--success_terminal_reward", type=float, default=150.0)
+    parser.add_argument("--collision_terminal_penalty", type=float, default=120.0)
+    parser.add_argument("--bound_terminal_penalty", type=float, default=100.0)
+    parser.add_argument("--timeout_terminal_penalty", type=float, default=30.0)
+    parser.add_argument("--route_progress_reward_weight", type=float, default=12.0)
+    parser.add_argument("--goal_progress_reward_weight", type=float, default=8.0)
+    parser.add_argument("--lateral_penalty_scale", type=float, default=0.0)
+    parser.add_argument("--safe_speed_min", type=float, default=0.0)
+    parser.add_argument(
+        "--safe_speed_brake_clearance",
+        type=float,
+        default=0.35,
+        help="Clearance at or below which the MAVRL-style planar safe speed is minimal.",
+    )
+    parser.add_argument(
+        "--safe_speed_open_clearance",
+        type=float,
+        default=1.20,
+        help="Clearance at or above which the MAVRL-style planar safe speed is maximal.",
+    )
+    parser.add_argument(
+        "--unsafe_speed_penalty_weight",
+        type=float,
+        default=3.0,
+        help="Quadratic penalty weight for planar speed above the clearance-conditioned limit.",
+    )
 
     parser.add_argument("--expl_noise_start", type=float, default=0.5)
     parser.add_argument("--expl_noise_end", type=float, default=0.1)
@@ -360,6 +516,12 @@ def _make_argparser():
 
     parser.add_argument("--eval_interval", type=int, default=10_000)
     parser.add_argument("--eval_episodes", type=int, default=1)
+    parser.add_argument(
+        "--evaluate_only",
+        type=str2bool,
+        default=False,
+        help="Load a checkpoint and run exactly one evaluation without collecting or updating training data.",
+    )
     parser.add_argument("--eval_gui", type=str2bool, default=True)
     parser.add_argument("--eval_stepsleep", type=str2bool, default=True)
     parser.add_argument("--eval_quiet", type=str2bool, default=True)
@@ -391,6 +553,15 @@ def _make_argparser():
         help="Checkpoint prefix to load before training, for example checkpoints/run/model_best.",
     )
     parser.add_argument("--ckpt_interval", type=int, default=50_000)
+    parser.add_argument(
+        "--trajectory_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Optional directory for the latest seed-0 evaluation trace plus XY/3D plots. "
+            "Intended for learned_upper_dslpid evaluation."
+        ),
+    )
     return parser
 
 
@@ -403,9 +574,126 @@ def main():
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(args.seed)
 
-    init_xyzs = np.array([[-3.5, 0.0, 1.0]], dtype=np.float32)
+    catalog = MapCatalog(args.map_catalog) if (args.map_id or args.eval_map_id) else None
+
+    def resolve_map(map_id, *, role: str):
+        if map_id is None:
+            return None
+        assert catalog is not None
+        spec = catalog.get(map_id)
+        validation = spec.validate_route()
+        if validation.reachable is False:
+            raise ValueError(
+                f"Selected {role} map {spec.map_id!r} is invalid: {validation.message}"
+            )
+        print(
+            f"[INFO] {role}_map_id={spec.map_id}, source={spec.source}, "
+            f"scenario={spec.scenario}, split={spec.split}, "
+            f"route_validation={validation.message}"
+        )
+        if role == "eval" and spec.split == "test":
+            print("[WARNING] eval_map_id belongs to the sealed test split; do not use it for model selection.")
+        return spec
+
+    map_spec = resolve_map(args.map_id, role="train")
+    eval_map_spec = resolve_map(
+        args.eval_map_id if args.eval_map_id is not None else args.map_id,
+        role="eval",
+    )
+
+    init_xyzs = np.array(
+        [[-3.5, 0.0, 1.0] if map_spec is None else map_spec.start_pos],
+        dtype=np.float32,
+    )
     init_rpys = np.array([[0.0, 0.0, 0.0]], dtype=np.float32)
     action_scale = float(np.clip(args.action_scale, 0.0, 1.0))
+
+    if args.reward_variant == "safe_terminal_v2":
+        reward_model = SafeTerminalForestReward(
+            speed_penalty_weight=args.speed_penalty_weight,
+            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
+            distance_reward_weight=args.distance_reward_weight,
+            time_penalty_weight=args.time_penalty_weight,
+            proximity_penalty_weight=args.proximity_penalty_weight,
+            near_goal_radius=args.near_goal_radius,
+            near_goal_speed_penalty_weight=args.near_goal_speed_penalty_weight,
+            near_goal_away_penalty_weight=args.near_goal_away_penalty_weight,
+            route_overshoot_penalty_weight=args.route_overshoot_penalty_weight,
+        )
+    elif args.reward_variant == "outcome_separated_v3":
+        reward_model = OutcomeSeparatedForestReward(
+            speed_penalty_weight=args.speed_penalty_weight,
+            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
+            time_penalty_weight=args.time_penalty_weight,
+            proximity_penalty_weight=args.proximity_penalty_weight,
+            near_goal_radius=args.near_goal_radius,
+            near_goal_speed_penalty_weight=args.near_goal_speed_penalty_weight,
+            near_goal_away_penalty_weight=args.near_goal_away_penalty_weight,
+            route_overshoot_penalty_weight=args.route_overshoot_penalty_weight,
+            success_terminal_reward=args.success_terminal_reward,
+            collision_terminal_penalty=args.collision_terminal_penalty,
+            bound_terminal_penalty=args.bound_terminal_penalty,
+            timeout_terminal_penalty=args.timeout_terminal_penalty,
+        )
+    elif args.reward_variant == "rate_integrated_v4":
+        reward_model = RateIntegratedOutcomeForestReward(
+            integration_dt=1.0 / float(args.ctrl_freq),
+            route_progress_reward_weight=args.route_progress_reward_weight,
+            goal_progress_reward_weight=args.goal_progress_reward_weight,
+            lateral_penalty_scale=args.lateral_penalty_scale,
+            speed_penalty_weight=args.speed_penalty_weight,
+            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
+            time_penalty_weight=args.time_penalty_weight,
+            proximity_penalty_weight=args.proximity_penalty_weight,
+            near_goal_radius=args.near_goal_radius,
+            near_goal_speed_penalty_weight=args.near_goal_speed_penalty_weight,
+            near_goal_away_penalty_weight=args.near_goal_away_penalty_weight,
+            route_overshoot_penalty_weight=args.route_overshoot_penalty_weight,
+            success_terminal_reward=args.success_terminal_reward,
+            collision_terminal_penalty=args.collision_terminal_penalty,
+            bound_terminal_penalty=args.bound_terminal_penalty,
+            timeout_terminal_penalty=args.timeout_terminal_penalty,
+        )
+    elif args.reward_variant == "mavrl_safe_speed_v1":
+        reward_model = MAVRLSafeSpeedForestReward(
+            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
+            distance_reward_weight=args.distance_reward_weight,
+            time_penalty_weight=args.time_penalty_weight,
+            proximity_penalty_weight=args.proximity_penalty_weight,
+            near_goal_radius=args.near_goal_radius,
+            near_goal_speed_penalty_weight=args.near_goal_speed_penalty_weight,
+            near_goal_away_penalty_weight=args.near_goal_away_penalty_weight,
+            route_overshoot_penalty_weight=args.route_overshoot_penalty_weight,
+            safe_speed_min=args.safe_speed_min,
+            safe_speed_max=args.max_reference_speed,
+            safe_speed_brake_clearance=args.safe_speed_brake_clearance,
+            safe_speed_open_clearance=args.safe_speed_open_clearance,
+            unsafe_speed_penalty_weight=args.unsafe_speed_penalty_weight,
+        )
+    else:
+        reward_model = BaselineForestReward(
+            speed_penalty_weight=args.speed_penalty_weight,
+            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
+            distance_reward_weight=args.distance_reward_weight,
+            time_penalty_weight=args.time_penalty_weight,
+        )
+    print(
+        f"[INFO] reward_variant={args.reward_variant}, "
+        f"time_penalty={args.time_penalty_weight:.3f}, "
+        f"safe_distance=0.350"
+    )
+    if args.reward_variant == "mavrl_safe_speed_v1":
+        print(
+            "[INFO] mavrl_safe_speed="
+            f"[{args.safe_speed_min:.3f}, {args.max_reference_speed:.3f}], "
+            f"clearance=[{args.safe_speed_brake_clearance:.3f}, "
+            f"{args.safe_speed_open_clearance:.3f}], "
+            f"weight={args.unsafe_speed_penalty_weight:.3f}"
+        )
+    if not 0.0 <= args.success_replay_fraction < 1.0:
+        raise ValueError("--success_replay_fraction must lie in [0, 1).")
+    if args.success_replay_size <= 0:
+        raise ValueError("--success_replay_size must be positive.")
 
     forest_env_kwargs = dict(
         obs=ObservationType.KIN,
@@ -420,7 +708,11 @@ def main():
         curriculum_success_gated=args.curriculum_success_gated,
         curriculum_success_window=args.curriculum_success_window,
         curriculum_success_thresholds=args.curriculum_success_thresholds,
+        curriculum_max_collision_rates=args.curriculum_max_collision_rates,
         curriculum_minimum_stage_episodes=args.curriculum_minimum_stage_episodes,
+        route_count_curriculum=args.route_count_curriculum,
+        route_count_curriculum_counts=args.route_count_curriculum_counts,
+        curriculum_simple_mix_probability=args.curriculum_simple_mix_probability,
 
         num_trees=args.num_trees,  # 避障任务
         route_blocking_tree=args.route_blocking_tree,
@@ -428,13 +720,11 @@ def main():
         route_blocking_tree_count=args.route_blocking_tree_count,
         route_tree_lateral_range=args.route_tree_lateral_range,
         route_tree_layout=args.route_tree_layout,
-        target_pos=[3.5, 0.0, 1.0],
-        reward_model=BaselineForestReward(
-            speed_penalty_weight=args.speed_penalty_weight,
-            safety_boundary_penalty_weight=args.safety_boundary_penalty_weight,
-            distance_reward_weight=args.distance_reward_weight,
-            time_penalty_weight=args.time_penalty_weight,
-        ),
+        range_azimuth_count=args.range_azimuth_count,
+        range_elevation_degrees=args.range_elevation_degrees,
+        target_pos=[3.5, 0.0, 1.0] if map_spec is None else map_spec.target_pos,
+        map_spec=map_spec,
+        reward_model=reward_model,
     )
     upper_wrapper_kwargs = dict(
         upper_control_interval=args.high_level_interval,
@@ -445,6 +735,8 @@ def main():
         max_reference_vertical_speed=args.max_reference_vertical_speed,
         max_reference_vertical_acceleration=args.max_reference_vertical_acceleration,
         semantic_history_length=args.semantic_history_length,
+        planar_only=args.upper_planar_only,
+        height_hold_gain=args.upper_height_hold_gain,
     )
     if args.learned_upper_dslpid:
         env = LearnedUpperDSLPIDForestEnv(
@@ -461,6 +753,7 @@ def main():
         )
 
     eval_env_kwargs = dict(forest_env_kwargs)
+    eval_env_kwargs["map_spec"] = eval_map_spec
     eval_env_kwargs.pop("gui", None)
     if args.learned_upper_dslpid:
         eval_env_kwargs.update(upper_wrapper_kwargs)
@@ -488,17 +781,77 @@ def main():
                 "--learned_upper_dslpid is an isolated upper-policy mode; "
                 "disable latent, direct-motor hierarchical, and reference-tracking modes."
             )
+        if args.upper_recurrent and args.upper_semantic_latent:
+            raise ValueError(
+                "--upper_recurrent and --upper_semantic_latent are separate upper-policy variants."
+            )
+        if args.upper_recurrent and args.semantic_history_length <= 0:
+            raise ValueError(
+                "--upper_recurrent requires --semantic_history_length greater than zero."
+            )
+        if args.upper_planar_only and args.upper_height_hold_gain <= 0.0:
+            raise ValueError("--upper_height_hold_gain must be positive with --upper_planar_only.")
         print(
             "[INFO] learned_upper_dslpid=true, "
             f"upper_frequency={args.ctrl_freq / args.high_level_interval:.1f}Hz, "
             f"lower_frequency={args.ctrl_freq}Hz, "
             f"upper_observation_dim={state_dim}, upper_action_dim={action_dim}"
+            f", planar_only={args.upper_planar_only}"
         )
         if args.upper_semantic_latent:
             print(
                 "[INFO] upper_semantic_latent=true, "
                 f"history_length={args.semantic_history_length}, latent_dim={args.latent_dim}, "
                 f"residual_scale={args.semantic_residual_scale:.3f}"
+            )
+        elif args.upper_recurrent:
+            contract = recurrent_observation_contract(
+                base_state_dim=env.base_upper_obs_dim,
+                history_frame_dim=env.semantic_frame_dim,
+                history_length=args.semantic_history_length,
+                state_dim=state_dim,
+            )
+            if int(getattr(env, "range_dim", -1)) == 96:
+                expected_96_ray_dims = {4: 517, 8: 917, 16: 1717}
+                if (
+                    contract["base_state_dim"] != 117
+                    or contract["history_frame_dim"] != 100
+                ):
+                    raise ValueError(
+                        "96-ray recurrent observation contract must use "
+                        "base_state_dim=117 and history_frame_dim=100."
+                    )
+                expected_dim = expected_96_ray_dims.get(contract["history_length"])
+                if expected_dim is not None and contract["state_dim"] != expected_dim:
+                    raise ValueError(
+                        f"96-ray H{contract['history_length']} must have "
+                        f"state_dim={expected_dim}, got {contract['state_dim']}."
+                    )
+            main_replay_bytes = replay_buffer_memory_bytes(
+                state_dim=state_dim,
+                action_dim=action_dim,
+                capacity=args.buffer_size,
+            )
+            success_replay_bytes = replay_buffer_memory_bytes(
+                state_dim=state_dim,
+                action_dim=action_dim,
+                capacity=args.success_replay_size,
+            )
+            print(
+                "[INFO] upper_recurrent=true, double_critic=true, "
+                f"base_state_dim={contract['base_state_dim']}, "
+                f"history_frame_dim={contract['history_frame_dim']}, "
+                f"history_length={contract['history_length']}, "
+                f"state_dim={contract['state_dim']}, "
+                f"hidden_dim={args.upper_recurrent_hidden_dim}"
+            )
+            print(
+                "[INFO] replay_memory_estimate="
+                f"main={main_replay_bytes / 2**20:.1f}MiB "
+                f"({args.buffer_size} transitions), "
+                f"success={success_replay_bytes / 2**20:.1f}MiB "
+                f"({args.success_replay_size} transitions), "
+                f"total={(main_replay_bytes + success_replay_bytes) / 2**20:.1f}MiB"
             )
     elif args.reference_tracking:
         print(
@@ -532,7 +885,46 @@ def main():
         print(latent_msg)
 
     if args.learned_upper_dslpid:
-        if args.upper_semantic_latent:
+        if args.upper_recurrent:
+            agent = TD3UpperRecurrent(
+                state_dim=state_dim,
+                action_dim=action_dim,
+                max_action=max_action,
+                base_state_dim=env.base_upper_obs_dim,
+                history_length=args.semantic_history_length,
+                history_frame_dim=env.semantic_frame_dim,
+                hidden_dim=args.upper_recurrent_hidden_dim,
+                discount=args.gamma,
+                tau=args.tau,
+                policy_noise=args.policy_noise,
+                noise_clip=args.noise_clip,
+                policy_freq=args.policy_freq,
+                grad_clip_norm=args.grad_clip_norm,
+                actor_lr=args.upper_actor_lr,
+                critic_lr=args.upper_critic_lr,
+                conservative_actor_lr=args.upper_conservative_actor_lr,
+                conservative_critic_lr=args.upper_conservative_critic_lr,
+                conservative_policy_noise=args.upper_conservative_policy_noise,
+                conservative_policy_freq=args.upper_conservative_policy_freq,
+                policy_anchor_weight=args.policy_anchor_weight,
+            )
+            encoder_parameter_ids = {
+                agent.actor.encoder.gru.weight_ih_l0.data_ptr(),
+                agent.critic.q1.encoder.gru.weight_ih_l0.data_ptr(),
+                agent.critic.q2.encoder.gru.weight_ih_l0.data_ptr(),
+            }
+            if len(encoder_parameter_ids) != 3:
+                raise RuntimeError(
+                    "Upper recurrent architecture must retain independent "
+                    "Actor/Q1/Q2 temporal encoders."
+                )
+            if int(getattr(env, "range_dim", -1)) == 96 and agent.hidden_dim != 64:
+                raise RuntimeError("96-ray upper recurrent presets require hidden_dim=64.")
+            print(
+                "[INFO] recurrent_encoders=actor,q1,q2 (independent), "
+                f"hidden_dim={agent.hidden_dim}"
+            )
+        elif args.upper_semantic_latent:
             if not args.base_policy_checkpoint:
                 raise ValueError("--base_policy_checkpoint is required for upper semantic latent mode.")
             agent = TD3UpperSemanticLatent(
@@ -737,7 +1129,35 @@ def main():
         agent.load(args.load_checkpoint)
         print(f"[INFO] loaded_checkpoint={args.load_checkpoint}")
 
+    eval_callback = EvalCallback(
+        LearnedUpperDSLPIDForestEnv
+        if args.learned_upper_dslpid
+        else CustomForestAviary,
+        eval_env_kwargs,
+        interval=args.eval_interval,
+        episodes=args.eval_episodes,
+        step_sleep=args.eval_stepsleep,
+        eval_gui=args.eval_gui,
+        quiet=args.eval_quiet,
+        output_dir=args.log_dir,
+        trajectory_output_dir=args.trajectory_output_dir,
+    )
+    if args.evaluate_only:
+        if args.eval_interval <= 0:
+            raise ValueError("--eval_interval must be positive with --evaluate_only.")
+        evaluation_context = SimpleNamespace(
+            env=env,
+            agent=agent,
+            total_steps=args.eval_interval,
+            last_eval_info=None,
+            last_eval_step=None,
+        )
+        eval_callback.on_step(evaluation_context)
+        env.close()
+        return
+
     trainer = TD3Trainer(env, agent, args)
+
     trainer.add_callback(
         LoggerCallback(
             args.log_dir,
@@ -755,21 +1175,27 @@ def main():
                 seed=args.seed,
             )
         )
-    trainer.add_callback(CheckpointCallback(args.ckpt_dir, interval=args.ckpt_interval))
+    trainer.add_callback(eval_callback)
+    best_checkpoint_callback = BestCheckpointCallback(
+        args.ckpt_dir,
+        window_size=args.best_window_size,
+        minimum_success_rate=args.best_min_success_rate,
+        maximum_collision_rate=args.best_max_collision_rate,
+        final_eval_callback=eval_callback,
+    )
+    trainer.add_callback(best_checkpoint_callback)
     trainer.add_callback(
-        EvalCallback(
-            LearnedUpperDSLPIDForestEnv
-            if args.learned_upper_dslpid
-            else CustomForestAviary,
-            eval_env_kwargs,
-            interval=args.eval_interval,
-            episodes=args.eval_episodes,
-            step_sleep=args.eval_stepsleep,
-            eval_gui=args.eval_gui,
-            quiet=args.eval_quiet,
+        ConvergenceGuardCallback(
+            best_checkpoint_callback,
+            enabled=args.convergence_guard,
+            min_success_rate=args.guard_min_success_rate,
+            max_collision_rate=args.guard_max_collision_rate,
+            patience_evals=args.guard_patience_evals,
         )
     )
-    trainer.add_callback(BestCheckpointCallback(args.ckpt_dir))
+    # Keep this after best selection: on_train_end the selected peak/stable
+    # policy is restored first, then written as model_final.
+    trainer.add_callback(CheckpointCallback(args.ckpt_dir, interval=args.ckpt_interval))
     monitor_interval = args.eval_interval if args.monitor_interval is None else args.monitor_interval
     if monitor_interval > 0:
         trainer.add_callback(MonitorCallback(interval=monitor_interval))

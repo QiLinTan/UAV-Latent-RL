@@ -1,0 +1,76 @@
+{
+  "audit": {
+    "bytes": 162427,
+    "path": "analysis_outputs/native_actor_audit_v1/audit.json",
+    "sha256": "e3f362aa715e31760d0a7a8ef0cc98cddfaf5bbb4040e42374032ca8a459b35a"
+  },
+  "checkpoint_identity": {
+    "actor": {
+      "500000_sha256": "7e290e8063a683d22f37041ae0a02d5a4106437cede89226d2877d298160113b",
+      "final_sha256": "d1b8b6387ee0b8cb82b16d36094af283c912cc15a34c9d81b5617380a0c463de"
+    },
+    "encoder": {
+      "500000_sha256": "e1361960b942969f23c3f0c5fdc10a2928bfcc5ec2dd38315dfa8fd0ab8b1642",
+      "final_sha256": "bca99dcd51149dc306ca4d77fc46a51b516e2f50f9d6e1528c9a9211b783ff04"
+    }
+  },
+  "classification": "historical_failure_reproduced",
+  "comparison": {
+    "eval/final_goal_distance": {
+      "absolute_error": 7.877751426743629e-07,
+      "historical": 1.0191726684570312,
+      "passed": true,
+      "reproduced": 1.0191718806818886,
+      "tolerance": 1e-05
+    },
+    "eval/length": {
+      "absolute_error": 0.0,
+      "historical": 252.0,
+      "passed": true,
+      "reproduced": 252,
+      "tolerance": 0.0
+    },
+    "eval/return": {
+      "absolute_error": 3.9305537939071655e-05,
+      "historical": 292.6913146972656,
+      "passed": true,
+      "reproduced": 292.69135400280356,
+      "tolerance": 0.001
+    }
+  },
+  "current_vs_historical_trace_equality": {
+    "0": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    },
+    "1": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    },
+    "2": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    }
+  },
+  "finding": "The archived run demonstrated forward progress, not successful goal convergence. Current stage2 physical trajectories exactly reproduce history; current reward differs. Asymmetric decoding is not compatible with this native Actor.",
+  "historical_evaluation_reproduced": true,
+  "historical_max_logged_success": 0.0,
+  "historical_metrics": {
+    "bytes": 209990,
+    "path": "analysis_outputs/native_actor_audit_v1/historical_metrics.json",
+    "sha256": "a49554eddcbc0bd7a39b03356ef40f5b46136fc0ce6d0bf4c88f1d1cc3a8be26"
+  },
+  "native_successful_episode_count": 0,
+  "next_decision": "Diagnose overshoot/terminal velocity and task representation before selecting a successful native teacher. A-D probes are diagnostic only; no Planner-v2/BC/RL stage is opened.",
+  "stage5_actor_bc_allowed": false,
+  "teacher_gate_passed": false
+}

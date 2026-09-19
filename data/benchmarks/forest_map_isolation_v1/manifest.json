@@ -1,0 +1,42 @@
+{
+  "coordinate_contract": "docs/experiment_contracts/planner_local_coordinates_v1.md",
+  "families": [
+    "clear",
+    "single",
+    "sparse_forest",
+    "dense_forest",
+    "route_blocking",
+    "symmetric",
+    "narrow_corridor",
+    "dead_end",
+    "multiple_turns"
+  ],
+  "files": {
+    "test": {
+      "path": "data/benchmarks/forest_map_isolation_v1/test.json",
+      "sha256": "354de8a20abdd7c7f9aa1d1c133dff5193ae7b7d49b05be2e85a8e5e29da2f2d"
+    },
+    "train": {
+      "path": "data/benchmarks/forest_map_isolation_v1/train.json",
+      "sha256": "f766656bb2600cfa4043862876f2fdb0119c97f99c3dbf867cf41bbaa04e38ff"
+    },
+    "validation": {
+      "path": "data/benchmarks/forest_map_isolation_v1/validation.json",
+      "sha256": "b88f6f9501d91c76c00edc1d24076d684f53c073aad44800d135cad85af5b7f6"
+    }
+  },
+  "reachability_warning": "Planar conservative grid feasibility only, not a certificate of dynamic flyability or unique required route.",
+  "rejected_layouts": [],
+  "schema_version": 1,
+  "seed": 20260907,
+  "test_policy": "Sealed for final navigation evaluation; never used for probe fitting, early stopping or selection.",
+  "validation": {
+    "counts": {
+      "test": 60,
+      "train": 120,
+      "validation": 40
+    },
+    "disjoint": true,
+    "unique_maps": 220
+  }
+}

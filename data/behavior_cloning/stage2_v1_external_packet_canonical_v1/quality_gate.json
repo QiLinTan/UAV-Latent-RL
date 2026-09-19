@@ -1,0 +1,15 @@
+{
+  "dataset_dir": "data/behavior_cloning/stage2_v1_external_packet_canonical_v1",
+  "dataset_version": "stage2_v1_external_packet_canonical_v1",
+  "samples_sha256_verified": true,
+  "context_contract_id": "stage2_v1_external_packet_30d",
+  "teacher_contract_id": "stage2_v1_canonical_dslpid_world_rate",
+  "ambiguity_gate_passed": false,
+  "training_allowed": false,
+  "gate_checks": {
+    "collection_gate_passed": true,
+    "local_context_label_smoothness": true,
+    "selected_teacher_label_uniqueness": false
+  },
+  "analysis_report": "analysis_outputs/stage2_v1_label_ambiguity/formal_canonical_v1_report.json"
+}

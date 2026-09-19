@@ -1,0 +1,573 @@
+{
+  "benchmark_manifest": {
+    "bytes": 1299,
+    "path": "data/benchmarks/forest_map_isolation_v1/manifest.json",
+    "sha256": "5dc104adf0c4773e7ef9e00d36b67c0db9f0ccbcc7dac304e121df7b7f24c815"
+  },
+  "coordinate_contract": "planner_local_coordinates_v1",
+  "eligible_for_main_bc": false,
+  "encoder": {
+    "architecture": "Encoder(\n  (net): Sequential(\n    (0): Linear(in_features=263, out_features=128, bias=True)\n    (1): ReLU()\n    (2): Linear(in_features=128, out_features=16, bias=True)\n  )\n)",
+    "bytes": 146069,
+    "eval": true,
+    "missing_keys": [],
+    "parameter_count": 35856,
+    "path": "checkpoints/latent_only_affordance_dim16/model_final_encoder",
+    "sha256": "bca99dcd51149dc306ca4d77fc46a51b516e2f50f9d6e1528c9a9211b783ff04",
+    "unexpected_keys": []
+  },
+  "episodes": [
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "94df97b5c3bf570ae3d8b360454a687a2f5e6bd527a76d9521506ce7b747f385",
+      "samples": 146,
+      "split": "train",
+      "steps": 1221,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "d08e4027a6bcacc2068b8a66bd00ca68e9d03376bbbf0ad6d516b372480cae3e",
+      "samples": 144,
+      "split": "train",
+      "steps": 1207,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "ceb1b070c220cefd8725e6e1fe7edb798907d4715ce9d2cb24cf1f4c7c80e87d",
+      "samples": 144,
+      "split": "train",
+      "steps": 1206,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "1658743ef4bc059bebe82f2ffbde16f71d8309375b22be031f1822776e52b2fa",
+      "samples": 150,
+      "split": "train",
+      "steps": 1255,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "da3f6ac0eb16e76b5d945907d6116e8574c9b0c2990e782a4bee44e050d56e56",
+      "samples": 165,
+      "split": "train",
+      "steps": 1377,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "ec0848ddfc40c71beed808da2a9f3f7d1ee114881e913fb9646a30d4c6416a35",
+      "samples": 150,
+      "split": "train",
+      "steps": 1258,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "351313a0332a63ede64260e6e38bf1f81b8b74cb46532602b29536b0b4f3a638",
+      "samples": 157,
+      "split": "train",
+      "steps": 1314,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "8ce1de019140b9cc5781183c3ee821f617e1f53e35b25a81abaa58b3fd2480e3",
+      "samples": 156,
+      "split": "train",
+      "steps": 1300,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "71027ea4aa7bb76f214cb158e7dd4fecb95340ca9da7e0f51e1676b3cca13045",
+      "samples": 149,
+      "split": "train",
+      "steps": 1248,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "c622c09b8a145b9cec0a763a434ba2bd4cbc9c368aa5c27ce0960cc4a87238fa",
+      "samples": 166,
+      "split": "train",
+      "steps": 1380,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "7a546f996e408be972e9214db641532ca653a9f5aec5b7cdf7480e6d83f44844",
+      "samples": 138,
+      "split": "train",
+      "steps": 1162,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "7d1fdd00d888ddb0489514773c8496c123d82c0cc48a5f180c1ba4ad11888350",
+      "samples": 207,
+      "split": "train",
+      "steps": 1708,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "2f72fe98f2cfa6820e11d7c37bc483b7f670db5620b42b83dc2910e9149b7597",
+      "samples": 152,
+      "split": "train",
+      "steps": 1273,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "1846e3432439bf329a3548fc38a1cd28bc05eee0dbe129d4b265905108ed5f97",
+      "samples": 165,
+      "split": "train",
+      "steps": 1375,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "9d6ed4fe67c43b68ed6de27cc9be650ae4be19c5a393f291daf93d50921306a3",
+      "samples": 154,
+      "split": "train",
+      "steps": 1289,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "89c30e4625fc45dcb0314241a8b4176b6aec960652e450289c1bca5df40995e8",
+      "samples": 173,
+      "split": "train",
+      "steps": 1441,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "a51d300ea03abdf08ca62f94743c973e1480bb0b09578ba38e00816fc852b15c",
+      "samples": 156,
+      "split": "train",
+      "steps": 1304,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "71e1e0403fcc723bf75e423385149b108b8d085ca1ed7e9a568c4f6e718b757e",
+      "samples": 182,
+      "split": "train",
+      "steps": 1515,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "296a36867824852d7f2046a428325f9f05fd97a1fd94dad92894c4daebe19df3",
+      "samples": 166,
+      "split": "train",
+      "steps": 1385,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "bdc730a56e5755e30076915635cfe78a9cde4f9dedf9c9d46f06347ec7ea0392",
+      "samples": 164,
+      "split": "train",
+      "steps": 1364,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "16bc5609dfcc5c2c88fc2a5da1c8989372ee76f44336c6ed3764f9d2abc6ad80",
+      "samples": 146,
+      "split": "train",
+      "steps": 1223,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "3a5c09fb2c355d22be5f4a350e87672e5cc1b4209ceb1bce875853dee2a25fe2",
+      "samples": 151,
+      "split": "train",
+      "steps": 1264,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "e7e60905e8c5cd4de3f63da345e97dc0c08f9341ec77453259b1324528910ebf",
+      "samples": 153,
+      "split": "train",
+      "steps": 1281,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "33903c760293d5061d7598230f74d40476390162402aeca23e22609e8ec096eb",
+      "samples": 182,
+      "split": "train",
+      "steps": 1512,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "20d86cab3f24a3170df2b397efff21face4cbf1d1127525084fbeceefa7e8ce7",
+      "samples": 142,
+      "split": "train",
+      "steps": 1195,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "34976cc83373e8b6dfa0ef24928f0155fbe9e584b7095f401f3110b05e6b140e",
+      "samples": 152,
+      "split": "train",
+      "steps": 1269,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "1e1e6ec3c1f6d6bb2f6d8ea9a906b018de110d3999691019ce9b13d890429171",
+      "samples": 150,
+      "split": "train",
+      "steps": 1256,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "423ff5f251c1c92163a6c1e2635bc0c7d2f6e251ad03b0530a1f4301cb0a12c2",
+      "samples": 146,
+      "split": "train",
+      "steps": 1223,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "44295d66fc42bc81f81c06bedb30fd853fce7f19c891e77ec57783db4bc3518d",
+      "samples": 172,
+      "split": "train",
+      "steps": 1435,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "b12a48939cad90a909b39b5c1150ecd94809a59c5ea089e70c0e09c45e8ddc00",
+      "samples": 175,
+      "split": "train",
+      "steps": 1453,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "09475c988d73842cff0319c1a5cb9ce6f19a42251288a518547800046a95dda3",
+      "samples": 167,
+      "split": "train",
+      "steps": 1395,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "ce9446ee279f4b62ee26d728090f25d860c8fbc768a5740e4c8f1f768fbe0d66",
+      "samples": 162,
+      "split": "train",
+      "steps": 1355,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "52b63c06f32b858d60d673e905d72925f0f322fe1b3b5cd2e803517e8b09b20e",
+      "samples": 206,
+      "split": "train",
+      "steps": 1700,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "5ad9d346a98463bb47ae9fcdad874a3fbeb963d078959b9770c45b4fc07d8570",
+      "samples": 200,
+      "split": "train",
+      "steps": 1657,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "0a2f30c079e808d9f49118f17001640aa7f44897f34a1182ec4b6e01096c921e",
+      "samples": 204,
+      "split": "train",
+      "steps": 1687,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "8f4c4f884e7a69924cb377b43c810e3299980c1a52d101ab2a5e80a98ab835c8",
+      "samples": 257,
+      "split": "train",
+      "steps": 2109,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "8c334c30162820bfd42249c5338620d0aaaed61982642b6b1f946ab6e61304dd",
+      "samples": 149,
+      "split": "validation",
+      "steps": 1247,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "clear",
+      "map_id": "ea5a8efa8c0e7bc58ea4442567119f5dfc5144891d73d1721b97b4d0913f4b57",
+      "samples": 156,
+      "split": "validation",
+      "steps": 1301,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "3dbb5bf9335fe8db2a688b0787d709ca66f80a68385720d952cfdc99ced8fc11",
+      "samples": 164,
+      "split": "validation",
+      "steps": 1370,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "single",
+      "map_id": "7427aaa447eb23e62a3964b3dd288c6767f39ab1a2332b78fd6d53e535317d0f",
+      "samples": 150,
+      "split": "validation",
+      "steps": 1259,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "6430965212896f33df07f3e96500e271bd05dbba0942e067032b3438a6c52255",
+      "samples": 171,
+      "split": "validation",
+      "steps": 1421,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "sparse_forest",
+      "map_id": "85a37f7826a2252965d442e3e841f7b521a55c39aa3d7cfa677266c65a1d101d",
+      "samples": 163,
+      "split": "validation",
+      "steps": 1358,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "7ed1b6b7595403b8ff901c1f0d3dbc25b97c6e8f0c094a96a7c326214e9453c9",
+      "samples": 165,
+      "split": "validation",
+      "steps": 1372,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dense_forest",
+      "map_id": "fc3fb863775fadd0bd60768b96e21738a5fb3d05d57a7f33fca265924ea96e1b",
+      "samples": 157,
+      "split": "validation",
+      "steps": 1312,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "5feb89d66ca12fbbd521db1af1971181c3fe0d6d67c63b89e59197d970ec0ef2",
+      "samples": 169,
+      "split": "validation",
+      "steps": 1407,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "route_blocking",
+      "map_id": "8ba92e141bcbdf420d1a98f93cd98cfb0d32088349ddcb0c7633a36a3cb1af8c",
+      "samples": 187,
+      "split": "validation",
+      "steps": 1550,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "6a3ff4549e31a9732f489a15f0ed78e6d3abad41caf0aaf8e8d04e3ad3dd028b",
+      "samples": 148,
+      "split": "validation",
+      "steps": 1236,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "symmetric",
+      "map_id": "e3ffebb4ada89bb773d874e4da1384772dfff70ca7163024729f10255b117b7a",
+      "samples": 156,
+      "split": "validation",
+      "steps": 1303,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "ccc680d19807c889823f0ec37e5974dc1a50d7e3dbc14139b406be2bf975d925",
+      "samples": 138,
+      "split": "validation",
+      "steps": 1163,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "narrow_corridor",
+      "map_id": "dd8067baa1b7fbadff635f287f6f47cfdbb8b159c9c3b2fc8edd9ae5faeff518",
+      "samples": 156,
+      "split": "validation",
+      "steps": 1307,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "adca7b5c9cedef91c049a14c4d8b9e23752d26d2c21664a34af05e6c21b7aaa0",
+      "samples": 176,
+      "split": "validation",
+      "steps": 1467,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "dead_end",
+      "map_id": "ee78621de16c98adf21d5ed6d4c4f9ff435fef6311929b07801195c61ad5097a",
+      "samples": 176,
+      "split": "validation",
+      "steps": 1463,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "3e3a7e1a8c00d9a34d087b0fe8923f060419d22aba6db2fe0e020d670eca9339",
+      "samples": 212,
+      "split": "validation",
+      "steps": 1752,
+      "success": true,
+      "termination_reason": "success"
+    },
+    {
+      "collision": false,
+      "family": "multiple_turns",
+      "map_id": "437535c7be4130954ab44457f1c27e210d5d0b7a922f540ee06afbcd40a3d9a5",
+      "samples": 210,
+      "split": "validation",
+      "steps": 1735,
+      "success": true,
+      "termination_reason": "success"
+    }
+  ],
+  "failures_retained": true,
+  "input_layout": "latent16+unclipped_local_goal3+heading_resampled_ranges8",
+  "purpose": "observability_diagnostic_only",
+  "sample_count": 8952,
+  "samples": {
+    "bytes": 5179094,
+    "path": "data/planner_diagnostics/map_isolated_v1/samples.npz",
+    "sha256": "e1c6f25ddce267e79936d16d2ecf0c126d8b30e0a8e4f0d594cb1687580b1b35"
+  },
+  "teacher": "privileged_global_grid_BFS_shortcuts_plus_DSLPID",
+  "teacher_reason": "Native Actor success gate failed; global teacher is used ONLY for label-conflict/probe diagnosis, as allowed in A-D.",
+  "test_maps_read": false
+}

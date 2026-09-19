@@ -1,0 +1,44 @@
+{
+  "schema_version": "upper_dslpid_recurrent_trajectory_v1",
+  "training_step": 2000,
+  "seed": 0,
+  "trace_samples": 148,
+  "tree_count": 29,
+  "obstacle_count": 29,
+  "files": {
+    "trace": "seed_0_trace.npz",
+    "xy_plot": "seed_0_xy.png",
+    "xyz_plot": "seed_0_xyz.png"
+  },
+  "episode": {
+    "return": 338.0781635770199,
+    "length": 147,
+    "final_goal_distance": 0.1992025019604418,
+    "success": true,
+    "collision": false,
+    "truncated": false,
+    "done_reason": "success",
+    "max_roll_pitch": 0.15937225620497905
+  },
+  "evaluation": {
+    "eval/return": 337.55780182422666,
+    "eval/length": 148.8,
+    "eval/min_z": 0.834236006189189,
+    "eval/final_z": 0.9735001696449104,
+    "eval/mean_abs_z_error": 0.0510039143140791,
+    "eval/mean_z_vel": -0.0019079573637666354,
+    "eval/final_goal_distance": 0.1974664108523851,
+    "eval/success_rate": 1.0,
+    "eval/collision_rate": 0.0,
+    "eval/truncated_rate": 0.0,
+    "eval/done_reason_success_rate": 1.0,
+    "eval/done_reason_collision_rate": 0.0,
+    "eval/done_reason_attitude_bound_rate": 0.0,
+    "eval/done_reason_height_bound_rate": 0.0,
+    "eval/done_reason_xy_bound_rate": 0.0,
+    "eval/done_reason_timeout_rate": 0.0,
+    "eval/tracking_position_rmse": 0.02885079992244905,
+    "eval/tracking_velocity_rmse": 0.1044641013008478,
+    "eval/max_roll_pitch": 0.16627242216709842
+  }
+}

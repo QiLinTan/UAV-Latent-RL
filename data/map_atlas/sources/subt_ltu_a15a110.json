@@ -1,0 +1,23 @@
+{
+  "source_id": "subt_ltu_a15a110",
+  "name": "LTU-RAI DARPA SubT virtual worlds",
+  "upstream_url": "https://github.com/LTU-RAI/darpa_subt_worlds",
+  "revision": "a15a110",
+  "retrieved_on": "2026-09-16",
+  "license": "MIT",
+  "local_raw_path": "data/map_atlas/raw/darpa_subt_worlds",
+  "verified_assets": [
+    "tunnel_simple03/simple_tunnel_03.sdf",
+    "cave_simple_03/simple_cave_03.sdf",
+    "cave_qual/cave_qual.sdf",
+    "final2/final_event_06.sdf",
+    "worlds/models/cave_world/meshes/cave_world.obj"
+  ],
+  "integration_status": "raw_downloaded_not_yet_converted",
+  "required_before_formal_map_entry": [
+    "Resolve SDF Fuel dependencies or select self-contained collision meshes.",
+    "Normalize coordinates, units and collision orientation for PyBullet.",
+    "Build an occupancy/primitive representation for route validation and clearance reward.",
+    "Record fixed start/goal routes without using them for policy training when designated as test."
+  ]
+}

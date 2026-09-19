@@ -37,6 +37,7 @@ class ForestLayoutGenerator:
         protect_corridor: bool,
         corridor_edge_tree_fraction: float,
         centerline_tree_fraction: float,
+        route_blocking_tree_count: int | None = None,
     ):
         start_pos = np.asarray(start_pos, dtype=np.float32)
         goal_pos = np.asarray(goal_pos, dtype=np.float32)
@@ -49,12 +50,17 @@ class ForestLayoutGenerator:
             start_pos=start_pos,
             goal_pos=goal_pos,
             corridor_half_width=corridor_half_width,
+            route_blocking_tree_count=route_blocking_tree_count,
         )
         tree_specs.extend(route_tree_specs)
         target_tree_count += len(route_tree_specs)
 
-        attempts_per_tree = 250 if self.config.route_tree_layout == "fixed_safe_five" else 40
-        max_attempts = max(200, target_tree_count * attempts_per_tree)
+        attempts_per_tree = (
+            250
+            if self.config.route_tree_layout in ("fixed_safe_five", "fixed_safe_five_mirror")
+            else 160
+        )
+        max_attempts = max(1000, target_tree_count * attempts_per_tree)
 
         while len(tree_specs) < target_tree_count and attempts < max_attempts:
             attempts += 1
@@ -97,7 +103,15 @@ class ForestLayoutGenerator:
             )
         return tree_specs
 
-    def _create_route_blocking_tree_specs(self, *, rng, start_pos, goal_pos, corridor_half_width: float):
+    def _create_route_blocking_tree_specs(
+        self,
+        *,
+        rng,
+        start_pos,
+        goal_pos,
+        corridor_half_width: float,
+        route_blocking_tree_count: int | None = None,
+    ):
         if not self.config.route_blocking_tree:
             return []
 
@@ -107,10 +121,15 @@ class ForestLayoutGenerator:
         if np.linalg.norm(route) < 1e-8:
             return []
 
-        count = max(0, int(self.config.route_blocking_tree_count))
-        if self.config.route_tree_layout == "fixed_safe_five":
+        configured_count = (
+            self.config.route_blocking_tree_count
+            if route_blocking_tree_count is None
+            else route_blocking_tree_count
+        )
+        count = max(0, int(configured_count))
+        if self.config.route_tree_layout in ("fixed_safe_five", "fixed_safe_five_mirror"):
             if count != 5:
-                raise ValueError("fixed_safe_five requires route_blocking_tree_count=5")
+                raise ValueError("fixed_safe_five layouts require route_blocking_tree_count=5")
             fixed = (
                 (0.243, 0.15),
                 (0.357, -0.55),
@@ -118,11 +137,16 @@ class ForestLayoutGenerator:
                 (0.643, -0.35),
                 (0.771, 0.25),
             )
+            lateral_sign = -1.0 if self.config.route_tree_layout == "fixed_safe_five_mirror" else 1.0
             radius = 0.16
             height = 2.0
             return [
                 {
-                    "xy": (start_xy + fraction * route + lateral * route_direction_xy(start_xy, goal_xy)[1]).astype(np.float32),
+                    "xy": (
+                        start_xy
+                        + fraction * route
+                        + lateral_sign * lateral * route_direction_xy(start_xy, goal_xy)[1]
+                    ).astype(np.float32),
                     "radius": radius,
                     "height": height,
                     "route_blocking": True,
@@ -227,13 +251,14 @@ class ForestLayoutGenerator:
         if protect_corridor and distance_point_to_segment_2d(xy, start_xy, goal_xy) < (radius + corridor_half_width):
             return False
 
-        if self.config.route_tree_layout == "fixed_safe_five":
+        if self.config.route_tree_layout in ("fixed_safe_five", "fixed_safe_five_mirror"):
             route = goal_xy - start_xy
             _, perp_dir = route_direction_xy(start_xy, goal_xy)
+            safe_side_sign = -1.0 if self.config.route_tree_layout == "fixed_safe_five_mirror" else 1.0
             safe_path = (
                 start_xy,
-                start_xy + 0.143 * route + 1.1 * perp_dir,
-                start_xy + 0.857 * route + 1.1 * perp_dir,
+                start_xy + 0.143 * route + safe_side_sign * 1.1 * perp_dir,
+                start_xy + 0.857 * route + safe_side_sign * 1.1 * perp_dir,
                 goal_xy,
             )
             required_centerline_distance = radius + 0.06 + 0.35

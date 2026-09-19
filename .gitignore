@@ -13,6 +13,7 @@ __pycache__/
 
 checkpoints/
 runs/
+runs_archive/
 *.pt
 *.pth
 *.ckpt
@@ -21,3 +22,14 @@ runs/
 .codex
 experiments/
 events.out.tfevents.*
+
+# Downloaded third-party map assets and local mesh conversions.
+data/map_atlas/raw/
+data/map_atlas/converted/
+
+# Generated datasets and trajectory artifacts. Keep their manifests, metadata,
+# reports, and selected JSON summaries under version control instead.
+analysis_outputs/
+data/behavior_cloning/**/*.npz
+data/planner_diagnostics/**/*.npz
+data/reference_planner/**/*.npz

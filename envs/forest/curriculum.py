@@ -28,6 +28,7 @@ class ForestCurriculumScheduler:
         success_gated: bool = False,
         success_window: int = 100,
         success_thresholds=(0.10, 0.20, 0.30),
+        max_collision_rates=(1.0, 1.0, 1.0),
         minimum_stage_episodes: int = 50,
     ):
         self.enabled = bool(enabled)
@@ -42,19 +43,39 @@ class ForestCurriculumScheduler:
         self.success_gated = bool(success_gated)
         self.success_window = int(success_window)
         self.success_thresholds = tuple(float(x) for x in success_thresholds)
+        self.max_collision_rates = tuple(float(x) for x in max_collision_rates)
         self.minimum_stage_episodes = int(minimum_stage_episodes)
         if len(self.success_thresholds) != 3:
             raise ValueError("success_thresholds must contain exactly 3 values")
+        if len(self.max_collision_rates) != 3:
+            raise ValueError("max_collision_rates must contain exactly 3 values")
         if self.success_window <= 0 or self.minimum_stage_episodes <= 0:
             raise ValueError("success_window and minimum_stage_episodes must be positive")
+        if any(not 0.0 <= rate <= 1.0 for rate in self.max_collision_rates):
+            raise ValueError("max_collision_rates must lie in [0, 1]")
         self._performance_stage = 0
         self._stage_episode_count = 0
         self._recent_successes = deque(maxlen=self.success_window)
+        self._recent_collisions = deque(maxlen=self.success_window)
 
-    def record_episode_outcome(self, success: bool):
+    def record_episode_outcome(
+        self,
+        success: bool,
+        collision: bool = False,
+        done_reason: str | None = None,
+    ):
+        """Record one *training* episode for performance-gated curriculum.
+
+        ``done_reason`` is retained with the outcome interface so callers can
+        pass terminal environment information without reconstructing it.  A
+        collision terminal reason takes precedence over a stale collision flag.
+        """
         if not self.enabled or not self.success_gated:
             return
         self._recent_successes.append(float(bool(success)))
+        self._recent_collisions.append(
+            float(bool(collision) or str(done_reason) == "collision")
+        )
         self._stage_episode_count += 1
         if self._performance_stage >= 3:
             return
@@ -62,10 +83,15 @@ class ForestCurriculumScheduler:
             self._stage_episode_count >= self.minimum_stage_episodes
             and len(self._recent_successes) >= min(self.success_window, self.minimum_stage_episodes)
         )
-        if enough_samples and self.success_rate >= self.success_thresholds[self._performance_stage]:
+        if (
+            enough_samples
+            and self.success_rate >= self.success_thresholds[self._performance_stage]
+            and self.collision_rate <= self.max_collision_rates[self._performance_stage]
+        ):
             self._performance_stage += 1
             self._stage_episode_count = 0
             self._recent_successes.clear()
+            self._recent_collisions.clear()
 
     @property
     def success_rate(self) -> float:
@@ -74,8 +100,34 @@ class ForestCurriculumScheduler:
         return float(sum(self._recent_successes) / len(self._recent_successes))
 
     @property
+    def collision_rate(self) -> float:
+        if not self._recent_collisions:
+            return 0.0
+        return float(sum(self._recent_collisions) / len(self._recent_collisions))
+
+    @property
+    def stage_episode_count(self) -> int:
+        return int(self._stage_episode_count)
+
+    @property
     def recent_episode_count(self) -> int:
         return len(self._recent_successes)
+
+    @property
+    def current_stage(self) -> int:
+        return int(self._performance_stage)
+
+    @property
+    def current_success_threshold(self) -> float | None:
+        if self._performance_stage >= 3:
+            return None
+        return float(self.success_thresholds[self._performance_stage])
+
+    @property
+    def current_max_collision_rate(self) -> float | None:
+        if self._performance_stage >= 3:
+            return None
+        return float(self.max_collision_rates[self._performance_stage])
 
     def stage_from_episode_count(self, completed_episodes: int) -> int:
         first, second, third = self.milestones

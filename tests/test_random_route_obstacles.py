@@ -44,6 +44,23 @@ class RandomRouteObstacleTest(unittest.TestCase):
             layouts.append(tuple(tuple(np.round(spec["xy"], 3)) for spec in route_specs))
         self.assertGreater(len(set(layouts)), 1)
 
+    def test_episode_override_supports_one_two_three_five_curriculum(self):
+        generator = self._generator()
+        for count in (1, 2, 3, 5):
+            specs = generator.generate(
+                rng=np.random.default_rng(100 + count),
+                start_pos=[-3.5, 0.0, 1.0],
+                goal_pos=[3.5, 0.0, 1.0],
+                corridor_half_width=1.35,
+                protect_corridor=True,
+                corridor_edge_tree_fraction=0.0,
+                centerline_tree_fraction=0.0,
+                route_blocking_tree_count=count,
+            )
+            route_specs = [spec for spec in specs if spec.get("route_blocking")]
+            self.assertEqual(len(route_specs), count)
+            self.assertEqual(len(specs), 24 + count)
+
     def test_fixed_five_layout_has_a_continuous_safe_route(self):
         generator = ForestLayoutGenerator(
             ForestLayoutConfig(
@@ -122,6 +139,56 @@ class RandomRouteObstacleTest(unittest.TestCase):
                 )
                 clearance = centerline_distance - spec["radius"] - 0.06
                 self.assertGreaterEqual(clearance, 0.35)
+
+    def test_mirror_layout_reflects_route_blockers_and_safe_corridor(self):
+        common = dict(
+            forest_half_extent=3.0,
+            num_trees=0,
+            tree_radius_range=(0.10, 0.22),
+            tree_height_range=(1.2, 2.4),
+            min_tree_separation=0.45,
+            centerline_band_width=0.40,
+            route_blocking_tree=True,
+            route_blocking_tree_count=5,
+        )
+        original = ForestLayoutGenerator(
+            ForestLayoutConfig(route_tree_layout="fixed_safe_five", **common)
+        ).generate(
+            rng=np.random.default_rng(0),
+            start_pos=[-3.5, 0.0, 1.0],
+            goal_pos=[3.5, 0.0, 1.0],
+            corridor_half_width=1.35,
+            protect_corridor=True,
+            corridor_edge_tree_fraction=0.0,
+            centerline_tree_fraction=0.0,
+        )
+        mirrored = ForestLayoutGenerator(
+            ForestLayoutConfig(route_tree_layout="fixed_safe_five_mirror", **common)
+        ).generate(
+            rng=np.random.default_rng(0),
+            start_pos=[-3.5, 0.0, 1.0],
+            goal_pos=[3.5, 0.0, 1.0],
+            corridor_half_width=1.35,
+            protect_corridor=True,
+            corridor_edge_tree_fraction=0.0,
+            centerline_tree_fraction=0.0,
+        )
+        for before, after in zip(original, mirrored):
+            self.assertAlmostEqual(float(before["xy"][0]), float(after["xy"][0]))
+            self.assertAlmostEqual(float(before["xy"][1]), -float(after["xy"][1]))
+
+        safe_polyline = (
+            np.array([-3.5, 0.0]),
+            np.array([-2.5, -1.1]),
+            np.array([2.5, -1.1]),
+            np.array([3.5, 0.0]),
+        )
+        for spec in mirrored:
+            centerline_distance = min(
+                distance_point_to_segment_2d(spec["xy"], start, end)
+                for start, end in zip(safe_polyline, safe_polyline[1:])
+            )
+            self.assertGreaterEqual(centerline_distance - spec["radius"] - 0.06, 0.35)
 
 
 if __name__ == "__main__":

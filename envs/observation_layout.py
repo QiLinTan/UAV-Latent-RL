@@ -25,20 +25,34 @@ class ForestObservationLayout:
 
     total_dim: int
     action_history_dim: int
+    range_dim: int = RANGE_DIM
 
     @classmethod
-    def from_total_dim(cls, total_dim: int, action_dim: int | None = None):
+    def from_total_dim(
+        cls,
+        total_dim: int,
+        action_dim: int | None = None,
+        range_dim: int = RANGE_DIM,
+    ):
         total_dim = int(total_dim)
-        action_history_dim = total_dim - KIN_DIM - FOREST_TASK_DIM
+        range_dim = int(range_dim)
+        if range_dim <= 0:
+            raise ValueError("range_dim must be positive.")
+        forest_task_dim = GOAL_DIM + range_dim
+        action_history_dim = total_dim - KIN_DIM - forest_task_dim
         if action_history_dim < 0:
             raise ValueError(
-                f"Forest observation needs at least {KIN_DIM + FOREST_TASK_DIM} values, got {total_dim}."
+                f"Forest observation needs at least {KIN_DIM + forest_task_dim} values, got {total_dim}."
             )
         if action_dim is not None and action_history_dim % int(action_dim) != 0:
             raise ValueError(
                 f"Action-history dimension {action_history_dim} is not divisible by action dimension {action_dim}."
             )
-        return cls(total_dim=total_dim, action_history_dim=action_history_dim)
+        return cls(
+            total_dim=total_dim,
+            action_history_dim=action_history_dim,
+            range_dim=range_dim,
+        )
 
     @property
     def goal_start(self) -> int:
@@ -60,16 +74,25 @@ class ForestObservationLayout:
         )
 
 
-def append_forest_task_observation(base_observation, goal_observation, range_observation):
-    """Append fixed-size forest task observations to a base KIN observation."""
+def append_forest_task_observation(
+    base_observation,
+    goal_observation,
+    range_observation,
+    *,
+    expected_range_dim: int = RANGE_DIM,
+):
+    """Append forest task observations to a base KIN observation."""
 
     base = np.asarray(base_observation)
     goal = np.asarray(goal_observation)
     ranges = np.asarray(range_observation)
     if goal.shape[-1] != GOAL_DIM:
         raise ValueError(f"Expected {GOAL_DIM} goal values, got {goal.shape[-1]}.")
-    if ranges.shape[-1] != RANGE_DIM:
-        raise ValueError(f"Expected {RANGE_DIM} range values, got {ranges.shape[-1]}.")
+    expected_range_dim = int(expected_range_dim)
+    if ranges.shape[-1] != expected_range_dim:
+        raise ValueError(
+            f"Expected {expected_range_dim} range values, got {ranges.shape[-1]}."
+        )
     if base.shape[:-1] != goal.shape[:-1] or base.shape[:-1] != ranges.shape[:-1]:
         raise ValueError(
             "Base, goal, and range observations must have identical leading dimensions."

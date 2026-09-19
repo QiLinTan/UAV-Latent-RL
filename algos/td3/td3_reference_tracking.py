@@ -20,9 +20,91 @@ from models.reference_packet import (
     ActuatorConstraintLayer,
     AsyncReferenceBuffer,
     DegradedHoverController,
+    ReferencePacket,
     RuleReferenceGenerator,
     TrajectoryLimits,
 )
+
+
+STAGE2_V1_CONTEXT_ID = "stage2_v1_external_packet_30d"
+
+
+def stage2_v1_context_contract() -> list[dict]:
+    """Return the frozen 30D external-packet lower-controller input contract."""
+
+    fields = []
+    kin = (
+        ("position_x", "m", 0.0, 0.5),
+        ("position_y", "m", 0.0, 0.5),
+        ("position_z", "m", 1.0, 0.5),
+        ("roll", "rad", 0.0, float(np.pi)),
+        ("pitch", "rad", 0.0, float(np.pi)),
+        ("yaw", "rad", 0.0, float(np.pi)),
+        ("velocity_x", "m/s", 0.0, 2.0),
+        ("velocity_y", "m/s", 0.0, 2.0),
+        ("velocity_z", "m/s", 0.0, 2.0),
+        ("angular_velocity_x", "rad/s", 0.0, 4.0),
+        ("angular_velocity_y", "rad/s", 0.0, 4.0),
+        ("angular_velocity_z", "rad/s", 0.0, 4.0),
+    )
+    for index, (name, unit, mean, scale) in enumerate(kin):
+        fields.append(
+            {
+                "index": index,
+                "name": name,
+                "physical_unit": unit,
+                "meaning": "current vehicle kinematics in world/Euler convention",
+                "normalization": f"(value - {mean}) / {scale}",
+            }
+        )
+
+    axes = ("x", "y", "z")
+    blocks = (
+        (12, "current_position_error", "m", 0.5, "p_ref(control_time) - p_vehicle"),
+        (15, "current_velocity_error", "m/s", 2.0, "v_ref(control_time) - v_vehicle"),
+        (18, "future_position_error", "m", 0.5, "p_ref(control_time + lookahead) - p_vehicle"),
+        (21, "future_velocity_error", "m/s", 2.0, "v_ref(control_time + lookahead) - v_vehicle"),
+    )
+    for start, prefix, unit, scale, meaning in blocks:
+        for offset, axis in enumerate(axes):
+            fields.append(
+                {
+                    "index": start + offset,
+                    "name": f"{prefix}_{axis}",
+                    "physical_unit": unit,
+                    "meaning": meaning,
+                    "normalization": f"clip(value / {scale}, -4, 4)",
+                }
+            )
+    fields.extend(
+        [
+            {
+                "index": 24,
+                "name": "reference_age_ratio",
+                "physical_unit": "1",
+                "meaning": "(control_time - packet.t_gen) / packet.valid_duration",
+                "normalization": "clip(value, 0, 1)",
+            },
+            {
+                "index": 25,
+                "name": "reference_valid",
+                "physical_unit": "bool",
+                "meaning": "packet validity at control_time",
+                "normalization": "false=0, true=1",
+            },
+        ]
+    )
+    for motor in range(4):
+        fields.append(
+            {
+                "index": 26 + motor,
+                "name": f"previous_motor_action_{motor}",
+                "physical_unit": "1",
+                "meaning": "previous executed asymmetric-RPM motor action",
+                "normalization": "already normalized to [-1, 1]",
+            }
+        )
+    return fields
 
 
 class TD3ReferenceTracking:
@@ -49,6 +131,7 @@ class TD3ReferenceTracking:
         reference_horizon_seconds=1.0,
         high_level_interval=8,
         reference_mode="line",
+        reference_source="legacy",
         max_reference_speed=0.8,
         max_reference_acceleration=2.0,
         max_reference_vertical_speed=0.5,
@@ -86,6 +169,9 @@ class TD3ReferenceTracking:
         self.sequence_length = int(sequence_length)
         self.reference_horizon_seconds = float(reference_horizon_seconds)
         self.high_level_interval = int(high_level_interval)
+        if reference_source not in {"legacy", "external_packet"}:
+            raise ValueError("reference_source must be 'legacy' or 'external_packet'.")
+        self.reference_source = str(reference_source)
         self.lookahead_points = int(lookahead_points)
         self.lookahead_seconds = (
             self.lookahead_points
@@ -109,6 +195,10 @@ class TD3ReferenceTracking:
             action_dim=self.action_dim,
         )
         available_history_steps = self.layout.action_history_dim // self.action_dim
+        if self.reference_source == "external_packet" and int(lower_action_history_steps) != 0:
+            raise ValueError(
+                "Stage2-v1 external_packet freezes lower_action_history_steps=0."
+            )
         self.lower_action_history_steps = min(
             max(0, int(lower_action_history_steps)),
             available_history_steps,
@@ -122,12 +212,14 @@ class TD3ReferenceTracking:
             max_acceleration=float(max_reference_acceleration),
             max_vertical_speed=float(max_reference_vertical_speed),
         )
-        self.reference_generator = RuleReferenceGenerator(
-            sequence_length=self.sequence_length,
-            horizon_seconds=self.reference_horizon_seconds,
-            limits=limits,
-            mode=reference_mode,
-        )
+        self.reference_generator = None
+        if self.reference_source == "legacy":
+            self.reference_generator = RuleReferenceGenerator(
+                sequence_length=self.sequence_length,
+                horizon_seconds=self.reference_horizon_seconds,
+                limits=limits,
+                mode=reference_mode,
+            )
         self.reference_mode = reference_mode
         self.reference_anchor = None
         self.reference_buffer = AsyncReferenceBuffer()
@@ -135,6 +227,10 @@ class TD3ReferenceTracking:
             raise ValueError(
                 "motor_action_mode must be 'asymmetric_rpm', "
                 "'asymmetric_thrust', or 'legacy_projected'."
+            )
+        if self.reference_source == "external_packet" and motor_action_mode != ASYMMETRIC_RPM:
+            raise ValueError(
+                "Stage2-v1 external_packet requires motor_action_mode='asymmetric_rpm'."
             )
         self.motor_action_mode = str(motor_action_mode)
         self.min_allowed_rpm = float(min_allowed_rpm)
@@ -226,6 +322,13 @@ class TD3ReferenceTracking:
         self._teacher_contexts = deque(maxlen=100_000)
         self._teacher_actions = deque(maxlen=100_000)
 
+        if self.reference_source == "external_packet":
+            contract = stage2_v1_context_contract()
+            if self.context_dim != len(contract) or self.context_dim != 30:
+                raise RuntimeError(
+                    f"Stage2-v1 context must be 30D, got {self.context_dim}."
+                )
+
     def set_env_step(self, step: int):
         self.env_step = int(step)
 
@@ -242,12 +345,31 @@ class TD3ReferenceTracking:
     def set_high_level_enabled(self, enabled: bool):
         self.high_level_enabled = bool(enabled)
 
+    def publish_reference(self, packet: ReferencePacket) -> bool:
+        """Publish the sole external high-to-low control input for Stage2-v1."""
+
+        if self.reference_source != "external_packet":
+            raise RuntimeError("publish_reference() is only valid in external_packet mode.")
+        if not isinstance(packet, ReferencePacket):
+            raise TypeError("Stage2-v1 accepts models.reference_packet.ReferencePacket only.")
+        if packet.frame_id != "world":
+            raise ValueError("Stage2-v1 external packets must use frame_id='world'.")
+        return self.reference_buffer.publish(packet)
+
+    def context_contract(self) -> list[dict]:
+        if self.reference_source != "external_packet":
+            raise RuntimeError("The frozen Stage2-v1 contract applies to external_packet mode.")
+        return stage2_v1_context_contract()
+
     @classmethod
     def denormalize_kinematics(cls, state) -> np.ndarray:
         state = np.asarray(state, dtype=np.float32).reshape(-1)
         return state[:KIN_DIM] * cls._KIN_STD + cls._KIN_MEAN
 
     def _refresh_reference(self, state):
+        if self.reference_source != "legacy":
+            raise RuntimeError("external_packet mode cannot invoke the legacy reference generator.")
+        assert self.reference_generator is not None
         kin = self.denormalize_kinematics(state)
         now = self.runtime_step * self.control_dt
         if self.reference_anchor is None:
@@ -270,12 +392,17 @@ class TD3ReferenceTracking:
 
     def prepare_runtime_context(self, state) -> np.ndarray:
         state = np.asarray(state, dtype=np.float32).reshape(-1)
-        now = self.runtime_step * self.control_dt
-        must_refresh = (
+        sim_time = self.runtime_step * self.control_dt
+        control_time = (
+            sim_time + self.control_dt
+            if self.reference_source == "external_packet"
+            else sim_time
+        )
+        must_refresh = self.reference_source == "legacy" and (
             not self.reference_buffer.has_value
             or (
                 self.runtime_step % self.high_level_interval == 0
-                and abs(self.reference_buffer.packet.t_gen - now) > 1e-9
+                and abs(self.reference_buffer.packet.t_gen - sim_time) > 1e-9
             )
         )
         if must_refresh and self.high_level_enabled:
@@ -292,6 +419,8 @@ class TD3ReferenceTracking:
                 "async_high_level_refreshed": 0.0,
                 "async_degraded_fallback": 1.0,
                 "reference_tracking_mode": 1.0,
+                "reference_source_external": float(self.reference_source == "external_packet"),
+                "reference_sample_time_seconds": float(control_time),
             }
             short_history = self._short_action_history(state)
             return np.concatenate(
@@ -304,7 +433,10 @@ class TD3ReferenceTracking:
                 ]
             ).astype(np.float32)
 
-        sample = self.reference_buffer.sample(now, lookahead_seconds=self.lookahead_seconds)
+        sample = self.reference_buffer.sample(
+            control_time,
+            lookahead_seconds=self.lookahead_seconds,
+        )
         self.last_reference_sample = sample
         kin = self.denormalize_kinematics(state)
         position = kin[:3]
@@ -338,6 +470,9 @@ class TD3ReferenceTracking:
             "async_high_level_refreshed": float(must_refresh and self.high_level_enabled),
             "async_degraded_fallback": float(not sample["valid"]),
             "reference_tracking_mode": 1.0,
+            "reference_source_external": float(self.reference_source == "external_packet"),
+            "reference_sample_time_seconds": float(control_time),
+            "reference_lookahead_seconds": float(self.lookahead_seconds),
         }
         return context
 
@@ -435,14 +570,20 @@ class TD3ReferenceTracking:
 
             self._teacher_controller = DSLPIDControl(drone_model=env.DRONE_MODEL)
         drone_state = env._getDroneStateVector(0)
+        if self.reference_source == "external_packet":
+            target_position = self.last_reference_sample["current_position"]
+            target_velocity = self.last_reference_sample["current_velocity"]
+        else:
+            target_position = self.last_reference_sample["lookahead_position"]
+            target_velocity = self.last_reference_sample["lookahead_velocity"]
         rpm, _, _ = self._teacher_controller.computeControl(
             control_timestep=env.CTRL_TIMESTEP,
             cur_pos=drone_state[0:3],
             cur_quat=drone_state[3:7],
             cur_vel=drone_state[10:13],
             cur_ang_vel=drone_state[13:16],
-            target_pos=self.last_reference_sample["lookahead_position"],
-            target_vel=self.last_reference_sample["lookahead_velocity"],
+            target_pos=target_position,
+            target_vel=target_velocity,
         )
         if self.motor_action_mode == "legacy_projected":
             normalized = (

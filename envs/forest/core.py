@@ -17,6 +17,7 @@ from envs.observation_layout import (
     ForestObservationLayout,
     append_forest_task_observation,
 )
+from envs.map_atlas import MapRuntime, coerce_map_spec
 
 from .curriculum import DEFAULT_CURRICULUM_MILESTONES, ForestCurriculumScheduler
 from .layout import ForestLayoutConfig, ForestLayoutGenerator
@@ -43,6 +44,7 @@ class CustomForestAviary(BaseRLAviary):
         obs: ObservationType = ObservationType.KIN,
         act: ActionType = ActionType.RPM,
         target_pos=None,
+        map_spec=None,
         forest_half_extent: float = 3.0,
         num_trees: int = 24,
         tree_radius_range=(0.10, 0.22),
@@ -50,6 +52,8 @@ class CustomForestAviary(BaseRLAviary):
         min_tree_separation: float = 0.45,
         corridor_half_width: float = 0.55,
         obstacle_sensor_range: float = 1.75,
+        range_azimuth_count: int = RANGE_DIM,
+        range_elevation_degrees=(0.0,),
         episode_len_sec: float = 12.0,
         safe_distance: float = 0.35,
         goal_tolerance: float = 0.20,
@@ -58,6 +62,7 @@ class CustomForestAviary(BaseRLAviary):
         curriculum_success_gated: bool = False,
         curriculum_success_window: int = 100,
         curriculum_success_thresholds=(0.10, 0.20, 0.30),
+        curriculum_max_collision_rates=(1.0, 1.0, 1.0),
         curriculum_minimum_stage_episodes: int = 50,
         wide_corridor_half_width: float = 1.35,
         narrow_corridor_half_width: float = 0.35,
@@ -68,10 +73,45 @@ class CustomForestAviary(BaseRLAviary):
         route_blocking_tree_count: int = 1,
         route_tree_lateral_range: float = 0.55,
         route_tree_layout: str = "random",
+        route_count_curriculum: bool = False,
+        route_count_curriculum_counts=(1, 2, 3, 5),
+        curriculum_simple_mix_probability: float = 0.20,
         seed: int | None = None,
         reward_model: ForestRewardModel | None = None,
         curriculum_scheduler: ForestCurriculumScheduler | None = None,
     ):
+        self.MAP_SPEC = coerce_map_spec(map_spec)
+        map_overrides = (
+            dict(self.MAP_SPEC.environment_overrides) if self.MAP_SPEC is not None else {}
+        )
+        if self.MAP_SPEC is not None:
+            # A selected atlas map owns its task frame. This prevents a caller
+            # from accidentally combining the geometry of one map with the
+            # start/goal pair of another.
+            initial_xyzs = np.asarray([self.MAP_SPEC.start_pos], dtype=np.float32)
+            target_pos = self.MAP_SPEC.target_pos
+            forest_half_extent = self.MAP_SPEC.xy_half_extent
+            obstacle_sensor_range = self.MAP_SPEC.obstacle_sensor_range
+            num_trees = map_overrides.get("num_trees", num_trees)
+            route_blocking_tree = map_overrides.get(
+                "route_blocking_tree", route_blocking_tree
+            )
+            route_blocking_tree_count = map_overrides.get(
+                "route_blocking_tree_count", route_blocking_tree_count
+            )
+            route_tree_layout = map_overrides.get("route_tree_layout", route_tree_layout)
+            curriculum = map_overrides.get("curriculum", curriculum)
+            route_count_curriculum = map_overrides.get(
+                "route_count_curriculum", route_count_curriculum
+            )
+            route_count_curriculum_counts = map_overrides.get(
+                "route_count_curriculum_counts", route_count_curriculum_counts
+            )
+            curriculum_simple_mix_probability = map_overrides.get(
+                "curriculum_simple_mix_probability",
+                curriculum_simple_mix_probability,
+            )
+
         default_initial_xyzs = np.array([self.DEFAULT_START_POS], dtype=np.float32)
         if initial_xyzs is None:
             initial_xyzs = default_initial_xyzs.copy()
@@ -102,14 +142,35 @@ class CustomForestAviary(BaseRLAviary):
         self.ROUTE_BLOCKING_TREE_COUNT = max(0, int(route_blocking_tree_count))
         self.ROUTE_TREE_LATERAL_RANGE = max(0.0, float(route_tree_lateral_range))
         self.ROUTE_TREE_LAYOUT = str(route_tree_layout)
+        self.ROUTE_COUNT_CURRICULUM = bool(route_count_curriculum)
+        self.ROUTE_COUNT_CURRICULUM_COUNTS = tuple(
+            max(0, int(value)) for value in route_count_curriculum_counts
+        )
+        if len(self.ROUTE_COUNT_CURRICULUM_COUNTS) != 4:
+            raise ValueError("route_count_curriculum_counts must contain four stage counts.")
+        self.CURRICULUM_SIMPLE_MIX_PROBABILITY = float(
+            curriculum_simple_mix_probability
+        )
+        if not 0.0 <= self.CURRICULUM_SIMPLE_MIX_PROBABILITY <= 1.0:
+            raise ValueError("curriculum_simple_mix_probability must lie in [0, 1].")
 
-        self.NUM_RANGE_RAYS = RANGE_DIM
+        self.RANGE_AZIMUTH_COUNT = int(range_azimuth_count)
+        self.RANGE_ELEVATION_DEGREES = tuple(
+            float(value) for value in range_elevation_degrees
+        )
+        if self.RANGE_AZIMUTH_COUNT <= 0 or not self.RANGE_ELEVATION_DEGREES:
+            raise ValueError("Range-ray azimuth and elevation counts must be positive.")
+        self.NUM_RANGE_RAYS = self.RANGE_AZIMUTH_COUNT * len(
+            self.RANGE_ELEVATION_DEGREES
+        )
+        self._range_directions = self._buildRangeDirections()
         self.GOAL_OBS_DIM = GOAL_DIM
         self.OBSTACLE_OBS_DIM = self.GOAL_OBS_DIM + self.NUM_RANGE_RAYS
 
         self._rng = np.random.default_rng(seed)
         self._tree_ids = []
         self._tree_specs = []
+        self._map_runtime = None
         self._prev_goal_dist = None
         self._prev_pos = self.START_POS.copy()
         self._last_collision = False
@@ -118,6 +179,7 @@ class CustomForestAviary(BaseRLAviary):
         self._last_done_reason = "running"
         self.motor_action_codec = None
         self._last_motor_rpm = None
+        self._replay_size = 0
         self._reset_count = 0
         self._curriculum_stage = 0
         self._curriculum_stage_override = None
@@ -125,6 +187,8 @@ class CustomForestAviary(BaseRLAviary):
         self._protect_corridor = True
         self._corridor_edge_tree_fraction = 0.0
         self._centerline_bias_fraction = 0.0
+        self._active_route_blocking_tree_count = self.ROUTE_BLOCKING_TREE_COUNT
+        self._curriculum_mixed_difficulty = False
 
         self._layout_generator = ForestLayoutGenerator(
             ForestLayoutConfig(
@@ -141,6 +205,13 @@ class CustomForestAviary(BaseRLAviary):
                 route_tree_layout=self.ROUTE_TREE_LAYOUT,
             )
         )
+        self.map_validation = (
+            self.MAP_SPEC.validate_route() if self.MAP_SPEC is not None else None
+        )
+        if self.map_validation is not None and self.map_validation.reachable is False:
+            raise ValueError(
+                f"Map {self.MAP_SPEC.map_id!r} cannot be used: {self.map_validation.message}."
+            )
         self._reward_model = reward_model or BaselineForestReward()
         self._curriculum_scheduler = curriculum_scheduler or ForestCurriculumScheduler(
             enabled=self.CURRICULUM_ENABLED,
@@ -152,6 +223,7 @@ class CustomForestAviary(BaseRLAviary):
             success_gated=curriculum_success_gated,
             success_window=curriculum_success_window,
             success_thresholds=curriculum_success_thresholds,
+            max_collision_rates=curriculum_max_collision_rates,
             minimum_stage_episodes=curriculum_minimum_stage_episodes,
         )
         self._applyCurriculum()
@@ -231,6 +303,15 @@ class CustomForestAviary(BaseRLAviary):
 
         self._tree_ids = []
         self._tree_specs = []
+        self._map_runtime = None
+        if self.MAP_SPEC is not None and self.MAP_SPEC.obstacles:
+            self._map_runtime = MapRuntime(self.MAP_SPEC)
+            self._tree_ids = self._map_runtime.create_bodies(client_id=self.CLIENT)
+            self._tree_specs = [
+                {"kind": obstacle.kind, "name": obstacle.name, "id": body_id}
+                for obstacle, body_id in zip(self.MAP_SPEC.obstacles, self._tree_ids)
+            ]
+            return
         tree_specs = self._layout_generator.generate(
             rng=self._rng,
             start_pos=self.INIT_XYZS[0],
@@ -239,6 +320,7 @@ class CustomForestAviary(BaseRLAviary):
             protect_corridor=self._protect_corridor,
             corridor_edge_tree_fraction=self._corridor_edge_tree_fraction,
             centerline_tree_fraction=self._centerline_bias_fraction,
+            route_blocking_tree_count=self._active_route_blocking_tree_count,
         )
 
         for spec in tree_specs:
@@ -267,11 +349,22 @@ class CustomForestAviary(BaseRLAviary):
         range_low = extra_low[..., self.GOAL_OBS_DIM :]
         goal_high = extra_high[..., : self.GOAL_OBS_DIM]
         range_high = extra_high[..., self.GOAL_OBS_DIM :]
-        low = append_forest_task_observation(base_space.low, goal_low, range_low)
-        high = append_forest_task_observation(base_space.high, goal_high, range_high)
+        low = append_forest_task_observation(
+            base_space.low,
+            goal_low,
+            range_low,
+            expected_range_dim=self.NUM_RANGE_RAYS,
+        )
+        high = append_forest_task_observation(
+            base_space.high,
+            goal_high,
+            range_high,
+            expected_range_dim=self.NUM_RANGE_RAYS,
+        )
         self.observation_layout = ForestObservationLayout.from_total_dim(
             low.shape[-1],
             action_dim=self.action_space.shape[-1],
+            range_dim=self.NUM_RANGE_RAYS,
         )
         return spaces.Box(low=low, high=high, dtype=np.float32)
 
@@ -283,7 +376,12 @@ class CustomForestAviary(BaseRLAviary):
         state = self._getDroneStateVector(0)
         goal_obs = self._computeGoalObservation(state[0:3]).reshape(1, -1)
         range_obs = self._computeRangeObservation(state[0:3]).reshape(1, -1)
-        obs = append_forest_task_observation(base_obs, goal_obs, range_obs).astype(np.float32)
+        obs = append_forest_task_observation(
+            base_obs,
+            goal_obs,
+            range_obs,
+            expected_range_dim=self.NUM_RANGE_RAYS,
+        ).astype(np.float32)
         self.observation_layout.split(obs)
         return obs
 
@@ -302,21 +400,8 @@ class CustomForestAviary(BaseRLAviary):
 
     def _computeRangeObservation(self, pos):
         origin = np.array(pos, dtype=np.float32) + np.array([0.0, 0.0, 0.02], dtype=np.float32)
-        dirs = np.array(
-            [
-                [1.0, 0.0, 0.0],
-                [0.7071, 0.7071, 0.0],
-                [0.0, 1.0, 0.0],
-                [-0.7071, 0.7071, 0.0],
-                [-1.0, 0.0, 0.0],
-                [-0.7071, -0.7071, 0.0],
-                [0.0, -1.0, 0.0],
-                [0.7071, -0.7071, 0.0],
-            ],
-            dtype=np.float32,
-        )
         ray_from = np.repeat(origin.reshape(1, 3), self.NUM_RANGE_RAYS, axis=0)
-        ray_to = ray_from + dirs * self.OBSTACLE_SENSOR_RANGE
+        ray_to = ray_from + self._range_directions * self.OBSTACLE_SENSOR_RANGE
         hits = p.rayTestBatch(ray_from.tolist(), ray_to.tolist(), physicsClientId=self.CLIENT)
 
         dists = []
@@ -327,6 +412,22 @@ class CustomForestAviary(BaseRLAviary):
             else:
                 dists.append(np.clip(hit_fraction, 0.0, 1.0))
         return np.array(dists, dtype=np.float32)
+
+    def _buildRangeDirections(self):
+        directions = []
+        for elevation_degrees in self.RANGE_ELEVATION_DEGREES:
+            elevation = np.deg2rad(elevation_degrees)
+            cos_elevation = np.cos(elevation)
+            for azimuth_index in range(self.RANGE_AZIMUTH_COUNT):
+                azimuth = 2.0 * np.pi * azimuth_index / self.RANGE_AZIMUTH_COUNT
+                directions.append(
+                    [
+                        cos_elevation * np.cos(azimuth),
+                        cos_elevation * np.sin(azimuth),
+                        np.sin(elevation),
+                    ]
+                )
+        return np.asarray(directions, dtype=np.float32)
 
     def _computeReward(self):
         state = self._getDroneStateVector(0)
@@ -344,6 +445,7 @@ class CustomForestAviary(BaseRLAviary):
             safe_distance=self.SAFE_DISTANCE,
             clearance=clearance,
             collision=collision,
+            terminal_reason=self._classifyDoneReason(state, collision=collision),
         )
 
         self._last_clearance = clearance
@@ -355,19 +457,28 @@ class CustomForestAviary(BaseRLAviary):
 
     def _computeTerminated(self):
         state = self._getDroneStateVector(0)
-        goal_dist = np.linalg.norm(self.TARGET_POS - state[0:3])
-
-        if goal_dist < self.GOAL_TOLERANCE:
-            self._last_done_reason = "success"
-            return True
-        if self._checkCollision():
-            self._last_done_reason = "collision"
+        done_reason = self._classifyDoneReason(state)
+        if done_reason in ("success", "collision"):
+            self._last_done_reason = done_reason
             return True
         return False
 
     def _computeTruncated(self):
         state = self._getDroneStateVector(0)
+        done_reason = self._classifyDoneReason(state)
+        if done_reason in ("xy_bound", "height_bound", "attitude_bound", "timeout"):
+            self._last_done_reason = done_reason
+            return True
+        return False
+
+    def _classifyDoneReason(self, state, *, collision=None):
+        state = np.asarray(state, dtype=np.float32)
         pos = state[0:3]
+        goal_dist = float(np.linalg.norm(self.TARGET_POS - pos))
+        if goal_dist < self.GOAL_TOLERANCE:
+            return "success"
+        if self._checkCollision() if collision is None else bool(collision):
+            return "collision"
         xy_limit = max(
             self.FOREST_HALF_EXTENT + 0.75,
             float(np.max(np.abs(self.START_POS[:2]))) + 0.5,
@@ -375,23 +486,20 @@ class CustomForestAviary(BaseRLAviary):
         )
 
         if abs(pos[0]) > xy_limit or abs(pos[1]) > xy_limit:
-            self._last_done_reason = "xy_bound"
-            return True
+            return "xy_bound"
         if pos[2] < 0.08 or pos[2] > 2.75:
-            self._last_done_reason = "height_bound"
-            return True
+            return "height_bound"
         if abs(state[7]) > 0.65 or abs(state[8]) > 0.65:
-            self._last_done_reason = "attitude_bound"
-            return True
+            return "attitude_bound"
         if self.step_counter / self.PYB_FREQ > self.EPISODE_LEN_SEC:
-            self._last_done_reason = "timeout"
-            return True
-        return False
+            return "timeout"
+        return "running"
 
     def _computeInfo(self):
         state = self._getDroneStateVector(0)
         pos = state[0:3]
         goal_dist = float(np.linalg.norm(self.TARGET_POS - pos))
+        curriculum_metrics = self.get_curriculum_metrics()
         return {
             "goal_distance": goal_dist,
             "collision": bool(self._last_collision),
@@ -404,29 +512,48 @@ class CustomForestAviary(BaseRLAviary):
             "done_reason/height_bound": float(self._last_done_reason == "height_bound"),
             "done_reason/attitude_bound": float(self._last_done_reason == "attitude_bound"),
             "done_reason/timeout": float(self._last_done_reason == "timeout"),
-            "curriculum_stage": int(self._curriculum_stage),
+            **curriculum_metrics,
             "curriculum_episode": int(max(0, self._reset_count - 1)),
-            "curriculum_success_gated": bool(self._curriculum_scheduler.success_gated),
-            "curriculum_recent_success_rate": float(self._curriculum_scheduler.success_rate),
-            "curriculum_recent_episode_count": int(
-                self._curriculum_scheduler.recent_episode_count
-            ),
             "corridor_half_width": float(self._current_corridor_half_width),
             "corridor_protected": bool(self._protect_corridor),
             "corridor_edge_tree_fraction": float(self._corridor_edge_tree_fraction),
             "centerline_tree_fraction": float(self._centerline_bias_fraction),
             "route_blocking_tree": bool(self.ROUTE_BLOCKING_TREE),
             "route_tree_fraction": float(self.ROUTE_TREE_FRACTION),
-            "route_blocking_tree_count": int(self.ROUTE_BLOCKING_TREE_COUNT),
+            "route_blocking_tree_count": int(self._active_route_blocking_tree_count),
+            "route_blocking_tree_count_configured": int(self.ROUTE_BLOCKING_TREE_COUNT),
+            "curriculum_primary_route_blocking_tree_count": int(
+                self.ROUTE_COUNT_CURRICULUM_COUNTS[self._curriculum_stage]
+                if self.ROUTE_COUNT_CURRICULUM
+                else self.ROUTE_BLOCKING_TREE_COUNT
+            ),
+            "curriculum_mixed_difficulty": bool(self._curriculum_mixed_difficulty),
+            "range_ray_count": int(self.NUM_RANGE_RAYS),
             "route_tree_layout": self.ROUTE_TREE_LAYOUT,
             "start_pos": self.START_POS.copy(),
             "target_pos": self.TARGET_POS.copy(),
             "num_trees": int(len(self._tree_specs)),
+            "num_obstacles": int(len(self._tree_ids)),
+            "map_id": None if self.MAP_SPEC is None else self.MAP_SPEC.map_id,
+            "map_source": None if self.MAP_SPEC is None else self.MAP_SPEC.source,
+            "map_split": None if self.MAP_SPEC is None else self.MAP_SPEC.split,
+            "map_route_reachable": (
+                None if self.map_validation is None else self.map_validation.reachable
+            ),
+            "map_route_validation": (
+                None if self.map_validation is None else self.map_validation.message
+            ),
             "z_error": float(abs(pos[2] - self.TARGET_POS[2])),
             **{f"reward/{k}": float(v) for k, v in self._last_reward_terms.items()},
         }
 
     def _computeNearestTreeClearance(self, pos):
+        if self._map_runtime is not None:
+            return self._map_runtime.nearest_clearance(
+                position=pos,
+                drone_radius=float(self.COLLISION_R),
+                drone_height=float(self.COLLISION_H),
+            )
         return self._layout_generator.compute_nearest_tree_clearance(
             pos=pos,
             tree_specs=self._tree_specs,
@@ -450,8 +577,40 @@ class CustomForestAviary(BaseRLAviary):
     def get_curriculum_stage(self) -> int:
         return int(self._curriculum_stage)
 
-    def record_episode_outcome(self, success: bool):
-        self._curriculum_scheduler.record_episode_outcome(success)
+    def get_curriculum_metrics(self) -> dict:
+        """Expose scheduler state without allowing evaluation to mutate it."""
+        scheduler = self._curriculum_scheduler
+        stage = (
+            scheduler.current_stage
+            if scheduler.success_gated
+            else self._curriculum_stage
+        )
+        return {
+            "curriculum_stage": int(stage),
+            "curriculum_success_gated": bool(scheduler.success_gated),
+            "curriculum_stage_episode_count": int(scheduler.stage_episode_count),
+            "curriculum_recent_episode_count": int(scheduler.recent_episode_count),
+            "curriculum_recent_success_rate": float(scheduler.success_rate),
+            "curriculum_recent_collision_rate": float(scheduler.collision_rate),
+            "curriculum_success_threshold": scheduler.current_success_threshold,
+            "curriculum_max_collision_rate": scheduler.current_max_collision_rate,
+            "replay_size": int(self._replay_size),
+        }
+
+    def set_replay_size(self, replay_size: int):
+        self._replay_size = max(0, int(replay_size))
+
+    def record_episode_outcome(
+        self,
+        success: bool,
+        collision: bool = False,
+        done_reason: str | None = None,
+    ):
+        self._curriculum_scheduler.record_episode_outcome(
+            success=success,
+            collision=collision,
+            done_reason=done_reason,
+        )
 
     def _applyCurriculum(self):
         completed_episodes = max(0, self._reset_count - 1)
@@ -464,3 +623,18 @@ class CustomForestAviary(BaseRLAviary):
         self._protect_corridor = bool(config.protect_corridor)
         self._corridor_edge_tree_fraction = float(config.corridor_edge_tree_fraction)
         self._centerline_bias_fraction = float(config.centerline_tree_fraction)
+        self._active_route_blocking_tree_count = self.ROUTE_BLOCKING_TREE_COUNT
+        self._curriculum_mixed_difficulty = False
+        if self.ROUTE_COUNT_CURRICULUM:
+            primary_count = self.ROUTE_COUNT_CURRICULUM_COUNTS[self._curriculum_stage]
+            previous_counts = self.ROUTE_COUNT_CURRICULUM_COUNTS[: self._curriculum_stage]
+            if (
+                previous_counts
+                and self._rng.random() < self.CURRICULUM_SIMPLE_MIX_PROBABILITY
+            ):
+                self._active_route_blocking_tree_count = int(
+                    self._rng.choice(previous_counts)
+                )
+                self._curriculum_mixed_difficulty = True
+            else:
+                self._active_route_blocking_tree_count = int(primary_count)

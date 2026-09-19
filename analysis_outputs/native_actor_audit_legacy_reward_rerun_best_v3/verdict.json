@@ -1,0 +1,81 @@
+{
+  "audit": {
+    "bytes": 165258,
+    "path": "analysis_outputs/native_actor_audit_legacy_reward_rerun_best_v3/audit.json",
+    "sha256": "a4344384e135a47eb5d5968937aa3bee26f0b82faf105531acf67a45a911ef97"
+  },
+  "checkpoint_identity": {
+    "actor": {
+      "500000_sha256": "cf62ed28b123bd160dd0b6048f7d3431cbf59853313756ab97ae9b4532740540",
+      "best_sha256": "1ff133e5399dd35e1b46a332c1a9519eb15e7631d1690b2fe155689cc7fefc8e",
+      "final_sha256": "b5cad8c083d9fb550c30de517e24013209422a063e91e75d9e2cc2764ffb9931",
+      "loaded_sha256": "1ff133e5399dd35e1b46a332c1a9519eb15e7631d1690b2fe155689cc7fefc8e"
+    },
+    "encoder": {
+      "500000_sha256": "c9c06021a3d5d717a958f80acc3c7538fffad08d7eea39ad0a7170da78c957eb",
+      "best_sha256": "179e7e56ca7150100cb6e84b3431766824d213824bb9c20ef74e80e9d4275f0a",
+      "final_sha256": "f189150c39d8c5cd7cb1a8fe6bcff3c2b40cffcef960498bbf20f16723d27565",
+      "loaded_sha256": "179e7e56ca7150100cb6e84b3431766824d213824bb9c20ef74e80e9d4275f0a"
+    }
+  },
+  "classification": "review_required",
+  "comparison": {
+    "eval/final_goal_distance": {
+      "absolute_error": 1.0919347850912864e-06,
+      "historical": 0.17448142170906067,
+      "passed": true,
+      "reproduced": 0.17448032977427558,
+      "tolerance": 1e-05
+    },
+    "eval/length": {
+      "absolute_error": 0.0,
+      "historical": 266.0,
+      "passed": true,
+      "reproduced": 266,
+      "tolerance": 0.0
+    },
+    "eval/return": {
+      "absolute_error": 8.175522089004517e-05,
+      "historical": 457.9559326171875,
+      "passed": true,
+      "reproduced": 457.9560143724084,
+      "tolerance": 0.001
+    }
+  },
+  "comparison_eval_step": 440000,
+  "current_vs_historical_trace_equality": {
+    "0": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    },
+    "1": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    },
+    "2": {
+      "actor_action": true,
+      "latent": true,
+      "position": true,
+      "raw_observation": true,
+      "rpm": true
+    }
+  },
+  "finding": "The audited checkpoint has successful native episodes in at least one predefined profile. Review which profile and reward/map contract it satisfies before using it as a teacher.",
+  "historical_evaluation_reproduced": true,
+  "historical_max_logged_success": 1.0,
+  "historical_metrics": {
+    "bytes": 197388,
+    "path": "analysis_outputs/native_actor_audit_legacy_reward_rerun_best_v3/historical_metrics.json",
+    "sha256": "13ef0654dd3b6486b21cac24756a9a5302435e8da26f850dc5b3472e744e3851"
+  },
+  "native_successful_episode_count": 9,
+  "next_decision": "Diagnose overshoot/terminal velocity and task representation before selecting a successful native teacher. A-D probes are diagnostic only; no Planner-v2/BC/RL stage is opened.",
+  "stage5_actor_bc_allowed": null,
+  "teacher_gate_passed": true
+}

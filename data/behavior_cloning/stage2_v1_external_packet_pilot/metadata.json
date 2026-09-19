@@ -1,0 +1,327 @@
+{
+  "dataset_version": "stage2_v1_external_packet_pilot",
+  "profile": "pilot_diagnostic_only",
+  "training_allowed": false,
+  "context_contract_id": "stage2_v1_external_packet_30d",
+  "context_dim": 30,
+  "context_contract": [
+    {
+      "index": 0,
+      "name": "position_x",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 0.5"
+    },
+    {
+      "index": 1,
+      "name": "position_y",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 0.5"
+    },
+    {
+      "index": 2,
+      "name": "position_z",
+      "physical_unit": "m",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 1.0) / 0.5"
+    },
+    {
+      "index": 3,
+      "name": "roll",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 4,
+      "name": "pitch",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 5,
+      "name": "yaw",
+      "physical_unit": "rad",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 3.141592653589793"
+    },
+    {
+      "index": 6,
+      "name": "velocity_x",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 7,
+      "name": "velocity_y",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 8,
+      "name": "velocity_z",
+      "physical_unit": "m/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 2.0"
+    },
+    {
+      "index": 9,
+      "name": "angular_velocity_x",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 10,
+      "name": "angular_velocity_y",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 11,
+      "name": "angular_velocity_z",
+      "physical_unit": "rad/s",
+      "meaning": "current vehicle kinematics in world/Euler convention",
+      "normalization": "(value - 0.0) / 4.0"
+    },
+    {
+      "index": 12,
+      "name": "current_position_error_x",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 13,
+      "name": "current_position_error_y",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 14,
+      "name": "current_position_error_z",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 15,
+      "name": "current_velocity_error_x",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 16,
+      "name": "current_velocity_error_y",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 17,
+      "name": "current_velocity_error_z",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 18,
+      "name": "future_position_error_x",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 19,
+      "name": "future_position_error_y",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 20,
+      "name": "future_position_error_z",
+      "physical_unit": "m",
+      "meaning": "p_ref(control_time + lookahead) - p_vehicle",
+      "normalization": "clip(value / 0.5, -4, 4)"
+    },
+    {
+      "index": 21,
+      "name": "future_velocity_error_x",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 22,
+      "name": "future_velocity_error_y",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 23,
+      "name": "future_velocity_error_z",
+      "physical_unit": "m/s",
+      "meaning": "v_ref(control_time + lookahead) - v_vehicle",
+      "normalization": "clip(value / 2.0, -4, 4)"
+    },
+    {
+      "index": 24,
+      "name": "reference_age_ratio",
+      "physical_unit": "1",
+      "meaning": "(control_time - packet.t_gen) / packet.valid_duration",
+      "normalization": "clip(value, 0, 1)"
+    },
+    {
+      "index": 25,
+      "name": "reference_valid",
+      "physical_unit": "bool",
+      "meaning": "packet validity at control_time",
+      "normalization": "false=0, true=1"
+    },
+    {
+      "index": 26,
+      "name": "previous_motor_action_0",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 27,
+      "name": "previous_motor_action_1",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 28,
+      "name": "previous_motor_action_2",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    },
+    {
+      "index": 29,
+      "name": "previous_motor_action_3",
+      "physical_unit": "1",
+      "meaning": "previous executed asymmetric-RPM motor action",
+      "normalization": "already normalized to [-1, 1]"
+    }
+  ],
+  "reference_source": "external_packet",
+  "reference_packet": "models.reference_packet.ReferencePacket",
+  "packet_source": "models.continuous_world_reference.ContinuousWorldPacketSource",
+  "coordinate_frame": "world",
+  "control_time_definition": "sim_time + 1/control_frequency_hz",
+  "teacher_target": "current_reference_at_control_time",
+  "future_reference_time": "control_time + 0.2 seconds",
+  "motor_action_codec": "asymmetric_rpm",
+  "teacher_controller": "gym_pybullet_drones.control.DSLPIDControl.DSLPIDControl",
+  "teacher_reset_enabled": true,
+  "teacher_action_noise": 0.0,
+  "teacher_intervention_ratio": 1.0,
+  "actor_control_ratio": 0.0,
+  "config": {
+    "start_position": [
+      -3.5,
+      0.0,
+      1.0
+    ],
+    "target_position": [
+      3.5,
+      0.0,
+      1.0
+    ],
+    "max_speed": 0.6,
+    "max_acceleration": 1.5,
+    "packet_frequency_hz": 15,
+    "control_frequency_hz": 120,
+    "physics_frequency_hz": 240,
+    "window_seconds": 1.0,
+    "sequence_length": 16,
+    "lookahead_seconds": 0.2,
+    "settle_seconds": 2.0,
+    "hover_duration_seconds": 30.0,
+    "goal_tolerance": 0.2,
+    "attitude_limit": 0.65
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "task_id_mapping": {
+    "hover": 0,
+    "straight": 1
+  },
+  "disturbance_profile_mapping": {
+    "nominal": 0,
+    "small_positive_recovery": 1,
+    "small_negative_recovery": 2
+  },
+  "sample_count": 14955,
+  "episode_count": 6,
+  "pilot_gate_passed": true,
+  "episode_gate_results": [
+    {
+      "episode_id": 0,
+      "task": "hover",
+      "seed": 0,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 1,
+      "task": "straight",
+      "seed": 0,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 2,
+      "task": "hover",
+      "seed": 1,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 3,
+      "task": "straight",
+      "seed": 1,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 4,
+      "task": "hover",
+      "seed": 2,
+      "gate_passed": true
+    },
+    {
+      "episode_id": 5,
+      "task": "straight",
+      "seed": 2,
+      "gate_passed": true
+    }
+  ],
+  "physical_parameters": {
+    "min_rpm": 0.0,
+    "hover_rpm": 14468.429183500699,
+    "max_rpm": 21702.64377525105,
+    "kf": 3.16e-10,
+    "km": 7.94e-12,
+    "arm_length": 0.0397
+  },
+  "max_context_reconstruction_error": 0.0,
+  "max_rpm_roundtrip_error": 0.00010718376142904162,
+  "motor_saturation_ratio": 0.0,
+  "samples_sha256": "680e104d52049d3542f9004702f281877f7e4c1cb85ecdd3f63d1aaeb73e878a",
+  "project_commit": "ba53e8fcb889cf248f55369aa03a1630931a21bf",
+  "project_dirty": true,
+  "environment_commit": "3a59b6f1c435da8ed4f559aca94cdecc4f428962",
+  "environment_dirty": true
+}

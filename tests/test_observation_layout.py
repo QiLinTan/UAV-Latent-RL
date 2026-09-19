@@ -33,6 +33,15 @@ class ForestObservationLayoutTest(unittest.TestCase):
         self.assertEqual(layout.goal_start, 84)
         self.assertEqual(layout.range_start, 87)
 
+    def test_layout_supports_96_three_dimensional_range_rays(self):
+        layout = ForestObservationLayout.from_total_dim(
+            12 + 240 + 3 + 96,
+            action_dim=4,
+            range_dim=96,
+        )
+        observation = np.zeros((1, layout.total_dim), dtype=np.float32)
+        self.assertEqual(layout.split(observation).ranges.shape[-1], 96)
+
     def test_append_validates_and_preserves_order(self):
         base = np.zeros((2, 20), dtype=np.float32)
         goal = np.full((2, GOAL_DIM), 2.0, dtype=np.float32)
@@ -45,6 +54,15 @@ class ForestObservationLayoutTest(unittest.TestCase):
 
         np.testing.assert_array_equal(parts.goal, goal)
         np.testing.assert_array_equal(parts.ranges, ranges)
+
+        ranges_3d = np.zeros((2, 96), dtype=np.float32)
+        observation_3d = append_forest_task_observation(
+            base, goal, ranges_3d, expected_range_dim=96
+        )
+        parts_3d = ForestObservationLayout.from_total_dim(
+            observation_3d.shape[-1], action_dim=4, range_dim=96
+        ).split(observation_3d)
+        self.assertEqual(parts_3d.ranges.shape[-1], 96)
 
     def test_rejects_misaligned_action_history(self):
         with self.assertRaises(ValueError):

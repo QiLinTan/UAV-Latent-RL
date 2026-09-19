@@ -6,6 +6,7 @@ from .td3_plain import TD3Plain
 from .td3_reference_tracking import TD3ReferenceTracking
 from .td3_v1trust import TD3V1Trust
 from .td3_upper_semantic_latent import TD3UpperSemanticLatent
+from .td3_upper_recurrent import TD3UpperRecurrent
 
 __all__ = [
     "TD3",
@@ -16,4 +17,5 @@ __all__ = [
     "TD3ReferenceTracking",
     "TD3V1Trust",
     "TD3UpperSemanticLatent",
+    "TD3UpperRecurrent",
 ]
