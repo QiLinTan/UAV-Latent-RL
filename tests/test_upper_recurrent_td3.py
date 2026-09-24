@@ -48,6 +48,39 @@ class UpperRecurrentTD3Test(unittest.TestCase):
         self.assertNotEqual(q1_weight.data_ptr(), q2_weight.data_ptr())
         self.assertFalse(torch.equal(q1_weight, q2_weight))
 
+    def test_critic_action_scan_returns_one_value_per_candidate(self):
+        agent = self.make_agent()
+        state = np.zeros(self.state_dim, dtype=np.float32)
+        actions = np.array(
+            [[0.2, -0.1, z] for z in (-1.0, -0.5, 0.0, 0.5, 1.0)],
+            dtype=np.float32,
+        )
+        q1, q2 = agent.evaluate_critic_actions(state, actions)
+        self.assertEqual(q1.shape, (5,))
+        self.assertEqual(q2.shape, (5,))
+        self.assertTrue(np.all(np.isfinite(q1)))
+        self.assertTrue(np.all(np.isfinite(q2)))
+
+    def test_projected_planar_action_matches_executable_unit_disk(self):
+        agent = TD3UpperRecurrent(
+            state_dim=self.state_dim,
+            action_dim=3,
+            max_action=1.0,
+            base_state_dim=self.base_state_dim,
+            history_length=self.history_length,
+            history_frame_dim=self.history_frame_dim,
+            hidden_dim=32,
+            project_planar_action=True,
+            device=torch.device("cpu"),
+        )
+        projected = agent.project_action(np.array([1.0, 1.0, -0.4], dtype=np.float32))
+        self.assertAlmostEqual(float(np.linalg.norm(projected[:2])), 1.0, places=6)
+        self.assertAlmostEqual(float(projected[2]), -0.4, places=6)
+
+        states = torch.zeros((8, self.state_dim), dtype=torch.float32)
+        actions = agent.actor(states).detach().numpy()
+        self.assertTrue(np.all(np.linalg.norm(actions[:, :2], axis=1) <= 1.0 + 1e-6))
+
     def test_train_and_checkpoint_round_trip(self):
         agent = self.make_agent()
         replay = ReplayBuffer(self.state_dim, 3, max_size=64)

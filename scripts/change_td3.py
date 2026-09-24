@@ -22,8 +22,12 @@ from envs.forest.rewards import (
     OutcomeSeparatedForestReward,
     RateIntegratedOutcomeForestReward,
     SafeTerminalForestReward,
+    TerminalGuidanceRateIntegratedReward,
 )
-from envs.learned_upper_dslpid import LearnedUpperDSLPIDForestEnv
+from envs.learned_upper_dslpid import (
+    KinematicUpperForestEnv,
+    LearnedUpperDSLPIDForestEnv,
+)
 from envs.map_atlas import MapCatalog
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 
@@ -234,7 +238,30 @@ def _make_argparser():
         ),
     )
     parser.add_argument("--upper_recurrent_hidden_dim", type=int, default=32)
+    parser.add_argument(
+        "--upper_project_planar_action",
+        type=str2bool,
+        default=False,
+        help=(
+            "Project recurrent Upper actor, noisy target actions, exploration "
+            "actions, and replay actions onto the executable XY unit disk."
+        ),
+    )
     parser.add_argument("--semantic_history_length", type=int, default=0)
+    parser.add_argument(
+        "--use_local_occupancy",
+        type=str2bool,
+        default=False,
+        help="Append a persistent single-scale tri-state local occupancy grid.",
+    )
+    parser.add_argument("--local_occupancy_voxel_size", type=float, default=0.4)
+    parser.add_argument(
+        "--local_occupancy_shape",
+        type=int,
+        nargs=3,
+        default=(12, 12, 6),
+        metavar=("NX", "NY", "NZ"),
+    )
     parser.add_argument("--semantic_residual_scale", type=float, default=0.25)
     parser.add_argument("--semantic_loss_weight", type=float, default=0.2)
     parser.add_argument("--semantic_danger_range", type=float, default=0.20)
@@ -280,6 +307,34 @@ def _make_argparser():
         type=float,
         default=1.0,
         help="Proportional gain for deterministic target-height velocity hold.",
+    )
+    parser.add_argument(
+        "--upper_execution_model",
+        choices=("full", "k0", "k1"),
+        default="full",
+        help=(
+            "Upper action-to-state transition. 'full' executes ReferencePacket "
+            "through DSLPID; 'k0' executes commanded velocity ideally; 'k1' "
+            "uses the same velocity action with an acceleration limit."
+        ),
+    )
+    parser.add_argument(
+        "--kinematic_planar_acceleration",
+        type=float,
+        default=None,
+        help=(
+            "K1 horizontal acceleration limit [m/s^2]. Defaults to "
+            "--max_reference_acceleration so the reference interface is unchanged."
+        ),
+    )
+    parser.add_argument(
+        "--kinematic_vertical_acceleration",
+        type=float,
+        default=None,
+        help=(
+            "K1 vertical acceleration limit [m/s^2]. Defaults to "
+            "--max_reference_vertical_acceleration."
+        ),
     )
     parser.add_argument(
         "--tracking_environment_reward_weight",
@@ -473,6 +528,7 @@ def _make_argparser():
             "safe_terminal_v2",
             "outcome_separated_v3",
             "rate_integrated_v4",
+            "terminal_guidance_v5",
             "mavrl_safe_speed_v1",
         ),
         default="legacy",
@@ -482,6 +538,13 @@ def _make_argparser():
     parser.add_argument("--near_goal_radius", type=float, default=0.8)
     parser.add_argument("--near_goal_speed_penalty_weight", type=float, default=1.5)
     parser.add_argument("--near_goal_away_penalty_weight", type=float, default=3.0)
+    parser.add_argument("--near_goal_guidance_radius", type=float, default=1.2)
+    parser.add_argument("--near_goal_guidance_ramp_width", type=float, default=0.2)
+    parser.add_argument("--near_goal_capture_speed", type=float, default=0.1)
+    parser.add_argument("--near_goal_cruise_speed", type=float, default=0.8)
+    parser.add_argument(
+        "--near_goal_velocity_tracking_weight", type=float, default=160.0
+    )
     parser.add_argument("--route_overshoot_penalty_weight", type=float, default=1.0)
     parser.add_argument("--success_terminal_reward", type=float, default=150.0)
     parser.add_argument("--collision_terminal_penalty", type=float, default=120.0)
@@ -522,6 +585,57 @@ def _make_argparser():
         default=False,
         help="Load a checkpoint and run exactly one evaluation without collecting or updating training data.",
     )
+    parser.add_argument(
+        "--eval_p_height_ablation",
+        type=str2bool,
+        default=False,
+        help=(
+            "Evaluation-only ablation: preserve the learned xy action and replace "
+            "only the z action with a deterministic P height controller."
+        ),
+    )
+    parser.add_argument(
+        "--eval_p_height_gain",
+        type=float,
+        default=1.0,
+        help="P gain [1/s] for --eval_p_height_ablation.",
+    )
+    parser.add_argument(
+        "--eval_z_q_scan_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Optional evaluation-only output directory for a five-point z-action "
+            "scan of both TD3 critics."
+        ),
+    )
+    parser.add_argument(
+        "--eval_action_interface_audit_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Evaluation-only output directory for raw actor action, mapped velocity "
+            "command, realized velocity, and goal-distance auditing on T1 episodes."
+        ),
+    )
+    parser.add_argument(
+        "--eval_terminal_xy_q_scan_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Evaluation-only output directory for near-goal XY speed/direction scans "
+            "using min(Q1, Q2) on states from T1 episodes."
+        ),
+    )
+    parser.add_argument(
+        "--eval_terminal_coverage_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Output directory for per-seed entry, dwell, motion, "
+            "and success-transition coverage in the near-goal guidance region."
+        ),
+    )
     parser.add_argument("--eval_gui", type=str2bool, default=True)
     parser.add_argument("--eval_stepsleep", type=str2bool, default=True)
     parser.add_argument("--eval_quiet", type=str2bool, default=True)
@@ -560,6 +674,24 @@ def _make_argparser():
         help=(
             "Optional directory for the latest seed-0 evaluation trace plus XY/3D plots. "
             "Intended for learned_upper_dslpid evaluation."
+        ),
+    )
+    parser.add_argument(
+        "--collision_diagnostic_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Optional directory for collision_windows_latest.json and JSONL history. "
+            "Each collision contains the final 2 s of upper commands, realized "
+            "velocity, clearance, delta-v, position, and goal error."
+        ),
+    )
+    parser.add_argument(
+        "--timeout_diagnostic_output_dir",
+        type=str,
+        default=None,
+        help=(
+            "Optional directory for timeout T1–T4 diagnostic records during evaluation."
         ),
     )
     return parser
@@ -608,6 +740,10 @@ def main():
     init_rpys = np.array([[0.0, 0.0, 0.0]], dtype=np.float32)
     action_scale = float(np.clip(args.action_scale, 0.0, 1.0))
 
+    reward_integration_dt = 1.0 / float(args.ctrl_freq)
+    if args.learned_upper_dslpid and args.upper_execution_model != "full":
+        reward_integration_dt = float(args.high_level_interval) / float(args.ctrl_freq)
+
     if args.reward_variant == "safe_terminal_v2":
         reward_model = SafeTerminalForestReward(
             speed_penalty_weight=args.speed_penalty_weight,
@@ -635,9 +771,25 @@ def main():
             bound_terminal_penalty=args.bound_terminal_penalty,
             timeout_terminal_penalty=args.timeout_terminal_penalty,
         )
-    elif args.reward_variant == "rate_integrated_v4":
-        reward_model = RateIntegratedOutcomeForestReward(
-            integration_dt=1.0 / float(args.ctrl_freq),
+    elif args.reward_variant in ("rate_integrated_v4", "terminal_guidance_v5"):
+        reward_class = (
+            TerminalGuidanceRateIntegratedReward
+            if args.reward_variant == "terminal_guidance_v5"
+            else RateIntegratedOutcomeForestReward
+        )
+        reward_kwargs = {}
+        if args.reward_variant == "terminal_guidance_v5":
+            reward_kwargs.update(
+                near_goal_guidance_radius=args.near_goal_guidance_radius,
+                near_goal_guidance_ramp_width=args.near_goal_guidance_ramp_width,
+                near_goal_capture_speed=args.near_goal_capture_speed,
+                near_goal_cruise_speed=args.near_goal_cruise_speed,
+                near_goal_velocity_tracking_weight=(
+                    args.near_goal_velocity_tracking_weight
+                ),
+            )
+        reward_model = reward_class(
+            integration_dt=reward_integration_dt,
             route_progress_reward_weight=args.route_progress_reward_weight,
             goal_progress_reward_weight=args.goal_progress_reward_weight,
             lateral_penalty_scale=args.lateral_penalty_scale,
@@ -653,6 +805,7 @@ def main():
             collision_terminal_penalty=args.collision_terminal_penalty,
             bound_terminal_penalty=args.bound_terminal_penalty,
             timeout_terminal_penalty=args.timeout_terminal_penalty,
+            **reward_kwargs,
         )
     elif args.reward_variant == "mavrl_safe_speed_v1":
         reward_model = MAVRLSafeSpeedForestReward(
@@ -680,7 +833,7 @@ def main():
     print(
         f"[INFO] reward_variant={args.reward_variant}, "
         f"time_penalty={args.time_penalty_weight:.3f}, "
-        f"safe_distance=0.350"
+        f"safe_distance=0.350, integration_dt={reward_integration_dt:.5f}"
     )
     if args.reward_variant == "mavrl_safe_speed_v1":
         print(
@@ -689,6 +842,15 @@ def main():
             f"clearance=[{args.safe_speed_brake_clearance:.3f}, "
             f"{args.safe_speed_open_clearance:.3f}], "
             f"weight={args.unsafe_speed_penalty_weight:.3f}"
+        )
+    elif args.reward_variant == "terminal_guidance_v5":
+        print(
+            "[INFO] terminal_guidance="
+            f"radius={args.near_goal_guidance_radius:.3f}, "
+            f"ramp={args.near_goal_guidance_ramp_width:.3f}, "
+            f"speed=[{args.near_goal_capture_speed:.3f}, "
+            f"{args.near_goal_cruise_speed:.3f}], "
+            f"weight={args.near_goal_velocity_tracking_weight:.3f}"
         )
     if not 0.0 <= args.success_replay_fraction < 1.0:
         raise ValueError("--success_replay_fraction must lie in [0, 1).")
@@ -737,13 +899,30 @@ def main():
         semantic_history_length=args.semantic_history_length,
         planar_only=args.upper_planar_only,
         height_hold_gain=args.upper_height_hold_gain,
+        use_local_occupancy=args.use_local_occupancy,
+        local_occupancy_voxel_size=args.local_occupancy_voxel_size,
+        local_occupancy_shape=args.local_occupancy_shape,
+    )
+    kinematic_wrapper_kwargs = dict(
+        kinematic_model=args.upper_execution_model,
+        kinematic_planar_acceleration=args.kinematic_planar_acceleration,
+        kinematic_vertical_acceleration=args.kinematic_vertical_acceleration,
     )
     if args.learned_upper_dslpid:
-        env = LearnedUpperDSLPIDForestEnv(
-            **forest_env_kwargs,
-            **upper_wrapper_kwargs,
-        )
+        if args.upper_execution_model == "full":
+            env = LearnedUpperDSLPIDForestEnv(
+                **forest_env_kwargs,
+                **upper_wrapper_kwargs,
+            )
+        else:
+            env = KinematicUpperForestEnv(
+                **forest_env_kwargs,
+                **upper_wrapper_kwargs,
+                **kinematic_wrapper_kwargs,
+            )
     else:
+        if args.upper_execution_model != "full":
+            raise ValueError("--upper_execution_model k0/k1 requires --learned_upper_dslpid true.")
         env = CustomForestAviary(**forest_env_kwargs)
     if args.curriculum_stage_override is not None:
         env.set_curriculum_stage_override(args.curriculum_stage_override)
@@ -757,6 +936,8 @@ def main():
     eval_env_kwargs.pop("gui", None)
     if args.learned_upper_dslpid:
         eval_env_kwargs.update(upper_wrapper_kwargs)
+        if args.upper_execution_model != "full":
+            eval_env_kwargs.update(kinematic_wrapper_kwargs)
 
     state_dim = int(np.prod(env.observation_space.shape))
     action_dim = int(env.action_space.shape[-1])
@@ -796,8 +977,15 @@ def main():
             f"upper_frequency={args.ctrl_freq / args.high_level_interval:.1f}Hz, "
             f"lower_frequency={args.ctrl_freq}Hz, "
             f"upper_observation_dim={state_dim}, upper_action_dim={action_dim}"
-            f", planar_only={args.upper_planar_only}"
+            f", planar_only={args.upper_planar_only}, "
+            f"upper_execution_model={args.upper_execution_model}"
         )
+        if args.upper_execution_model == "k1":
+            print(
+                "[INFO] k1_acceleration_limits="
+                f"planar={env.kinematic_planar_acceleration:.3f}, "
+                f"vertical={env.kinematic_vertical_acceleration:.3f} m/s^2"
+            )
         if args.upper_semantic_latent:
             print(
                 "[INFO] upper_semantic_latent=true, "
@@ -813,15 +1001,21 @@ def main():
             )
             if int(getattr(env, "range_dim", -1)) == 96:
                 expected_96_ray_dims = {4: 517, 8: 917, 16: 1717}
+                expected_base_state_dim = 117 + int(
+                    getattr(env, "local_occupancy_dim", 0)
+                )
                 if (
-                    contract["base_state_dim"] != 117
+                    contract["base_state_dim"] != expected_base_state_dim
                     or contract["history_frame_dim"] != 100
                 ):
                     raise ValueError(
                         "96-ray recurrent observation contract must use "
-                        "base_state_dim=117 and history_frame_dim=100."
+                        f"base_state_dim={expected_base_state_dim} and "
+                        "history_frame_dim=100."
                     )
                 expected_dim = expected_96_ray_dims.get(contract["history_length"])
+                if expected_dim is not None:
+                    expected_dim += int(getattr(env, "local_occupancy_dim", 0))
                 if expected_dim is not None and contract["state_dim"] != expected_dim:
                     raise ValueError(
                         f"96-ray H{contract['history_length']} must have "
@@ -843,7 +1037,9 @@ def main():
                 f"history_frame_dim={contract['history_frame_dim']}, "
                 f"history_length={contract['history_length']}, "
                 f"state_dim={contract['state_dim']}, "
-                f"hidden_dim={args.upper_recurrent_hidden_dim}"
+                f"hidden_dim={args.upper_recurrent_hidden_dim}, "
+                f"project_planar_action={args.upper_project_planar_action}, "
+                f"local_occupancy_dim={getattr(env, 'local_occupancy_dim', 0)}"
             )
             print(
                 "[INFO] replay_memory_estimate="
@@ -907,6 +1103,7 @@ def main():
                 conservative_policy_noise=args.upper_conservative_policy_noise,
                 conservative_policy_freq=args.upper_conservative_policy_freq,
                 policy_anchor_weight=args.policy_anchor_weight,
+                project_planar_action=args.upper_project_planar_action,
             )
             encoder_parameter_ids = {
                 agent.actor.encoder.gru.weight_ih_l0.data_ptr(),
@@ -1129,10 +1326,18 @@ def main():
         agent.load(args.load_checkpoint)
         print(f"[INFO] loaded_checkpoint={args.load_checkpoint}")
 
+    if (
+        args.eval_p_height_ablation
+        or args.eval_z_q_scan_output_dir
+        or args.eval_action_interface_audit_output_dir
+        or args.eval_terminal_xy_q_scan_output_dir
+    ) and not args.evaluate_only:
+        raise ValueError(
+            "Evaluation diagnostics are restricted to --evaluate_only true."
+        )
+
     eval_callback = EvalCallback(
-        LearnedUpperDSLPIDForestEnv
-        if args.learned_upper_dslpid
-        else CustomForestAviary,
+        type(env),
         eval_env_kwargs,
         interval=args.eval_interval,
         episodes=args.eval_episodes,
@@ -1141,6 +1346,16 @@ def main():
         quiet=args.eval_quiet,
         output_dir=args.log_dir,
         trajectory_output_dir=args.trajectory_output_dir,
+        collision_diagnostic_output_dir=args.collision_diagnostic_output_dir,
+        timeout_diagnostic_output_dir=args.timeout_diagnostic_output_dir,
+        p_height_ablation=args.eval_p_height_ablation,
+        p_height_gain=args.eval_p_height_gain,
+        z_q_scan_output_dir=args.eval_z_q_scan_output_dir,
+        action_interface_audit_output_dir=(
+            args.eval_action_interface_audit_output_dir
+        ),
+        terminal_xy_q_scan_output_dir=args.eval_terminal_xy_q_scan_output_dir,
+        terminal_coverage_output_dir=args.eval_terminal_coverage_output_dir,
     )
     if args.evaluate_only:
         if args.eval_interval <= 0:

@@ -22,6 +22,9 @@ def default_reward_terms():
         "unsafe_speed_penalty": 0.0,
         "near_goal_speed_penalty": 0.0,
         "near_goal_away_penalty": 0.0,
+        "near_goal_velocity_tracking_penalty": 0.0,
+        "near_goal_desired_speed": 0.0,
+        "near_goal_closing_speed": 0.0,
         "route_overshoot_penalty": 0.0,
         "collision_penalty": 0.0,
         "terminal_outcome_reward": 0.0,
@@ -458,6 +461,9 @@ class RateIntegratedOutcomeForestReward(OutcomeSeparatedForestReward):
 
     def compute(self, **kwargs):
         reward, reward_terms, goal_dist = super().compute(**kwargs)
+        reward_terms.setdefault("near_goal_velocity_tracking_penalty", 0.0)
+        reward_terms.setdefault("near_goal_desired_speed", 0.0)
+        reward_terms.setdefault("near_goal_closing_speed", 0.0)
         terminal_reason = str(kwargs.get("terminal_reason", "running"))
         if terminal_reason != "running":
             reward_terms["continuous_penalty_total"] = 0.0
@@ -484,6 +490,121 @@ class RateIntegratedOutcomeForestReward(OutcomeSeparatedForestReward):
         reward_terms["continuous_penalty_total"] = float(continuous_penalty_total)
         reward_terms["running_shaping_reward"] = float(shaped_reward)
         return float(shaped_reward), reward_terms, goal_dist
+
+
+class TerminalGuidanceRateIntegratedReward(RateIntegratedOutcomeForestReward):
+    """Rate-integrated outcome reward with directed terminal capture guidance.
+
+    The V4 near-goal speed cost only says "move less".  It cannot distinguish
+    a slow action toward the goal from tangential loitering, and its optimum is
+    zero velocity before the success sphere.  This variant instead defines a
+    feasible desired velocity that points at the 3-D goal.  Its magnitude
+    decreases from cruise speed at ``guidance_radius`` to a small non-zero
+    capture speed at the success radius.  The non-zero terminal speed keeps
+    the policy moving into the unchanged success sphere rather than stopping
+    immediately outside it.
+
+    The tracking cost is a physical rate and is integrated using the same
+    decision interval as the other V4 continuous costs.  Terminal rewards and
+    all task termination conditions remain unchanged.
+    """
+
+    def __init__(
+        self,
+        *,
+        near_goal_guidance_radius: float = 1.2,
+        near_goal_guidance_ramp_width: float = 0.2,
+        near_goal_capture_speed: float = 0.1,
+        near_goal_cruise_speed: float = 0.8,
+        near_goal_velocity_tracking_weight: float = 160.0,
+        **kwargs,
+    ):
+        values = (
+            near_goal_guidance_radius,
+            near_goal_guidance_ramp_width,
+            near_goal_capture_speed,
+            near_goal_cruise_speed,
+            near_goal_velocity_tracking_weight,
+        )
+        if min(values) < 0.0:
+            raise ValueError("Terminal-guidance parameters must be non-negative.")
+        if near_goal_guidance_radius <= 0.0:
+            raise ValueError("near_goal_guidance_radius must be positive.")
+        if near_goal_guidance_ramp_width <= 0.0:
+            raise ValueError("near_goal_guidance_ramp_width must be positive.")
+        if near_goal_capture_speed > near_goal_cruise_speed:
+            raise ValueError(
+                "near_goal_capture_speed cannot exceed near_goal_cruise_speed."
+            )
+        super().__init__(**kwargs)
+        self.near_goal_guidance_radius = float(near_goal_guidance_radius)
+        self.near_goal_guidance_ramp_width = float(
+            near_goal_guidance_ramp_width
+        )
+        self.near_goal_capture_speed = float(near_goal_capture_speed)
+        self.near_goal_cruise_speed = float(near_goal_cruise_speed)
+        self.near_goal_velocity_tracking_weight = float(
+            near_goal_velocity_tracking_weight
+        )
+
+    def compute(self, **kwargs):
+        reward, reward_terms, goal_dist = super().compute(**kwargs)
+        terminal_reason = str(kwargs.get("terminal_reason", "running"))
+        if terminal_reason != "running":
+            return reward, reward_terms, goal_dist
+
+        goal_tolerance = float(kwargs["goal_tolerance"])
+        if self.near_goal_guidance_radius <= goal_tolerance:
+            raise ValueError(
+                "near_goal_guidance_radius must exceed goal_tolerance."
+            )
+        if goal_dist >= self.near_goal_guidance_radius or goal_dist <= 1e-6:
+            return reward, reward_terms, goal_dist
+
+        state = np.asarray(kwargs["state"], dtype=np.float32)
+        target_pos = np.asarray(kwargs["target_pos"], dtype=np.float32)
+        position = state[0:3]
+        velocity = state[10:13]
+        goal_vector = target_pos - position
+        goal_direction = goal_vector / max(goal_dist, 1e-6)
+
+        distance_ratio = float(
+            np.clip(
+                (goal_dist - goal_tolerance)
+                / (self.near_goal_guidance_radius - goal_tolerance),
+                0.0,
+                1.0,
+            )
+        )
+        desired_speed = self.near_goal_capture_speed + distance_ratio * (
+            self.near_goal_cruise_speed - self.near_goal_capture_speed
+        )
+        desired_velocity = desired_speed * goal_direction
+        velocity_error = velocity - desired_velocity
+        activation = float(
+            np.clip(
+                (self.near_goal_guidance_radius - goal_dist)
+                / self.near_goal_guidance_ramp_width,
+                0.0,
+                1.0,
+            )
+        )
+        raw_tracking_penalty = (
+            self.near_goal_velocity_tracking_weight
+            * activation
+            * float(np.dot(velocity_error, velocity_error))
+        )
+        tracking_penalty = raw_tracking_penalty * self.integration_dt
+        closing_speed = float(np.dot(velocity, goal_direction))
+
+        reward_terms["near_goal_velocity_tracking_penalty"] = float(
+            tracking_penalty
+        )
+        reward_terms["near_goal_desired_speed"] = float(desired_speed)
+        reward_terms["near_goal_closing_speed"] = float(closing_speed)
+        reward_terms["continuous_penalty_total"] += float(tracking_penalty)
+        reward_terms["running_shaping_reward"] -= float(tracking_penalty)
+        return float(reward - tracking_penalty), reward_terms, goal_dist
 
 
 class MAVRLSafeSpeedForestReward(SafeTerminalForestReward):

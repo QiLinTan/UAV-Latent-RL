@@ -145,6 +145,8 @@ class TD3Trainer:
                 action = action + noise * np.random.randn(*action.shape)
 
         action = np.clip(action, -self.max_action, self.max_action)
+        if hasattr(self.agent, "project_action"):
+            action = self.agent.project_action(action)
         if uses_context_replay:
             self.agent.record_executed_action(action)
 

@@ -727,6 +727,181 @@ def build_mode_cmd(mode: str) -> list[str]:
             "--trajectory_output_dir",
             f"analysis_outputs/{suffix}_trajectory",
         )
+    elif mode in {
+        "upper_dslpid_recurrent_multitree_v4_3_h8_k0",
+        "upper_dslpid_recurrent_multitree_v4_3_h8_k1",
+    }:
+        # Upper-only control-variable benchmark.  This intentionally derives
+        # from the exact h8 V4.3 command and changes only action->state
+        # transition plus output directories.
+        transition = mode.rsplit("_", 1)[1]
+        suffix = f"upper_dslpid_recurrent_multitree_v4_3_h8_{transition}"
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_v4_3_h8")
+        cmd += [
+            "--upper_execution_model",
+            transition,
+            "--log_dir",
+            f"runs/{suffix}",
+            "--ckpt_dir",
+            f"checkpoints/{suffix}",
+            "--trajectory_output_dir",
+            f"analysis_outputs/{suffix}_trajectory",
+            "--collision_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_collision_windows",
+        ]
+    elif mode == "upper_dslpid_recurrent_multitree_v4_3_h8_k1_rayfix":
+        # Sensor-only ablation: the command is exactly K1 V4.3 (including its
+        # reward), while the environment uses the corrected self-hit-free 3-D
+        # ray implementation. Separate directories preserve the old K1 run.
+        suffix = "upper_dslpid_recurrent_multitree_v4_3_h8_k1_rayfix"
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_v4_3_h8_k1")
+        _replace_scalar_option(cmd, "--log_dir", f"runs/{suffix}")
+        _replace_scalar_option(cmd, "--ckpt_dir", f"checkpoints/{suffix}")
+        _replace_scalar_option(
+            cmd,
+            "--trajectory_output_dir",
+            f"analysis_outputs/{suffix}_trajectory",
+        )
+        _replace_scalar_option(
+            cmd,
+            "--collision_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_collision_windows",
+        )
+    elif mode in {
+        "upper_dslpid_recurrent_multitree_rayfix_v1_h8_full",
+        "upper_dslpid_recurrent_multitree_rayfix_v1_h8_k1",
+    }:
+        # Clean post-rayfix baselines. They intentionally preserve the entire
+        # V4.3 task/reward contract and differ only in action-to-state execution.
+        execution = mode.rsplit("_", 1)[1]
+        suffix = f"upper_dslpid_recurrent_multitree_rayfix_v1_h8_{execution}"
+        # Both arms derive from the same single-output Full-h8 command.  Do
+        # not derive K1 from the legacy K1 launcher: it contains a second set
+        # of historical output options and would make the clean comparison
+        # command ambiguous even though argparse uses the final occurrence.
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_v4_3_h8")
+        cmd += ["--upper_execution_model", execution]
+        _replace_scalar_option(cmd, "--log_dir", f"runs/{suffix}")
+        _replace_scalar_option(cmd, "--ckpt_dir", f"checkpoints/{suffix}")
+        _replace_scalar_option(
+            cmd, "--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"
+        )
+        if "--collision_diagnostic_output_dir" in cmd:
+            _replace_scalar_option(
+                cmd,
+                "--collision_diagnostic_output_dir",
+                f"analysis_outputs/{suffix}_collision_windows",
+            )
+        else:
+            cmd += [
+                "--collision_diagnostic_output_dir",
+                f"analysis_outputs/{suffix}_collision_windows",
+            ]
+        cmd += [
+            "--timeout_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_timeout_diagnostics",
+        ]
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v1_h8_k1":
+        # Evidence-driven terminal branch. The V4.3 reward and all task
+        # settings stay frozen; only the planar action representation is made
+        # identical for actor, exploration, replay, target policy, and plant.
+        suffix = "upper_dslpid_recurrent_multitree_terminal_v1_h8_k1"
+        cmd = build_mode_cmd(
+            "upper_dslpid_recurrent_multitree_rayfix_v1_h8_k1"
+        )
+        cmd += ["--upper_project_planar_action", "true"]
+        _replace_scalar_option(cmd, "--log_dir", f"runs/{suffix}")
+        _replace_scalar_option(cmd, "--ckpt_dir", f"checkpoints/{suffix}")
+        _replace_scalar_option(
+            cmd, "--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"
+        )
+        _replace_scalar_option(
+            cmd,
+            "--collision_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_collision_windows",
+        )
+        _replace_scalar_option(
+            cmd,
+            "--timeout_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_timeout_diagnostics",
+        )
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v2_h8_k1":
+        # Controlled reward ablation over terminal-v1.  The action projection,
+        # observation, K1 dynamics, maps, seeds, curriculum and task terminal
+        # conditions are unchanged.  The scalar near-goal speed costs are
+        # replaced by a directed 3-D terminal velocity target.
+        suffix = "upper_dslpid_recurrent_multitree_terminal_v2_h8_k1"
+        cmd = build_mode_cmd(
+            "upper_dslpid_recurrent_multitree_terminal_v1_h8_k1"
+        )
+        _replace_scalar_option(cmd, "--reward_variant", "terminal_guidance_v5")
+        _replace_scalar_option(cmd, "--near_goal_speed_penalty_weight", "0.0")
+        _replace_scalar_option(cmd, "--near_goal_away_penalty_weight", "0.0")
+        cmd += [
+            "--near_goal_guidance_radius", "1.2",
+            "--near_goal_guidance_ramp_width", "0.2",
+            "--near_goal_capture_speed", "0.1",
+            "--near_goal_cruise_speed", "0.8",
+            "--near_goal_velocity_tracking_weight", "160.0",
+        ]
+        _replace_scalar_option(cmd, "--log_dir", f"runs/{suffix}")
+        _replace_scalar_option(cmd, "--ckpt_dir", f"checkpoints/{suffix}")
+        _replace_scalar_option(
+            cmd, "--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"
+        )
+        _replace_scalar_option(
+            cmd,
+            "--collision_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_collision_windows",
+        )
+        _replace_scalar_option(
+            cmd,
+            "--timeout_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_timeout_diagnostics",
+        )
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1":
+        # One learning-parameter ablation: retain 3-D goal progress and terminal
+        # guidance, remove the auxiliary horizontal route progress reward.
+        suffix = mode
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_terminal_v2_h8_k1")
+        _replace_scalar_option(cmd, "--route_progress_reward_weight", "0.0")
+        for option, value in (
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+        cmd += ["--eval_terminal_coverage_output_dir",
+                f"analysis_outputs/{suffix}_terminal_coverage"]
+    elif mode == "upper_dslpid_recurrent_multitree_occupancy_v1_h8_k1":
+        # Independent spatial-memory ablation over the clean rayfix K1
+        # baseline. Reward and executable action semantics remain unchanged.
+        suffix = "upper_dslpid_recurrent_multitree_occupancy_v1_h8_k1"
+        cmd = build_mode_cmd(
+            "upper_dslpid_recurrent_multitree_rayfix_v1_h8_k1"
+        )
+        cmd += [
+            "--use_local_occupancy", "true",
+            "--local_occupancy_voxel_size", "0.4",
+            "--local_occupancy_shape", "12", "12", "6",
+        ]
+        _replace_scalar_option(cmd, "--log_dir", f"runs/{suffix}")
+        _replace_scalar_option(cmd, "--ckpt_dir", f"checkpoints/{suffix}")
+        _replace_scalar_option(
+            cmd, "--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"
+        )
+        _replace_scalar_option(
+            cmd,
+            "--collision_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_collision_windows",
+        )
+        _replace_scalar_option(
+            cmd,
+            "--timeout_diagnostic_output_dir",
+            f"analysis_outputs/{suffix}_timeout_diagnostics",
+        )
     elif mode == "upper_dslpid_recurrent_mavrl_lite_v1":
         cmd += [
             "--use_latent", "false",
@@ -1005,6 +1180,15 @@ def main():
             "upper_dslpid_recurrent_multitree_v4_2_h16",
             "upper_dslpid_recurrent_multitree_v4_3_h4",
             "upper_dslpid_recurrent_multitree_v4_3_h8",
+            "upper_dslpid_recurrent_multitree_v4_3_h8_k0",
+            "upper_dslpid_recurrent_multitree_v4_3_h8_k1",
+            "upper_dslpid_recurrent_multitree_v4_3_h8_k1_rayfix",
+            "upper_dslpid_recurrent_multitree_rayfix_v1_h8_full",
+            "upper_dslpid_recurrent_multitree_rayfix_v1_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v1_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v2_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1",
+            "upper_dslpid_recurrent_multitree_occupancy_v1_h8_k1",
             "upper_dslpid_recurrent_mavrl_lite_v1",
             "upper_dslpid_one_tree",
             "upper_dslpid_five_trees",

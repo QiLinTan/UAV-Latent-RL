@@ -9,6 +9,7 @@ from gymnasium import Env, spaces
 from gym_pybullet_drones.control.DSLPIDControl import DSLPIDControl
 
 from envs.observation_layout import GOAL_DIM, KIN_DIM, ForestObservationLayout
+from envs.local_occupancy import PersistentLocalOccupancyMap
 from models.motor_action_codec import ASYMMETRIC_RPM, MotorActionCodec, MotorPhysicalLimits
 from models.reference_packet import ReferencePacket
 
@@ -39,6 +40,9 @@ class LearnedUpperDSLPIDEnv(Env):
         semantic_history_length: int = 0,
         planar_only: bool = False,
         height_hold_gain: float = 1.0,
+        use_local_occupancy: bool = False,
+        local_occupancy_voxel_size: float = 0.4,
+        local_occupancy_shape=(12, 12, 6),
     ):
         super().__init__()
         if int(upper_control_interval) <= 0:
@@ -65,6 +69,7 @@ class LearnedUpperDSLPIDEnv(Env):
         self.semantic_history_length = max(0, int(semantic_history_length))
         self.planar_only = bool(planar_only)
         self.height_hold_gain = float(height_hold_gain)
+        self.use_local_occupancy = bool(use_local_occupancy)
         if self.planar_only and self.height_hold_gain <= 0.0:
             raise ValueError("height_hold_gain must be positive when planar_only is enabled.")
         self.height_hold_target = 0.0
@@ -89,9 +94,24 @@ class LearnedUpperDSLPIDEnv(Env):
             range_dim=self.range_dim,
         )
         self._base_layout = base_layout
+        self.local_occupancy = (
+            PersistentLocalOccupancyMap(
+                voxel_size=local_occupancy_voxel_size,
+                shape=local_occupancy_shape,
+            )
+            if self.use_local_occupancy
+            else None
+        )
+        self.local_occupancy_dim = (
+            self.local_occupancy.observation_dim
+            if self.local_occupancy is not None
+            else 0
+        )
         # The persistent adapter state changes future transitions. Expose it to
         # the upper policy so the 15 Hz process remains observable.
-        self.base_upper_obs_dim = KIN_DIM + GOAL_DIM + self.range_dim + 3 + 3
+        self.base_upper_obs_dim = (
+            KIN_DIM + GOAL_DIM + self.range_dim + 3 + 3 + self.local_occupancy_dim
+        )
         upper_obs_dim = (
             self.base_upper_obs_dim
             + self.semantic_history_length * self.semantic_frame_dim
@@ -157,6 +177,9 @@ class LearnedUpperDSLPIDEnv(Env):
                 normalized_reference_velocity,
             ]
         ).astype(np.float32)
+        if self.local_occupancy is not None:
+            occupancy = self.local_occupancy.observation(self.base_env.pos[0])
+            current = np.concatenate([current, occupancy], axis=0)
         if self.semantic_history_length:
             history = np.concatenate(tuple(self._semantic_history), axis=0)
             current = np.concatenate([current, history], axis=0)
@@ -175,6 +198,36 @@ class LearnedUpperDSLPIDEnv(Env):
         )
         return np.concatenate([ranges, normalized_command, normalized_tracking_error]).astype(np.float32)
 
+    def _update_local_occupancy(self, observation) -> None:
+        if self.local_occupancy is None:
+            return
+        flat = np.asarray(observation, dtype=np.float32).reshape(-1)
+        ranges = flat[
+            self._base_layout.range_start : self._base_layout.total_dim
+        ]
+        self.local_occupancy.update_from_rays(
+            position=self.base_env.pos[0],
+            directions=self.base_env._range_directions,
+            range_fractions=ranges,
+            sensor_range=float(self.base_env.OBSTACLE_SENSOR_RANGE),
+            origin_offset=float(self.base_env.RANGE_RAY_ORIGIN_OFFSET),
+        )
+
+    def _local_occupancy_info(self) -> dict:
+        if self.local_occupancy is None:
+            return {
+                "local_occupancy_enabled": False,
+                "local_occupancy_dim": 0,
+            }
+        stats = self.local_occupancy.statistics(self.base_env.pos[0])
+        return {
+            "local_occupancy_enabled": True,
+            "local_occupancy_dim": int(self.local_occupancy_dim),
+            "local_occupancy_unknown_voxels": stats["unknown"],
+            "local_occupancy_free_voxels": stats["free"],
+            "local_occupancy_occupied_voxels": stats["occupied"],
+        }
+
     def reset(self, *, seed=None, options=None):
         observation, info = self.base_env.reset(seed=seed, options=options)
         self.teacher.reset()
@@ -190,6 +243,9 @@ class LearnedUpperDSLPIDEnv(Env):
         self.reference_acceleration.fill(0.0)
         self.height_hold_target = float(self.base_env.TARGET_POS[2])
         self.packet_generation_count = 0
+        if self.local_occupancy is not None:
+            self.local_occupancy.reset()
+            self._update_local_occupancy(observation)
         self._semantic_history.clear()
         if self.semantic_history_length:
             initial_frame = self._semantic_frame(observation)
@@ -202,6 +258,7 @@ class LearnedUpperDSLPIDEnv(Env):
             "semantic_history_length": self.semantic_history_length,
             "planar_only": self.planar_only,
             "height_hold_target": self.height_hold_target,
+            **self._local_occupancy_info(),
         }
 
     def _velocity_command(self, upper_action) -> np.ndarray:
@@ -375,6 +432,8 @@ class LearnedUpperDSLPIDEnv(Env):
             if terminated or truncated:
                 break
 
+        self._update_local_occupancy(observation)
+
         enriched_info = {
             **dict(info),
             **interval_reward_terms,
@@ -423,6 +482,7 @@ class LearnedUpperDSLPIDEnv(Env):
             "motor_action_saturation_mean": (
                 float(np.mean(motor_saturation)) if motor_saturation else float("nan")
             ),
+            **self._local_occupancy_info(),
         }
         if self.semantic_history_length:
             self._semantic_history.append(
@@ -467,6 +527,211 @@ class LearnedUpperDSLPIDEnv(Env):
         return None
 
 
+class KinematicUpperEnv(LearnedUpperDSLPIDEnv):
+    """Upper-only forest transition with the original upper-policy interface.
+
+    This diagnostic environment deliberately preserves the upper observation,
+    action, task geometry, sensing, goal condition, and reward contract used
+    by :class:`LearnedUpperDSLPIDEnv`.  It replaces only the lower-control
+    transition with either an ideal velocity integrator (K0) or a
+    rate-limited velocity integrator (K1).  No attitude or ReferencePacket
+    tracking state is invented: the kinematic plant is level and its executed
+    velocity is directly exposed as the reference state.
+    """
+
+    _KINEMATIC_MODELS = {"k0", "k1"}
+
+    def __init__(
+        self,
+        base_env,
+        *,
+        kinematic_model: str = "k0",
+        kinematic_planar_acceleration: float | None = None,
+        kinematic_vertical_acceleration: float | None = None,
+        **kwargs,
+    ):
+        super().__init__(base_env, **kwargs)
+        self.kinematic_model = str(kinematic_model).lower()
+        if self.kinematic_model not in self._KINEMATIC_MODELS:
+            raise ValueError(
+                f"kinematic_model must be one of {sorted(self._KINEMATIC_MODELS)}, "
+                f"got {kinematic_model!r}."
+            )
+        planar_acceleration = (
+            self.max_reference_acceleration
+            if kinematic_planar_acceleration is None
+            else float(kinematic_planar_acceleration)
+        )
+        vertical_acceleration = (
+            self.max_reference_vertical_acceleration
+            if kinematic_vertical_acceleration is None
+            else float(kinematic_vertical_acceleration)
+        )
+        if planar_acceleration <= 0.0 or vertical_acceleration <= 0.0:
+            raise ValueError("Kinematic acceleration limits must be positive.")
+        self.kinematic_planar_acceleration = planar_acceleration
+        self.kinematic_vertical_acceleration = vertical_acceleration
+
+    def reset(self, *, seed=None, options=None):
+        observation, info = super().reset(seed=seed, options=options)
+        self.last_reference_packet = None
+        self.last_reference_sample = None
+        self.reference_position = np.asarray(self.base_env.pos[0], dtype=np.float32).copy()
+        self.reference_velocity = np.asarray(self.base_env.vel[0], dtype=np.float32).copy()
+        self.reference_acceleration.fill(0.0)
+        return observation, {
+            **info,
+            "controller_mode": f"upper_kinematic_{self.kinematic_model}",
+            "upper_execution_model": self.kinematic_model,
+            "kinematic_planar_acceleration": self.kinematic_planar_acceleration,
+            "kinematic_vertical_acceleration": self.kinematic_vertical_acceleration,
+        }
+
+    def _next_kinematic_velocity(self, current_velocity, command) -> np.ndarray:
+        command = np.asarray(command, dtype=np.float32).reshape(3)
+        if self.kinematic_model == "k0":
+            return command.copy()
+
+        current_velocity = np.asarray(current_velocity, dtype=np.float32).reshape(3)
+        limits = np.array(
+            (
+                self.kinematic_planar_acceleration,
+                self.kinematic_planar_acceleration,
+                self.kinematic_vertical_acceleration,
+            ),
+            dtype=np.float32,
+        )
+        next_velocity = current_velocity + np.clip(
+            command - current_velocity,
+            -limits * self.CTRL_TIMESTEP,
+            limits * self.CTRL_TIMESTEP,
+        )
+        planar_speed = float(np.linalg.norm(next_velocity[:2]))
+        if planar_speed > self.max_reference_speed:
+            next_velocity[:2] *= self.max_reference_speed / planar_speed
+        next_velocity[2] = np.clip(
+            next_velocity[2],
+            -self.max_reference_vertical_speed,
+            self.max_reference_vertical_speed,
+        )
+        return next_velocity.astype(np.float32)
+
+    def _place_kinematic_state(self, position, velocity) -> bool:
+        """Teleport the collision body, refresh sensing state, and test geometry."""
+
+        position = np.asarray(position, dtype=np.float32).reshape(3)
+        velocity = np.asarray(velocity, dtype=np.float32).reshape(3)
+        p.resetBasePositionAndOrientation(
+            int(self.base_env.DRONE_IDS[0]),
+            position.tolist(),
+            p.getQuaternionFromEuler([0.0, 0.0, 0.0]),
+            physicsClientId=self.base_env.CLIENT,
+        )
+        p.resetBaseVelocity(
+            int(self.base_env.DRONE_IDS[0]),
+            linearVelocity=velocity.tolist(),
+            angularVelocity=[0.0, 0.0, 0.0],
+            physicsClientId=self.base_env.CLIENT,
+        )
+        p.performCollisionDetection(physicsClientId=self.base_env.CLIENT)
+        self.base_env._updateAndStoreKinematicInformation()
+        return bool(self.base_env._checkCollision())
+
+    def _integrate_position_with_collision(self, position, velocity) -> tuple[np.ndarray, bool]:
+        """Use the same PyBullet collision bodies while avoiding K0 tunnelling."""
+
+        start = np.asarray(position, dtype=np.float32).reshape(3)
+        endpoint = start + np.asarray(velocity, dtype=np.float32).reshape(3) * self.CTRL_TIMESTEP
+        travel_distance = float(np.linalg.norm(endpoint - start))
+        # At the configured speed this normally creates four samples or fewer;
+        # the bound is intentionally below the smallest vehicle diameter.
+        segments = max(1, int(np.ceil(travel_distance / 0.02)))
+        for index in range(1, segments + 1):
+            candidate = start + (endpoint - start) * (float(index) / float(segments))
+            if self._place_kinematic_state(candidate, velocity):
+                return candidate.astype(np.float32), True
+        return endpoint.astype(np.float32), False
+
+    def step(self, action):
+        command = self._velocity_command(action)
+        current_position = np.asarray(self.base_env.pos[0], dtype=np.float32).copy()
+        current_velocity = np.asarray(self.base_env.vel[0], dtype=np.float32).copy()
+        next_velocity = self._next_kinematic_velocity(current_velocity, command)
+        next_position, collision = self._integrate_position_with_collision(
+            current_position,
+            next_velocity,
+        )
+        if not collision:
+            # _integrate_position_with_collision has already placed the final
+            # state.  This call remains explicit for future alternate segment
+            # implementations and keeps collision detection deterministic.
+            collision = self._place_kinematic_state(next_position, next_velocity)
+
+        self.runtime_lower_step += self.upper_control_interval
+        self.base_env.step_counter += (
+            self.upper_control_interval * self.base_env.PYB_STEPS_PER_CTRL
+        )
+        self.command_velocity = command.copy()
+        self.reference_position = np.asarray(self.base_env.pos[0], dtype=np.float32).copy()
+        self.reference_velocity = np.asarray(self.base_env.vel[0], dtype=np.float32).copy()
+        self.reference_acceleration = (
+            self.reference_velocity - current_velocity
+        ) / self.CTRL_TIMESTEP
+        self.last_reference_packet = None
+        self.last_reference_sample = None
+        self.last_motor_action.fill(0.0)
+
+        state = self.base_env._getDroneStateVector(0)
+        done_reason = self.base_env._classifyDoneReason(state, collision=collision)
+        self.base_env._last_collision = bool(collision)
+        self.base_env._last_done_reason = done_reason
+        reward = self.base_env._computeReward()
+        terminated = self.base_env._computeTerminated()
+        truncated = self.base_env._computeTruncated()
+        base_observation = self.base_env._computeObs()
+        info = self.base_env._computeInfo()
+
+        tracking_error = 0.0
+        self._update_local_occupancy(base_observation)
+        if self.semantic_history_length:
+            self._semantic_history.append(self._semantic_frame(base_observation, tracking_error))
+        observation = self._upper_observation(base_observation)
+        actual_velocity = np.asarray(self.base_env.vel[0], dtype=np.float32).copy()
+        min_range_fraction = float(np.min(self.base_env._computeRangeObservation(self.base_env.pos[0])))
+        enriched_info = {
+            **dict(info),
+            "reward/interval_total": float(reward),
+            "controller_mode": f"upper_kinematic_{self.kinematic_model}",
+            "upper_execution_model": self.kinematic_model,
+            "upper_control_interval": self.upper_control_interval,
+            "lower_steps_executed": 0,
+            "reference_packet_version": -1,
+            "reference_packet_valid": False,
+            "reference_endpoint_x": float(self.reference_position[0]),
+            "reference_endpoint_y": float(self.reference_position[1]),
+            "reference_endpoint_z": float(self.reference_position[2]),
+            "velocity_command_x": float(command[0]),
+            "velocity_command_y": float(command[1]),
+            "velocity_command_z": float(command[2]),
+            "reference_velocity_x": float(self.reference_velocity[0]),
+            "reference_velocity_y": float(self.reference_velocity[1]),
+            "reference_velocity_z": float(self.reference_velocity[2]),
+            "actual_velocity_x": float(actual_velocity[0]),
+            "actual_velocity_y": float(actual_velocity[1]),
+            "actual_velocity_z": float(actual_velocity[2]),
+            "command_actual_delta_v": float(np.linalg.norm(command - actual_velocity)),
+            "reference_position_error": 0.0,
+            "reference_acceleration_norm": float(np.linalg.norm(self.reference_acceleration)),
+            "reference_tracking_error_mean": 0.0,
+            "motor_action_saturation_mean": 0.0,
+            "min_range_fraction": min_range_fraction,
+            "kinematic_planar_acceleration": self.kinematic_planar_acceleration,
+            "kinematic_vertical_acceleration": self.kinematic_vertical_acceleration,
+            **self._local_occupancy_info(),
+        }
+        return observation, float(reward), bool(terminated), bool(truncated), enriched_info
+
+
 class LearnedUpperDSLPIDForestEnv(LearnedUpperDSLPIDEnv):
     """Constructible forest specialization used by training/evaluation callbacks."""
 
@@ -481,6 +746,29 @@ class LearnedUpperDSLPIDForestEnv(LearnedUpperDSLPIDEnv):
         "semantic_history_length",
         "planar_only",
         "height_hold_gain",
+        "use_local_occupancy",
+        "local_occupancy_voxel_size",
+        "local_occupancy_shape",
+    }
+
+    def __init__(self, **kwargs):
+        from envs.ForestAviary import CustomForestAviary
+
+        wrapper_kwargs = {
+            key: kwargs.pop(key)
+            for key in tuple(kwargs)
+            if key in self._WRAPPER_KEYS
+        }
+        super().__init__(CustomForestAviary(**kwargs), **wrapper_kwargs)
+
+
+class KinematicUpperForestEnv(KinematicUpperEnv):
+    """Constructible K0/K1 specialization used by TD3 and EvalCallback."""
+
+    _WRAPPER_KEYS = LearnedUpperDSLPIDForestEnv._WRAPPER_KEYS | {
+        "kinematic_model",
+        "kinematic_planar_acceleration",
+        "kinematic_vertical_acceleration",
     }
 
     def __init__(self, **kwargs):

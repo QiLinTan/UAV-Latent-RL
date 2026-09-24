@@ -10,6 +10,29 @@ import torch.nn.functional as F
 from algos.td3.td3_plain import _grad_norm
 
 
+def _project_planar_action_tensor(action: torch.Tensor, max_action: float) -> torch.Tensor:
+    """Project XY onto the executable disk while preserving the z component."""
+
+    if action.shape[-1] < 2:
+        return action
+    planar = action[..., :2]
+    norm = torch.linalg.vector_norm(planar, dim=-1, keepdim=True)
+    scale = torch.clamp(float(max_action) / torch.clamp(norm, min=1e-8), max=1.0)
+    return torch.cat((planar * scale, action[..., 2:]), dim=-1)
+
+
+def _squash_planar_logits_to_disk(logits: torch.Tensor, max_action: float) -> torch.Tensor:
+    """Smoothly map unconstrained XY logits into the executable action disk."""
+
+    planar_logits = logits[..., :2]
+    norm = torch.linalg.vector_norm(planar_logits, dim=-1, keepdim=True)
+    direction = planar_logits / torch.clamp(norm, min=1e-8)
+    planar = float(max_action) * torch.tanh(norm) * direction
+    planar = torch.where(norm > 1e-8, planar, torch.zeros_like(planar))
+    remainder = float(max_action) * torch.tanh(logits[..., 2:])
+    return torch.cat((planar, remainder), dim=-1)
+
+
 class _RecurrentStateEncoder(nn.Module):
     """Encode the explicit upper-policy history while retaining current state."""
 
@@ -76,9 +99,11 @@ class RecurrentUpperActor(nn.Module):
         history_length: int = 8,
         history_frame_dim: int = 12,
         hidden_dim: int = 32,
+        project_planar_action: bool = False,
     ):
         super().__init__()
         self.max_action = float(max_action)
+        self.project_planar_action = bool(project_planar_action)
         self.encoder = _RecurrentStateEncoder(
             state_dim,
             base_state_dim=base_state_dim,
@@ -95,7 +120,10 @@ class RecurrentUpperActor(nn.Module):
         )
 
     def forward(self, state: torch.Tensor) -> torch.Tensor:
-        return self.max_action * torch.tanh(self.policy(self.encoder(state)))
+        logits = self.policy(self.encoder(state))
+        if self.project_planar_action:
+            return _squash_planar_logits_to_disk(logits, self.max_action)
+        return self.max_action * torch.tanh(logits)
 
 
 class _RecurrentQBranch(nn.Module):
@@ -191,6 +219,7 @@ class TD3UpperRecurrent:
         conservative_policy_noise=None,
         conservative_policy_freq=None,
         policy_anchor_weight=0.0,
+        project_planar_action=False,
         device=None,
     ):
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -216,6 +245,7 @@ class TD3UpperRecurrent:
             self.policy_freq if conservative_policy_freq is None else conservative_policy_freq
         )
         self.policy_anchor_weight = float(policy_anchor_weight)
+        self.project_planar_action = bool(project_planar_action)
         if min(
             self.actor_lr,
             self.critic_lr,
@@ -239,7 +269,11 @@ class TD3UpperRecurrent:
             hidden_dim=self.hidden_dim,
         )
         self.actor = RecurrentUpperActor(
-            state_dim, action_dim, self.max_action, **network_kwargs
+            state_dim,
+            action_dim,
+            self.max_action,
+            project_planar_action=self.project_planar_action,
+            **network_kwargs,
         ).to(self.device)
         self.actor_target = copy.deepcopy(self.actor)
         self.critic = RecurrentTwinCritic(
@@ -258,6 +292,40 @@ class TD3UpperRecurrent:
         with torch.no_grad():
             action = self.actor(value)
         return action.cpu().numpy().flatten()
+
+    def project_action(self, action):
+        """Apply the same executable-action contract after exploration noise."""
+
+        value = np.asarray(action, dtype=np.float32).reshape(-1).copy()
+        value = np.clip(value, -self.max_action, self.max_action)
+        if self.project_planar_action and value.size >= 2:
+            norm = float(np.linalg.norm(value[:2]))
+            if norm > self.max_action:
+                value[:2] *= self.max_action / norm
+        return value
+
+    def evaluate_critic_actions(self, state, actions):
+        """Return both critics' values for candidate actions at one state.
+
+        This is intentionally inference-only and is used by evaluation
+        diagnostics; it does not alter recurrent or optimizer state.
+        """
+
+        state_value = torch.as_tensor(
+            state, dtype=torch.float32, device=self.device
+        ).reshape(1, -1)
+        action_values = torch.as_tensor(
+            actions, dtype=torch.float32, device=self.device
+        )
+        if action_values.ndim != 2:
+            raise ValueError("actions must have shape [candidate_count, action_dim].")
+        state_batch = state_value.expand(action_values.shape[0], -1)
+        with torch.no_grad():
+            q1, q2 = self.critic(state_batch, action_values)
+        return (
+            q1.detach().cpu().numpy().reshape(-1),
+            q2.detach().cpu().numpy().reshape(-1),
+        )
 
     def enter_conservative_phase(self):
         """Reduce update size after a stable navigation policy is established."""
@@ -322,6 +390,8 @@ class TD3UpperRecurrent:
             next_action = (self.actor_target(next_state) + noise).clamp(
                 -self.max_action, self.max_action
             )
+            if self.project_planar_action:
+                next_action = _project_planar_action_tensor(next_action, self.max_action)
             target_q1, target_q2 = self.critic_target(next_state, next_action)
             target_q = reward + not_done * self.discount * torch.minimum(target_q1, target_q2)
 
@@ -337,6 +407,7 @@ class TD3UpperRecurrent:
         actor_grad_norm = 0.0
         actor_updated = False
         actor_sat_pct = None
+        actor_planar_boundary_pct = None
         actor_policy_anchor_loss = 0.0
         if self.total_it % self.policy_freq == 0:
             actor_loss = -self.critic.Q1(state, self.actor(state)).mean()
@@ -358,6 +429,15 @@ class TD3UpperRecurrent:
                 actor_sat_pct = float(
                     (actor_action.abs() >= self.max_action - 1e-3).float().mean().item()
                 )
+                actor_planar_boundary_pct = float(
+                    (
+                        torch.linalg.vector_norm(actor_action[:, :2], dim=1)
+                        >= self.max_action - 1e-3
+                    )
+                    .float()
+                    .mean()
+                    .item()
+                )
             for parameter, target in zip(self.critic.parameters(), self.critic_target.parameters()):
                 target.data.copy_(self.tau * parameter.data + (1.0 - self.tau) * target.data)
             for parameter, target in zip(self.actor.parameters(), self.actor_target.parameters()):
@@ -372,6 +452,7 @@ class TD3UpperRecurrent:
             "actor_grad_norm": float(actor_grad_norm),
             "actor_updated": actor_updated,
             "actor_sat_pct": actor_sat_pct,
+            "actor_planar_boundary_pct": actor_planar_boundary_pct,
             "q1_mean": float(current_q1.mean().item()),
             "q2_mean": float(current_q2.mean().item()),
             "q_target_mean": float(target_q.mean().item()),

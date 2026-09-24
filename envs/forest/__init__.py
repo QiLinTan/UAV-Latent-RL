@@ -8,6 +8,7 @@ from .rewards import (
     OutcomeSeparatedForestReward,
     RateIntegratedOutcomeForestReward,
     SafeTerminalForestReward,
+    TerminalGuidanceRateIntegratedReward,
     default_reward_terms,
 )
 
@@ -24,5 +25,6 @@ __all__ = [
     "OutcomeSeparatedForestReward",
     "RateIntegratedOutcomeForestReward",
     "SafeTerminalForestReward",
+    "TerminalGuidanceRateIntegratedReward",
     "default_reward_terms",
 ]

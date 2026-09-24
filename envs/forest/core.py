@@ -52,6 +52,7 @@ class CustomForestAviary(BaseRLAviary):
         min_tree_separation: float = 0.45,
         corridor_half_width: float = 0.55,
         obstacle_sensor_range: float = 1.75,
+        range_ray_origin_offset: float = 0.08,
         range_azimuth_count: int = RANGE_DIM,
         range_elevation_degrees=(0.0,),
         episode_len_sec: float = 12.0,
@@ -129,6 +130,11 @@ class CustomForestAviary(BaseRLAviary):
         self.MIN_TREE_SEPARATION = float(min_tree_separation)
         self.CORRIDOR_HALF_WIDTH = float(corridor_half_width)
         self.OBSTACLE_SENSOR_RANGE = float(obstacle_sensor_range)
+        self.RANGE_RAY_ORIGIN_OFFSET = float(range_ray_origin_offset)
+        if not 0.0 <= self.RANGE_RAY_ORIGIN_OFFSET < self.OBSTACLE_SENSOR_RANGE:
+            raise ValueError(
+                "range_ray_origin_offset must lie in [0, obstacle_sensor_range)."
+            )
         self.SAFE_DISTANCE = float(safe_distance)
         self.GOAL_TOLERANCE = float(goal_tolerance)
         self.CURRICULUM_ENABLED = bool(curriculum)
@@ -398,10 +404,26 @@ class CustomForestAviary(BaseRLAviary):
         )
         return np.clip(rel / scale, -1.0, 1.0)
 
-    def _computeRangeObservation(self, pos):
+    def _rangeRayGeometry(self, pos):
+        """Return the self-hit-free rays and their centre-range conversion data.
+
+        This is deliberately kept separate from observation conversion so that
+        the sensor contract can be regression-tested against PyBullet's raw
+        body ids: no ray may start inside and immediately hit the UAV itself.
+        """
+        # A ray starting at the vehicle centre intersects the drone's own
+        # collision mesh, especially for downward directions.  Begin each ray
+        # outside the collision envelope instead, then convert a hit distance
+        # back to the centre-referenced [0, 1] sensor range below.
         origin = np.array(pos, dtype=np.float32) + np.array([0.0, 0.0, 0.02], dtype=np.float32)
-        ray_from = np.repeat(origin.reshape(1, 3), self.NUM_RANGE_RAYS, axis=0)
-        ray_to = ray_from + self._range_directions * self.OBSTACLE_SENSOR_RANGE
+        origin_offset = self.RANGE_RAY_ORIGIN_OFFSET
+        ray_from = origin.reshape(1, 3) + self._range_directions * origin_offset
+        ray_to = origin.reshape(1, 3) + self._range_directions * self.OBSTACLE_SENSOR_RANGE
+        cast_length = self.OBSTACLE_SENSOR_RANGE - origin_offset
+        return ray_from, ray_to, origin_offset, cast_length
+
+    def _computeRangeObservation(self, pos):
+        ray_from, ray_to, origin_offset, cast_length = self._rangeRayGeometry(pos)
         hits = p.rayTestBatch(ray_from.tolist(), ray_to.tolist(), physicsClientId=self.CLIENT)
 
         dists = []
@@ -410,7 +432,10 @@ class CustomForestAviary(BaseRLAviary):
             if hit_fraction < 0.0:
                 dists.append(1.0)
             else:
-                dists.append(np.clip(hit_fraction, 0.0, 1.0))
+                centre_fraction = (
+                    origin_offset + np.clip(hit_fraction, 0.0, 1.0) * cast_length
+                ) / self.OBSTACLE_SENSOR_RANGE
+                dists.append(np.clip(centre_fraction, 0.0, 1.0))
         return np.array(dists, dtype=np.float32)
 
     def _buildRangeDirections(self):
@@ -529,6 +554,7 @@ class CustomForestAviary(BaseRLAviary):
             ),
             "curriculum_mixed_difficulty": bool(self._curriculum_mixed_difficulty),
             "range_ray_count": int(self.NUM_RANGE_RAYS),
+            "range_ray_origin_offset": float(self.RANGE_RAY_ORIGIN_OFFSET),
             "route_tree_layout": self.ROUTE_TREE_LAYOUT,
             "start_pos": self.START_POS.copy(),
             "target_pos": self.TARGET_POS.copy(),
