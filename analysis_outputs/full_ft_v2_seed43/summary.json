@@ -1,0 +1,1947 @@
+{
+  "experiment": "full_ft_v2_seed43",
+  "complete": true,
+  "branches": {
+    "A": {
+      "upper_steps": 6000,
+      "stop_reason": "persistent_full_collapse_all_three_domains",
+      "extension_decision": null,
+      "paired_validation": {
+        "full_stage0": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        },
+        "full_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88
+          ],
+          "retained_success_maps": []
+        },
+        "k1_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        }
+      },
+      "raw_final_diagnostics": {
+        "step": 6000,
+        "actor_updates": 1000,
+        "label": "stability_evaluation",
+        "commands": {
+          "states": 192,
+          "mean_command_difference_mps": 1.3580500703400322,
+          "mean_planar_heading_difference_degrees": 119.67083900864573,
+          "planar_heading_valid_states": 192,
+          "planar_heading_over_90_degrees_fraction": 0.7552083333333334,
+          "source_mean_goal_closing_command_mps": 0.5612568945612777,
+          "updated_mean_goal_closing_command_mps": -0.4576781182967664,
+          "source_away_command_fraction": 0.109375,
+          "updated_away_command_fraction": 0.9270833333333334,
+          "mean_absolute_vertical_command_change_mps": 0.3056474714176147,
+          "source_mean_vertical_command_mps": 0.004346661591262092,
+          "updated_mean_vertical_command_mps": 0.16729762624017894,
+          "source_vertical_action_saturated_fraction": 0.078125,
+          "updated_vertical_action_saturated_fraction": 0.9479166666666666,
+          "near_goal": {
+            "states": 64,
+            "mean_command_difference_mps": 1.1700209078101378,
+            "mean_planar_heading_difference_degrees": 96.03134940777966,
+            "planar_heading_valid_states": 64,
+            "planar_heading_over_90_degrees_fraction": 0.546875,
+            "source_mean_goal_closing_command_mps": 0.2451267621857922,
+            "updated_mean_goal_closing_command_mps": -0.4305220470253836,
+            "source_away_command_fraction": 0.328125,
+            "updated_away_command_fraction": 0.984375,
+            "mean_absolute_vertical_command_change_mps": 0.30818257303617425,
+            "source_mean_vertical_command_mps": 0.02229694213892799,
+            "updated_mean_vertical_command_mps": -0.09761000513099134,
+            "source_vertical_action_saturated_fraction": 0.0,
+            "updated_vertical_action_saturated_fraction": 0.84375
+          }
+        },
+        "q": {
+          "current_q1": 14.345208168029785,
+          "current_q2": 14.39270305633545,
+          "current_minq": 14.1878080368042,
+          "source_q1": 13.381234169006348,
+          "source_q2": 13.483052253723145,
+          "maximum_abs_q": 31.294713973999023
+        },
+        "finite": true,
+        "last_train_info": {
+          "critic_loss": 2.6209278106689453,
+          "critic_grad_norm": 63.271835250664665,
+          "actor_loss": null,
+          "actor_grad_norm": 0.0,
+          "actor_updated": false,
+          "actor_frozen": 0.0,
+          "actor_sat_pct": null,
+          "actor_planar_boundary_pct": null,
+          "q1_mean": 6.224556922912598,
+          "q2_mean": 6.2376580238342285,
+          "q1_std": 10.78747844696045,
+          "q2_std": 10.961097717285156,
+          "q1_min": -17.846725463867188,
+          "q1_max": 29.807096481323242,
+          "q2_min": -18.729949951171875,
+          "q2_max": 29.880128860473633,
+          "td1_abs_mean": 0.596390962600708,
+          "td2_abs_mean": 0.6864965558052063,
+          "q_target_mean": 6.332891464233398,
+          "q_gap_abs_mean": 0.2792590260505676,
+          "upper_recurrent": 1.0,
+          "upper_history_length": 8.0,
+          "upper_recurrent_hidden_dim": 64.0,
+          "actor_policy_anchor_loss": 0.0,
+          "success_replay_fraction": 0.19921875,
+          "conservative_phase": 0.0,
+          "actor_lr": 0.0001,
+          "critic_lr": 0.0003,
+          "policy_noise": 0.2,
+          "policy_freq": 2.0,
+          "success_replay/level_1_size": 1389.0,
+          "success_replay/level_2_size": 0.0,
+          "success_replay/level_3_size": 0.0,
+          "success_replay/level_5_size": 2070.0,
+          "success_replay/level_1_sample_count": 26.0,
+          "success_replay/level_2_sample_count": 0.0,
+          "success_replay/level_3_sample_count": 0.0,
+          "success_replay/level_5_sample_count": 25.0
+        }
+      },
+      "best_selection": {
+        "step": 4000,
+        "selection": "unchanged_source_actor_fallback",
+        "qualified_finetuned_best": false,
+        "reason": "no qualified stable post-unfreeze checkpoint"
+      },
+      "actual_near_goal_speed": [
+        {
+          "step": 0,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 10,
+          "near_goal_lower_ticks": 2604,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.4623603223610153,
+            "actual_mean_vertical_mps": -0.006619368590479238,
+            "command_mean_radial_mps": 0.18097620298195405,
+            "command_mean_vertical_mps": 0.05114132225529195,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.5404500098871517
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 248,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4860056777595677,
+                "actual_mean_vertical_mps": -0.00860450063359114,
+                "command_mean_radial_mps": 0.18308445066641077,
+                "command_mean_vertical_mps": 0.04869205938772329,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5704647274637997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 279,
+              "metrics": {
+                "actual_mean_radial_mps": 0.43222459884559833,
+                "actual_mean_vertical_mps": -0.00823561450536957,
+                "command_mean_radial_mps": 0.17542556322574174,
+                "command_mean_vertical_mps": 0.03877534457619258,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5107371579965344
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 250,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4818928994968974,
+                "actual_mean_vertical_mps": -0.007992170578152664,
+                "command_mean_radial_mps": 0.1873308505230977,
+                "command_mean_vertical_mps": 0.058017184406518936,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.558584264716444
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 281,
+              "metrics": {
+                "actual_mean_radial_mps": 0.427556687747023,
+                "actual_mean_vertical_mps": -0.01205364936289909,
+                "command_mean_radial_mps": 0.1580052790968321,
+                "command_mean_vertical_mps": 0.022580158455940327,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5060542546794017
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 251,
+              "metrics": {
+                "actual_mean_radial_mps": 0.48072297878230535,
+                "actual_mean_vertical_mps": -0.008262082966343927,
+                "command_mean_radial_mps": 0.18719171090370074,
+                "command_mean_vertical_mps": 0.07658713874203038,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.549462641623719
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4760688612286783,
+                "actual_mean_vertical_mps": -0.0008589838976508342,
+                "command_mean_radial_mps": 0.18535975820757442,
+                "command_mean_vertical_mps": 0.04654870397252999,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5630360668619011
+              }
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 249,
+              "metrics": {
+                "actual_mean_radial_mps": 0.483488205750169,
+                "actual_mean_vertical_mps": -0.004079180951221591,
+                "command_mean_radial_mps": 0.18688674991539778,
+                "command_mean_vertical_mps": 0.05361256287638921,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5673995383555728
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44471171089120565,
+                "actual_mean_vertical_mps": -0.0019405890268705366,
+                "command_mean_radial_mps": 0.18267365823112341,
+                "command_mean_vertical_mps": 0.06492214818243627,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5095199253223274
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.47426429111042734,
+                "actual_mean_vertical_mps": -0.013144177407059322,
+                "command_mean_radial_mps": 0.17945537264287967,
+                "command_mean_vertical_mps": 0.04394431465964308,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5599092549811437
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44701138424474557,
+                "actual_mean_vertical_mps": -0.0009770643007896186,
+                "command_mean_radial_mps": 0.18718935040533752,
+                "command_mean_vertical_mps": 0.060859692431296464,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5208905190690926
+              }
+            }
+          ]
+        },
+        {
+          "step": 0,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 8,
+          "near_goal_lower_ticks": 1567,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.6156120252292355,
+            "actual_mean_vertical_mps": -0.010552051807844886,
+            "command_mean_radial_mps": 0.252293562225976,
+            "command_mean_vertical_mps": -0.014285684519684528,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.6678042791274034
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 205,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5881957974420997,
+                "actual_mean_vertical_mps": -0.017965980972229963,
+                "command_mean_radial_mps": 0.20181806426385632,
+                "command_mean_vertical_mps": 0.024222117755562066,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.699387863514997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 166,
+              "metrics": {
+                "actual_mean_radial_mps": 0.726362248278318,
+                "actual_mean_vertical_mps": -0.02791705315805089,
+                "command_mean_radial_mps": 0.38393908687845957,
+                "command_mean_vertical_mps": -0.030374084337030996,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7487327919790361
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 266,
+              "metrics": {
+                "actual_mean_radial_mps": 0.45317160582133514,
+                "actual_mean_vertical_mps": -0.08940888966942732,
+                "command_mean_radial_mps": 0.25630980267622333,
+                "command_mean_vertical_mps": -0.07017000078370697,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5069010392490483
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 186,
+              "metrics": {
+                "actual_mean_radial_mps": 0.647964947691748,
+                "actual_mean_vertical_mps": 0.17922401158522114,
+                "command_mean_radial_mps": 0.3710846707316081,
+                "command_mean_vertical_mps": 0.16559857971245243,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7099277715273298
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 168,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7182879338866603,
+                "actual_mean_vertical_mps": -0.09363969272413492,
+                "command_mean_radial_mps": 0.18499994028861014,
+                "command_mean_vertical_mps": -0.054251132266862054,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7472301755847546
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 194,
+              "metrics": {
+                "actual_mean_radial_mps": 0.6212820764853854,
+                "actual_mean_vertical_mps": 0.06583343924714538,
+                "command_mean_radial_mps": 0.16135809497471387,
+                "command_mean_vertical_mps": 0.008598862945572617,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6574745950533134
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 211,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5715088494790842,
+                "actual_mean_vertical_mps": -0.06512497475911425,
+                "command_mean_radial_mps": 0.21813883136010068,
+                "command_mean_vertical_mps": -0.06407958300457606,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6314158011336668
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 171,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7055741605498838,
+                "actual_mean_vertical_mps": -0.006254730551176852,
+                "command_mean_radial_mps": 0.26097374464136097,
+                "command_mean_vertical_mps": -0.0788211495729915,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7344411285463814
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        }
+      ]
+    },
+    "B": {
+      "upper_steps": 6000,
+      "stop_reason": "persistent_full_collapse_all_three_domains",
+      "extension_decision": null,
+      "paired_validation": {
+        "full_stage0": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        },
+        "full_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88
+          ],
+          "retained_success_maps": []
+        },
+        "k1_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        }
+      },
+      "raw_final_diagnostics": {
+        "step": 6000,
+        "actor_updates": 1000,
+        "label": "stability_evaluation",
+        "commands": {
+          "states": 192,
+          "mean_command_difference_mps": 1.2986199864460266,
+          "mean_planar_heading_difference_degrees": 115.88826619312142,
+          "planar_heading_valid_states": 192,
+          "planar_heading_over_90_degrees_fraction": 0.71875,
+          "source_mean_goal_closing_command_mps": 0.5612569123328681,
+          "updated_mean_goal_closing_command_mps": -0.4369929156248468,
+          "source_away_command_fraction": 0.109375,
+          "updated_away_command_fraction": 0.9114583333333334,
+          "mean_absolute_vertical_command_change_mps": 0.23571674879494822,
+          "source_mean_vertical_command_mps": 0.004346730675024445,
+          "updated_mean_vertical_command_mps": -0.21221377511974424,
+          "source_vertical_action_saturated_fraction": 0.078125,
+          "updated_vertical_action_saturated_fraction": 0.5572916666666666,
+          "near_goal": {
+            "states": 64,
+            "mean_command_difference_mps": 1.1134351819618462,
+            "mean_planar_heading_difference_degrees": 90.24523796578363,
+            "planar_heading_valid_states": 64,
+            "planar_heading_over_90_degrees_fraction": 0.453125,
+            "source_mean_goal_closing_command_mps": 0.24512685253180277,
+            "updated_mean_goal_closing_command_mps": -0.3763385768872829,
+            "source_away_command_fraction": 0.328125,
+            "updated_away_command_fraction": 0.96875,
+            "mean_absolute_vertical_command_change_mps": 0.28101837583235467,
+            "source_mean_vertical_command_mps": 0.022297003440326073,
+            "updated_mean_vertical_command_mps": -0.25162111027166245,
+            "source_vertical_action_saturated_fraction": 0.0,
+            "updated_vertical_action_saturated_fraction": 0.765625
+          }
+        },
+        "q": {
+          "current_q1": 15.602657318115234,
+          "current_q2": 14.846966743469238,
+          "current_minq": 14.83573055267334,
+          "source_q1": 14.047266960144043,
+          "source_q2": 13.528618812561035,
+          "maximum_abs_q": 32.745540618896484
+        },
+        "finite": true,
+        "last_train_info": {
+          "critic_loss": 10.369939804077148,
+          "critic_grad_norm": 55.27231290278307,
+          "actor_loss": null,
+          "actor_grad_norm": 0.0,
+          "actor_updated": false,
+          "actor_frozen": 0.0,
+          "actor_sat_pct": null,
+          "actor_planar_boundary_pct": null,
+          "q1_mean": 6.6996684074401855,
+          "q2_mean": 6.559542655944824,
+          "q1_std": 10.782896041870117,
+          "q2_std": 10.642702102661133,
+          "q1_min": -16.103134155273438,
+          "q1_max": 30.70909309387207,
+          "q2_min": -15.91751480102539,
+          "q2_max": 30.641931533813477,
+          "td1_abs_mean": 0.9535134434700012,
+          "td2_abs_mean": 0.8524857759475708,
+          "q_target_mean": 6.683488845825195,
+          "q_gap_abs_mean": 0.310585618019104,
+          "upper_recurrent": 1.0,
+          "upper_history_length": 8.0,
+          "upper_recurrent_hidden_dim": 64.0,
+          "actor_policy_anchor_loss": 0.0,
+          "success_replay_fraction": 0.19921875,
+          "conservative_phase": 0.0,
+          "actor_lr": 0.0003,
+          "critic_lr": 0.0003,
+          "policy_noise": 0.2,
+          "policy_freq": 2.0,
+          "success_replay/level_1_size": 1389.0,
+          "success_replay/level_2_size": 0.0,
+          "success_replay/level_3_size": 0.0,
+          "success_replay/level_5_size": 2070.0,
+          "success_replay/level_1_sample_count": 26.0,
+          "success_replay/level_2_sample_count": 0.0,
+          "success_replay/level_3_sample_count": 0.0,
+          "success_replay/level_5_sample_count": 25.0
+        }
+      },
+      "best_selection": {
+        "step": 4000,
+        "selection": "unchanged_source_actor_fallback",
+        "qualified_finetuned_best": false,
+        "reason": "no qualified stable post-unfreeze checkpoint"
+      },
+      "actual_near_goal_speed": [
+        {
+          "step": 0,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 10,
+          "near_goal_lower_ticks": 2604,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.4623603223610153,
+            "actual_mean_vertical_mps": -0.006619368590479238,
+            "command_mean_radial_mps": 0.18097620298195405,
+            "command_mean_vertical_mps": 0.05114132225529195,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.5404500098871517
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 248,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4860056777595677,
+                "actual_mean_vertical_mps": -0.00860450063359114,
+                "command_mean_radial_mps": 0.18308445066641077,
+                "command_mean_vertical_mps": 0.04869205938772329,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5704647274637997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 279,
+              "metrics": {
+                "actual_mean_radial_mps": 0.43222459884559833,
+                "actual_mean_vertical_mps": -0.00823561450536957,
+                "command_mean_radial_mps": 0.17542556322574174,
+                "command_mean_vertical_mps": 0.03877534457619258,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5107371579965344
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 250,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4818928994968974,
+                "actual_mean_vertical_mps": -0.007992170578152664,
+                "command_mean_radial_mps": 0.1873308505230977,
+                "command_mean_vertical_mps": 0.058017184406518936,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.558584264716444
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 281,
+              "metrics": {
+                "actual_mean_radial_mps": 0.427556687747023,
+                "actual_mean_vertical_mps": -0.01205364936289909,
+                "command_mean_radial_mps": 0.1580052790968321,
+                "command_mean_vertical_mps": 0.022580158455940327,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5060542546794017
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 251,
+              "metrics": {
+                "actual_mean_radial_mps": 0.48072297878230535,
+                "actual_mean_vertical_mps": -0.008262082966343927,
+                "command_mean_radial_mps": 0.18719171090370074,
+                "command_mean_vertical_mps": 0.07658713874203038,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.549462641623719
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4760688612286783,
+                "actual_mean_vertical_mps": -0.0008589838976508342,
+                "command_mean_radial_mps": 0.18535975820757442,
+                "command_mean_vertical_mps": 0.04654870397252999,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5630360668619011
+              }
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 249,
+              "metrics": {
+                "actual_mean_radial_mps": 0.483488205750169,
+                "actual_mean_vertical_mps": -0.004079180951221591,
+                "command_mean_radial_mps": 0.18688674991539778,
+                "command_mean_vertical_mps": 0.05361256287638921,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5673995383555728
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44471171089120565,
+                "actual_mean_vertical_mps": -0.0019405890268705366,
+                "command_mean_radial_mps": 0.18267365823112341,
+                "command_mean_vertical_mps": 0.06492214818243627,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5095199253223274
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.47426429111042734,
+                "actual_mean_vertical_mps": -0.013144177407059322,
+                "command_mean_radial_mps": 0.17945537264287967,
+                "command_mean_vertical_mps": 0.04394431465964308,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5599092549811437
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44701138424474557,
+                "actual_mean_vertical_mps": -0.0009770643007896186,
+                "command_mean_radial_mps": 0.18718935040533752,
+                "command_mean_vertical_mps": 0.060859692431296464,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5208905190690926
+              }
+            }
+          ]
+        },
+        {
+          "step": 0,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 8,
+          "near_goal_lower_ticks": 1567,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.6156120252292355,
+            "actual_mean_vertical_mps": -0.010552051807844886,
+            "command_mean_radial_mps": 0.252293562225976,
+            "command_mean_vertical_mps": -0.014285684519684528,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.6678042791274034
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 205,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5881957974420997,
+                "actual_mean_vertical_mps": -0.017965980972229963,
+                "command_mean_radial_mps": 0.20181806426385632,
+                "command_mean_vertical_mps": 0.024222117755562066,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.699387863514997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 166,
+              "metrics": {
+                "actual_mean_radial_mps": 0.726362248278318,
+                "actual_mean_vertical_mps": -0.02791705315805089,
+                "command_mean_radial_mps": 0.38393908687845957,
+                "command_mean_vertical_mps": -0.030374084337030996,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7487327919790361
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 266,
+              "metrics": {
+                "actual_mean_radial_mps": 0.45317160582133514,
+                "actual_mean_vertical_mps": -0.08940888966942732,
+                "command_mean_radial_mps": 0.25630980267622333,
+                "command_mean_vertical_mps": -0.07017000078370697,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5069010392490483
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 186,
+              "metrics": {
+                "actual_mean_radial_mps": 0.647964947691748,
+                "actual_mean_vertical_mps": 0.17922401158522114,
+                "command_mean_radial_mps": 0.3710846707316081,
+                "command_mean_vertical_mps": 0.16559857971245243,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7099277715273298
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 168,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7182879338866603,
+                "actual_mean_vertical_mps": -0.09363969272413492,
+                "command_mean_radial_mps": 0.18499994028861014,
+                "command_mean_vertical_mps": -0.054251132266862054,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7472301755847546
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 194,
+              "metrics": {
+                "actual_mean_radial_mps": 0.6212820764853854,
+                "actual_mean_vertical_mps": 0.06583343924714538,
+                "command_mean_radial_mps": 0.16135809497471387,
+                "command_mean_vertical_mps": 0.008598862945572617,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6574745950533134
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 211,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5715088494790842,
+                "actual_mean_vertical_mps": -0.06512497475911425,
+                "command_mean_radial_mps": 0.21813883136010068,
+                "command_mean_vertical_mps": -0.06407958300457606,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6314158011336668
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 171,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7055741605498838,
+                "actual_mean_vertical_mps": -0.006254730551176852,
+                "command_mean_radial_mps": 0.26097374464136097,
+                "command_mean_vertical_mps": -0.0788211495729915,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7344411285463814
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        }
+      ]
+    },
+    "C": {
+      "upper_steps": 6000,
+      "stop_reason": "persistent_full_collapse_all_three_domains",
+      "extension_decision": null,
+      "paired_validation": {
+        "full_stage0": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        },
+        "full_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88
+          ],
+          "retained_success_maps": []
+        },
+        "k1_stage3": {
+          "gained_success_maps": [],
+          "lost_success_maps": [
+            80,
+            81,
+            82,
+            83,
+            84,
+            86,
+            87,
+            88,
+            89
+          ],
+          "retained_success_maps": []
+        }
+      },
+      "raw_final_diagnostics": {
+        "step": 6000,
+        "actor_updates": 1000,
+        "label": "stability_evaluation",
+        "commands": {
+          "states": 192,
+          "mean_command_difference_mps": 1.2837031498193994,
+          "mean_planar_heading_difference_degrees": 111.24714273471504,
+          "planar_heading_valid_states": 192,
+          "planar_heading_over_90_degrees_fraction": 0.6979166666666666,
+          "source_mean_goal_closing_command_mps": 0.5612569123328681,
+          "updated_mean_goal_closing_command_mps": -0.37146808029097694,
+          "source_away_command_fraction": 0.109375,
+          "updated_away_command_fraction": 0.8958333333333334,
+          "mean_absolute_vertical_command_change_mps": 0.3043403806383139,
+          "source_mean_vertical_command_mps": 0.004346730675024445,
+          "updated_mean_vertical_command_mps": -0.2997983646579086,
+          "source_vertical_action_saturated_fraction": 0.078125,
+          "updated_vertical_action_saturated_fraction": 0.9947916666666666,
+          "near_goal": {
+            "states": 64,
+            "mean_command_difference_mps": 1.146742853416992,
+            "mean_planar_heading_difference_degrees": 91.63042325113517,
+            "planar_heading_valid_states": 64,
+            "planar_heading_over_90_degrees_fraction": 0.453125,
+            "source_mean_goal_closing_command_mps": 0.24512685253180277,
+            "updated_mean_goal_closing_command_mps": -0.3430481624569202,
+            "source_away_command_fraction": 0.328125,
+            "updated_away_command_fraction": 0.953125,
+            "mean_absolute_vertical_command_change_mps": 0.3222969199006911,
+            "source_mean_vertical_command_mps": 0.022297003440326073,
+            "updated_mean_vertical_command_mps": -0.29999991646036506,
+            "source_vertical_action_saturated_fraction": 0.0,
+            "updated_vertical_action_saturated_fraction": 1.0
+          }
+        },
+        "q": {
+          "current_q1": 14.940971374511719,
+          "current_q2": 14.854849815368652,
+          "current_minq": 14.749099731445312,
+          "source_q1": 13.380255699157715,
+          "source_q2": 13.37311840057373,
+          "maximum_abs_q": 31.9935245513916
+        },
+        "finite": true,
+        "last_train_info": {
+          "critic_loss": 2.754617214202881,
+          "critic_grad_norm": 18.982759873391196,
+          "actor_loss": null,
+          "actor_grad_norm": 0.0,
+          "actor_updated": false,
+          "actor_frozen": 0.0,
+          "actor_sat_pct": null,
+          "actor_planar_boundary_pct": null,
+          "q1_mean": 6.169970512390137,
+          "q2_mean": 6.167840003967285,
+          "q1_std": 11.149093627929688,
+          "q2_std": 11.182299613952637,
+          "q1_min": -27.962623596191406,
+          "q1_max": 29.144777297973633,
+          "q2_min": -26.689714431762695,
+          "q2_max": 29.35565757751465,
+          "td1_abs_mean": 0.490016907453537,
+          "td2_abs_mean": 0.5454636812210083,
+          "q_target_mean": 6.093407154083252,
+          "q_gap_abs_mean": 0.25056105852127075,
+          "upper_recurrent": 1.0,
+          "upper_history_length": 8.0,
+          "upper_recurrent_hidden_dim": 64.0,
+          "actor_policy_anchor_loss": 0.0,
+          "success_replay_fraction": 0.19921875,
+          "conservative_phase": 0.0,
+          "actor_lr": 0.0001,
+          "critic_lr": 0.0003,
+          "policy_noise": 0.2,
+          "policy_freq": 2.0,
+          "success_replay/level_1_size": 1389.0,
+          "success_replay/level_2_size": 0.0,
+          "success_replay/level_3_size": 0.0,
+          "success_replay/level_5_size": 2070.0,
+          "success_replay/level_1_sample_count": 26.0,
+          "success_replay/level_2_sample_count": 0.0,
+          "success_replay/level_3_sample_count": 0.0,
+          "success_replay/level_5_sample_count": 25.0
+        }
+      },
+      "best_selection": {
+        "step": 4000,
+        "selection": "unchanged_source_actor_fallback",
+        "qualified_finetuned_best": false,
+        "reason": "no qualified stable post-unfreeze checkpoint"
+      },
+      "actual_near_goal_speed": [
+        {
+          "step": 0,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 10,
+          "near_goal_lower_ticks": 2604,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.4623603223610153,
+            "actual_mean_vertical_mps": -0.006619368590479238,
+            "command_mean_radial_mps": 0.18097620298195405,
+            "command_mean_vertical_mps": 0.05114132225529195,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.5404500098871517
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 248,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4860056777595677,
+                "actual_mean_vertical_mps": -0.00860450063359114,
+                "command_mean_radial_mps": 0.18308445066641077,
+                "command_mean_vertical_mps": 0.04869205938772329,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5704647274637997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 279,
+              "metrics": {
+                "actual_mean_radial_mps": 0.43222459884559833,
+                "actual_mean_vertical_mps": -0.00823561450536957,
+                "command_mean_radial_mps": 0.17542556322574174,
+                "command_mean_vertical_mps": 0.03877534457619258,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5107371579965344
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 250,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4818928994968974,
+                "actual_mean_vertical_mps": -0.007992170578152664,
+                "command_mean_radial_mps": 0.1873308505230977,
+                "command_mean_vertical_mps": 0.058017184406518936,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.558584264716444
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 281,
+              "metrics": {
+                "actual_mean_radial_mps": 0.427556687747023,
+                "actual_mean_vertical_mps": -0.01205364936289909,
+                "command_mean_radial_mps": 0.1580052790968321,
+                "command_mean_vertical_mps": 0.022580158455940327,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5060542546794017
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 251,
+              "metrics": {
+                "actual_mean_radial_mps": 0.48072297878230535,
+                "actual_mean_vertical_mps": -0.008262082966343927,
+                "command_mean_radial_mps": 0.18719171090370074,
+                "command_mean_vertical_mps": 0.07658713874203038,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.549462641623719
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.4760688612286783,
+                "actual_mean_vertical_mps": -0.0008589838976508342,
+                "command_mean_radial_mps": 0.18535975820757442,
+                "command_mean_vertical_mps": 0.04654870397252999,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5630360668619011
+              }
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 249,
+              "metrics": {
+                "actual_mean_radial_mps": 0.483488205750169,
+                "actual_mean_vertical_mps": -0.004079180951221591,
+                "command_mean_radial_mps": 0.18688674991539778,
+                "command_mean_vertical_mps": 0.05361256287638921,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5673995383555728
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44471171089120565,
+                "actual_mean_vertical_mps": -0.0019405890268705366,
+                "command_mean_radial_mps": 0.18267365823112341,
+                "command_mean_vertical_mps": 0.06492214818243627,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5095199253223274
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 253,
+              "metrics": {
+                "actual_mean_radial_mps": 0.47426429111042734,
+                "actual_mean_vertical_mps": -0.013144177407059322,
+                "command_mean_radial_mps": 0.17945537264287967,
+                "command_mean_vertical_mps": 0.04394431465964308,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5599092549811437
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 270,
+              "metrics": {
+                "actual_mean_radial_mps": 0.44701138424474557,
+                "actual_mean_vertical_mps": -0.0009770643007896186,
+                "command_mean_radial_mps": 0.18718935040533752,
+                "command_mean_vertical_mps": 0.060859692431296464,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5208905190690926
+              }
+            }
+          ]
+        },
+        {
+          "step": 0,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 8,
+          "near_goal_lower_ticks": 1567,
+          "pooled_tick_metrics": {
+            "actual_mean_radial_mps": 0.6156120252292355,
+            "actual_mean_vertical_mps": -0.010552051807844886,
+            "command_mean_radial_mps": 0.252293562225976,
+            "command_mean_vertical_mps": -0.014285684519684528,
+            "actual_away_fraction": 0.0,
+            "actual_mean_speed_mps": 0.6678042791274034
+          },
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 205,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5881957974420997,
+                "actual_mean_vertical_mps": -0.017965980972229963,
+                "command_mean_radial_mps": 0.20181806426385632,
+                "command_mean_vertical_mps": 0.024222117755562066,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.699387863514997
+              }
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 166,
+              "metrics": {
+                "actual_mean_radial_mps": 0.726362248278318,
+                "actual_mean_vertical_mps": -0.02791705315805089,
+                "command_mean_radial_mps": 0.38393908687845957,
+                "command_mean_vertical_mps": -0.030374084337030996,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7487327919790361
+              }
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 266,
+              "metrics": {
+                "actual_mean_radial_mps": 0.45317160582133514,
+                "actual_mean_vertical_mps": -0.08940888966942732,
+                "command_mean_radial_mps": 0.25630980267622333,
+                "command_mean_vertical_mps": -0.07017000078370697,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.5069010392490483
+              }
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 186,
+              "metrics": {
+                "actual_mean_radial_mps": 0.647964947691748,
+                "actual_mean_vertical_mps": 0.17922401158522114,
+                "command_mean_radial_mps": 0.3710846707316081,
+                "command_mean_vertical_mps": 0.16559857971245243,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7099277715273298
+              }
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 168,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7182879338866603,
+                "actual_mean_vertical_mps": -0.09363969272413492,
+                "command_mean_radial_mps": 0.18499994028861014,
+                "command_mean_vertical_mps": -0.054251132266862054,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7472301755847546
+              }
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 194,
+              "metrics": {
+                "actual_mean_radial_mps": 0.6212820764853854,
+                "actual_mean_vertical_mps": 0.06583343924714538,
+                "command_mean_radial_mps": 0.16135809497471387,
+                "command_mean_vertical_mps": 0.008598862945572617,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6574745950533134
+              }
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 211,
+              "metrics": {
+                "actual_mean_radial_mps": 0.5715088494790842,
+                "actual_mean_vertical_mps": -0.06512497475911425,
+                "command_mean_radial_mps": 0.21813883136010068,
+                "command_mean_vertical_mps": -0.06407958300457606,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.6314158011336668
+              }
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 171,
+              "metrics": {
+                "actual_mean_radial_mps": 0.7055741605498838,
+                "actual_mean_vertical_mps": -0.006254730551176852,
+                "command_mean_radial_mps": 0.26097374464136097,
+                "command_mean_vertical_mps": -0.0788211495729915,
+                "actual_away_fraction": 0.0,
+                "actual_mean_speed_mps": 0.7344411285463814
+              }
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 5000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 0,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        },
+        {
+          "step": 6000,
+          "full_stage": 3,
+          "near_goal_radius_m": 1.2,
+          "maps_entering_near_goal": 0,
+          "near_goal_lower_ticks": 0,
+          "pooled_tick_metrics": null,
+          "per_map": [
+            {
+              "environment_seed": 80,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 81,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 82,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 83,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 84,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 85,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 86,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 87,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 88,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            },
+            {
+              "environment_seed": 89,
+              "near_goal_lower_ticks": 0,
+              "metrics": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "heldout_seeds40_79_used_for_new_validation": false,
+  "seed43_prefix_exception_authorized": true,
+  "conclusion": "三个分支均在5k、6k两次检查中三路零成功，于6k触发预设持续性全面崩溃早停，未进入10k或40k，也没有合格微调best。降低Actor LR至1e-4、加入0.1源动作锚定及两者结合，均未在本次seed43试验中避免Actor崩溃；不能选出已证明能“避免崩溃”的改动。"
+}

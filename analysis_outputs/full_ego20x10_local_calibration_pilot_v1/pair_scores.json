@@ -1,0 +1,316 @@
+{
+  "td_only": [
+    {
+      "step": 5000,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.026540739461779594
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.5,
+          "delta_return_rmse": 0.02727072313427925
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19787971675395966
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19760052859783173
+        }
+      }
+    },
+    {
+      "step": 5020,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.026602555066347122
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.5,
+          "delta_return_rmse": 0.02711447887122631
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19770488142967224
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19724246859550476
+        }
+      }
+    },
+    {
+      "step": 5050,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.025662705302238464
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.026423977687954903
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.19868646562099457
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.19839778542518616
+        }
+      }
+    },
+    {
+      "step": 5100,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.025144923478364944
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.02637912891805172
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.20000000298023224,
+          "delta_return_rmse": 0.19959169626235962
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.20000000298023224,
+          "delta_return_rmse": 0.19907085597515106
+        }
+      }
+    },
+    {
+      "step": 5200,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.02529602125287056
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.026185065507888794
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.20000000298023224,
+          "delta_return_rmse": 0.20058540999889374
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.20000000298023224,
+          "delta_return_rmse": 0.20031243562698364
+        }
+      }
+    }
+  ],
+  "td_local": [
+    {
+      "step": 5000,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.75,
+          "delta_return_rmse": 0.026540739461779594
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 0.5,
+          "delta_return_rmse": 0.02727072313427925
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19787971675395966
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.6000000238418579,
+          "delta_return_rmse": 0.19760052859783173
+        }
+      }
+    },
+    {
+      "step": 5020,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.02513202652335167
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.02508479915559292
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.19960977137088776
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.20000000298023224,
+          "delta_return_rmse": 0.19964778423309326
+        }
+      }
+    },
+    {
+      "step": 5050,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.02308031916618347
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.022836050018668175
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20262698829174042
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20282723009586334
+        }
+      }
+    },
+    {
+      "step": 5100,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.02118527702987194
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.02085428684949875
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20423395931720734
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20506350696086884
+        }
+      }
+    },
+    {
+      "step": 5200,
+      "fit": {
+        "q1": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.012745599262416363
+        },
+        "q2": {
+          "pairs": 21,
+          "distinguishable_pairs": 4,
+          "agreement": 1.0,
+          "delta_return_rmse": 0.014358021318912506
+        }
+      },
+      "internal_holdout": {
+        "q1": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20511479675769806
+        },
+        "q2": {
+          "pairs": 15,
+          "distinguishable_pairs": 5,
+          "agreement": 0.4000000059604645,
+          "delta_return_rmse": 0.20612655580043793
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "shared_A_main_transitions": 1000,
+  "shared_sampling_indices": true,
+  "shared_target_noise": true,
+  "own_td_targets": true,
+  "maximum_loss_reconstruction_error": 0.0,
+  "final_actor_updates": 400,
+  "final_critic_updates": 1001,
+  "lead_actor_and_target_fixed": true,
+  "lead_actor_optimizer_unchanged": true,
+  "source_course_and_rng_preserved": true,
+  "note": "Offline learner snapshots reference immutable A Replay prefixes and original course; no physical episodes executed.",
+  "final_torch_smoothing_rng_matches_A6k": true,
+  "target_cadence_test": "3 diagnostic tests passed, including exact even-step Polyak and no odd-step update"
+}

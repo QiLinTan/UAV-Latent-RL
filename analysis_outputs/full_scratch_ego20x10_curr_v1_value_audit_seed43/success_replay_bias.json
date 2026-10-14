@@ -1,0 +1,177 @@
+{
+  "success": {
+    "count": 297,
+    "vertical_action": {
+      "mean": -0.019742684438824654,
+      "std": 0.5786729454994202,
+      "min": -0.9987182021141052,
+      "p05": -0.9105303287506104,
+      "p50": -0.05321866273880005,
+      "p95": 0.9083059430122375,
+      "max": 0.9992481470108032
+    },
+    "positive_z_fraction": 0.45791245791245794,
+    "z_saturation_fraction": 0.003367003367003367,
+    "height": {
+      "mean": 0.9985935091972351,
+      "std": 0.07562188804149628,
+      "min": 0.8718721866607666,
+      "p05": 0.8789010047912598,
+      "p50": 0.9905101656913757,
+      "p95": 1.1290000677108765,
+      "max": 1.158895492553711
+    },
+    "height_delta": {
+      "mean": -0.0003458510327618569,
+      "std": 0.00450179073959589,
+      "min": -0.01232004165649414,
+      "p05": -0.006952917668968439,
+      "p50": -0.0005105733871459961,
+      "p95": 0.008032415062189102,
+      "max": 0.011773228645324707
+    },
+    "actual_vertical_velocity": {
+      "mean": -0.005128589458763599,
+      "std": 0.06784790754318237,
+      "min": -0.18160325288772583,
+      "p05": -0.10468334704637527,
+      "p50": -0.010111569426953793,
+      "p95": 0.11721476167440414,
+      "max": 0.17331966757774353
+    },
+    "reward": {
+      "mean": 0.003762961132451892,
+      "std": 2.5267672538757324,
+      "min": -0.9162474870681763,
+      "p05": -0.6433656811714172,
+      "p50": -0.20204387605190277,
+      "p95": -0.005734503269195557,
+      "max": 24.98331642150879
+    },
+    "terminal_count": 3,
+    "positive_reward_fraction": 0.03367003367003367
+  },
+  "main": {
+    "count": 6000,
+    "vertical_action": {
+      "mean": 0.1206834688782692,
+      "std": 0.6324443221092224,
+      "min": -1.0,
+      "p05": -0.8931551575660706,
+      "p50": 0.1354902684688568,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "positive_z_fraction": 0.5615,
+    "z_saturation_fraction": 0.08383333333333333,
+    "height": {
+      "mean": 1.0692532062530518,
+      "std": 0.3759230077266693,
+      "min": 0.08225572109222412,
+      "p05": 0.6124313473701477,
+      "p50": 1.0033421516418457,
+      "p95": 1.90518319606781,
+      "max": 2.7489616870880127
+    },
+    "height_delta": {
+      "mean": 0.002153539564460516,
+      "std": 0.008052355609834194,
+      "min": -0.02018880844116211,
+      "p05": -0.0078359954059124,
+      "p50": 0.0005386173725128174,
+      "p95": 0.019471336156129837,
+      "max": 0.020910263061523438
+    },
+    "actual_vertical_velocity": {
+      "mean": 0.03220541775226593,
+      "std": 0.12099885940551758,
+      "min": -0.30279892683029175,
+      "p05": -0.11812898516654968,
+      "p50": 0.007591898553073406,
+      "p95": 0.291718989610672,
+      "max": 0.31415197253227234
+    },
+    "reward": {
+      "mean": -0.21776607632637024,
+      "std": 1.4031256437301636,
+      "min": -25.17852210998535,
+      "p05": -0.7431397438049316,
+      "p50": -0.018712233752012253,
+      "p95": 0.010575288906693459,
+      "max": 24.98331642150879
+    },
+    "terminal_count": 21,
+    "positive_reward_fraction": 0.189
+  },
+  "successful_episode_composition": [
+    {
+      "step": 1450,
+      "length": 248,
+      "return_raw": -462.9722686987942,
+      "reward_terms": {
+        "progress_reward": 5.220777750015259,
+        "time_penalty": 4.127083333333324,
+        "height_penalty": 0.9030182377497353,
+        "vertical_speed_penalty": 0.11211031163663578,
+        "lateral_penalty": 0.0,
+        "proximity_penalty": 0.0,
+        "attitude_penalty": 0.16588355061073035,
+        "speed_penalty": 0.012180272505672472,
+        "near_goal_speed_penalty": 0.0,
+        "near_goal_away_penalty": 0.0,
+        "near_goal_velocity_tracking_penalty": 712.6979310214526,
+        "route_overshoot_penalty": 0.17483972152088734,
+        "safety_boundary_penalty": 0.0,
+        "continuous_penalty_total": 718.1930464488095,
+        "terminal_outcome_reward": 250.0,
+        "interval_total": -462.9722686987942
+      }
+    },
+    {
+      "step": 1471,
+      "length": 21,
+      "return_raw": 238.0920905719145,
+      "reward_terms": {
+        "progress_reward": 1.9329532384872437,
+        "time_penalty": 0.3395833333333333,
+        "height_penalty": 0.017823750972747805,
+        "vertical_speed_penalty": 0.005121375690971035,
+        "lateral_penalty": 0.0,
+        "proximity_penalty": 0.0,
+        "attitude_penalty": 0.009910548037805713,
+        "speed_penalty": 0.00093583392277651,
+        "near_goal_speed_penalty": 0.0,
+        "near_goal_away_penalty": 0.0,
+        "near_goal_velocity_tracking_penalty": 13.46748782461509,
+        "route_overshoot_penalty": 0.0,
+        "safety_boundary_penalty": 0.0,
+        "continuous_penalty_total": 13.840862666572727,
+        "terminal_outcome_reward": 250.0,
+        "interval_total": 238.0920905719145
+      }
+    },
+    {
+      "step": 4432,
+      "length": 28,
+      "return_raw": 236.05616551905987,
+      "reward_terms": {
+        "progress_reward": 1.3410674333572388,
+        "time_penalty": 0.4645833333333333,
+        "height_penalty": 0.048287005821863814,
+        "vertical_speed_penalty": 0.010913330924813636,
+        "lateral_penalty": 0.0,
+        "proximity_penalty": 0.0,
+        "attitude_penalty": 0.016841740594827567,
+        "speed_penalty": 0.0010971581190897268,
+        "near_goal_speed_penalty": 0.0,
+        "near_goal_away_penalty": 0.0,
+        "near_goal_velocity_tracking_penalty": 14.743179345503451,
+        "route_overshoot_penalty": 0.0,
+        "safety_boundary_penalty": 0.0,
+        "continuous_penalty_total": 15.284901914297379,
+        "terminal_outcome_reward": 250.0,
+        "interval_total": 236.05616551905987
+      }
+    }
+  ]
+}

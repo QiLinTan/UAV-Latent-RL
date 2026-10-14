@@ -286,6 +286,7 @@ class TD3UpperRecurrent:
         self.uses_success_replay = True
         self.conservative_phase = False
         self._policy_anchor_actor = None
+        self.actor_frozen = False
 
     def select_action(self, state):
         value = torch.as_tensor(state, dtype=torch.float32, device=self.device).reshape(1, -1)
@@ -409,7 +410,7 @@ class TD3UpperRecurrent:
         actor_sat_pct = None
         actor_planar_boundary_pct = None
         actor_policy_anchor_loss = 0.0
-        if self.total_it % self.policy_freq == 0:
+        if self.total_it % self.policy_freq == 0 and not self.actor_frozen:
             actor_loss = -self.critic.Q1(state, self.actor(state)).mean()
             if self._policy_anchor_actor is not None and anchor_states is not None:
                 with torch.no_grad():
@@ -438,9 +439,14 @@ class TD3UpperRecurrent:
                     .mean()
                     .item()
                 )
-            for parameter, target in zip(self.critic.parameters(), self.critic_target.parameters()):
-                target.data.copy_(self.tau * parameter.data + (1.0 - self.tau) * target.data)
             for parameter, target in zip(self.actor.parameters(), self.actor_target.parameters()):
+                target.data.copy_(self.tau * parameter.data + (1.0 - self.tau) * target.data)
+
+        # During Full critic warmup the pretrained actor and target actor stay
+        # fixed, while the fresh target critics still follow TD3's delayed
+        # target-update cadence.
+        if self.total_it % self.policy_freq == 0:
+            for parameter, target in zip(self.critic.parameters(), self.critic_target.parameters()):
                 target.data.copy_(self.tau * parameter.data + (1.0 - self.tau) * target.data)
 
         with torch.no_grad():
@@ -451,10 +457,23 @@ class TD3UpperRecurrent:
             "actor_loss": actor_loss_value,
             "actor_grad_norm": float(actor_grad_norm),
             "actor_updated": actor_updated,
+            "actor_frozen": float(self.actor_frozen),
             "actor_sat_pct": actor_sat_pct,
             "actor_planar_boundary_pct": actor_planar_boundary_pct,
             "q1_mean": float(current_q1.mean().item()),
             "q2_mean": float(current_q2.mean().item()),
+            "q1_std": float(current_q1.std(unbiased=False).item()),
+            "q2_std": float(current_q2.std(unbiased=False).item()),
+            "q1_min": float(current_q1.min().item()),
+            "q1_max": float(current_q1.max().item()),
+            "q2_min": float(current_q2.min().item()),
+            "q2_max": float(current_q2.max().item()),
+            "td1_abs_mean": float((current_q1 - target_q).abs().mean().item()),
+            "td2_abs_mean": float((current_q2 - target_q).abs().mean().item()),
+            **{f"{name}_{label}": float(torch.quantile(value.detach().flatten(), quantile).item())
+               for name, value in (("q1", current_q1), ("q2", current_q2),
+                                   ("td1_abs", (current_q1-target_q).abs()), ("td2_abs", (current_q2-target_q).abs()))
+               for label, quantile in (("p05", .05), ("p50", .5), ("p95", .95))},
             "q_target_mean": float(target_q.mean().item()),
             "q_gap_abs_mean": float(q_gap.item()),
             "upper_recurrent": 1.0,
@@ -474,6 +493,15 @@ class TD3UpperRecurrent:
         torch.save(self.actor_optimizer.state_dict(), filename + "_actor_optimizer")
         torch.save(self.critic.state_dict(), filename + "_critic")
         torch.save(self.critic_optimizer.state_dict(), filename + "_critic_optimizer")
+
+    def load_actor_only(self, filename):
+        """Warm-start only the actor in a newly constructed TD3 instance."""
+        if self.total_it != 0 or self.conservative_phase:
+            raise RuntimeError("Actor-only warm start requires a fresh TD3 instance")
+        state = torch.load(filename + "_actor", map_location=self.device, weights_only=True)
+        self.actor.load_state_dict(state)
+        self.actor_target = copy.deepcopy(self.actor)
+        self._policy_anchor_actor = None
 
     def load(self, filename):
         self.actor.load_state_dict(torch.load(filename + "_actor", map_location=self.device))

@@ -1,0 +1,1309 @@
+{
+  "case_plan": [
+    {
+      "case_id": "stage0_seed80_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 80,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed80",
+      "tape_sha256": "224358e6e1ce62398d061e16ecc6cfff7f82d763434ce6dd062b34ed3e843d91",
+      "metadata_sha256": "8263dfc33f1660a882abfe7ad16b08b98d2aa20a8d7422de55b53876d30b8de6"
+    },
+    {
+      "case_id": "stage0_seed80_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 80,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.251092024495725,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed80",
+      "tape_sha256": "224358e6e1ce62398d061e16ecc6cfff7f82d763434ce6dd062b34ed3e843d91",
+      "metadata_sha256": "8263dfc33f1660a882abfe7ad16b08b98d2aa20a8d7422de55b53876d30b8de6"
+    },
+    {
+      "case_id": "stage0_seed80_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 80,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.166890048287614,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed80",
+      "tape_sha256": "224358e6e1ce62398d061e16ecc6cfff7f82d763434ce6dd062b34ed3e843d91",
+      "metadata_sha256": "8263dfc33f1660a882abfe7ad16b08b98d2aa20a8d7422de55b53876d30b8de6"
+    },
+    {
+      "case_id": "stage0_seed80_upper149",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 80,
+      "step": 149,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.20399841449288947,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed80",
+      "tape_sha256": "224358e6e1ce62398d061e16ecc6cfff7f82d763434ce6dd062b34ed3e843d91",
+      "metadata_sha256": "8263dfc33f1660a882abfe7ad16b08b98d2aa20a8d7422de55b53876d30b8de6"
+    },
+    {
+      "case_id": "stage0_seed81_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 81,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed81",
+      "tape_sha256": "db603a82169d5cd4fa6ef2ccff928278e097e38419fe00efeeac19b405ce9e5f",
+      "metadata_sha256": "4e37d7452d25716ed298930987e8b544b885465a28bea083bbca9e639041dc38"
+    },
+    {
+      "case_id": "stage0_seed81_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 81,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.2624317209257825,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed81",
+      "tape_sha256": "db603a82169d5cd4fa6ef2ccff928278e097e38419fe00efeeac19b405ce9e5f",
+      "metadata_sha256": "4e37d7452d25716ed298930987e8b544b885465a28bea083bbca9e639041dc38"
+    },
+    {
+      "case_id": "stage0_seed81_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 81,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.172547080026033,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed81",
+      "tape_sha256": "db603a82169d5cd4fa6ef2ccff928278e097e38419fe00efeeac19b405ce9e5f",
+      "metadata_sha256": "4e37d7452d25716ed298930987e8b544b885465a28bea083bbca9e639041dc38"
+    },
+    {
+      "case_id": "stage0_seed81_upper153",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 81,
+      "step": 153,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.20213824559994623,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed81",
+      "tape_sha256": "db603a82169d5cd4fa6ef2ccff928278e097e38419fe00efeeac19b405ce9e5f",
+      "metadata_sha256": "4e37d7452d25716ed298930987e8b544b885465a28bea083bbca9e639041dc38"
+    },
+    {
+      "case_id": "stage0_seed82_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 82,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed82",
+      "tape_sha256": "bc0ee297e604ad944b56bdef0abd13809db853282bbb9aabfc8bb232e299e695",
+      "metadata_sha256": "472d685ea961314faa9251722a597309edfc818a9eb97a79ef4557da04ad2b2c"
+    },
+    {
+      "case_id": "stage0_seed82_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 82,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.265372389682415,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed82",
+      "tape_sha256": "bc0ee297e604ad944b56bdef0abd13809db853282bbb9aabfc8bb232e299e695",
+      "metadata_sha256": "472d685ea961314faa9251722a597309edfc818a9eb97a79ef4557da04ad2b2c"
+    },
+    {
+      "case_id": "stage0_seed82_upper120",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 82,
+      "step": 120,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.152030233698475,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed82",
+      "tape_sha256": "bc0ee297e604ad944b56bdef0abd13809db853282bbb9aabfc8bb232e299e695",
+      "metadata_sha256": "472d685ea961314faa9251722a597309edfc818a9eb97a79ef4557da04ad2b2c"
+    },
+    {
+      "case_id": "stage0_seed82_upper150",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 82,
+      "step": 150,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.2044478587970743,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed82",
+      "tape_sha256": "bc0ee297e604ad944b56bdef0abd13809db853282bbb9aabfc8bb232e299e695",
+      "metadata_sha256": "472d685ea961314faa9251722a597309edfc818a9eb97a79ef4557da04ad2b2c"
+    },
+    {
+      "case_id": "stage0_seed83_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 83,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed83",
+      "tape_sha256": "8d7ccc50699d9b7e07516ae87da7fba992611ef8a380de51a10eeae152d55d66",
+      "metadata_sha256": "713d9c632162c50ee81fe03c6eca3d695ab98ab4087ff691e3e8b5d0979d30e4"
+    },
+    {
+      "case_id": "stage0_seed83_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 83,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.263565957748085,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed83",
+      "tape_sha256": "8d7ccc50699d9b7e07516ae87da7fba992611ef8a380de51a10eeae152d55d66",
+      "metadata_sha256": "713d9c632162c50ee81fe03c6eca3d695ab98ab4087ff691e3e8b5d0979d30e4"
+    },
+    {
+      "case_id": "stage0_seed83_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 83,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1703093765789188,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed83",
+      "tape_sha256": "8d7ccc50699d9b7e07516ae87da7fba992611ef8a380de51a10eeae152d55d66",
+      "metadata_sha256": "713d9c632162c50ee81fe03c6eca3d695ab98ab4087ff691e3e8b5d0979d30e4"
+    },
+    {
+      "case_id": "stage0_seed83_upper153",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 83,
+      "step": 153,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.2043915453833438,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed83",
+      "tape_sha256": "8d7ccc50699d9b7e07516ae87da7fba992611ef8a380de51a10eeae152d55d66",
+      "metadata_sha256": "713d9c632162c50ee81fe03c6eca3d695ab98ab4087ff691e3e8b5d0979d30e4"
+    },
+    {
+      "case_id": "stage0_seed84_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 84,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed84",
+      "tape_sha256": "48c1c197337d710db0c3aa95c2b3912ce150658fe519e0b7b86d6bc9996c7d7c",
+      "metadata_sha256": "b7eeffb36838f090abf8b91d98bc091a98b1e924a7c15ca7ec566c8d77d28774"
+    },
+    {
+      "case_id": "stage0_seed84_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 84,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.256141720657075,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed84",
+      "tape_sha256": "48c1c197337d710db0c3aa95c2b3912ce150658fe519e0b7b86d6bc9996c7d7c",
+      "metadata_sha256": "b7eeffb36838f090abf8b91d98bc091a98b1e924a7c15ca7ec566c8d77d28774"
+    },
+    {
+      "case_id": "stage0_seed84_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 84,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.19833762898074,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed84",
+      "tape_sha256": "48c1c197337d710db0c3aa95c2b3912ce150658fe519e0b7b86d6bc9996c7d7c",
+      "metadata_sha256": "b7eeffb36838f090abf8b91d98bc091a98b1e924a7c15ca7ec566c8d77d28774"
+    },
+    {
+      "case_id": "stage0_seed84_upper150",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 84,
+      "step": 150,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.2047548728676458,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed84",
+      "tape_sha256": "48c1c197337d710db0c3aa95c2b3912ce150658fe519e0b7b86d6bc9996c7d7c",
+      "metadata_sha256": "b7eeffb36838f090abf8b91d98bc091a98b1e924a7c15ca7ec566c8d77d28774"
+    },
+    {
+      "case_id": "stage0_seed85_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 85,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed85",
+      "tape_sha256": "8aefa9e29caacde9629c3dc8dbd0aacfffa38eedb15d0baf40434a5c09ad54df",
+      "metadata_sha256": "9ec01b93c583003eb0eac49c6d43dea5b479abd1e25dfa37bf1a813cd7ae6e83"
+    },
+    {
+      "case_id": "stage0_seed85_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 85,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.257950419095174,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed85",
+      "tape_sha256": "8aefa9e29caacde9629c3dc8dbd0aacfffa38eedb15d0baf40434a5c09ad54df",
+      "metadata_sha256": "9ec01b93c583003eb0eac49c6d43dea5b479abd1e25dfa37bf1a813cd7ae6e83"
+    },
+    {
+      "case_id": "stage0_seed85_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 85,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1516521092018734,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed85",
+      "tape_sha256": "8aefa9e29caacde9629c3dc8dbd0aacfffa38eedb15d0baf40434a5c09ad54df",
+      "metadata_sha256": "9ec01b93c583003eb0eac49c6d43dea5b479abd1e25dfa37bf1a813cd7ae6e83"
+    },
+    {
+      "case_id": "stage0_seed85_upper149",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 85,
+      "step": 149,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.20649485431072032,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed85",
+      "tape_sha256": "8aefa9e29caacde9629c3dc8dbd0aacfffa38eedb15d0baf40434a5c09ad54df",
+      "metadata_sha256": "9ec01b93c583003eb0eac49c6d43dea5b479abd1e25dfa37bf1a813cd7ae6e83"
+    },
+    {
+      "case_id": "stage0_seed86_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 86,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed86",
+      "tape_sha256": "daa91c54f2c551b1c891116505f70fc0a4c849973a8ae1330f05a3b2b6ce9ebc",
+      "metadata_sha256": "408b5c470d7b59f5d187a972f385fb44472fc68c445b611f0bfcc558211fc813"
+    },
+    {
+      "case_id": "stage0_seed86_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 86,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.266539753828782,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed86",
+      "tape_sha256": "daa91c54f2c551b1c891116505f70fc0a4c849973a8ae1330f05a3b2b6ce9ebc",
+      "metadata_sha256": "408b5c470d7b59f5d187a972f385fb44472fc68c445b611f0bfcc558211fc813"
+    },
+    {
+      "case_id": "stage0_seed86_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 86,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1784565912557807,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed86",
+      "tape_sha256": "daa91c54f2c551b1c891116505f70fc0a4c849973a8ae1330f05a3b2b6ce9ebc",
+      "metadata_sha256": "408b5c470d7b59f5d187a972f385fb44472fc68c445b611f0bfcc558211fc813"
+    },
+    {
+      "case_id": "stage0_seed86_upper149",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 86,
+      "step": 149,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.21067087303631565,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed86",
+      "tape_sha256": "daa91c54f2c551b1c891116505f70fc0a4c849973a8ae1330f05a3b2b6ce9ebc",
+      "metadata_sha256": "408b5c470d7b59f5d187a972f385fb44472fc68c445b611f0bfcc558211fc813"
+    },
+    {
+      "case_id": "stage0_seed87_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 87,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed87",
+      "tape_sha256": "3b9a9810c50384aa9d8dfff6d3b78f57077fff92b754cc058906b75d6736f34a",
+      "metadata_sha256": "3283071af64ce5790deb98eea12baca489b582fbea333d83dddc841b682b613c"
+    },
+    {
+      "case_id": "stage0_seed87_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 87,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.2618088993801635,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed87",
+      "tape_sha256": "3b9a9810c50384aa9d8dfff6d3b78f57077fff92b754cc058906b75d6736f34a",
+      "metadata_sha256": "3283071af64ce5790deb98eea12baca489b582fbea333d83dddc841b682b613c"
+    },
+    {
+      "case_id": "stage0_seed87_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 87,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1810228408692525,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed87",
+      "tape_sha256": "3b9a9810c50384aa9d8dfff6d3b78f57077fff92b754cc058906b75d6736f34a",
+      "metadata_sha256": "3283071af64ce5790deb98eea12baca489b582fbea333d83dddc841b682b613c"
+    },
+    {
+      "case_id": "stage0_seed87_upper152",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 87,
+      "step": 152,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.20755442402279972,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed87",
+      "tape_sha256": "3b9a9810c50384aa9d8dfff6d3b78f57077fff92b754cc058906b75d6736f34a",
+      "metadata_sha256": "3283071af64ce5790deb98eea12baca489b582fbea333d83dddc841b682b613c"
+    },
+    {
+      "case_id": "stage0_seed88_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 88,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed88",
+      "tape_sha256": "5e29dff96ce8097c447bc3f17d883d7a9b35fcc0c06169361a89a3a65a66626e",
+      "metadata_sha256": "fe98feed4fe55955227aa6ae8c5f1092a91d993f3060d62e77b6bdf3eb253eff"
+    },
+    {
+      "case_id": "stage0_seed88_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 88,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.260917283657876,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed88",
+      "tape_sha256": "5e29dff96ce8097c447bc3f17d883d7a9b35fcc0c06169361a89a3a65a66626e",
+      "metadata_sha256": "fe98feed4fe55955227aa6ae8c5f1092a91d993f3060d62e77b6bdf3eb253eff"
+    },
+    {
+      "case_id": "stage0_seed88_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 88,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1679890741932921,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed88",
+      "tape_sha256": "5e29dff96ce8097c447bc3f17d883d7a9b35fcc0c06169361a89a3a65a66626e",
+      "metadata_sha256": "fe98feed4fe55955227aa6ae8c5f1092a91d993f3060d62e77b6bdf3eb253eff"
+    },
+    {
+      "case_id": "stage0_seed88_upper149",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 88,
+      "step": 149,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.21532034849038953,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed88",
+      "tape_sha256": "5e29dff96ce8097c447bc3f17d883d7a9b35fcc0c06169361a89a3a65a66626e",
+      "metadata_sha256": "fe98feed4fe55955227aa6ae8c5f1092a91d993f3060d62e77b6bdf3eb253eff"
+    },
+    {
+      "case_id": "stage0_seed89_upper0",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 89,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed89",
+      "tape_sha256": "15bc7863426fdf3175eb6977109d599105034d45b47bb1ae6c43293c8b57cba7",
+      "metadata_sha256": "822370a105a27dd7b06c58f43343ef6687b9e8753a0beb6db4f33bb8596c10ae"
+    },
+    {
+      "case_id": "stage0_seed89_upper60",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 89,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.261684752894012,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed89",
+      "tape_sha256": "15bc7863426fdf3175eb6977109d599105034d45b47bb1ae6c43293c8b57cba7",
+      "metadata_sha256": "822370a105a27dd7b06c58f43343ef6687b9e8753a0beb6db4f33bb8596c10ae"
+    },
+    {
+      "case_id": "stage0_seed89_upper119",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 89,
+      "step": 119,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1790791201858095,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed89",
+      "tape_sha256": "15bc7863426fdf3175eb6977109d599105034d45b47bb1ae6c43293c8b57cba7",
+      "metadata_sha256": "822370a105a27dd7b06c58f43343ef6687b9e8753a0beb6db4f33bb8596c10ae"
+    },
+    {
+      "case_id": "stage0_seed89_upper152",
+      "training_seed": 43,
+      "stage": 0,
+      "map_seed": 89,
+      "step": 152,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.20401165155985404,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage0_traces/step_0000000/trace_seed89",
+      "tape_sha256": "15bc7863426fdf3175eb6977109d599105034d45b47bb1ae6c43293c8b57cba7",
+      "metadata_sha256": "822370a105a27dd7b06c58f43343ef6687b9e8753a0beb6db4f33bb8596c10ae"
+    },
+    {
+      "case_id": "stage3_seed80_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 80,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed80",
+      "tape_sha256": "963ec41043e7166766807f4e3fda1bb3d02b84e2765f050d1483b1588c78e67e",
+      "metadata_sha256": "47ac2503d85f580463a54ac533d065e5b81d5de9078b6f4d1b2df8d10595feab"
+    },
+    {
+      "case_id": "stage3_seed80_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 80,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.468694659129443,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed80",
+      "tape_sha256": "963ec41043e7166766807f4e3fda1bb3d02b84e2765f050d1483b1588c78e67e",
+      "metadata_sha256": "47ac2503d85f580463a54ac533d065e5b81d5de9078b6f4d1b2df8d10595feab"
+    },
+    {
+      "case_id": "stage3_seed80_upper127",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 80,
+      "step": 127,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1534736784610091,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed80",
+      "tape_sha256": "963ec41043e7166766807f4e3fda1bb3d02b84e2765f050d1483b1588c78e67e",
+      "metadata_sha256": "47ac2503d85f580463a54ac533d065e5b81d5de9078b6f4d1b2df8d10595feab"
+    },
+    {
+      "case_id": "stage3_seed80_upper151",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 80,
+      "step": 151,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.2082220908750321,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed80",
+      "tape_sha256": "963ec41043e7166766807f4e3fda1bb3d02b84e2765f050d1483b1588c78e67e",
+      "metadata_sha256": "47ac2503d85f580463a54ac533d065e5b81d5de9078b6f4d1b2df8d10595feab"
+    },
+    {
+      "case_id": "stage3_seed81_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 81,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed81",
+      "tape_sha256": "acef4be56bd1ff725ebe470671807caef9ebe0bff2c5e536d62c1fb7edb5e54b",
+      "metadata_sha256": "796d046c078fb5176da1e5cb523d5eccf201d8e40ef128d526c41f34afabcd60"
+    },
+    {
+      "case_id": "stage3_seed81_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 81,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.422577853918431,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed81",
+      "tape_sha256": "acef4be56bd1ff725ebe470671807caef9ebe0bff2c5e536d62c1fb7edb5e54b",
+      "metadata_sha256": "796d046c078fb5176da1e5cb523d5eccf201d8e40ef128d526c41f34afabcd60"
+    },
+    {
+      "case_id": "stage3_seed81_upper129",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 81,
+      "step": 129,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1548938983415056,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed81",
+      "tape_sha256": "acef4be56bd1ff725ebe470671807caef9ebe0bff2c5e536d62c1fb7edb5e54b",
+      "metadata_sha256": "796d046c078fb5176da1e5cb523d5eccf201d8e40ef128d526c41f34afabcd60"
+    },
+    {
+      "case_id": "stage3_seed81_upper148",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 81,
+      "step": 148,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.22634876516401387,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed81",
+      "tape_sha256": "acef4be56bd1ff725ebe470671807caef9ebe0bff2c5e536d62c1fb7edb5e54b",
+      "metadata_sha256": "796d046c078fb5176da1e5cb523d5eccf201d8e40ef128d526c41f34afabcd60"
+    },
+    {
+      "case_id": "stage3_seed82_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 82,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed82",
+      "tape_sha256": "7eef09be9b95c957b649a0de8990c011d3a0df80738497ccc905c3555437c27c",
+      "metadata_sha256": "4043bca474678a37131ebb47cf7fbd346012629851edccf36690f0c93ba06f9b"
+    },
+    {
+      "case_id": "stage3_seed82_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 82,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.4387215157524595,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed82",
+      "tape_sha256": "7eef09be9b95c957b649a0de8990c011d3a0df80738497ccc905c3555437c27c",
+      "metadata_sha256": "4043bca474678a37131ebb47cf7fbd346012629851edccf36690f0c93ba06f9b"
+    },
+    {
+      "case_id": "stage3_seed82_upper133",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 82,
+      "step": 133,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1882154076949962,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed82",
+      "tape_sha256": "7eef09be9b95c957b649a0de8990c011d3a0df80738497ccc905c3555437c27c",
+      "metadata_sha256": "4043bca474678a37131ebb47cf7fbd346012629851edccf36690f0c93ba06f9b"
+    },
+    {
+      "case_id": "stage3_seed82_upper165",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 82,
+      "step": 165,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.2131745084457106,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed82",
+      "tape_sha256": "7eef09be9b95c957b649a0de8990c011d3a0df80738497ccc905c3555437c27c",
+      "metadata_sha256": "4043bca474678a37131ebb47cf7fbd346012629851edccf36690f0c93ba06f9b"
+    },
+    {
+      "case_id": "stage3_seed83_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 83,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed83",
+      "tape_sha256": "172b58ceacdf8bd13e6c4300557a181a39ed8b0fd0d8807db81d6d7f52f801d0",
+      "metadata_sha256": "9a29263349af6e94215e0b885c9d4b84447f7b9ced5f7ebb7730623b18706a64"
+    },
+    {
+      "case_id": "stage3_seed83_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 83,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.519133207259116,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed83",
+      "tape_sha256": "172b58ceacdf8bd13e6c4300557a181a39ed8b0fd0d8807db81d6d7f52f801d0",
+      "metadata_sha256": "9a29263349af6e94215e0b885c9d4b84447f7b9ced5f7ebb7730623b18706a64"
+    },
+    {
+      "case_id": "stage3_seed83_upper127",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 83,
+      "step": 127,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1834951167142127,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed83",
+      "tape_sha256": "172b58ceacdf8bd13e6c4300557a181a39ed8b0fd0d8807db81d6d7f52f801d0",
+      "metadata_sha256": "9a29263349af6e94215e0b885c9d4b84447f7b9ced5f7ebb7730623b18706a64"
+    },
+    {
+      "case_id": "stage3_seed83_upper149",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 83,
+      "step": 149,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.23071404220618738,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed83",
+      "tape_sha256": "172b58ceacdf8bd13e6c4300557a181a39ed8b0fd0d8807db81d6d7f52f801d0",
+      "metadata_sha256": "9a29263349af6e94215e0b885c9d4b84447f7b9ced5f7ebb7730623b18706a64"
+    },
+    {
+      "case_id": "stage3_seed84_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 84,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed84",
+      "tape_sha256": "2facc89a94b21e2363b08d0f6de18da0c4124c08692862ece4f278e6de462138",
+      "metadata_sha256": "51fc870d9aee3bee185be88c23cd9f0bd1d863766df48a86952b8d06db2aa4e4"
+    },
+    {
+      "case_id": "stage3_seed84_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 84,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.481330074654296,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed84",
+      "tape_sha256": "2facc89a94b21e2363b08d0f6de18da0c4124c08692862ece4f278e6de462138",
+      "metadata_sha256": "51fc870d9aee3bee185be88c23cd9f0bd1d863766df48a86952b8d06db2aa4e4"
+    },
+    {
+      "case_id": "stage3_seed84_upper143",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 84,
+      "step": 143,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1984819870988033,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed84",
+      "tape_sha256": "2facc89a94b21e2363b08d0f6de18da0c4124c08692862ece4f278e6de462138",
+      "metadata_sha256": "51fc870d9aee3bee185be88c23cd9f0bd1d863766df48a86952b8d06db2aa4e4"
+    },
+    {
+      "case_id": "stage3_seed84_upper163",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 84,
+      "step": 163,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.23558411943850724,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed84",
+      "tape_sha256": "2facc89a94b21e2363b08d0f6de18da0c4124c08692862ece4f278e6de462138",
+      "metadata_sha256": "51fc870d9aee3bee185be88c23cd9f0bd1d863766df48a86952b8d06db2aa4e4"
+    },
+    {
+      "case_id": "stage3_seed85_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 85,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed85",
+      "tape_sha256": "050f8be664fc17f3cc0a8565f67cc11a0b78cac1772a4624d73c15b3de90177a",
+      "metadata_sha256": "c3c3efad11fe848d176fbda180211904106529fc065a08d107cbf040beebec5e"
+    },
+    {
+      "case_id": "stage3_seed85_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 85,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.415352047674722,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed85",
+      "tape_sha256": "050f8be664fc17f3cc0a8565f67cc11a0b78cac1772a4624d73c15b3de90177a",
+      "metadata_sha256": "c3c3efad11fe848d176fbda180211904106529fc065a08d107cbf040beebec5e"
+    },
+    {
+      "case_id": "stage3_seed85_upper119",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 85,
+      "step": 119,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 3.310969089935495,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed85",
+      "tape_sha256": "050f8be664fc17f3cc0a8565f67cc11a0b78cac1772a4624d73c15b3de90177a",
+      "metadata_sha256": "c3c3efad11fe848d176fbda180211904106529fc065a08d107cbf040beebec5e"
+    },
+    {
+      "case_id": "stage3_seed86_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 86,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed86",
+      "tape_sha256": "b7a5f3fafbe015a4c5c4b8727b25602131a76619598c7b669c40f96deece2430",
+      "metadata_sha256": "27706bf4626f63cf6104ca70fb8759e4125046067354255644524620e2382d49"
+    },
+    {
+      "case_id": "stage3_seed86_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 86,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.395843004474162,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed86",
+      "tape_sha256": "b7a5f3fafbe015a4c5c4b8727b25602131a76619598c7b669c40f96deece2430",
+      "metadata_sha256": "27706bf4626f63cf6104ca70fb8759e4125046067354255644524620e2382d49"
+    },
+    {
+      "case_id": "stage3_seed86_upper131",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 86,
+      "step": 131,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1701261151820102,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed86",
+      "tape_sha256": "b7a5f3fafbe015a4c5c4b8727b25602131a76619598c7b669c40f96deece2430",
+      "metadata_sha256": "27706bf4626f63cf6104ca70fb8759e4125046067354255644524620e2382d49"
+    },
+    {
+      "case_id": "stage3_seed86_upper154",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 86,
+      "step": 154,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.21838809700781997,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed86",
+      "tape_sha256": "b7a5f3fafbe015a4c5c4b8727b25602131a76619598c7b669c40f96deece2430",
+      "metadata_sha256": "27706bf4626f63cf6104ca70fb8759e4125046067354255644524620e2382d49"
+    },
+    {
+      "case_id": "stage3_seed87_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 87,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed87",
+      "tape_sha256": "9b8c17cd3431efd04f62a6a9e84067f1902ffd6fc3cb8541997d852df0b01b50",
+      "metadata_sha256": "71038015d88687a8fbd600e5243ccb92935b338b08f940373871e3e0393d3a75"
+    },
+    {
+      "case_id": "stage3_seed87_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 87,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.586169107259262,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed87",
+      "tape_sha256": "9b8c17cd3431efd04f62a6a9e84067f1902ffd6fc3cb8541997d852df0b01b50",
+      "metadata_sha256": "71038015d88687a8fbd600e5243ccb92935b338b08f940373871e3e0393d3a75"
+    },
+    {
+      "case_id": "stage3_seed87_upper125",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 87,
+      "step": 125,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1980305490364354,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed87",
+      "tape_sha256": "9b8c17cd3431efd04f62a6a9e84067f1902ffd6fc3cb8541997d852df0b01b50",
+      "metadata_sha256": "71038015d88687a8fbd600e5243ccb92935b338b08f940373871e3e0393d3a75"
+    },
+    {
+      "case_id": "stage3_seed87_upper151",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 87,
+      "step": 151,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.204275273229081,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed87",
+      "tape_sha256": "9b8c17cd3431efd04f62a6a9e84067f1902ffd6fc3cb8541997d852df0b01b50",
+      "metadata_sha256": "71038015d88687a8fbd600e5243ccb92935b338b08f940373871e3e0393d3a75"
+    },
+    {
+      "case_id": "stage3_seed88_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 88,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed88",
+      "tape_sha256": "fadbf9e8b48270443ae2419137e3a638252342d3437efe38a4a797099f5c9fdc",
+      "metadata_sha256": "994abeeda5a66e1f17b80b0730143a1daadb87728fb946001d6203036a18d3d2"
+    },
+    {
+      "case_id": "stage3_seed88_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 88,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.436279189399744,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed88",
+      "tape_sha256": "fadbf9e8b48270443ae2419137e3a638252342d3437efe38a4a797099f5c9fdc",
+      "metadata_sha256": "994abeeda5a66e1f17b80b0730143a1daadb87728fb946001d6203036a18d3d2"
+    },
+    {
+      "case_id": "stage3_seed88_upper126",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 88,
+      "step": 126,
+      "phases": [
+        "near_goal"
+      ],
+      "distance": 1.1652233133320242,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed88",
+      "tape_sha256": "fadbf9e8b48270443ae2419137e3a638252342d3437efe38a4a797099f5c9fdc",
+      "metadata_sha256": "994abeeda5a66e1f17b80b0730143a1daadb87728fb946001d6203036a18d3d2"
+    },
+    {
+      "case_id": "stage3_seed88_upper146",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 88,
+      "step": 146,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 0.22274498080412167,
+      "baseline_outcome": "success",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed88",
+      "tape_sha256": "fadbf9e8b48270443ae2419137e3a638252342d3437efe38a4a797099f5c9fdc",
+      "metadata_sha256": "994abeeda5a66e1f17b80b0730143a1daadb87728fb946001d6203036a18d3d2"
+    },
+    {
+      "case_id": "stage3_seed89_upper0",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 89,
+      "step": 0,
+      "phases": [
+        "initial"
+      ],
+      "distance": 7.0,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed89",
+      "tape_sha256": "c1bebe0964f12c8128603ab7a418a3907b96a801d8ea863b554f7eb9ed2a7683",
+      "metadata_sha256": "141cc4332b35b1281522ce82e655f1e0f5ef29ed8e004004df224dbac4ca88e4"
+    },
+    {
+      "case_id": "stage3_seed89_upper60",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 89,
+      "step": 60,
+      "phases": [
+        "mid60"
+      ],
+      "distance": 4.355915201259739,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed89",
+      "tape_sha256": "c1bebe0964f12c8128603ab7a418a3907b96a801d8ea863b554f7eb9ed2a7683",
+      "metadata_sha256": "141cc4332b35b1281522ce82e655f1e0f5ef29ed8e004004df224dbac4ca88e4"
+    },
+    {
+      "case_id": "stage3_seed89_upper97",
+      "training_seed": 43,
+      "stage": 3,
+      "map_seed": 89,
+      "step": 97,
+      "phases": [
+        "preterminal"
+      ],
+      "distance": 2.570215014516948,
+      "baseline_outcome": "collision",
+      "tape_stem": "runs/full_ft_v1_seed43/full_stage3_traces/step_0000000/trace_seed89",
+      "tape_sha256": "c1bebe0964f12c8128603ab7a418a3907b96a801d8ea863b554f7eb9ed2a7683",
+      "metadata_sha256": "141cc4332b35b1281522ce82e655f1e0f5ef29ed8e004004df224dbac4ca88e4"
+    }
+  ],
+  "source_actor_sha256": "88a55281a313dbd75ee892951241ad3bf515a6d56e10d19b00e058c67199c757",
+  "reference_sha256": "d397dce0c6a356141dc4c069401ff186860ccba080dd024b19b8f2011ee90499",
+  "production_code_sha256": {
+    "algos/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "algos/td3/__init__.py": "4d8ba409a79cac44d648788e69cd1c6f1a9e467e38aff42a84713ebddb8b917a",
+    "algos/td3/grad_utils.py": "701ced5c1578225e4c39e690d5db1ef521e0da5daef6ccf9d8445f59b629c13c",
+    "algos/td3/latent_aux_heads.py": "ebbe38cfa50cb673801e0753d9cce2bd4baec414e8f7b06e4ecb851d9656926c",
+    "algos/td3/latent_regularizers.py": "df45d56907ad95b10119c42688dc7a9896267f11e85d0555bb19ea5ceaf71259",
+    "algos/td3/networks.py": "edc4eb58dc3888c79e080aa3e24277e2b004ced761d58cfd2e3197d736390015",
+    "algos/td3/td3_hierarchical_async.py": "246da2b1e6a40967ad7fff644d6e52aefcaad49fbd0fd84f32216795c6a1ab62",
+    "algos/td3/td3_latent.py": "4fe588012920435f4a5cd4a3f8825ce2272c5cd63c6465a0165982a642726e79",
+    "algos/td3/td3_latent_affordance.py": "35c40189f47479812ff8f832c7149611ef3785c1b0f5a75f043a3c0280af649b",
+    "algos/td3/td3_latent_only.py": "2426093792617a44ee31aee3083d130e97678d333043e370d705ca3bcbd1158d",
+    "algos/td3/td3_plain.py": "5d6fba79af5dda2105563ff265f45d97f86811812b040a1e79b408e22d9b9763",
+    "algos/td3/td3_reference_tracking.py": "2afd2c70bbf0f98d2b696b3c923bfef7a2f24e9e0d53942be1a539e73bb53cf3",
+    "algos/td3/td3_upper_recurrent.py": "fe207d59efc9b79c0eb430eb75f25a1e4eb8e7e3da384376404104dacd1bebd4",
+    "algos/td3/td3_upper_semantic_latent.py": "46054ff42baac6ce8c53d9c67e1cabb992a1fbd352ed5521b60559240a5d0d12",
+    "algos/td3/td3_v1trust.py": "704faecaead9a60eea1b0f4562bf02bf41d6876c7f5df0598ddec436b2932423",
+    "async_control/__init__.py": "44819508fa51b60ed21ae093d1f12c8f3382eff37ff3ec252a342e24fb0a132f",
+    "async_control/async_buffer.py": "2a5c09aa866643d1464f16e51680bed49204733235c65dc1d7525f015bd866db",
+    "async_control/async_scheduler.py": "9e21a9065095be6c7bd25e5be2d5d95b678f606d19c0c21b912591070ad10c8d",
+    "async_control/latest_channel.py": "2972434a4189cef4253de0f99f4be551fda5ac944a20ff74a57ee8df78bf1621",
+    "async_control/reference_generator.py": "bc725555c07c18dfc7af7c66c66915f3c2e40728a70049273f7d1f944256c0d7",
+    "async_control/reference_packet.py": "c2996ff9acf2509cf39fedfc2ba0a3eeb7f6b0fd8ddb8a58432e4489554de4c9",
+    "async_control/runtime_high_level_worker.py": "f505626bfedfb58bcc41b047f620559529f84d20f12631e464178b6c2be2b8a7",
+    "async_control/runtime_timing.py": "9ef81fcfc60381602f431ef9ee770f9b566274757e32c0d321429e05c7672e78",
+    "data/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "data/bc_metrics.py": "578576f6d9b57c7a79f990d7ef4ede568e8cf68c65afd0e1b6d3059d8a3bffb5",
+    "data/behavior_cloning_dataset.py": "4f29dea07f2b161e8ba9132d6749ff3e388436a8d94978beef0a3b3044e7071d",
+    "data/hierarchical_replay_buffer.py": "69724407a7321dbb8044fa6f6d74c05a0edfaebca12dbd0cd9891d17baed10b5",
+    "data/map_atlas/catalog_v1.json": "8d6108501b447d54db902d8f498c0461267012d30398481bba66499fa1524d9f",
+    "data/replay_buffer.py": "aa9377aac3a3f78575458d59946fe73fa5fa1d455adfbfa003fb2a40e357e5a7",
+    "data/stratified_replay_buffer.py": "d55ea8c2871efa6caae67caec478042b0fc0b59fd689193f1a304c058566ebbb",
+    "envs/ForestAviary.py": "72f246caab70b81c8804ad77045e7175c37ade716db8822f6423db5c5eb1a570",
+    "envs/forest/__init__.py": "1edd5b5ea9961e46a912ad461749e3656e0af56624364b1cbb9bc9827b9ac96f",
+    "envs/forest/core.py": "a5ecf77b0b9ce292ef175e72cd3e3372351307f4d659c03484bc1e59c8a2e867",
+    "envs/forest/curriculum.py": "d35684791ff338b9ecbeba7969c3e56356e4bd9c76ec477cc39eaa488de5cde5",
+    "envs/forest/ego_curriculum_env.py": "11a882a2d2fef5e9bc281ddade43b82636a80788c9f827b83abba2d25a34203d",
+    "envs/forest/geometry.py": "b276bf1fee36b1a821a406154e03f5e7a8a67b524d3ae1549c7540e883073570",
+    "envs/forest/layout.py": "74868c68c6486c2a7077be96922f697186060fca80d9ec81b88e6e00a58c9c07",
+    "envs/forest/obstacle_curriculum.py": "7614c4ebc9a51429579f59f22828c906332b94a42bf8f95285e2a332fd0e87a2",
+    "envs/forest/rewards.py": "3ce5467c9869b3aa07d358dd1fb1be455aea3381eac2200408214fc6fcb2487d",
+    "envs/forest/start_curriculum.py": "6adbdff356c5661e9eefdb56c980ac4fcaaba9bd664492b1dc26bdd9f9524b5f",
+    "envs/forest/start_curriculum_env.py": "9f958d0b2686284102d99eccd1c2ab33d2d6451698d7bbb9bc6614ebe12f50db",
+    "envs/learned_upper_dslpid.py": "51c703aea2d6884adaac3c66390b1b712a61d266d4a52ff2a850df3e33dc2bb0",
+    "envs/local_occupancy.py": "104d022c0484859f6cc61c5f20671b9d37b4447285d116c27c8615a971b632ad",
+    "envs/map_atlas/__init__.py": "0a68e69b20bb562bf2e1ce7e87c0f4be88e3675c4c7caef9b1d5af758cb94290",
+    "envs/map_atlas/ego_forest.py": "b1a9a9e78a36b14117d368722200a0b1294cb17fd9af5f5913aa6916ca0bc9be",
+    "envs/map_atlas/forest_pool.py": "f0f69cb6ee384d7ad0957314a0d2e4c028370599699829aeeef38db766f6e251",
+    "envs/map_atlas/runtime.py": "9643cb497629760bb233733a78a579a351d275b36d1a7388d7c2a4a9145caa2a",
+    "envs/map_atlas/spec.py": "7e59af04e4e0994a9612667439f2dd790e029470e80739083e0df1f94109f823",
+    "envs/observation_layout.py": "0202c29978f2af7b1b1691b62436e109162f09bdc20637625a4d1609301198a4",
+    "envs/preprocess.py": "67b2a12aac79ad844abfcceb1b14dd611ce2e56a56cd08d873936d1cb626cc39",
+    "high_level_planner/__init__.py": "4d6d2d5cb899bc878ba7dc4b88bcb163de4e6b9a19689394a9387ecf3e8e812c",
+    "high_level_planner/coordinate_contract.py": "85b35380b8ccc2361b354bbed3776993cd6d7830b46abc701ffa05a34e7c52e5",
+    "high_level_planner/reference_dataset.py": "f9581f998e0f2ee480ee4d07b68edbf9a3b468bc127f105fa41714f2f78e9f38",
+    "high_level_planner/reference_planner.py": "267863facc91143b19fb373b41fec312979b88c22fdeb3cbe23110261819fe4a",
+    "high_level_planner/reference_utils.py": "ffc650c40456798d99c90a5c4824e6d6c3146030d63aca3bfdd00ee409f38478",
+    "high_level_planner/temporal_context.py": "d5b38b14e4efeda0c82d85313fe4827f4825ddc2741555f8edaca252ca9793b3",
+    "high_level_planner/temporal_reference_dataset.py": "14dd59922be1e790630cce033dba5e14adf381d4290c3135c154725138ade34b",
+    "high_level_planner/temporal_reference_planner.py": "4dc4a16332bd83f4f79a3ebe0371f2f69751af36da78222738ede47dad2b4764",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/async_reference_channel.py": "91137918c1968c3743660a55f9350ebde5196f55d4d000096bdd3798a98a1cd0",
+    "models/canonical_dslpid_teacher.py": "78acc595a192cab1aec91f466c868523988d84847285441ecb155a0626c8d398",
+    "models/continuous_world_reference.py": "3f65b36d3fe05c96f2f69a40b7d2e3b456dd5e53c0fc323becf7f227337d707b",
+    "models/encoder.py": "6bf744884f92f80f8dd1d0bc59bf69930036b909fd2757a9a03915464d6abc72",
+    "models/heads.py": "8ffba1887b9732f16adfdf00f2cfc538bebde87a03fd9490b16bc5deafbaf07b",
+    "models/hierarchical_async.py": "de1ff020f327ab0ee0ea98218a58784820db321f7ee2be0c8b4481d91e532091",
+    "models/motor_action_codec.py": "354de966ec47d437082b3fd61b3f9ec59554ab9a95fa80ce1560ff7c5cdaa5ed",
+    "models/reference_packet.py": "a7adfde6ecea06a894264db86d729d38e7d5d8120a1a3b10efd211454e29e5a3",
+    "scripts/audit_full_ft_v1_critic_actor.py": "3b5e9e4b6dc63e65923ed53bb4de3a98f19aee822205b0eee07b2f0ea09fdc80",
+    "scripts/audit_stage0_feasibility.py": "3a761f46a121b2334e6b4ff3c45ce5dff2b91233dd450ed260d0649f9677f4fc",
+    "scripts/change_td3.py": "d1d05e787d8f4e14213bfec7206435abf944cf2d86d731526e4b5dab02c8ef25",
+    "scripts/run_change_td3.py": "a46be46e125b81101e74a2718f616f76ed77371eb1021caf2bdefa6baa5a8a19",
+    "trainers/callbacks/base.py": "882921a95410b36512c966deaf817ec88223df65c012b68dcdb453aabfa1648d",
+    "trainers/callbacks/checkpoint.py": "c2b9ca4281eb445466fa38dde16f3ec1ab1d2689a2357e904644dab1b580fcc3",
+    "trainers/callbacks/ego_pool_eval.py": "a967261f96e7d3a2e9b202e3ec1025881f0d1a64110e396e8d8106d9de3b47ad",
+    "trainers/callbacks/eval_callback.py": "1b8671142ce185a837be85abdb76d0225ec895ac90b86a8d686ba661a409ad07",
+    "trainers/callbacks/latent_viz.py": "bf556731b1387f5e4e7956d79b1c69b7f91a8005620d6c65911ca2b381c22665",
+    "trainers/callbacks/logger.py": "cc5507cc2aaafaa21c63e4d8385ed9acb7a658d74c948bcdecc3bbd77a2658ac",
+    "trainers/callbacks/monitor.py": "97244d1819ed2802f234bbdde834e3af7b67cae609e04c1582f9a005f68feef7",
+    "trainers/callbacks/noise.py": "361d3b8b6581b75ab289874964412766e85213022b18522d682a28ec01c47b22",
+    "trainers/collision_diagnostics.py": "9fe6654f6ae567f584874bf04e2d4aa73a4343e6ee40204caadad70b9c55eaf4",
+    "trainers/full_ft_stage_mixer.py": "a4fd6caa07a7a2116165ffc5cd17dc02cdc85c7f8a06efc1a2e3a314f123dba6",
+    "trainers/full_scratch.py": "b92e2ef72d7fcf1a43ed614c6fcfd5b5284c300b5a08909f39d1d13efd334e88",
+    "trainers/navigation_metrics.py": "58c9d01de1bf5fd80756910b9262e5729130d26d1dc7aac4f410ec114f37a56d",
+    "trainers/paired_trajectory_trace.py": "27c4a3135b0d1ccffee111e108c118567bea865ea1a303830e0d291d995e4bac",
+    "trainers/recurrent_diagnostics.py": "a86a0bee74f0858a98aa21f456471e80936862ebf1ceb7a2e0bebc61d5df3888",
+    "trainers/spatial_q_diagnostics.py": "e65f75b31c6f6a3623a96d11f2e8aa97c3590c376792f47d895b12ea3368b5ee",
+    "trainers/td3_trainer.py": "7f911a7bbcdbb535b0405b6acaf0613e837789521b966df91cd1295f78684a7d",
+    "trainers/terminal_action_diagnostics.py": "d6738bc9f47819edd6b06e1d78cb49e1f899d3f4534e673ad01842a4b42bae6c",
+    "trainers/terminal_coverage_diagnostics.py": "93f237fba585f22f10a3da61944678df41343a8259cf467b8a8ec292b7e2771d",
+    "trainers/timeout_diagnostics.py": "80218eaf2e602065492993705898d7c2619cce677768bcb92f33328f59d42d54",
+    "trainers/upper_eval_diagnostics.py": "34cd452b96701ef9cb90d521f6fb2c9f4e32140b8da67479525b56835526be09",
+    "trainers/upper_trajectory_export.py": "f8f77a03899951261475c9b87c63dafcbe6f75615203d8128a88321e95b9ea0b",
+    "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "utils/gym_pybullet_compat.py": "b88a9ecf251c1bbccdb61e65fdf3212db8671e6f8cc7fc97ef1364381ea139ec"
+  },
+  "protocol": {
+    "first_action": "candidate once",
+    "continuation": "unchanged source actor",
+    "reward_scale": 0.1,
+    "gamma": 0.99,
+    "lower_reward_dt": 0.008333333333333333,
+    "upper_discount_dt": 0.06666666666666667,
+    "episode_limit": "original remaining 12s budget",
+    "noise_sigma": 0.2,
+    "noise_clip": 0.5,
+    "noise_replicas": 4
+  },
+  "acceptance": {
+    "value_mae_max": 2.0,
+    "value_abs_bias_max": 1.0,
+    "ranking_agreement_min": 0.8,
+    "ranking_pairs_min": 200,
+    "ranking_states_min": 30,
+    "ranking_states_per_stage_min": 10,
+    "gradient_primary_step": 0.15,
+    "gradient_agreement_min": 0.7,
+    "gradient_pairs_min": 30,
+    "gradient_mean_gain_min": 0.0,
+    "gradient_states_per_stage_min": 5,
+    "local_headroom_states_min": 10,
+    "gradient_recovered_headroom_fraction_min": 0.5,
+    "gradient_q_ascent_fraction_min": 0.8,
+    "map_bootstrap_ci_lower_min": 0.5,
+    "return_near_tie_threshold": 0.05,
+    "local_gradient_return_near_tie_threshold": 0.005
+  },
+  "smoke_only": false,
+  "checkpoint_sha256": {
+    "4000": "ace9d04e4955bbcb26ef1f0a7fc8de78f4e92104fdef2a7ab85a77b7dac9f3aa",
+    "10000": "5f96e879239232cc42890f60c8a65bb9b2dfb304801eeaefe137cd4dd22eacd5",
+    "20000": "1aea3a77d7fab42ea0faeac57e0a14e8e8293a35b56de5833988c29832904711"
+  }
+}

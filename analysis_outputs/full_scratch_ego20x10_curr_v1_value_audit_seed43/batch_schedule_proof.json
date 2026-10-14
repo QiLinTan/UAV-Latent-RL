@@ -1,0 +1,7 @@
+{
+  "reconstructed_updates": 1000,
+  "actual_captured_batches_verified": 6,
+  "numpy_rng_matches_final": true,
+  "torch_rng_matches_final": true,
+  "d3_ablation_executed": false
+}

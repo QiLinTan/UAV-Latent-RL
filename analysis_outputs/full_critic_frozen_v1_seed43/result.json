@@ -1,0 +1,12 @@
+{
+  "requested_budget_completed": true,
+  "main_20k_completed": true,
+  "cumulative_upper_transitions": 20000,
+  "new_transitions_after_4k": 16000,
+  "critic_updates": 19489,
+  "actor_updates": 0,
+  "prefix_verified": true,
+  "critic_lr": 0.0003,
+  "checkpoint_directory": "checkpoints/full_critic_frozen_v1_seed43",
+  "no_best_critic_restore": true
+}

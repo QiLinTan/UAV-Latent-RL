@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import numpy as np
 import torch
 
@@ -6,6 +9,8 @@ from data.stratified_replay_buffer import DifficultyStratifiedReplayBuffer
 from data.hierarchical_replay_buffer import HierarchicalReplayBuffer
 from envs.preprocess import preprocess_state
 from trainers.callbacks.noise import NoiseScheduler
+from trainers.full_ft_stage_mixer import FullFTStageMixer
+from trainers.paired_trajectory_trace import PairedTrajectoryTrace
 
 
 class TD3Trainer:
@@ -56,8 +61,24 @@ class TD3Trainer:
                 )
         self._episode_success_transitions = []
 
-        self.state, _ = self.env.reset(seed=args.seed)
+        self.full_ft_stage_mixer = (
+            FullFTStageMixer(args.seed) if getattr(args, "full_ft_v1", False) else None
+        )
+        self._full_ft_episode_index = 0
+        self._full_ft_trace_root = (
+            Path(args.full_ft_trace_dir)
+            if self.full_ft_stage_mixer is not None and getattr(args, "full_ft_trace_dir", None)
+            else None
+        )
+        self._full_ft_trace = None
+        if self.full_ft_stage_mixer is not None:
+            self.env.set_curriculum_stage_override(self.full_ft_stage_mixer.next_stage())
+        self.state, reset_info = self.env.reset(seed=args.seed)
+        if self.full_ft_stage_mixer is not None:
+            self._validate_full_ft_episode(reset_info)
+            self._start_full_ft_trace(reset_info)
         self.state = preprocess_state(self.state.reshape(-1))
+        self._reset_episode_coverage(reset_info)
         if hasattr(self.agent, "reset_episode"):
             self.agent.reset_episode()
         if hasattr(self.agent, "configure_motor_action_interface"):
@@ -82,6 +103,86 @@ class TD3Trainer:
         self.request_stop = False
         self.stop_reason = None
 
+    def _validate_full_ft_episode(self, reset_info):
+        stage = int(reset_info["curriculum_stage"])
+        count = int(reset_info["route_blocking_tree_count"])
+        expected_count = 1 if stage == 0 else 5 if stage == 3 else None
+        if count != expected_count:
+            raise RuntimeError(
+                f"Full FT stage mix mismatch: stage={stage}, "
+                f"route_count={count}, expected={expected_count}"
+            )
+
+    def _start_full_ft_trace(self, reset_info):
+        if self._full_ft_trace_root is None:
+            return
+        episode_id = f"episode_{self._full_ft_episode_index:05d}"
+        self._full_ft_trace = PairedTrajectoryTrace(
+            self.env, None, trace_id=episode_id,
+        )
+        self._full_ft_trace.install()
+        self._full_ft_trace_stage = int(reset_info["curriculum_stage"])
+
+    def _finish_full_ft_trace(self, info):
+        if self._full_ft_trace is None:
+            return
+        trace = self._full_ft_trace
+        trace.uninstall()
+        folder = self._full_ft_trace_root / f"episode_{self._full_ft_episode_index:05d}"
+        trace.save(
+            folder,
+            done_reason=info.get("done_reason", "unknown"),
+            success=bool(info.get("success", False)),
+            final_goal_distance=float(info.get("goal_distance", np.nan)),
+        )
+        metadata_path = folder / f"{trace.trace_id}.json"
+        metadata = json.loads(metadata_path.read_text())
+        metadata.update({
+            "training_seed": int(self.args.seed),
+            "training_episode_index": self._full_ft_episode_index,
+            "curriculum_stage": self._full_ft_trace_stage,
+            "global_upper_step": int(self.total_steps),
+        })
+        metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+        self._full_ft_trace = None
+
+    def _reset_episode_coverage(self, reset_info):
+        info = dict(reset_info or {})
+        distance = info.get("goal_distance")
+        self._episode_initial_goal_distance = (
+            float(distance)
+            if isinstance(distance, (int, float, np.number)) and np.isfinite(distance)
+            else None
+        )
+        self._episode_min_goal_distance = self._episode_initial_goal_distance
+        self._episode_reward_term_sums = {}
+
+    def _record_episode_coverage(self, info):
+        distance = info.get("goal_distance")
+        if isinstance(distance, (int, float, np.number)) and np.isfinite(distance):
+            distance = float(distance)
+            if self._episode_min_goal_distance is None:
+                self._episode_min_goal_distance = distance
+            else:
+                self._episode_min_goal_distance = min(
+                    self._episode_min_goal_distance, distance
+                )
+        reward_keys = (
+            "progress_reward", "time_penalty", "height_penalty",
+            "vertical_speed_penalty", "lateral_penalty", "proximity_penalty",
+            "attitude_penalty", "speed_penalty", "near_goal_speed_penalty",
+            "near_goal_away_penalty", "near_goal_velocity_tracking_penalty",
+            "route_overshoot_penalty", "safety_boundary_penalty",
+            "continuous_penalty_total", "terminal_outcome_reward",
+            "interval_total",
+        )
+        for key in reward_keys:
+            value = info.get(f"reward/{key}")
+            if value is not None and np.isscalar(value) and np.isfinite(value):
+                self._episode_reward_term_sums[key] = (
+                    self._episode_reward_term_sums.get(key, 0.0) + float(value)
+                )
+
     def step_env(self):
         args = self.args
         uses_context_replay = bool(getattr(self.agent, "uses_context_replay", False))
@@ -96,6 +197,8 @@ class TD3Trainer:
         if teacher_supervision_timesteps <= 0:
             teacher_supervision_timesteps = teacher_timesteps
         teacher_action = None
+        policy_action = None
+        state_before_action = self.state.copy() if self._full_ft_trace is not None or hasattr(self, "scratch_audit") else None
         if (
             uses_context_replay
             and self.total_steps <= teacher_supervision_timesteps
@@ -137,6 +240,8 @@ class TD3Trainer:
                 action = self.agent.action_from_context(context)
             else:
                 action = self.agent.select_action(self.state)
+            if self._full_ft_trace is not None:
+                policy_action = np.asarray(action, dtype=np.float32).copy()
 
             noise = self.noise_scheduler.get_noise(self.total_steps)
             if uses_context_replay and hasattr(self.agent, "add_safe_exploration_noise"):
@@ -152,6 +257,14 @@ class TD3Trainer:
 
         next_obs, reward, terminated, truncated, info = self.env.step(action.reshape(1, -1))
         done = terminated or truncated
+        if self._full_ft_trace is not None:
+            self._full_ft_trace.record_upper(
+                action,
+                action if policy_action is None else policy_action,
+                reward,
+                info or {},
+                pre_observation=state_before_action,
+            )
 
         next_state = preprocess_state(next_obs.reshape(-1))
 
@@ -192,7 +305,25 @@ class TD3Trainer:
                     )
                 )
 
+        if hasattr(self, "scratch_audit"):
+            self.scratch_audit.transition(state_before_action, action, next_state, reward,
+                                          terminated, truncated, info)
         info = dict(info or {})
+        self._record_episode_coverage(info)
+        if done:
+            if self._episode_min_goal_distance is not None:
+                info["training_episode/min_goal_distance"] = float(
+                    self._episode_min_goal_distance
+                )
+                info["training_episode/entered_guidance_1p2"] = float(
+                    self._episode_min_goal_distance < 1.2
+                )
+            if self._episode_initial_goal_distance is not None:
+                info["training_episode/initial_goal_distance"] = float(
+                    self._episode_initial_goal_distance
+                )
+            for key, value in self._episode_reward_term_sums.items():
+                info[f"training_episode/reward_sum/{key}"] = float(value)
         replay_size = int(self.buffer.size)
         if hasattr(self.env, "set_replay_size"):
             self.env.set_replay_size(replay_size)
@@ -205,14 +336,26 @@ class TD3Trainer:
         self.episode_step += 1
 
         if done:
+            if self.full_ft_stage_mixer is not None:
+                info["full_ft/episode_stage"] = float(info["curriculum_stage"])
+                info["full_ft/stage0_episodes"] = float(
+                    self.full_ft_stage_mixer.stage_counts[0]
+                )
+                info["full_ft/stage3_episodes"] = float(
+                    self.full_ft_stage_mixer.stage_counts[3]
+                )
+                self._finish_full_ft_trace(info)
             if self.success_buffer is not None:
                 if bool(info.get("success", False)):
+                    if isinstance(self.success_buffer, DifficultyStratifiedReplayBuffer) and 'active_tree_count' in info:
+                        if int(info['active_tree_count']) not in self.success_buffer.buffers:
+                            raise ValueError('Actual forest density is missing from success replay strata')
                     for transition in self._episode_success_transitions:
                         if isinstance(
                             self.success_buffer, DifficultyStratifiedReplayBuffer
                         ):
                             self.success_buffer.push(
-                                int(info.get("route_blocking_tree_count", 0)),
+                                int(info.get("active_tree_count", info.get("route_blocking_tree_count", 0))),
                                 *transition,
                             )
                         else:
@@ -232,8 +375,19 @@ class TD3Trainer:
             for cb in self.callbacks:
                 cb.on_episode_end(self)
 
-            self.state, _ = self.env.reset()
+            if self.full_ft_stage_mixer is not None:
+                self._full_ft_episode_index += 1
+                self.env.set_curriculum_stage_override(
+                    self.full_ft_stage_mixer.next_stage()
+                )
+            self.state, reset_info = self.env.reset()
+            if self.full_ft_stage_mixer is not None:
+                self._validate_full_ft_episode(reset_info)
+                self._start_full_ft_trace(reset_info)
             self.state = preprocess_state(self.state.reshape(-1))
+            self._reset_episode_coverage(reset_info)
+            if hasattr(self, "scratch_audit"):
+                self.scratch_audit.on_reset()
             if hasattr(self.agent, "reset_episode"):
                 self.agent.reset_episode()
             self.episode_return = 0
@@ -243,6 +397,10 @@ class TD3Trainer:
 
     def train_step(self):
         args = self.args
+        if self.full_ft_stage_mixer is not None:
+            self.agent.actor_frozen = (
+                self.total_steps <= int(args.full_ft_actor_freeze_steps)
+            )
 
         if (
             self.total_steps >= args.update_after
@@ -282,7 +440,7 @@ class TD3Trainer:
     def run(self):
         args = self.args
 
-        for t in range(1, args.total_steps + 1):
+        for t in range(self.total_steps + 1, args.total_steps + 1):
             self.total_steps = t
 
             # 在评估间隔开始时重置计数器
@@ -296,6 +454,8 @@ class TD3Trainer:
 
             for cb in self.callbacks:
                 cb.on_step(self)
+            if hasattr(self, "scratch_audit"):
+                self.scratch_audit.on_step()
 
             if self.request_stop:
                 print(f"[Train stop] {self.stop_reason or 'requested by callback'}")
@@ -304,6 +464,22 @@ class TD3Trainer:
             if t % 1000 == 0:
                 print(f"[Step {t}] buffer={self.buffer.size}")
 
+        if hasattr(self, "scratch_audit"):
+            self.scratch_audit.on_end()
+        if self.full_ft_stage_mixer is not None:
+            if self._full_ft_trace is not None:
+                if self._full_ft_trace.upper:
+                    partial_info = dict(self.last_info or {})
+                    partial_info["done_reason"] = "training_budget_end"
+                    partial_info["success"] = False
+                    self._finish_full_ft_trace(partial_info)
+                else:
+                    self._full_ft_trace.uninstall()
+                    self._full_ft_trace = None
+            raw_path = Path(args.ckpt_dir) / "model_raw_final"
+            raw_path.parent.mkdir(parents=True, exist_ok=True)
+            self.agent.save(str(raw_path))
+            print(f"[Save raw final] {raw_path}")
         for cb in self.callbacks:
             cb.on_train_end(self)
     

@@ -1,0 +1,302 @@
+[
+  {
+    "variant": "baseline",
+    "stage": 0,
+    "trees": 10,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "goal_range",
+    "stage": 0,
+    "trees": 10,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "position_scale",
+    "stage": 0,
+    "trees": 10,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "guidance_project",
+    "stage": 0,
+    "trees": 10,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "gamma997",
+    "stage": 0,
+    "trees": 10,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "baseline",
+    "stage": 1,
+    "trees": 20,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "goal_range",
+    "stage": 1,
+    "trees": 20,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "position_scale",
+    "stage": 1,
+    "trees": 20,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "guidance_project",
+    "stage": 1,
+    "trees": 20,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "gamma997",
+    "stage": 1,
+    "trees": 20,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "baseline",
+    "stage": 2,
+    "trees": 30,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "goal_range",
+    "stage": 2,
+    "trees": 30,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "position_scale",
+    "stage": 2,
+    "trees": 30,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "guidance_project",
+    "stage": 2,
+    "trees": 30,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "gamma997",
+    "stage": 2,
+    "trees": 30,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "baseline",
+    "stage": 3,
+    "trees": 40,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "goal_range",
+    "stage": 3,
+    "trees": 40,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "position_scale",
+    "stage": 3,
+    "trees": 40,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "guidance_project",
+    "stage": 3,
+    "trees": 40,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  },
+  {
+    "variant": "gamma997",
+    "stage": 3,
+    "trees": 40,
+    "position_delta": [
+      4.771693836236324e-05,
+      -4.772505498101529e-05,
+      0.00021351795210433622
+    ],
+    "lower_ticks": 8,
+    "state_dim": 917,
+    "same_physics_and_reward": true,
+    "map_split": "train",
+    "map_id": "ego_forest_20x10_seed1000_v1"
+  }
+]

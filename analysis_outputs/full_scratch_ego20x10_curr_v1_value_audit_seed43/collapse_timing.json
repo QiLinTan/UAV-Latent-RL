@@ -1,0 +1,10 @@
+{
+  "first_positive_fixed_q1_dz": 5043,
+  "sustained_positive_fixed_q1_dz": 5043,
+  "first_policy_mean_z_05": 5105,
+  "first_policy_mean_z_09": 5109,
+  "first_policy_mean_z_099": 5115,
+  "first_all_fixed_states_z_saturated": 5125,
+  "negative_minimum_step": 5045,
+  "negative_minimum_z": -0.9161092042922974
+}

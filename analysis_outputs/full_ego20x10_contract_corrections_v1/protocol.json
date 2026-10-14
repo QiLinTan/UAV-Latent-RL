@@ -1,0 +1,54 @@
+{
+  "variants": [
+    {
+      "name": "baseline",
+      "goal_range": false,
+      "position_scale": false,
+      "guidance_project": false,
+      "gamma": 0.99
+    },
+    {
+      "name": "goal_range",
+      "goal_range": true,
+      "position_scale": false,
+      "guidance_project": false,
+      "gamma": 0.99
+    },
+    {
+      "name": "position_scale",
+      "goal_range": false,
+      "position_scale": true,
+      "guidance_project": false,
+      "gamma": 0.99
+    },
+    {
+      "name": "guidance_project",
+      "goal_range": false,
+      "position_scale": false,
+      "guidance_project": true,
+      "gamma": 0.99
+    },
+    {
+      "name": "gamma997",
+      "goal_range": false,
+      "position_scale": false,
+      "guidance_project": false,
+      "gamma": 0.997
+    }
+  ],
+  "learner_updates": 0,
+  "method": "Single-factor state reencoding and identical Full action tapes; no source-policy comparison across incompatible encodings.",
+  "fixed": {
+    "state_dim": 917,
+    "success_radius": 0.2,
+    "guidance_radius": 1.2,
+    "episode_limit_s": 40,
+    "upper_hz": 15,
+    "lower_hz": 120,
+    "radar_m": 1.75,
+    "reward_scale": 0.1,
+    "courses": "unchanged"
+  },
+  "test": "No test spec, path, policy episode or tuning. Production constructor validates the unified pool manifest.",
+  "source_6k_sha256": "162c5db5f608ec0f681c86f65445a2d6cb85139e11f775be7fbd122db39e477a"
+}

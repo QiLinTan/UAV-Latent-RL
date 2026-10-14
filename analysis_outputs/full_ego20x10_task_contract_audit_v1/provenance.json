@@ -1,0 +1,23 @@
+{
+  "audit_name": "full_ego20x10_task_contract_audit_v1",
+  "training_updates": 0,
+  "physical_probe_only": true,
+  "actor_checkpoint_steps": [
+    2000,
+    5000,
+    6000
+  ],
+  "reconstructed_120hz_ticks": 222389,
+  "source_checkpoint_files": 36,
+  "production_guard_files": 8,
+  "map_splits_for_statistics": [
+    "train",
+    "validation"
+  ],
+  "policy_test_executions": 0,
+  "script_sha256": {
+    "scripts/audit_full_ego20x10_task_contract.py": "e75439fe6000fc26212d24e06132eff224b50a3fd230fa1e41f5333e4f8116ee",
+    "scripts/summarize_full_ego20x10_task_contract.py": "9918d8ea558e552840d5ecf4dcd055d85ad128f61a4d727a27d94b45790ef031",
+    "tests/test_full_ego20x10_task_contract_audit.py": "1bbbc8e50ac5ab11623bfa1f8c28d034fedc9f8dc164245ed02ad0b2971ab8b7"
+  }
+}

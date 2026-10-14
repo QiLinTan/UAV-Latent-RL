@@ -1,0 +1,109 @@
+[
+  {
+    "training_seed": 42,
+    "map_seed": 24,
+    "config_index": 0,
+    "extra_clearance_m": 0.22,
+    "lookahead_m": 0.2,
+    "gain": 2.0,
+    "damping": 0.3,
+    "path_available": true,
+    "path_xy": [
+      [
+        -1.0000000000000124,
+        -1.9000000000000092
+      ],
+      [
+        3.4999999999999716,
+        -0.20000000000001528
+      ],
+      [
+        3.5,
+        0.0
+      ]
+    ],
+    "done_reason": "success",
+    "time_s": 10.8,
+    "final_goal_distance_m": 0.19898180483051037,
+    "minimum_goal_distance_m": 0.19898180483051037,
+    "minimum_tree_clearance_m": 0.10826417803764343,
+    "steps": 162,
+    "minimum_120hz_tree_clearance_m": 0.10708984732627869,
+    "full_trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed42_map24/candidate_00_full_trace/trace_seed24.npz",
+    "trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed42_map24/candidate_00.npz"
+  },
+  {
+    "training_seed": 43,
+    "map_seed": 21,
+    "config_index": 0,
+    "extra_clearance_m": 0.22,
+    "lookahead_m": 0.2,
+    "gain": 2.0,
+    "damping": 0.3,
+    "path_available": true,
+    "path_xy": [
+      [
+        -2.4000000000000075,
+        0.6999999999999815
+      ],
+      [
+        0.3999999999999826,
+        0.5999999999999819
+      ],
+      [
+        0.8999999999999808,
+        1.09999999999998
+      ],
+      [
+        3.4999999999999716,
+        0.49999999999998224
+      ],
+      [
+        3.5,
+        0.0
+      ]
+    ],
+    "done_reason": "success",
+    "time_s": 11.2,
+    "final_goal_distance_m": 0.1998956316595431,
+    "minimum_goal_distance_m": 0.1998956316595431,
+    "minimum_tree_clearance_m": 0.11726108193397522,
+    "steps": 168,
+    "minimum_120hz_tree_clearance_m": 0.11604386568069458,
+    "full_trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed43_map21/candidate_00_full_trace/trace_seed21.npz",
+    "trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed43_map21/candidate_00.npz"
+  },
+  {
+    "training_seed": 43,
+    "map_seed": 24,
+    "config_index": 0,
+    "extra_clearance_m": 0.22,
+    "lookahead_m": 0.2,
+    "gain": 2.0,
+    "damping": 0.3,
+    "path_available": true,
+    "path_xy": [
+      [
+        -1.0000000000000124,
+        -1.9000000000000092
+      ],
+      [
+        3.4999999999999716,
+        -0.20000000000001528
+      ],
+      [
+        3.5,
+        0.0
+      ]
+    ],
+    "done_reason": "success",
+    "time_s": 10.8,
+    "final_goal_distance_m": 0.19898180483051037,
+    "minimum_goal_distance_m": 0.19898180483051037,
+    "minimum_tree_clearance_m": 0.10826417803764343,
+    "steps": 162,
+    "minimum_120hz_tree_clearance_m": 0.10708984732627869,
+    "full_trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed43_map24/candidate_00_full_trace/trace_seed24.npz",
+    "trace": "analysis_outputs/full_preimprovement_diagnostics_20261010/a3/seed43_map24/candidate_00.npz"
+  }
+]

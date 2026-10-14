@@ -1,0 +1,95 @@
+{
+  "status": "completed_all_branches_early_stopped_at_6000",
+  "new_training_started": true,
+  "snapshot": "checkpoints/full_ft_v1_unfreeze_audit_20261012/seed43/model_004000_full_snapshot.pt",
+  "snapshot_sha256": "d397dce0c6a356141dc4c069401ff186860ccba080dd024b19b8f2011ee90499",
+  "source_actor_sha256": "88a55281a313dbd75ee892951241ad3bf515a6d56e10d19b00e058c67199c757",
+  "source_manifest_matches": true,
+  "snapshot_actor_and_target_equal_source": true,
+  "snapshot_actor_optimizer_empty": true,
+  "main_replay_states_actions_rewards_match_original_prefix": true,
+  "upper_step": 4000,
+  "critic_updates": 3489,
+  "replay_sizes": {
+    "main": 4000,
+    "success": 3459
+  },
+  "snapshot_live_resume_supported": false,
+  "seed_conflict": {
+    "training_seed": 43,
+    "environment_reset_seed": 43,
+    "prohibited_range": [
+      40,
+      79
+    ],
+    "trainer_location": "trainers/td3_trainer.py:76",
+    "base_rng_location": "envs/forest/core.py:253"
+  },
+  "anchor_semantics": {
+    "loss": "0.1 * mean((actor(success_states)-frozen_source_actor(success_states))**2)",
+    "coordinate_system": "normalized 3D action, planar projected by Actor",
+    "success_replay_fraction": 0.2,
+    "explicit_initialization_required": true,
+    "best_callback_refreshes_anchor_even_when_conservative_phase_disabled": true,
+    "fixed_source_guard_required": true,
+    "initial_anchor_loss_and_gradient_zero": true
+  },
+  "proposed_branches": {
+    "A": {
+      "actor_lr": 0.0001,
+      "critic_lr": 0.0003,
+      "anchor_weight": 0
+    },
+    "B": {
+      "actor_lr": 0.0003,
+      "critic_lr": 0.0003,
+      "anchor_weight": 0.1
+    },
+    "C": {
+      "actor_lr": 0.0001,
+      "critic_lr": 0.0003,
+      "anchor_weight": 0.1
+    }
+  },
+  "seed_constraint_resolution": "User allowed replay of the existing seed43 training prefix; new validation excludes 40-79.",
+  "initial_preflight_environment_resets_executed": 0,
+  "initial_preflight_new_training_started": false,
+  "execution": {
+    "branches": {
+      "A": {
+        "prefix_exact": true,
+        "final_upper_step": 6000,
+        "stop_reason": "persistent_full_collapse_all_three_domains"
+      },
+      "B": {
+        "prefix_exact": true,
+        "final_upper_step": 6000,
+        "stop_reason": "persistent_full_collapse_all_three_domains"
+      },
+      "C": {
+        "prefix_exact": true,
+        "final_upper_step": 6000,
+        "stop_reason": "persistent_full_collapse_all_three_domains"
+      }
+    },
+    "new_validation_environment_seeds": [
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89
+    ],
+    "report": "docs/work_logs/2026-10-12_full_ft_v2_ablation_results.md",
+    "original_artifact_integrity": {
+      "protected_files": 2850,
+      "changed_or_missing_files": [],
+      "all_original_files_unchanged": true
+    },
+    "related_tests_passed": 8
+  }
+}

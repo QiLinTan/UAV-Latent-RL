@@ -1,0 +1,16 @@
+[
+  {
+    "step": 5200,
+    "captured_input_batch_exact": true,
+    "target_noise_exact": true,
+    "own_vs_A_target_mean_abs_difference": 0.011444426141679287,
+    "own_vs_A_target_max_abs_difference": 0.023310542106628418
+  },
+  {
+    "step": 6000,
+    "captured_input_batch_exact": true,
+    "target_noise_exact": true,
+    "own_vs_A_target_mean_abs_difference": 0.05489377677440643,
+    "own_vs_A_target_max_abs_difference": 0.17086473107337952
+  }
+]

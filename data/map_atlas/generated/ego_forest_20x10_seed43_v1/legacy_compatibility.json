@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "compared_to": "HEAD:envs/forest/layout.py",
+  "seeds": [
+    0,
+    43,
+    80
+  ],
+  "protected_and_unprotected_layouts": 6,
+  "coordinates_radii_heights": "exactly_equal"
+}

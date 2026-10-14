@@ -34,24 +34,37 @@ class BestCheckpointCallback:
         minimum_success_rate=0.9,
         maximum_collision_rate=0.0,
         final_eval_callback=None,
+        prefer_higher_curriculum_stage=False,
+        minimum_retention_success_rate=None,
+        fallback_checkpoint=None,
+        enable_conservative_phase=True,
     ):
         self.save_dir = save_dir
         self.window_size = int(window_size)
         self.minimum_success_rate = float(minimum_success_rate)
         self.maximum_collision_rate = float(maximum_collision_rate)
         self.final_eval_callback = final_eval_callback
+        self.prefer_higher_curriculum_stage = bool(prefer_higher_curriculum_stage)
+        self.minimum_retention_success_rate = minimum_retention_success_rate
+        self.fallback_checkpoint = fallback_checkpoint
+        self.enable_conservative_phase = bool(enable_conservative_phase)
         if self.window_size <= 0:
             raise ValueError("window_size must be positive")
         if not 0.0 <= self.minimum_success_rate <= 1.0:
             raise ValueError("minimum_success_rate must lie in [0, 1].")
         if not 0.0 <= self.maximum_collision_rate <= 1.0:
             raise ValueError("maximum_collision_rate must lie in [0, 1].")
+        if minimum_retention_success_rate is not None and not 0.0 <= minimum_retention_success_rate <= 1.0:
+            raise ValueError("minimum_retention_success_rate must lie in [0, 1].")
         self.best_score = None
         self.best_step = None
+        self.best_stage = None
         self.peak_score = None
         self.peak_step = None
+        self.peak_stage = None
         self.last_eval_step = None
         self.eval_window = deque(maxlen=self.window_size)
+        self._window_stage = None
         os.makedirs(save_dir, exist_ok=True)
 
     @staticmethod
@@ -74,8 +87,18 @@ class BestCheckpointCallback:
             return
         self.last_eval_step = eval_step
 
+        stage = int(self._finite(eval_info.get("eval/curriculum_stage", 0), 0))
+        if self.prefer_higher_curriculum_stage and stage != self._window_stage:
+            self.eval_window.clear()
+            self._window_stage = stage
+
         success = self._finite(eval_info.get("eval/success_rate", 0.0), 0.0)
         collision = self._finite(eval_info.get("eval/collision_rate", 1.0), 1.0)
+        if self.minimum_retention_success_rate is not None:
+            retained = self._finite(eval_info.get("eval/stage0_success_rate", 0.0), 0.0)
+            if retained < self.minimum_retention_success_rate:
+                self.eval_window.clear()
+                return
         episode_return = self._finite(eval_info.get("eval/return", -float("inf")), -float("inf"))
         final_goal_distance = self._finite(
             eval_info.get("eval/final_goal_distance", float("inf")), float("inf")
@@ -92,9 +115,12 @@ class BestCheckpointCallback:
             -length,
             -tracking_rmse,
         )
+        if self.prefer_higher_curriculum_stage:
+            peak_score = (stage, *peak_score)
         if self.peak_score is None or peak_score > self.peak_score:
             self.peak_score = peak_score
             self.peak_step = int(eval_step)
+            self.peak_stage = stage
             peak_path = os.path.join(self.save_dir, "model_peak_validation")
             trainer.agent.save(peak_path)
             peak_metadata = {
@@ -153,15 +179,18 @@ class BestCheckpointCallback:
             -window_mean["length"],
             -window_mean["tracking_rmse"],
         )
+        if self.prefer_higher_curriculum_stage:
+            score = (stage, *score)
         if self.best_score is not None and score <= self.best_score:
             return
 
         self.best_score = score
+        self.best_stage = stage
         path = os.path.join(self.save_dir, "model_best")
         # The first stable checkpoint starts the conservative phase before its
         # optimizer state is saved. The current actor is then frozen as a
         # retention target for successful replay states.
-        if hasattr(trainer.agent, "enter_conservative_phase"):
+        if self.enable_conservative_phase and hasattr(trainer.agent, "enter_conservative_phase"):
             trainer.agent.enter_conservative_phase()
         trainer.agent.save(path)
         self.best_step = int(eval_step)
@@ -195,11 +224,17 @@ class BestCheckpointCallback:
         if self.best_step is not None:
             selected_path = os.path.join(self.save_dir, "model_best")
             selected_step = self.best_step
+            selected_stage = self.best_stage
         elif self.peak_step is not None:
             selected_path = os.path.join(self.save_dir, "model_peak_validation")
             selected_step = self.peak_step
+            selected_stage = self.peak_stage
         if selected_path is None:
-            return
+            if self.fallback_checkpoint is None:
+                return
+            selected_path = self.fallback_checkpoint
+            selected_step = 0
+            selected_stage = 0
         if not hasattr(trainer.agent, "load"):
             raise RuntimeError("Cannot restore the selected policy: agent has no load().")
         trainer.agent.load(selected_path)
@@ -211,7 +246,9 @@ class BestCheckpointCallback:
             self.final_eval_callback.on_step(trainer, force=True)
         final_metadata = {
             "selected_checkpoint": os.path.basename(selected_path),
+            "selected_checkpoint_source_path": selected_path,
             "selected_checkpoint_step": int(selected_step),
+            "selected_checkpoint_curriculum_stage": int(selected_stage),
             "model_final_is_restored_selection": True,
             **self._serializable_eval_info(
                 getattr(trainer, "last_eval_info", {}) or {}

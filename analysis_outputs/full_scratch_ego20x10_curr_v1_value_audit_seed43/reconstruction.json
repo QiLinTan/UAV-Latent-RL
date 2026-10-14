@@ -1,0 +1,8 @@
+{
+  "upper_steps_replayed": 3000,
+  "maximum_pre_observation_error": 0.0,
+  "episode_step_at_5k": 147,
+  "pool_sampler_identical": true,
+  "learner_total_it": 1,
+  "partial_success_candidates": 147
+}

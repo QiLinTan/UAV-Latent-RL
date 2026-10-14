@@ -1,0 +1,68 @@
+{
+  "gamma_per_upper": 0.99,
+  "upper_hz": 15,
+  "episode_seconds": 40,
+  "effective_geometric_horizon_seconds": 6.666666666666661,
+  "half_life_seconds": 4.597837595768562,
+  "timings": [
+    {
+      "seconds": 1,
+      "upper_steps": 15,
+      "discount": 0.8600583546412884,
+      "success_bonus_raw": 215.01458866032212,
+      "success_bonus_scaled": 21.501458866032213
+    },
+    {
+      "seconds": 5,
+      "upper_steps": 75,
+      "discount": 0.4705866415856499,
+      "success_bonus_raw": 117.64666039641247,
+      "success_bonus_scaled": 11.764666039641247
+    },
+    {
+      "seconds": 10,
+      "upper_steps": 150,
+      "discount": 0.22145178723886091,
+      "success_bonus_raw": 55.362946809715226,
+      "success_bonus_scaled": 5.5362946809715226
+    },
+    {
+      "seconds": 20,
+      "upper_steps": 300,
+      "discount": 0.04904089407128572,
+      "success_bonus_raw": 12.26022351782143,
+      "success_bonus_scaled": 1.2260223517821431
+    },
+    {
+      "seconds": 25,
+      "upper_steps": 375,
+      "discount": 0.02307798964136396,
+      "success_bonus_raw": 5.76949741034099,
+      "success_bonus_scaled": 0.576949741034099
+    },
+    {
+      "seconds": 30,
+      "upper_steps": 450,
+      "discount": 0.010860193639877882,
+      "success_bonus_raw": 2.7150484099694707,
+      "success_bonus_scaled": 0.27150484099694705
+    },
+    {
+      "seconds": 40,
+      "upper_steps": 600,
+      "discount": 0.0024050092913110673,
+      "success_bonus_raw": 0.6012523228277669,
+      "success_bonus_scaled": 0.060125232282776685
+    }
+  ],
+  "min_start_band_path": 0.35,
+  "max_L0_path": 1.2,
+  "original_mix_probabilities": [
+    0.2,
+    0.2,
+    0.3,
+    0.5,
+    1.0
+  ],
+  "theory": "QA/smoothed length divided by speed is an optimistic traversal time for that particular feasible geometric route, not the globally fastest-route lower bound. Startup, turns, terminal slowing, replanning and tracking add time."
+}

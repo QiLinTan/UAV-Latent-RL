@@ -1,0 +1,202 @@
+{
+  "shape": [
+    117,
+    800,
+    917
+  ],
+  "replay_count": 6000,
+  "all_finite": true,
+  "feature_statistics": {
+    "position": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -19.95586395263672,
+      "max": 19.928943634033203,
+      "rms": 8.534871101379395
+    },
+    "rpy": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.07138081640005112,
+      "max": 0.06601110845804214,
+      "rms": 0.016518203541636467
+    },
+    "velocity": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.46746909618377686,
+      "max": 0.4378002882003784,
+      "rms": 0.1160375103354454
+    },
+    "angular_velocity": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.35367074608802795,
+      "max": 0.3299933075904846,
+      "rms": 0.08982005715370178
+    },
+    "goal": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.8744808435440063,
+      "max": 1.0,
+      "rms": 0.3009524345397949
+    },
+    "rays": {
+      "shape": [
+        6000,
+        96
+      ],
+      "min": 0.05976605787873268,
+      "max": 1.0,
+      "rms": 0.983342170715332
+    },
+    "reference_error": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.1328776478767395,
+      "max": 0.12495799362659454,
+      "rms": 0.03279346600174904
+    },
+    "reference_velocity": {
+      "shape": [
+        6000,
+        3
+      ],
+      "min": -0.3994627296924591,
+      "max": 0.39747583866119385,
+      "rms": 0.10894101858139038
+    },
+    "history_rays": {
+      "shape": [
+        6000,
+        8,
+        96
+      ],
+      "min": 0.05976605787873268,
+      "max": 1.0,
+      "rms": 0.9837526679039001
+    },
+    "history_commands": {
+      "shape": [
+        6000,
+        8,
+        3
+      ],
+      "min": -1.0,
+      "max": 1.0,
+      "rms": 0.5887367129325867
+    },
+    "history_tracking_error": {
+      "shape": [
+        6000,
+        8
+      ],
+      "min": 0.0,
+      "max": 0.15820546448230743,
+      "rms": 0.05634642019867897
+    }
+  },
+  "goal_scaling": [
+    10,
+    10,
+    2
+  ],
+  "goal_alias_examples": [
+    {
+      "x": -10.0,
+      "distance": 18.0,
+      "goal_x": 1.0,
+      "normalized_position_x": -20.0
+    },
+    {
+      "x": -8.0,
+      "distance": 16.0,
+      "goal_x": 1.0,
+      "normalized_position_x": -16.0
+    },
+    {
+      "x": -6.0,
+      "distance": 14.0,
+      "goal_x": 1.0,
+      "normalized_position_x": -12.0
+    },
+    {
+      "x": -4.0,
+      "distance": 12.0,
+      "goal_x": 1.0,
+      "normalized_position_x": -8.0
+    },
+    {
+      "x": -2.0,
+      "distance": 10.0,
+      "goal_x": 1.0,
+      "normalized_position_x": -4.0
+    },
+    {
+      "x": 0.0,
+      "distance": 8.0,
+      "goal_x": 0.8,
+      "normalized_position_x": 0.0
+    },
+    {
+      "x": 4.0,
+      "distance": 4.0,
+      "goal_x": 0.4,
+      "normalized_position_x": 8.0
+    },
+    {
+      "x": 7.0,
+      "distance": 1.0,
+      "goal_x": 0.1,
+      "normalized_position_x": 14.0
+    },
+    {
+      "x": 7.7,
+      "distance": 0.2999999999999998,
+      "goal_x": 0.02999999999999998,
+      "normalized_position_x": 15.4
+    },
+    {
+      "x": 7.8,
+      "distance": 0.20000000000000018,
+      "goal_x": 0.020000000000000018,
+      "normalized_position_x": 15.6
+    }
+  ],
+  "goal_x_clipping_fraction": 0.20316666666666666,
+  "original_route_initial_saturated_length_m": 6,
+  "original_route_initial_saturated_fraction": 0.375,
+  "history_shift_exact": true,
+  "last_history_rays_duplicate_current": true,
+  "history_intervals_seconds": 0.5333333333333333,
+  "oldest_current_time_offset_seconds": 0.4666666666666667,
+  "history_fields": [
+    "96 rays",
+    "3 normalized last commands",
+    "one unsigned mean tracking-error scalar"
+  ],
+  "no_explicit_fields": [
+    "target world position",
+    "distance scalar",
+    "time remaining",
+    "pose/velocity history",
+    "PID integrals",
+    "motor RPM history",
+    "persistent map"
+  ],
+  "recurrent_memory": "Explicit eight-frame GRU input; hidden state is initialized anew for each forward, not a 40s persistent memory.",
+  "absolute_position_inverse_is_unclipped": true
+}

@@ -1,0 +1,22 @@
+{
+  "new_online_transitions": 0,
+  "new_upper_replay_items": 0,
+  "critic_updates_per_branch": 200,
+  "actor_proposals_per_branch": 100,
+  "branches": [
+    "baseline",
+    "step_guard"
+  ],
+  "mean_step_limit_mps": 0.02,
+  "p95_step_limit_mps": 0.05,
+  "backtracks": 10,
+  "fixed_guard_states": "188 original 5k training Replay states; no validation states used by guard",
+  "data": "Exact recorded main/success indices and target noise from A5001..5200; each branch computes its own TD targets.",
+  "actor_target": "Standard Polyak for accepted proposal; rejected proposal restores target/Actor/Adam.",
+  "task": "Original16m contract, unchanged rewards/encoding/gamma/GRU/curriculum",
+  "validation": "20 frozen Stage0 maps, paired L0 at actor proposals0/1/10/50/100; original16m at100.",
+  "limits": "Engineering step bounds are candidates, not established safe thresholds. Cumulative drift is unbounded.",
+  "no_test": true,
+  "source_5k_sha256": "1e0effc2bc1ccceee6fa7f74273836b4734cddf3e6abcf40d7260a019c2b5908",
+  "schedule_sha256": "96bed6c88619f45c065d982ed63150d71b34fd0c88065215b9e21ba78b11ea33"
+}

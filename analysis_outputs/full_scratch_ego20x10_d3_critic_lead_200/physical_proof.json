@@ -1,0 +1,19 @@
+{
+  "states": 12,
+  "new_full_branches": 240,
+  "reused_A6k_D2_branches": 60,
+  "common_suffix": "Original frozen5k Actor",
+  "first_xy": "Original D2 A6k XY for exactly one upper interval",
+  "state_reconstruction_exact": true,
+  "one_step_repeat_exact": true,
+  "save_restore_used": false,
+  "horizon_upper_steps": [
+    30,
+    90
+  ],
+  "horizon_seconds": [
+    2,
+    6
+  ],
+  "infinite_horizon_truth_claim": false
+}

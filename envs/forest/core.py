@@ -93,6 +93,8 @@ class CustomForestAviary(BaseRLAviary):
             target_pos = self.MAP_SPEC.target_pos
             forest_half_extent = self.MAP_SPEC.xy_half_extent
             obstacle_sensor_range = self.MAP_SPEC.obstacle_sensor_range
+            if self.MAP_SPEC.episode_len_sec is not None:
+                episode_len_sec = self.MAP_SPEC.episode_len_sec
             num_trees = map_overrides.get("num_trees", num_trees)
             route_blocking_tree = map_overrides.get(
                 "route_blocking_tree", route_blocking_tree
@@ -209,6 +211,9 @@ class CustomForestAviary(BaseRLAviary):
                 route_blocking_tree_count=self.ROUTE_BLOCKING_TREE_COUNT,
                 route_tree_lateral_range=self.ROUTE_TREE_LATERAL_RANGE,
                 route_tree_layout=self.ROUTE_TREE_LAYOUT,
+                xy_half_extents=(
+                    self.MAP_SPEC.xy_half_extents if self.MAP_SPEC is not None else None
+                ),
             )
         )
         self.map_validation = (
@@ -510,7 +515,13 @@ class CustomForestAviary(BaseRLAviary):
             float(np.max(np.abs(self.TARGET_POS[:2]))) + 0.5,
         )
 
-        if abs(pos[0]) > xy_limit or abs(pos[1]) > xy_limit:
+        if self.MAP_SPEC is not None and self.MAP_SPEC.xy_half_extents is not None:
+            # New rectangular scenes use their registered domain on each axis.
+            # Legacy maps retain the historical margin above.
+            outside_xy = np.any(np.abs(pos[:2]) > np.asarray(self.MAP_SPEC.bounds_xy))
+        else:
+            outside_xy = abs(pos[0]) > xy_limit or abs(pos[1]) > xy_limit
+        if outside_xy:
             return "xy_bound"
         if pos[2] < 0.08 or pos[2] > 2.75:
             return "height_bound"
@@ -607,9 +618,9 @@ class CustomForestAviary(BaseRLAviary):
         """Expose scheduler state without allowing evaluation to mutate it."""
         scheduler = self._curriculum_scheduler
         stage = (
-            scheduler.current_stage
-            if scheduler.success_gated
-            else self._curriculum_stage
+            self._curriculum_stage
+            if self._curriculum_stage_override is not None or not scheduler.success_gated
+            else scheduler.current_stage
         )
         return {
             "curriculum_stage": int(stage),

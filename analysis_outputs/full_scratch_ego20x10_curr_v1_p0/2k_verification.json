@@ -1,0 +1,37 @@
+{
+  "step": 2000,
+  "updates": 0,
+  "actor_matches_initial": true,
+  "critic_matches_initial": true,
+  "replay_size": 2000,
+  "success_replay_sizes": {
+    "10": 269,
+    "20": 0,
+    "30": 0,
+    "40": 0
+  },
+  "start_level": 0,
+  "density_stage": 0,
+  "sampler": {
+    "fingerprint": "f8a871f25663cc0d6141c7cc9e42cefc1d7579b72a50a778833261a659dbdec2",
+    "split": "train",
+    "rng": {
+      "bit_generator": "PCG64",
+      "state": {
+        "state": 241630339820595490567822406609417025,
+        "inc": 225463824695851774385321593940585149321
+      },
+      "has_uint32": 1,
+      "uinteger": 556194726
+    },
+    "draws": 5,
+    "visits": {
+      "46": 1,
+      "3": 1,
+      "108": 1,
+      "14": 1,
+      "0": 1
+    },
+    "index": 0
+  }
+}

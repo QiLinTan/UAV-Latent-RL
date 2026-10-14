@@ -1,0 +1,278 @@
+{
+  "production_replay_modified": false,
+  "production_learner_modified": false,
+  "horizon_upper_steps": 150,
+  "interventions": [
+    {
+      "seed": 7,
+      "map_id": "ego_forest_20x10_seed1106_v1",
+      "initial_position": [
+        7.360000133514404,
+        -0.03999999910593033,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        0.9999068379402161
+      ],
+      "intervention_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        -1.0
+      ],
+      "initial_q1": -0.8253559470176697,
+      "initial_q2": -0.5265890955924988,
+      "actual_upper_steps": 51,
+      "duration_s": 3.3583333333333334,
+      "discounted_scaled_return": -246.9036901323713,
+      "final_distance": 2.262233185788305,
+      "minimum_distance": 0.46814371510080816,
+      "final_height": 0.07964524121224932,
+      "success": false,
+      "done_reason": "height_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 7,
+      "map_id": "ego_forest_20x10_seed1106_v1",
+      "initial_position": [
+        7.360000133514404,
+        -0.03999999910593033,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        0.9999068379402161
+      ],
+      "intervention_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        0.0
+      ],
+      "initial_q1": -0.7863104343414307,
+      "initial_q2": -0.5076985359191895,
+      "actual_upper_steps": 80,
+      "duration_s": 5.325,
+      "discounted_scaled_return": -253.69282553469023,
+      "final_distance": 3.616525450906057,
+      "minimum_distance": 0.4365715415981757,
+      "final_height": 1.0000007606713905,
+      "success": false,
+      "done_reason": "xy_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 7,
+      "map_id": "ego_forest_20x10_seed1106_v1",
+      "initial_position": [
+        7.360000133514404,
+        -0.03999999910593033,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        0.9999068379402161
+      ],
+      "intervention_action": [
+        0.6506277322769165,
+        0.7576244473457336,
+        1.0
+      ],
+      "initial_q1": -0.7372223734855652,
+      "initial_q2": -0.4840935468673706,
+      "actual_upper_steps": 80,
+      "duration_s": 5.325,
+      "discounted_scaled_return": -260.96368363724935,
+      "final_distance": 3.9192474539276168,
+      "minimum_distance": 0.46756166567878943,
+      "final_height": 2.5103759982972407,
+      "success": false,
+      "done_reason": "xy_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 43,
+      "map_id": "ego_forest_20x10_seed1046_v1",
+      "initial_position": [
+        7.360000133514404,
+        0.25999999046325684,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        0.9998738765716553
+      ],
+      "intervention_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        -1.0
+      ],
+      "initial_q1": -0.9615603089332581,
+      "initial_q2": -0.6784810423851013,
+      "actual_upper_steps": 51,
+      "duration_s": 3.3583333333333334,
+      "discounted_scaled_return": -234.22781651590654,
+      "final_distance": 2.421335416003378,
+      "minimum_distance": 0.6449806516411388,
+      "final_height": 0.07964510108658494,
+      "success": false,
+      "done_reason": "height_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 43,
+      "map_id": "ego_forest_20x10_seed1046_v1",
+      "initial_position": [
+        7.360000133514404,
+        0.25999999046325684,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        0.9998738765716553
+      ],
+      "intervention_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        0.0
+      ],
+      "initial_q1": -0.9573562741279602,
+      "initial_q2": -0.6581785678863525,
+      "actual_upper_steps": 70,
+      "duration_s": 4.641666666666667,
+      "discounted_scaled_return": -234.0098397017269,
+      "final_distance": 3.2363561887019214,
+      "minimum_distance": 0.6339912453920941,
+      "final_height": 1.0000006152621728,
+      "success": false,
+      "done_reason": "xy_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 43,
+      "map_id": "ego_forest_20x10_seed1046_v1",
+      "initial_position": [
+        7.360000133514404,
+        0.25999999046325684,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        0.9998738765716553
+      ],
+      "intervention_action": [
+        0.759220540523529,
+        0.6492631435394287,
+        1.0
+      ],
+      "initial_q1": -0.9378717541694641,
+      "initial_q2": -0.6347131133079529,
+      "actual_upper_steps": 70,
+      "duration_s": 4.641666666666667,
+      "discounted_scaled_return": -238.74185168069639,
+      "final_distance": 3.4896989174832913,
+      "minimum_distance": 0.6451744527055951,
+      "final_height": 2.305370278835095,
+      "success": false,
+      "done_reason": "xy_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 80,
+      "map_id": "ego_forest_20x10_seed1034_v1",
+      "initial_position": [
+        7.159999847412109,
+        -0.3400000035762787,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        0.9999322295188904
+      ],
+      "intervention_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        -1.0
+      ],
+      "initial_q1": -0.5912754535675049,
+      "initial_q2": -0.3330647945404053,
+      "actual_upper_steps": 51,
+      "duration_s": 3.3583333333333334,
+      "discounted_scaled_return": -248.37201895730936,
+      "final_distance": 2.020278711923545,
+      "minimum_distance": 0.5528957483686637,
+      "final_height": 0.0796451815174844,
+      "success": false,
+      "done_reason": "height_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 80,
+      "map_id": "ego_forest_20x10_seed1034_v1",
+      "initial_position": [
+        7.159999847412109,
+        -0.3400000035762787,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        0.9999322295188904
+      ],
+      "intervention_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        0.0
+      ],
+      "initial_q1": -0.5419443249702454,
+      "initial_q2": -0.31728458404541016,
+      "actual_upper_steps": 108,
+      "duration_s": 7.183333333333334,
+      "discounted_scaled_return": -245.72189980767533,
+      "final_distance": 4.807833753266262,
+      "minimum_distance": 0.49646525952898335,
+      "final_height": 1.000000697006532,
+      "success": false,
+      "done_reason": "xy_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    },
+    {
+      "seed": 80,
+      "map_id": "ego_forest_20x10_seed1034_v1",
+      "initial_position": [
+        7.159999847412109,
+        -0.3400000035762787,
+        1.0
+      ],
+      "initial_policy_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        0.9999322295188904
+      ],
+      "intervention_action": [
+        0.5078452825546265,
+        0.8596524596214294,
+        1.0
+      ],
+      "initial_q1": -0.4836413860321045,
+      "initial_q2": -0.2980852425098419,
+      "actual_upper_steps": 92,
+      "duration_s": 6.125,
+      "discounted_scaled_return": -251.47864283943903,
+      "final_distance": 4.337174351040899,
+      "minimum_distance": 0.5526380970296846,
+      "final_height": 2.7503824202787084,
+      "success": false,
+      "done_reason": "height_bound",
+      "horizon_note": "up to 10s, constant initial actor XY; partial returns are not complete TD3 Q values"
+    }
+  ],
+  "interpretation": "Compare only the same seed/reset and XY command. These bounded physical interventions test the z preference, not a complete root-cause identification or a replacement training policy."
+}

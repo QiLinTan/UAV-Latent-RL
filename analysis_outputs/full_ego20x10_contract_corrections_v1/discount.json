@@ -1,0 +1,24 @@
+{
+  "0.99": {
+    "half_life_s": 4.597837595768562,
+    "geometric_horizon_s": 6.666666666666661,
+    "terminal_discount_20s": 0.04904089407128572,
+    "terminal_discount_40s": 0.0024050092913110673,
+    "reference_returns_scaled": {
+      "hover_40s": -0.2095565000719827,
+      "scheduled_capture": 4.590520142836698,
+      "max_speed_flyby": 4.691482126553453
+    }
+  },
+  "0.997": {
+    "half_life_s": 15.380154203276534,
+    "geometric_horizon_s": 22.222222222222204,
+    "terminal_discount_20s": 0.4060200622917274,
+    "terminal_discount_40s": 0.1648522909833782,
+    "reference_returns_scaled": {
+      "hover_40s": -3.4313465313817737,
+      "scheduled_capture": 17.232572195972097,
+      "max_speed_flyby": 16.657321812750016
+    }
+  }
+}

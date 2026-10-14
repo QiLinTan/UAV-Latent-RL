@@ -28,6 +28,11 @@ from envs.learned_upper_dslpid import (
     KinematicUpperForestEnv,
     LearnedUpperDSLPIDForestEnv,
 )
+from envs.forest.start_curriculum_env import (
+    StartCurriculumKinematicUpperForestEnv,
+    StartObstacleCurriculumFullForestEnv,
+    StartObstacleCurriculumKinematicUpperForestEnv,
+)
 from envs.map_atlas import MapCatalog
 from gym_pybullet_drones.utils.enums import ActionType, ObservationType
 
@@ -48,7 +53,9 @@ from trainers.callbacks.checkpoint import (
     CheckpointCallback,
     ConvergenceGuardCallback,
 )
-from trainers.callbacks.eval_callback import EvalCallback
+from trainers.callbacks.eval_callback import (
+    EvalCallback, Stage01PairedEvalCallback, FullFTTripleEvalCallback,
+)
 from trainers.callbacks.latent_viz import LatentEmbeddingCallback
 from trainers.callbacks.logger import LoggerCallback
 from trainers.callbacks.monitor import MonitorCallback
@@ -148,6 +155,37 @@ def _make_argparser():
         default=(1.0, 1.0, 1.0),
     )
     parser.add_argument("--curriculum_minimum_stage_episodes", type=int, default=50)
+    parser.add_argument("--start_distance_curriculum", type=str2bool, default=False)
+    parser.add_argument("--start_curriculum_window", type=int, default=100)
+    parser.add_argument("--start_curriculum_minimum_episodes", type=int, default=100)
+    parser.add_argument("--start_curriculum_success_threshold", type=float, default=0.70)
+    parser.add_argument("--start_curriculum_max_collision_rate", type=float, default=0.20)
+    parser.add_argument("--obstacle_curriculum_after_start", type=str2bool, default=False)
+    parser.add_argument("--stage01_finetune", type=str2bool, default=False)
+    parser.add_argument("--stage01_mix_probability", type=float, default=0.5)
+    parser.add_argument("--full_scratch_curr_v1", type=str2bool, default=False)
+    parser.add_argument("--full_scratch_ego20x10_curr_v1", type=str2bool, default=False)
+    parser.add_argument("--forest_pool_path", default="data/map_atlas/generated/ego20x10_curr_v1/manifest.json")
+    parser.add_argument("--resume_training", type=str, default=None)
+    parser.add_argument("--scratch_audit_trace_steps", type=int, default=2000)
+    parser.add_argument("--full_ft_v1", type=str2bool, default=False)
+    parser.add_argument("--full_ft_actor_source", type=str, default=None)
+    parser.add_argument("--full_ft_actor_freeze_steps", type=int, default=4000)
+    parser.add_argument("--full_ft_trace_dir", type=str, default=None)
+    parser.add_argument("--eval_seed_offset", type=int, default=0)
+    parser.add_argument("--eval_episode_seeds", type=int, nargs="+", default=None)
+    parser.add_argument("--eval_paired_trace_output_dir", type=str, default=None)
+    parser.add_argument("--eval_fixed_command_tape_dir", type=str, default=None)
+    parser.add_argument("--eval_fixed_command_steps", type=int, default=None)
+    parser.add_argument("--eval_command_intervention_start_step", type=int, default=None)
+    parser.add_argument("--eval_command_intervention_steps", type=int, default=None)
+    parser.add_argument("--eval_episode_len_sec", type=float, default=None)
+    parser.add_argument("--obstacle_curriculum_window", type=int, default=100)
+    parser.add_argument("--obstacle_curriculum_minimum_episodes", type=int, default=100)
+    parser.add_argument("--obstacle_curriculum_success_thresholds", type=float,
+                        nargs=3, default=(0.80, 0.75, 0.70))
+    parser.add_argument("--obstacle_curriculum_max_collision_rates", type=float,
+                        nargs=3, default=(0.15, 0.20, 0.20))
     parser.add_argument("--route_count_curriculum", type=str2bool, default=False)
     parser.add_argument(
         "--route_count_curriculum_counts", type=int, nargs=4, default=(1, 2, 3, 5)
@@ -699,6 +737,52 @@ def _make_argparser():
 
 def main():
     args = _make_argparser().parse_args()
+    if args.obstacle_curriculum_after_start and not args.start_distance_curriculum:
+        raise ValueError("Obstacle-after-start curriculum requires start-distance curriculum")
+    if args.full_scratch_curr_v1 or args.full_scratch_ego20x10_curr_v1:
+        from trainers.full_scratch import validate_scratch_args
+        validate_scratch_args(args)
+    elif args.resume_training:
+        raise ValueError("--resume_training is restricted to full_scratch_curr_v1")
+    if args.full_ft_v1:
+        if not (args.learned_upper_dslpid and args.upper_execution_model == "full" and args.upper_recurrent):
+            raise ValueError("Full FT v1 requires the recurrent learned-upper Full environment")
+        if args.load_checkpoint or not args.full_ft_actor_source:
+            raise ValueError("Full FT v1 requires actor-only source and forbids full checkpoint loading")
+        if args.start_distance_curriculum or args.stage01_finetune or args.obstacle_curriculum_after_start:
+            raise ValueError("Full FT v1 uses original starts and fixed Stage 0/3 episode mix")
+        if args.start_timesteps != 0 or args.full_ft_actor_freeze_steps <= 0:
+            raise ValueError("Full FT v1 requires pretrained-actor exploration and positive actor freeze")
+        if args.update_after >= args.full_ft_actor_freeze_steps:
+            raise ValueError("Critic warmup must start before the actor unfreezes")
+        if args.curriculum_simple_mix_probability != 0.0:
+            raise ValueError("Full FT v1 disables the base simple-obstacle mixture")
+        if args.curriculum_stage_override is not None:
+            raise ValueError("Full FT v1 stage selection is controlled by the episode mixer")
+        if args.eval_episode_seeds is not None and tuple(args.eval_episode_seeds) != tuple(range(80, 90)):
+            raise ValueError("Full FT v1 locks periodic validation to environment seeds 80–89")
+        if args.eval_episodes != 10 or args.eval_interval != 5000:
+            raise ValueError("Full FT v1 requires 10 validation maps every 5000 upper steps")
+    if args.stage01_finetune:
+        if not args.learned_upper_dslpid or args.upper_execution_model != "k1":
+            raise ValueError("Stage 0/1 finetuning requires learned-upper K1")
+        if args.start_distance_curriculum or args.evaluate_only:
+            raise ValueError("Stage 0/1 finetuning uses original starts and training mode")
+        if args.curriculum_stage_override != 1 or not args.load_checkpoint:
+            raise ValueError("Stage 0/1 finetuning requires Stage 1 override and a frozen checkpoint")
+        if not 0.0 < args.stage01_mix_probability < 1.0:
+            raise ValueError("Stage 0/1 mix probability must lie strictly between 0 and 1")
+    if args.start_distance_curriculum:
+        if not args.learned_upper_dslpid or (args.upper_execution_model != "k1" and not (args.full_scratch_curr_v1 or args.full_scratch_ego20x10_curr_v1)):
+            raise ValueError("Start distance curriculum requires K1 or audited Full scratch")
+        if args.curriculum_stage_override != 0:
+            raise ValueError("First start-distance experiment requires --curriculum_stage_override 0")
+        if args.evaluate_only:
+            raise ValueError("Evaluate saved curriculum checkpoints with the original no_route evaluation mode")
+        if args.load_checkpoint:
+            raise ValueError("Start-distance curriculum currently supports fresh training only")
+        if args.obstacle_curriculum_after_start and args.curriculum_success_gated:
+            raise ValueError("Combined curriculum uses its own obstacle gate; disable the base gate")
 
     np.random.seed(args.seed)
     random.seed(args.seed)
@@ -732,6 +816,13 @@ def main():
         args.eval_map_id if args.eval_map_id is not None else args.map_id,
         role="eval",
     )
+
+    if args.full_scratch_ego20x10_curr_v1:
+        from envs.map_atlas.forest_pool import ForestPool
+        pool = ForestPool(args.forest_pool_path)
+        args.forest_pool_fingerprint = pool.fingerprint
+        map_spec = pool.spec("train", 0, 0)
+        eval_map_spec = pool.spec("validation", 0, 0)
 
     init_xyzs = np.array(
         [[-3.5, 0.0, 1.0] if map_spec is None else map_spec.start_pos],
@@ -910,16 +1001,59 @@ def main():
     )
     if args.learned_upper_dslpid:
         if args.upper_execution_model == "full":
-            env = LearnedUpperDSLPIDForestEnv(
-                **forest_env_kwargs,
-                **upper_wrapper_kwargs,
-            )
+            if args.full_scratch_curr_v1 or args.full_scratch_ego20x10_curr_v1:
+                from envs.forest.ego_curriculum_env import EgoCurriculumFullForestEnv
+                curriculum_class = EgoCurriculumFullForestEnv if args.full_scratch_ego20x10_curr_v1 else StartObstacleCurriculumFullForestEnv
+                pool_kwargs = dict(forest_pool_path=args.forest_pool_path) if args.full_scratch_ego20x10_curr_v1 else {}
+                env = curriculum_class(
+                    **pool_kwargs,
+                    **forest_env_kwargs, **upper_wrapper_kwargs,
+                    start_curriculum_window=args.start_curriculum_window,
+                    start_curriculum_minimum_episodes=args.start_curriculum_minimum_episodes,
+                    start_curriculum_success_threshold=args.start_curriculum_success_threshold,
+                    start_curriculum_max_collision_rate=args.start_curriculum_max_collision_rate,
+                    obstacle_curriculum_window=args.obstacle_curriculum_window,
+                    obstacle_curriculum_minimum_episodes=args.obstacle_curriculum_minimum_episodes,
+                    obstacle_curriculum_success_thresholds=args.obstacle_curriculum_success_thresholds,
+                    obstacle_curriculum_max_collision_rates=args.obstacle_curriculum_max_collision_rates,
+                )
+            else:
+                env = LearnedUpperDSLPIDForestEnv(**forest_env_kwargs, **upper_wrapper_kwargs)
         else:
-            env = KinematicUpperForestEnv(
-                **forest_env_kwargs,
-                **upper_wrapper_kwargs,
-                **kinematic_wrapper_kwargs,
-            )
+            if args.start_distance_curriculum:
+                curriculum_cls = (
+                    StartObstacleCurriculumKinematicUpperForestEnv
+                    if args.obstacle_curriculum_after_start
+                    else StartCurriculumKinematicUpperForestEnv
+                )
+                obstacle_kwargs = (
+                    dict(
+                        obstacle_curriculum_window=args.obstacle_curriculum_window,
+                        obstacle_curriculum_minimum_episodes=args.obstacle_curriculum_minimum_episodes,
+                        obstacle_curriculum_success_thresholds=args.obstacle_curriculum_success_thresholds,
+                        obstacle_curriculum_max_collision_rates=args.obstacle_curriculum_max_collision_rates,
+                    ) if args.obstacle_curriculum_after_start else {}
+                )
+                env = curriculum_cls(
+                    **forest_env_kwargs,
+                    **upper_wrapper_kwargs,
+                    **kinematic_wrapper_kwargs,
+                    **obstacle_kwargs,
+                    start_curriculum_window=args.start_curriculum_window,
+                    start_curriculum_minimum_episodes=args.start_curriculum_minimum_episodes,
+                    start_curriculum_success_threshold=args.start_curriculum_success_threshold,
+                    start_curriculum_max_collision_rate=args.start_curriculum_max_collision_rate,
+                )
+                if args.obstacle_curriculum_after_start:
+                    print("[INFO] start_distance_curriculum=true; obstacle stages unlock after L4; evaluation retains original start")
+                else:
+                    print("[INFO] start_distance_curriculum=true; Stage 0 pinned; evaluation retains original start")
+            else:
+                env = KinematicUpperForestEnv(
+                    **forest_env_kwargs,
+                    **upper_wrapper_kwargs,
+                    **kinematic_wrapper_kwargs,
+                )
     else:
         if args.upper_execution_model != "full":
             raise ValueError("--upper_execution_model k0/k1 requires --learned_upper_dslpid true.")
@@ -928,8 +1062,20 @@ def main():
         env.set_curriculum_stage_override(args.curriculum_stage_override)
         print(
             f"[INFO] curriculum_stage_override={args.curriculum_stage_override}, "
-            f"protected_corridor={args.curriculum_stage_override <= 2}"
+            f"protected_corridor={not args.full_scratch_ego20x10_curr_v1 and args.curriculum_stage_override <= 2}"
         )
+    if args.stage01_finetune:
+        # Atlas map settings override constructor arguments; set the training
+        # mix after construction so resets actually sample both stages.
+        env.base_env.CURRICULUM_SIMPLE_MIX_PROBABILITY = args.stage01_mix_probability
+        print(f"[INFO] stage01_train_mix: Stage 0={args.stage01_mix_probability:.2f}, Stage 1={1.0 - args.stage01_mix_probability:.2f}")
+    if args.full_ft_v1:
+        # The training atlas specifies 20% easier-stage mixing. The Full FT
+        # contract instead mixes exactly Stage 0/3 at the episode boundary.
+        env.base_env.CURRICULUM_SIMPLE_MIX_PROBABILITY = 0.0
+        if tuple(env.base_env.ROUTE_COUNT_CURRICULUM_COUNTS) != (1, 2, 3, 5):
+            raise ValueError("Full FT v1 requires Stage 0/3 route counts of 1/5")
+        print("[INFO] full_ft_train_mix: 30% Stage 0, 70% Stage 3; no intra-stage easy-map mix")
 
     eval_env_kwargs = dict(forest_env_kwargs)
     eval_env_kwargs["map_spec"] = eval_map_spec
@@ -946,6 +1092,17 @@ def main():
         f"[INFO] action_scale={action_scale:.2f}, max_action={max_action:.3f}, "
         f"speed_penalty_weight={args.speed_penalty_weight:.4f}"
     )
+    if args.stage01_finetune and state_dim != 917:
+        raise ValueError(f"Stage 0/1 finetuning requires the frozen 917D observation, got {state_dim}D")
+    if args.full_ft_v1:
+        if state_dim != 917 or action_dim != 3 or not hasattr(env, "base_env"):
+            raise ValueError("Full FT v1 requires a 917D Full observation and 3D upper action")
+        if abs(float(env.max_reference_speed) - 0.8) > 1e-9:
+            raise ValueError("Full FT v1 requires the original 0.8 m/s planar command limit")
+        if env.upper_control_interval != 8 or int(env.lower_ctrl_freq) != 120:
+            raise ValueError("Full FT v1 requires original 15 Hz/120 Hz control cadence")
+        if abs(float(env.GOAL_TOLERANCE) - 0.2) > 1e-9 or abs(float(env.EPISODE_LEN_SEC) - 12.0) > 1e-9:
+            raise ValueError("Full FT v1 requires the original 12 s / 0.2 m terminal contract")
 
     latent_input_scale = args.latent_input_scale
     if latent_input_scale is None:
@@ -1322,7 +1479,18 @@ def main():
             grad_clip_norm=args.grad_clip_norm,
         )
 
-    if args.load_checkpoint:
+    if args.eval_paired_trace_output_dir and not args.evaluate_only:
+        raise ValueError("Paired trajectory traces require --evaluate_only true")
+    if args.eval_fixed_command_tape_dir and not args.evaluate_only:
+        raise ValueError("Fixed command tape requires --evaluate_only true")
+    if (args.eval_command_intervention_start_step is not None
+            or args.eval_command_intervention_steps is not None
+            or args.eval_episode_len_sec is not None) and not args.evaluate_only:
+        raise ValueError("Local intervention and episode-length override require --evaluate_only true")
+    if args.full_ft_v1:
+        agent.load_actor_only(args.full_ft_actor_source)
+        print(f"[INFO] full_ft_actor_only_source={args.full_ft_actor_source}; fresh_critic=true; fresh_replay=true")
+    elif args.load_checkpoint:
         agent.load(args.load_checkpoint)
         print(f"[INFO] loaded_checkpoint={args.load_checkpoint}")
 
@@ -1336,15 +1504,18 @@ def main():
             "Evaluation diagnostics are restricted to --evaluate_only true."
         )
 
-    eval_callback = EvalCallback(
-        type(env),
+    stage1_eval_callback = EvalCallback(
+        LearnedUpperDSLPIDForestEnv if args.full_scratch_curr_v1 else KinematicUpperForestEnv if args.start_distance_curriculum else type(env),
         eval_env_kwargs,
         interval=args.eval_interval,
         episodes=args.eval_episodes,
         step_sleep=args.eval_stepsleep,
         eval_gui=args.eval_gui,
         quiet=args.eval_quiet,
-        output_dir=args.log_dir,
+        output_dir=(
+            str(pathlib.Path(args.log_dir) / "full_stage3_validation")
+            if args.full_ft_v1 else args.log_dir
+        ),
         trajectory_output_dir=args.trajectory_output_dir,
         collision_diagnostic_output_dir=args.collision_diagnostic_output_dir,
         timeout_diagnostic_output_dir=args.timeout_diagnostic_output_dir,
@@ -1356,7 +1527,79 @@ def main():
         ),
         terminal_xy_q_scan_output_dir=args.eval_terminal_xy_q_scan_output_dir,
         terminal_coverage_output_dir=args.eval_terminal_coverage_output_dir,
+        fixed_curriculum_stage=(3 if args.full_ft_v1 else 1 if args.stage01_finetune else None),
+        episode_seed_offset=args.eval_seed_offset,
+        episode_seeds=tuple(range(80, 90)) if args.full_ft_v1 else args.eval_episode_seeds,
+        paired_trace_output_dir=(
+            str(pathlib.Path(args.log_dir) / "full_stage3_traces")
+            if args.full_ft_v1 else str(pathlib.Path(args.log_dir) / "current_stage_traces")
+            if args.full_scratch_curr_v1 else args.eval_paired_trace_output_dir
+        ),
+        paired_trace_step_dir=args.full_ft_v1 or args.full_scratch_curr_v1,
+        fixed_command_tape_dir=args.eval_fixed_command_tape_dir,
+        fixed_command_steps=args.eval_fixed_command_steps,
+        command_intervention_start_step=args.eval_command_intervention_start_step,
+        command_intervention_steps=args.eval_command_intervention_steps,
+        eval_episode_len_sec=args.eval_episode_len_sec,
     )
+    if args.full_scratch_curr_v1:
+        stage0_eval_callback = EvalCallback(
+            LearnedUpperDSLPIDForestEnv, eval_env_kwargs,
+            interval=args.eval_interval, episodes=args.eval_episodes,
+            step_sleep=False, eval_gui=False, quiet=args.eval_quiet,
+            output_dir=str(pathlib.Path(args.log_dir) / "stage0_7m"),
+            terminal_coverage_output_dir=str(pathlib.Path(args.log_dir) / "stage0_7m_coverage"),
+            paired_trace_output_dir=str(pathlib.Path(args.log_dir) / "stage0_7m_traces"),
+            paired_trace_step_dir=True,
+            fixed_curriculum_stage=0, episode_seed_offset=args.eval_seed_offset,
+            episode_seeds=args.eval_episode_seeds,
+        )
+        eval_callback = Stage01PairedEvalCallback(stage0_eval_callback, stage1_eval_callback)
+    elif args.stage01_finetune:
+        stage0_eval_callback = EvalCallback(
+            type(env),
+            eval_env_kwargs,
+            interval=args.eval_interval,
+            episodes=args.eval_episodes,
+            step_sleep=args.eval_stepsleep,
+            eval_gui=args.eval_gui,
+            quiet=args.eval_quiet,
+            output_dir=str(pathlib.Path(args.log_dir) / "stage0_retention"),
+            fixed_curriculum_stage=0,
+            episode_seed_offset=args.eval_seed_offset,
+        )
+        eval_callback = Stage01PairedEvalCallback(stage0_eval_callback, stage1_eval_callback)
+    elif args.full_ft_v1:
+        validation_seeds = tuple(range(80, 90))
+        full_stage0_callback = EvalCallback(
+            type(env), eval_env_kwargs,
+            interval=args.eval_interval, episodes=10,
+            step_sleep=args.eval_stepsleep, eval_gui=args.eval_gui,
+            quiet=args.eval_quiet,
+            output_dir=str(pathlib.Path(args.log_dir) / "full_stage0_validation"),
+            collision_diagnostic_output_dir=str(pathlib.Path(args.log_dir) / "full_stage0_collision_windows"),
+            fixed_curriculum_stage=0, episode_seeds=validation_seeds,
+            paired_trace_output_dir=str(pathlib.Path(args.log_dir) / "full_stage0_traces"),
+            paired_trace_step_dir=True,
+        )
+        k1_kwargs = {**eval_env_kwargs, **kinematic_wrapper_kwargs, "kinematic_model": "k1"}
+        k1_stage3_callback = EvalCallback(
+            KinematicUpperForestEnv, k1_kwargs,
+            interval=args.eval_interval, episodes=10,
+            step_sleep=args.eval_stepsleep, eval_gui=args.eval_gui,
+            quiet=args.eval_quiet,
+            output_dir=str(pathlib.Path(args.log_dir) / "k1_stage3_validation"),
+            fixed_curriculum_stage=3, episode_seeds=validation_seeds,
+        )
+        eval_callback = FullFTTripleEvalCallback(
+            stage1_eval_callback, full_stage0_callback, k1_stage3_callback,
+        )
+    else:
+        eval_callback = stage1_eval_callback
+    if args.full_scratch_ego20x10_curr_v1:
+        from trainers.callbacks.ego_pool_eval import EgoPoolEvalCallback
+        eval_env_kwargs["forest_pool_path"] = args.forest_pool_path
+        eval_callback = EgoPoolEvalCallback(eval_env_kwargs, args.log_dir, args.eval_interval)
     if args.evaluate_only:
         if args.eval_interval <= 0:
             raise ValueError("--eval_interval must be positive with --evaluate_only.")
@@ -1372,6 +1615,11 @@ def main():
         return
 
     trainer = TD3Trainer(env, agent, args)
+    if args.full_ft_v1:
+        initial_path = pathlib.Path(args.ckpt_dir) / "model_initial"
+        initial_path.parent.mkdir(parents=True, exist_ok=True)
+        agent.save(str(initial_path))
+        print(f"[Save Full FT initial] {initial_path}")
 
     trainer.add_callback(
         LoggerCallback(
@@ -1397,6 +1645,16 @@ def main():
         minimum_success_rate=args.best_min_success_rate,
         maximum_collision_rate=args.best_max_collision_rate,
         final_eval_callback=eval_callback,
+        prefer_higher_curriculum_stage=args.obstacle_curriculum_after_start,
+        minimum_retention_success_rate=(
+            1.0 if args.stage01_finetune else 0.80 if args.full_ft_v1 else None
+        ),
+        fallback_checkpoint=(
+            args.load_checkpoint if args.stage01_finetune
+            else str(pathlib.Path(args.ckpt_dir) / "model_initial") if args.full_ft_v1
+            else None
+        ),
+        enable_conservative_phase=not args.full_ft_v1,
     )
     trainer.add_callback(best_checkpoint_callback)
     trainer.add_callback(
@@ -1414,6 +1672,16 @@ def main():
     monitor_interval = args.eval_interval if args.monitor_interval is None else args.monitor_interval
     if monitor_interval > 0:
         trainer.add_callback(MonitorCallback(interval=monitor_interval))
+    if args.stage01_finetune:
+        print("[INFO] Evaluating the unchanged frozen policy on pure Stage 0 and Stage 1 before updates")
+        eval_callback.on_step(trainer, force=True)
+    elif args.full_ft_v1:
+        print("[INFO] Full FT source baseline on fixed Full Stage 0/3 and K1 Stage 3 validation maps")
+        eval_callback.on_step(trainer, force=True)
+        best_checkpoint_callback.on_step(trainer)
+    if args.full_scratch_curr_v1 or args.full_scratch_ego20x10_curr_v1:
+        from trainers.full_scratch import prepare_scratch_training
+        prepare_scratch_training(trainer)
     trainer.run()
     env.close()
 

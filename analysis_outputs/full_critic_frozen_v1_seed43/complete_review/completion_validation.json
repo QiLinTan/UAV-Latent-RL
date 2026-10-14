@@ -1,0 +1,44 @@
+{
+  "generated_at_utc": "2026-10-13T13:35:34.485011+00:00",
+  "raw_audit_inputs_unchanged": true,
+  "input_sha256": {
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_004000_deterministic.jsonl": "0eaafa2463794054212e722f5b09843915053abdad2d1f42c5b607d99c08fca5",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_004000_noise.jsonl": "b1281b101a2989cd02115ef9b360efd0aa762fcf89b1d0d4ddaa7fb5bcd5cf74",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_010000_deterministic.jsonl": "3979ac6a273acad9d04a4ecf9724ce62eb8050b1fc15705a6da275f530d257f5",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_010000_noise.jsonl": "ed03df4a20b52006de250d8c3b84c5c826c05b30f100d8e7e0c4081844475ff3",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_020000_deterministic.jsonl": "02dc3e1ce54da069f07891838eef70da155ee6d606d83e0e6c173736224458e0",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/step_020000_noise.jsonl": "12002a6e506f30ce616642eef01f8d17af8ee19a92b82be6279d8936fba2560a",
+    "analysis_outputs/full_critic_frozen_v1_seed43/audit/manifest.json": "7f109bb38a4dfd4a2615066d9d245faec5b26f841b170bb7bf89f4b08ba6a137"
+  },
+  "production_and_checkpoint_hashes_verified_in_separate_preflight": true,
+  "related_tests_passed": 12,
+  "noise_completion": {
+    "4000": {
+      "complete": true,
+      "input_records": 936,
+      "unique_records": 936,
+      "expected_records": 936,
+      "duplicate_records_ignored": 0,
+      "missing_records": 0,
+      "unexpected_records": 0
+    },
+    "10000": {
+      "complete": true,
+      "input_records": 1586,
+      "unique_records": 936,
+      "expected_records": 936,
+      "duplicate_records_ignored": 650,
+      "missing_records": 0,
+      "unexpected_records": 0
+    },
+    "20000": {
+      "complete": true,
+      "input_records": 1589,
+      "unique_records": 936,
+      "expected_records": 936,
+      "duplicate_records_ignored": 653,
+      "missing_records": 0,
+      "unexpected_records": 0
+    }
+  }
+}

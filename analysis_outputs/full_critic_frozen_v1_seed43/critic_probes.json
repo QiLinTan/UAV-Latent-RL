@@ -1,0 +1,257 @@
+[
+  {
+    "step": 4000,
+    "critic_updates": 3489,
+    "actor_updates": 0,
+    "main_replay_size": 4000,
+    "success_replay_size": 3459,
+    "success_replay_strata": {
+      "1": 1389,
+      "2": 0,
+      "3": 0,
+      "5": 2070
+    },
+    "fixed_4k_td_probe": {
+      "transitions": 512,
+      "reward_scale_already_in_replay": 0.1,
+      "mean_td_target": 1.3088489770889282,
+      "mean_twin_gap": 0.1194954439997673,
+      "q1": {
+        "mean": 1.4011095762252808,
+        "td_bias": 0.0922607034444809,
+        "td_mae": 0.2397671341896057,
+        "td_rmse": 0.946412205696106
+      },
+      "q2": {
+        "mean": 1.3563144207000732,
+        "td_bias": 0.047465454787015915,
+        "td_mae": 0.21929135918617249,
+        "td_rmse": 0.9180224537849426
+      }
+    },
+    "terminal_fit": {
+      "success": {
+        "transitions": 22,
+        "mean_scaled_reward": 24.8901424407959,
+        "q1_rmse": 4.078154563903809,
+        "q2_rmse": 4.4376606941223145
+      },
+      "failure": {
+        "transitions": 3,
+        "mean_scaled_reward": -22.04618263244629,
+        "q1_rmse": 20.742372512817383,
+        "q2_rmse": 21.098432540893555
+      }
+    },
+    "training_episode_index": 25,
+    "stage_counts": {
+      "0": 9,
+      "3": 17
+    },
+    "diagnostic_role": "training fit only; not MC value or ranking acceptance"
+  },
+  {
+    "step": 5000,
+    "critic_updates": 4489,
+    "actor_updates": 0,
+    "main_replay_size": 5000,
+    "success_replay_size": 4394,
+    "success_replay_strata": {
+      "1": 1389,
+      "2": 0,
+      "3": 0,
+      "5": 3005
+    },
+    "fixed_4k_td_probe": {
+      "transitions": 512,
+      "reward_scale_already_in_replay": 0.1,
+      "mean_td_target": 1.6228175163269043,
+      "mean_twin_gap": 0.13624970614910126,
+      "q1": {
+        "mean": 1.6794801950454712,
+        "td_bias": 0.05666275694966316,
+        "td_mae": 0.29752546548843384,
+        "td_rmse": 0.9995158314704895
+      },
+      "q2": {
+        "mean": 1.7222752571105957,
+        "td_bias": 0.09945785254240036,
+        "td_mae": 0.3107847571372986,
+        "td_rmse": 1.0060278177261353
+      }
+    },
+    "terminal_fit": {
+      "success": {
+        "transitions": 28,
+        "mean_scaled_reward": 24.898086547851562,
+        "q1_rmse": 4.604112148284912,
+        "q2_rmse": 4.743659496307373
+      },
+      "failure": {
+        "transitions": 3,
+        "mean_scaled_reward": -22.04618263244629,
+        "q1_rmse": 14.942222595214844,
+        "q2_rmse": 15.202709197998047
+      }
+    },
+    "training_episode_index": 31,
+    "stage_counts": {
+      "0": 10,
+      "3": 22
+    },
+    "diagnostic_role": "training fit only; not MC value or ranking acceptance"
+  },
+  {
+    "step": 10000,
+    "critic_updates": 9489,
+    "actor_updates": 0,
+    "main_replay_size": 10000,
+    "success_replay_size": 8062,
+    "success_replay_strata": {
+      "1": 3062,
+      "2": 0,
+      "3": 0,
+      "5": 5000
+    },
+    "fixed_4k_td_probe": {
+      "transitions": 512,
+      "reward_scale_already_in_replay": 0.1,
+      "mean_td_target": 2.601144552230835,
+      "mean_twin_gap": 0.1965232789516449,
+      "q1": {
+        "mean": 2.8375895023345947,
+        "td_bias": 0.2364448606967926,
+        "td_mae": 0.315579354763031,
+        "td_rmse": 0.48881348967552185
+      },
+      "q2": {
+        "mean": 2.7503793239593506,
+        "td_bias": 0.14923453330993652,
+        "td_mae": 0.24764570593833923,
+        "td_rmse": 0.39983659982681274
+      }
+    },
+    "terminal_fit": {
+      "success": {
+        "transitions": 58,
+        "mean_scaled_reward": 24.906099319458008,
+        "q1_rmse": 0.5526125431060791,
+        "q2_rmse": 0.47035887837409973
+      },
+      "failure": {
+        "transitions": 7,
+        "mean_scaled_reward": -24.908620834350586,
+        "q1_rmse": 8.832626342773438,
+        "q2_rmse": 6.25599479675293
+      }
+    },
+    "training_episode_index": 65,
+    "stage_counts": {
+      "0": 21,
+      "3": 45
+    },
+    "diagnostic_role": "training fit only; not MC value or ranking acceptance"
+  },
+  {
+    "step": 15000,
+    "critic_updates": 14489,
+    "actor_updates": 0,
+    "main_replay_size": 15000,
+    "success_replay_size": 9588,
+    "success_replay_strata": {
+      "1": 4588,
+      "2": 0,
+      "3": 0,
+      "5": 5000
+    },
+    "fixed_4k_td_probe": {
+      "transitions": 512,
+      "reward_scale_already_in_replay": 0.1,
+      "mean_td_target": 3.087935209274292,
+      "mean_twin_gap": 0.21806669235229492,
+      "q1": {
+        "mean": 3.0501961708068848,
+        "td_bias": -0.03773915022611618,
+        "td_mae": 0.2687172293663025,
+        "td_rmse": 0.524998128414154
+      },
+      "q2": {
+        "mean": 2.9571216106414795,
+        "td_bias": -0.13081392645835876,
+        "td_mae": 0.29725563526153564,
+        "td_rmse": 0.6485084295272827
+      }
+    },
+    "terminal_fit": {
+      "success": {
+        "transitions": 89,
+        "mean_scaled_reward": 24.89363670349121,
+        "q1_rmse": 0.7820982933044434,
+        "q2_rmse": 1.0235670804977417
+      },
+      "failure": {
+        "transitions": 8,
+        "mean_scaled_reward": -25.5450439453125,
+        "q1_rmse": 2.1709766387939453,
+        "q2_rmse": 4.565480709075928
+      }
+    },
+    "training_episode_index": 97,
+    "stage_counts": {
+      "0": 30,
+      "3": 68
+    },
+    "diagnostic_role": "training fit only; not MC value or ranking acceptance"
+  },
+  {
+    "step": 20000,
+    "critic_updates": 19489,
+    "actor_updates": 0,
+    "main_replay_size": 20000,
+    "success_replay_size": 10000,
+    "success_replay_strata": {
+      "1": 5000,
+      "2": 0,
+      "3": 0,
+      "5": 5000
+    },
+    "fixed_4k_td_probe": {
+      "transitions": 512,
+      "reward_scale_already_in_replay": 0.1,
+      "mean_td_target": 3.137338161468506,
+      "mean_twin_gap": 0.2520110607147217,
+      "q1": {
+        "mean": 3.1046841144561768,
+        "td_bias": -0.03265393152832985,
+        "td_mae": 0.24464178085327148,
+        "td_rmse": 0.42764610052108765
+      },
+      "q2": {
+        "mean": 3.0684664249420166,
+        "td_bias": -0.06887168437242508,
+        "td_mae": 0.24284732341766357,
+        "td_rmse": 0.41142070293426514
+      }
+    },
+    "terminal_fit": {
+      "success": {
+        "transitions": 118,
+        "mean_scaled_reward": 24.894527435302734,
+        "q1_rmse": 1.278760313987732,
+        "q2_rmse": 1.196357250213623
+      },
+      "failure": {
+        "transitions": 12,
+        "mean_scaled_reward": -25.6424503326416,
+        "q1_rmse": 8.805193901062012,
+        "q2_rmse": 8.982233047485352
+      }
+    },
+    "training_episode_index": 130,
+    "stage_counts": {
+      "0": 40,
+      "3": 91
+    },
+    "diagnostic_role": "training fit only; not MC value or ranking acceptance"
+  }
+]

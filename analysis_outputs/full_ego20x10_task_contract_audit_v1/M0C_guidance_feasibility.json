@@ -1,0 +1,394 @@
+{
+  "sweep": [
+    {
+      "distance": 0.3,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.16999999999999998,
+      "desired_velocity": [
+        0.16999999999999998,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.16999999999999998,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.3,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.16999999999999998,
+      "desired_velocity": [
+        0.14722431864335456,
+        0.0,
+        0.08499999999999998
+      ],
+      "best_speed_box_velocity": [
+        0.14722431864335456,
+        0.0,
+        0.08499999999999998
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.3,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.16999999999999998,
+      "desired_velocity": [
+        0.085,
+        0.0,
+        0.14722431864335456
+      ],
+      "best_speed_box_velocity": [
+        0.085,
+        0.0,
+        0.14722431864335456
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.3,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.16999999999999998,
+      "desired_velocity": [
+        1.0409497792752501e-17,
+        0.0,
+        0.16999999999999998
+      ],
+      "best_speed_box_velocity": [
+        1.0409497792752501e-17,
+        0.0,
+        0.16999999999999998
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.5,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.31,
+      "desired_velocity": [
+        0.31,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.31,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.5,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.31,
+      "desired_velocity": [
+        0.268467875173176,
+        0.0,
+        0.15499999999999997
+      ],
+      "best_speed_box_velocity": [
+        0.268467875173176,
+        0.0,
+        0.15499999999999997
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.5,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.31,
+      "desired_velocity": [
+        0.15500000000000003,
+        0.0,
+        0.26846787517317594
+      ],
+      "best_speed_box_velocity": [
+        0.15500000000000003,
+        0.0,
+        0.26846787517317594
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.5,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.31,
+      "desired_velocity": [
+        1.8982025386783976e-17,
+        0.0,
+        0.31
+      ],
+      "best_speed_box_velocity": [
+        1.8982025386783976e-17,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 0.016000000000000028
+    },
+    {
+      "distance": 0.8,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.52,
+      "desired_velocity": [
+        0.52,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.52,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.8,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.52,
+      "desired_velocity": [
+        0.45033320996790815,
+        0.0,
+        0.25999999999999995
+      ],
+      "best_speed_box_velocity": [
+        0.45033320996790815,
+        0.0,
+        0.25999999999999995
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 0.8,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.52,
+      "desired_velocity": [
+        0.26000000000000006,
+        0.0,
+        0.4503332099679081
+      ],
+      "best_speed_box_velocity": [
+        0.26000000000000006,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 3.6160118430808237
+    },
+    {
+      "distance": 0.8,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.52,
+      "desired_velocity": [
+        3.1840816777831187e-17,
+        0.0,
+        0.52
+      ],
+      "best_speed_box_velocity": [
+        3.1840816777831187e-17,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 7.7440000000000015
+    },
+    {
+      "distance": 1.0,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.6599999999999999,
+      "desired_velocity": [
+        0.6599999999999999,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.6599999999999999,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 1.0,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.6599999999999999,
+      "desired_velocity": [
+        0.5715767664977295,
+        0.0,
+        0.3299999999999999
+      ],
+      "best_speed_box_velocity": [
+        0.5715767664977295,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 0.14399999999999918
+    },
+    {
+      "distance": 1.0,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.6599999999999999,
+      "desired_velocity": [
+        0.33,
+        0.0,
+        0.5715767664977294
+      ],
+      "best_speed_box_velocity": [
+        0.33,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 11.800630416217954
+    },
+    {
+      "distance": 1.0,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.6599999999999999,
+      "desired_velocity": [
+        4.041334437186265e-17,
+        0.0,
+        0.6599999999999999
+      ],
+      "best_speed_box_velocity": [
+        4.041334437186265e-17,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 20.735999999999986
+    },
+    {
+      "distance": 1.1,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.73,
+      "desired_velocity": [
+        0.73,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.73,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 1.1,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.73,
+      "desired_velocity": [
+        0.6321985447626403,
+        0.0,
+        0.36499999999999994
+      ],
+      "best_speed_box_velocity": [
+        0.6321985447626403,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 0.3379999999999989
+    },
+    {
+      "distance": 1.1,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.73,
+      "desired_velocity": [
+        0.36500000000000005,
+        0.0,
+        0.6321985447626401
+      ],
+      "best_speed_box_velocity": [
+        0.36500000000000005,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 8.828469851393255
+    },
+    {
+      "distance": 1.1,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.73,
+      "desired_velocity": [
+        4.469960816887839e-17,
+        0.0,
+        0.73
+      ],
+      "best_speed_box_velocity": [
+        4.469960816887839e-17,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 14.791999999999977
+    },
+    {
+      "distance": 1.19,
+      "goal_direction_elevation_deg": 0,
+      "desired_speed": 0.7929999999999999,
+      "desired_velocity": [
+        0.7929999999999999,
+        0.0,
+        0.0
+      ],
+      "best_speed_box_velocity": [
+        0.7929999999999999,
+        0.0,
+        0.0
+      ],
+      "unavoidable_tracking_cost_rate": 0.0
+    },
+    {
+      "distance": 1.19,
+      "goal_direction_elevation_deg": 30,
+      "desired_speed": 0.7929999999999999,
+      "desired_velocity": [
+        0.6867581452010598,
+        0.0,
+        0.3964999999999999
+      ],
+      "best_speed_box_velocity": [
+        0.6867581452010598,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 0.07449799999999994
+    },
+    {
+      "distance": 1.19,
+      "goal_direction_elevation_deg": 60,
+      "desired_speed": 0.7929999999999999,
+      "desired_velocity": [
+        0.3965000000000001,
+        0.0,
+        0.6867581452010597
+      ],
+      "best_speed_box_velocity": [
+        0.3965000000000001,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 1.1966549030349132
+    },
+    {
+      "distance": 1.19,
+      "goal_direction_elevation_deg": 90,
+      "desired_speed": 0.7929999999999999,
+      "desired_velocity": [
+        4.855724558619255e-17,
+        0.0,
+        0.7929999999999999
+      ],
+      "best_speed_box_velocity": [
+        4.855724558619255e-17,
+        0.0,
+        0.3
+      ],
+      "unavoidable_tracking_cost_rate": 1.9443920000000012
+    }
+  ],
+  "guidance_replay_count": 2131,
+  "vertical_desired_exceeds_cap_fraction": 0.02017832003754106,
+  "global_progress_active": true,
+  "absolute_distance_reward": false,
+  "route_progress_coefficient": 0.0,
+  "goal_progress_coefficient": 8.0
+}

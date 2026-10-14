@@ -32,7 +32,11 @@ class MapAtlasTest(unittest.TestCase):
         )
         self.assertEqual(
             self.catalog.ids(split="validation"),
-            ("procedural_forest_validation_v1", "subt_tunnel_proxy_v1"),
+            (
+                "procedural_forest_multitree_validation_random_v1",
+                "procedural_forest_validation_v1",
+                "subt_tunnel_proxy_v1",
+            ),
         )
         self.assertEqual(
             self.catalog.ids(split="test"),

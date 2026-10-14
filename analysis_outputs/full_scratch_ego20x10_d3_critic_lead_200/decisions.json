@@ -1,0 +1,9 @@
+{
+  "C_executed": false,
+  "online_executed": false,
+  "formal_10k_20k_executed": false,
+  "test_policy_executions": 0,
+  "reason": "B failed preregistered preservation criterion: L0=0/20, vertical saturation=100% at Actor63 and6k. No improvement to disentangle.",
+  "critic_lead_200_sufficient": false,
+  "broader_critic_learning_hypothesis_disproved": false
+}

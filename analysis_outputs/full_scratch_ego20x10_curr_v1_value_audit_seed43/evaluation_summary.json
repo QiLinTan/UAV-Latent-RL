@@ -1,0 +1,90 @@
+{
+  "original16m": {
+    "2000": {
+      "success": 0,
+      "collision": 1,
+      "height_bound": 0,
+      "xy_bound": 0,
+      "timeout": 19,
+      "episodes": 20,
+      "success_rate": 0.0,
+      "collision_rate": 0.05,
+      "guidance_fraction": 0.0,
+      "mean_minimum_distance": 13.620244744645515,
+      "mean_final_distance": 13.620244744645515,
+      "mean_tracking_error": 0.0008874232570808462
+    },
+    "5000": {
+      "success": 0,
+      "collision": 1,
+      "height_bound": 0,
+      "xy_bound": 0,
+      "timeout": 19,
+      "episodes": 20,
+      "success_rate": 0.0,
+      "collision_rate": 0.05,
+      "guidance_fraction": 0.0,
+      "mean_minimum_distance": 13.620244744645515,
+      "mean_final_distance": 13.620244744645515,
+      "mean_tracking_error": 0.0008874232570808462
+    },
+    "6000": {
+      "success": 0,
+      "collision": 1,
+      "height_bound": 19,
+      "xy_bound": 0,
+      "timeout": 0,
+      "episodes": 20,
+      "success_rate": 0.0,
+      "collision_rate": 0.05,
+      "guidance_fraction": 0.0,
+      "mean_minimum_distance": 11.939718739977957,
+      "mean_final_distance": 11.939718739977957,
+      "mean_tracking_error": 0.0156278256491195
+    }
+  },
+  "L0": {
+    "2000": {
+      "success": 11,
+      "collision": 0,
+      "height_bound": 0,
+      "xy_bound": 9,
+      "timeout": 0,
+      "episodes": 20,
+      "success_rate": 0.55,
+      "collision_rate": 0.0,
+      "guidance_fraction": 1.0,
+      "mean_minimum_distance": 0.2934190045583496,
+      "mean_final_distance": 1.04001477171549,
+      "mean_tracking_error": 0.007264401726442257
+    },
+    "6000": {
+      "success": 0,
+      "collision": 2,
+      "height_bound": 0,
+      "xy_bound": 18,
+      "timeout": 0,
+      "episodes": 20,
+      "success_rate": 0.0,
+      "collision_rate": 0.1,
+      "guidance_fraction": 1.0,
+      "mean_minimum_distance": 0.5254132307031412,
+      "mean_final_distance": 2.7356248947528314,
+      "mean_tracking_error": 0.019543452769515614
+    },
+    "5000": {
+      "success": 11,
+      "collision": 0,
+      "height_bound": 0,
+      "xy_bound": 9,
+      "timeout": 0,
+      "episodes": 20,
+      "success_rate": 0.55,
+      "collision_rate": 0.0,
+      "guidance_fraction": 1.0,
+      "mean_minimum_distance": 0.2934190045583496,
+      "mean_final_distance": 1.04001477171549,
+      "mean_tracking_error": 0.007264401726442257
+    }
+  }
+}

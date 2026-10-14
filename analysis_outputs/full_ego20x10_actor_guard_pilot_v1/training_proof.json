@@ -1,0 +1,18 @@
+{
+  "baseline_networks_exact_A5200": {
+    "actor": true,
+    "critic": true,
+    "actor_target": true,
+    "critic_target": true
+  },
+  "same_sampling_and_target_noise": true,
+  "same_final_torch_rng": true,
+  "critic_updates_each": 200,
+  "actor_proposals_each": 100,
+  "accepted_actor_updates": {
+    "baseline": 100,
+    "step_guard": 100
+  },
+  "task_contract_unchanged": true,
+  "physical_online_training": false
+}

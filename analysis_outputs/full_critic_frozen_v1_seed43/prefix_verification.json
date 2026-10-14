@@ -1,0 +1,38 @@
+{
+  "reference": "checkpoints/full_ft_v1_unfreeze_audit_20261012/seed43/model_004000_full_snapshot.pt",
+  "reference_sha256": "d397dce0c6a356141dc4c069401ff186860ccba080dd024b19b8f2011ee90499",
+  "all_fields_exactly_equal": true,
+  "mismatches": [],
+  "fields_checked": [
+    "upper_step",
+    "actor_updates",
+    "critic_updates",
+    "actor_frozen",
+    "actor",
+    "actor_target",
+    "critic",
+    "critic_target",
+    "actor_optimizer",
+    "critic_optimizer",
+    "rng",
+    "trainer",
+    "stage_mixer",
+    "environment",
+    "base_environment",
+    "environment_rng",
+    "controller",
+    "tree_specs",
+    "target",
+    "replay",
+    "success_replay"
+  ],
+  "trajectory": {
+    "steps_checked": 4000,
+    "state": 0.0,
+    "action": 0.0,
+    "reward": 0.0,
+    "position": 0.0
+  },
+  "torch_threads": 6,
+  "seed43_prefix_replay_exception_authorized_in_previous_turn": true
+}

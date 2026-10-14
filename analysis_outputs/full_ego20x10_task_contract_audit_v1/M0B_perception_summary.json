@@ -1,0 +1,66 @@
+{
+  "0": {
+    "1.75": {
+      "samples": 60,
+      "mean_seen_trees": 0.6166666666666667,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.0,
+      "missing_path_over_1m_fraction": 0.016666666666666666,
+      "optimistic_path_hits_unknown_fraction": 0.25,
+      "maximum_actual_physical_ray_error": 0.00016715259013899697,
+      "maximum_actual_analytic_ray_error": 0.015995252489398704
+    },
+    "3.0": {
+      "samples": 60,
+      "mean_seen_trees": 1.7666666666666666,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.0,
+      "missing_path_over_1m_fraction": 0.0,
+      "optimistic_path_hits_unknown_fraction": 0.21666666666666667,
+      "maximum_actual_physical_ray_error": 0.00016715259013899697,
+      "maximum_actual_analytic_ray_error": 0.015995252489398704
+    },
+    "5.0": {
+      "samples": 60,
+      "mean_seen_trees": 3.3333333333333335,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.0,
+      "missing_path_over_1m_fraction": 0.0,
+      "optimistic_path_hits_unknown_fraction": 0.21666666666666667,
+      "maximum_actual_physical_ray_error": 0.00016715259013899697,
+      "maximum_actual_analytic_ray_error": 0.015995252489398704
+    }
+  },
+  "3": {
+    "1.75": {
+      "samples": 60,
+      "mean_seen_trees": 2.466666666666667,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.0,
+      "missing_path_over_1m_fraction": 0.23333333333333334,
+      "optimistic_path_hits_unknown_fraction": 0.6666666666666666,
+      "maximum_actual_physical_ray_error": 0.0012742386236437309,
+      "maximum_actual_analytic_ray_error": 1.0247448682785034
+    },
+    "3.0": {
+      "samples": 60,
+      "mean_seen_trees": 5.766666666666667,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.03333333333333333,
+      "missing_path_over_1m_fraction": 0.18333333333333332,
+      "optimistic_path_hits_unknown_fraction": 0.6,
+      "maximum_actual_physical_ray_error": 0.0012742386236437309,
+      "maximum_actual_analytic_ray_error": 1.0247448682785034
+    },
+    "5.0": {
+      "samples": 60,
+      "mean_seen_trees": 10.566666666666666,
+      "heading_discrepancy_over_30deg_fraction": 0.0,
+      "heading_discrepancy_over_15deg_fraction": 0.03333333333333333,
+      "missing_path_over_1m_fraction": 0.13333333333333333,
+      "optimistic_path_hits_unknown_fraction": 0.5333333333333333,
+      "maximum_actual_physical_ray_error": 0.0012742386236437309,
+      "maximum_actual_analytic_ray_error": 1.0247448682785034
+    }
+  }
+}

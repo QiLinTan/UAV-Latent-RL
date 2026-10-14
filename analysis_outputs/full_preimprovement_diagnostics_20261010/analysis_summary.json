@@ -1,0 +1,468 @@
+{
+  "p0": [
+    {
+      "training_seed": 42,
+      "map_seed": 34,
+      "first_single_command_diff_step": 8,
+      "first_three_step_command_diff_step": 22,
+      "branch_time_s": 1.4666666666666666,
+      "pre_position_difference_m": 0.12927127479831008,
+      "pre_velocity_difference_mps": 0.10360100141349693,
+      "current_ray_mean_abs_difference": 0.06857327371835709,
+      "current_ray_max_abs_difference": 0.6167033910751343,
+      "current_rays_different_over_0_05": 23,
+      "largest_ray_difference": {
+        "index": 39,
+        "elevation_degrees": 0,
+        "azimuth_degrees": 78.75
+      },
+      "k1_command_mps": [
+        0.12427059412002564,
+        0.7902250289916992,
+        0.2987301886081695
+      ],
+      "full_command_mps": [
+        0.7020653247833253,
+        0.3832627296447754,
+        0.2852338671684265
+      ],
+      "planar_heading_difference_degrees": 52.43241610731838,
+      "k1_planar_speed_mps": 0.7999367331282369,
+      "full_planar_speed_mps": 0.7998662639453424,
+      "k1_goal_lateral_command_mps": 0.7800985146370826,
+      "full_goal_lateral_command_mps": 0.3352616875347191,
+      "feature_swap": {
+        "kinematics": {
+          "input_l2": 0.2795991599559784,
+          "hybrid_command": [
+            0.6683238983154297,
+            0.4394230842590332,
+            0.2833456814289093
+          ],
+          "command_shift_from_full_mps": 0.06554414188830689,
+          "residual_to_k1_command_mps": 0.6475281347519242
+        },
+        "goal": {
+          "input_l2": 0.02922522835433483,
+          "hybrid_command": [
+            0.6989371299743653,
+            0.3889140844345093,
+            0.2840489029884338
+          ],
+          "command_shift_from_full_mps": 0.006567157210705261,
+          "residual_to_k1_command_mps": 0.701076059924784
+        },
+        "current_rays": {
+          "input_l2": 1.4795225858688354,
+          "hybrid_command": [
+            0.4306008815765381,
+            0.674106788635254,
+            0.2990521430969238
+          ],
+          "command_shift_from_full_mps": 0.3980881250744162,
+          "residual_to_k1_command_mps": 0.3276000525203859
+        },
+        "reference_state": {
+          "input_l2": 0.11782775074243546,
+          "hybrid_command": [
+            0.6930989742279053,
+            0.3991939783096314,
+            0.28713281750679015
+          ],
+          "command_shift_from_full_mps": 0.018379503222114724,
+          "residual_to_k1_command_mps": 0.6903662126944942
+        },
+        "history_rays": {
+          "input_l2": 3.267249822616577,
+          "hybrid_command": [
+            0.38516662120819095,
+            0.7011244297027588,
+            0.29631995558738705
+          ],
+          "command_shift_from_full_mps": 0.44898079028816507,
+          "residual_to_k1_command_mps": 0.27570176453416373
+        },
+        "history_command_error": {
+          "input_l2": 1.2202447652816772,
+          "hybrid_command": [
+            0.7873788833618165,
+            0.14018622636795045,
+            0.2626209855079651
+          ],
+          "command_shift_from_full_mps": 0.25860381308017094,
+          "residual_to_k1_command_mps": 0.9292830154082358
+        },
+        "all_rays": {
+          "input_l2": 3.5866293907165527,
+          "hybrid_command": [
+            0.12377402782440186,
+            0.7903645515441895,
+            0.2997959196567535
+          ],
+          "command_shift_from_full_mps": 0.7073646661411134,
+          "residual_to_k1_command_mps": 0.0011839878785354367
+        }
+      },
+      "intervention": {
+        "start_step": 22,
+        "steps": 8,
+        "prefix_exact": true,
+        "tape_command_exact": true,
+        "windows": {
+          "8_steps": {
+            "baseline_min_clearance_m": 0.3893009424209595,
+            "intervention_min_clearance_m": 0.37557119131088257,
+            "position_separation_at_common_end_m": 0.028667897983042184
+          },
+          "15_steps": {
+            "baseline_min_clearance_m": 0.27630698680877686,
+            "intervention_min_clearance_m": 0.2791266441345215,
+            "position_separation_at_common_end_m": 0.014748138254633267
+          }
+        },
+        "baseline_done_reason": "collision",
+        "intervention_done_reason": "collision",
+        "baseline_final_goal_distance_m": 2.79324497117891,
+        "intervention_final_goal_distance_m": 2.7421964480948935
+      }
+    },
+    {
+      "training_seed": 45,
+      "map_seed": 20,
+      "first_single_command_diff_step": 5,
+      "first_three_step_command_diff_step": 5,
+      "branch_time_s": 0.3333333333333333,
+      "pre_position_difference_m": 0.06924403304163348,
+      "pre_velocity_difference_mps": 0.2080818528480446,
+      "current_ray_mean_abs_difference": 0.03514543175697327,
+      "current_ray_max_abs_difference": 0.43993711471557617,
+      "current_rays_different_over_0_05": 10,
+      "largest_ray_difference": {
+        "index": 32,
+        "elevation_degrees": 0,
+        "azimuth_degrees": 0.0
+      },
+      "k1_command_mps": [
+        0.5658627986907959,
+        0.5655076503753662,
+        -0.13625939190387726
+      ],
+      "full_command_mps": [
+        0.43655095100402835,
+        0.6703863143920898,
+        -0.2808990955352783
+      ],
+      "planar_heading_difference_degrees": 11.946087870156951,
+      "k1_planar_speed_mps": 0.7999997559844926,
+      "full_planar_speed_mps": 0.7999965895844379,
+      "k1_goal_lateral_command_mps": 0.5669865888633238,
+      "full_goal_lateral_command_mps": 0.6715264818688647,
+      "feature_swap": {
+        "kinematics": {
+          "input_l2": 0.2216014564037323,
+          "hybrid_command": [
+            0.4452985286712647,
+            0.6646083354949952,
+            -0.266171658039093
+          ],
+          "command_shift_from_full_mps": 0.018077681554437456,
+          "residual_to_k1_command_mps": 0.20306128604170076
+        },
+        "goal": {
+          "input_l2": 0.01201347354799509,
+          "hybrid_command": [
+            0.4391701698303223,
+            0.6686733722686768,
+            -0.28044267296791076
+          ],
+          "command_shift_from_full_mps": 0.003162720275044524,
+          "residual_to_k1_command_mps": 0.21790595888992045
+        },
+        "current_rays": {
+          "input_l2": 1.0748929977416992,
+          "hybrid_command": [
+            0.5049440860748291,
+            0.6205068588256837,
+            -0.20944349169731138
+          ],
+          "command_shift_from_full_mps": 0.11077673190820514,
+          "residual_to_k1_command_mps": 0.1099632435840429
+        },
+        "reference_state": {
+          "input_l2": 0.10821074992418289,
+          "hybrid_command": [
+            0.44449582099914553,
+            0.6651451110839844,
+            -0.2820381224155426
+          ],
+          "command_shift_from_full_mps": 0.009585851740464842,
+          "residual_to_k1_command_mps": 0.21426386797605368
+        },
+        "history_rays": {
+          "input_l2": 1.081798791885376,
+          "hybrid_command": [
+            0.49516134262084965,
+            0.6283419132232666,
+            -0.27621030807495117
+          ],
+          "command_shift_from_full_mps": 0.0722834310403859,
+          "residual_to_k1_command_mps": 0.16891743372184095
+        },
+        "history_command_error": {
+          "input_l2": 0.12931431829929352,
+          "hybrid_command": [
+            0.43921608924865724,
+            0.6686430454254151,
+            -0.2803938388824463
+          ],
+          "command_shift_from_full_mps": 0.0032244740405817864,
+          "residual_to_k1_command_mps": 0.2178325906067985
+        },
+        "all_rays": {
+          "input_l2": 1.5250191688537598,
+          "hybrid_command": [
+            0.5427406311035157,
+            0.5877346515655518,
+            -0.1981167733669281
+          ],
+          "command_shift_from_full_mps": 0.15798879197970883,
+          "residual_to_k1_command_mps": 0.06967790078143982
+        }
+      },
+      "intervention": {
+        "start_step": 5,
+        "steps": 8,
+        "prefix_exact": true,
+        "tape_command_exact": true,
+        "windows": {
+          "8_steps": {
+            "baseline_min_clearance_m": 0.6979209184646606,
+            "intervention_min_clearance_m": 0.6737096905708313,
+            "position_separation_at_common_end_m": 0.04500389188174726
+          },
+          "15_steps": {
+            "baseline_min_clearance_m": 0.5484527349472046,
+            "intervention_min_clearance_m": 0.5066341757774353,
+            "position_separation_at_common_end_m": 0.050557822517422475
+          }
+        },
+        "baseline_done_reason": "collision",
+        "intervention_done_reason": "success",
+        "baseline_final_goal_distance_m": 1.903509306273753,
+        "intervention_final_goal_distance_m": 0.19949049758540313
+      }
+    },
+    {
+      "training_seed": 42,
+      "map_seed": 32,
+      "first_single_command_diff_step": 5,
+      "first_three_step_command_diff_step": 5,
+      "branch_time_s": 0.3333333333333333,
+      "pre_position_difference_m": 0.06690107699418248,
+      "pre_velocity_difference_mps": 0.1820545606582044,
+      "current_ray_mean_abs_difference": 0.019055655226111412,
+      "current_ray_max_abs_difference": 0.45190638303756714,
+      "current_rays_different_over_0_05": 6,
+      "largest_ray_difference": {
+        "index": 63,
+        "elevation_degrees": 0,
+        "azimuth_degrees": 348.75
+      },
+      "k1_command_mps": [
+        0.7977581024169922,
+        -0.02118445783853531,
+        -0.2984042108058929
+      ],
+      "full_command_mps": [
+        0.690783452987671,
+        0.4034514904022217,
+        -0.26706663966178895
+      ],
+      "planar_heading_difference_degrees": 31.808159647774207,
+      "k1_planar_speed_mps": 0.7980393293728529,
+      "full_planar_speed_mps": 0.7999718020213862,
+      "k1_goal_lateral_command_mps": -0.019256852476425917,
+      "full_goal_lateral_command_mps": 0.40511938404369197,
+      "feature_swap": {
+        "kinematics": {
+          "input_l2": 0.2144118845462799,
+          "hybrid_command": [
+            0.7158010005950928,
+            0.35719256401062016,
+            -0.2379611313343048
+          ],
+          "command_shift_from_full_mps": 0.06010737537269846,
+          "residual_to_k1_command_mps": 0.3918411707037562
+        },
+        "goal": {
+          "input_l2": 0.01133295614272356,
+          "hybrid_command": [
+            0.6919672966003418,
+            0.4014183521270752,
+            -0.2662989914417267
+          ],
+          "command_shift_from_full_mps": 0.0024747567021612634,
+          "residual_to_k1_command_mps": 0.4368244209022515
+        },
+        "current_rays": {
+          "input_l2": 0.7447729110717773,
+          "hybrid_command": [
+            0.6669977188110352,
+            0.4412810802459717,
+            -0.2796736121177673
+          ],
+          "command_shift_from_full_mps": 0.04643032169362738,
+          "residual_to_k1_command_mps": 0.48096100378698603
+        },
+        "reference_state": {
+          "input_l2": 0.1081789955496788,
+          "hybrid_command": [
+            0.6881758689880372,
+            0.4078816890716553,
+            -0.26829237341880796
+          ],
+          "command_shift_from_full_mps": 0.005284749550252403,
+          "residual_to_k1_command_mps": 0.443861179940825
+        },
+        "history_rays": {
+          "input_l2": 1.2106324434280396,
+          "hybrid_command": [
+            0.7798437118530274,
+            0.17709052562713623,
+            -0.2985853850841522
+          ],
+          "command_shift_from_full_mps": 0.24528442142963652,
+          "residual_to_k1_command_mps": 0.199082714673348
+        },
+        "history_command_error": {
+          "input_l2": 0.3496508002281189,
+          "hybrid_command": [
+            0.6914807319641114,
+            0.4022669792175293,
+            -0.27331631183624266
+          ],
+          "command_shift_from_full_mps": 0.006399036412288049,
+          "residual_to_k1_command_mps": 0.43730470119807363
+        },
+        "all_rays": {
+          "input_l2": 1.4213787317276,
+          "hybrid_command": [
+            0.7930298805236817,
+            0.07723302245140076,
+            -0.2990052580833435
+          ],
+          "command_shift_from_full_mps": 0.3433553496346536,
+          "residual_to_k1_command_mps": 0.09853282583343516
+        }
+      },
+      "intervention": {
+        "start_step": 5,
+        "steps": 8,
+        "prefix_exact": true,
+        "tape_command_exact": true,
+        "windows": {
+          "8_steps": {
+            "baseline_min_clearance_m": 0.5890801548957825,
+            "intervention_min_clearance_m": 0.5520605444908142,
+            "position_separation_at_common_end_m": 0.05736329655620902
+          },
+          "15_steps": {
+            "baseline_min_clearance_m": 0.31041231751441956,
+            "intervention_min_clearance_m": 0.2098712921142578,
+            "position_separation_at_common_end_m": 0.10270766908567708
+          }
+        },
+        "baseline_done_reason": "collision",
+        "intervention_done_reason": "collision",
+        "baseline_final_goal_distance_m": 6.171509226087452,
+        "intervention_final_goal_distance_m": 6.184275611321473
+      }
+    }
+  ],
+  "b": [
+    {
+      "training_seed": 45,
+      "map_seed": 25,
+      "runs": {
+        "12": {
+          "done_reason": "timeout",
+          "end_time_s": 12.016666666666666,
+          "first_guidance_entry_time_s": 8.425,
+          "first_success_ball_time_s": null,
+          "minimum_distance_m": 0.20411366419905536,
+          "minimum_distance_time_s": 12.016666666666666,
+          "radial_velocity_at_min_mps": 0.28643552711033987,
+          "tangential_velocity_at_min_mps": 0.1767991039623551,
+          "height_error_at_min_m": 0.11953435361597642,
+          "baseline_12s_prefix_exact": true
+        },
+        "14": {
+          "done_reason": "success",
+          "end_time_s": 12.033333333333333,
+          "first_guidance_entry_time_s": 8.425,
+          "first_success_ball_time_s": 12.033333333333333,
+          "minimum_distance_m": 0.19936898610492218,
+          "minimum_distance_time_s": 12.033333333333333,
+          "radial_velocity_at_min_mps": 0.28307970920134046,
+          "tangential_velocity_at_min_mps": 0.181834456921186,
+          "height_error_at_min_m": 0.11911989303177317,
+          "baseline_12s_prefix_exact": true
+        },
+        "16": {
+          "done_reason": "success",
+          "end_time_s": 12.033333333333333,
+          "first_guidance_entry_time_s": 8.425,
+          "first_success_ball_time_s": 12.033333333333333,
+          "minimum_distance_m": 0.19936898610492218,
+          "minimum_distance_time_s": 12.033333333333333,
+          "radial_velocity_at_min_mps": 0.28307970920134046,
+          "tangential_velocity_at_min_mps": 0.181834456921186,
+          "height_error_at_min_m": 0.11911989303177317,
+          "baseline_12s_prefix_exact": true
+        }
+      }
+    },
+    {
+      "training_seed": 45,
+      "map_seed": 30,
+      "runs": {
+        "12": {
+          "done_reason": "timeout",
+          "end_time_s": 12.016666666666666,
+          "first_guidance_entry_time_s": 8.358333333333333,
+          "first_success_ball_time_s": null,
+          "minimum_distance_m": 0.21750257529634986,
+          "minimum_distance_time_s": 12.016666666666666,
+          "radial_velocity_at_min_mps": 0.2935129622547615,
+          "tangential_velocity_at_min_mps": 0.16456189995295836,
+          "height_error_at_min_m": 0.1222611208878327,
+          "baseline_12s_prefix_exact": true
+        },
+        "14": {
+          "done_reason": "success",
+          "end_time_s": 12.083333333333334,
+          "first_guidance_entry_time_s": 8.358333333333333,
+          "first_success_ball_time_s": 12.083333333333334,
+          "minimum_distance_m": 0.1983257778192511,
+          "minimum_distance_time_s": 12.083333333333334,
+          "radial_velocity_at_min_mps": 0.2808715544807736,
+          "tangential_velocity_at_min_mps": 0.18516453596483978,
+          "height_error_at_min_m": 0.12042140855896422,
+          "baseline_12s_prefix_exact": true
+        },
+        "16": {
+          "done_reason": "success",
+          "end_time_s": 12.083333333333334,
+          "first_guidance_entry_time_s": 8.358333333333333,
+          "first_success_ball_time_s": 12.083333333333334,
+          "minimum_distance_m": 0.1983257778192511,
+          "minimum_distance_time_s": 12.083333333333334,
+          "radial_velocity_at_min_mps": 0.2808715544807736,
+          "tangential_velocity_at_min_mps": 0.18516453596483978,
+          "height_error_at_min_m": 0.12042140855896422,
+          "baseline_12s_prefix_exact": true
+        }
+      }
+    }
+  ]
+}

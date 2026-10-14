@@ -1,0 +1,24 @@
+{
+  "protocol_sha256": "239c251075f9b42d3314e7e8fa47bf9c60e82280b54996df99b0b5c20c031b59",
+  "source_5k_sha256": "1e0effc2bc1ccceee6fa7f74273836b4734cddf3e6abcf40d7260a019c2b5908",
+  "script_sha256": {
+    "scripts/run_ego20x10_d3.py": "cdaefbdea1465b18b6087d5656501cc85313d6021300a93749a20a03a8c2908b",
+    "scripts/evaluate_ego20x10_d3.py": "1564956706eb53d5c43956756bbf63bc6314299aec3bfff27e6d053b32e09ce3",
+    "scripts/summarize_ego20x10_d3.py": "f3e401e7a6ab1c74d7668d653edf0a95b2cc410151b18db344996bba2ea5066e",
+    "tests/test_ego20x10_d3.py": "e48d504c3ae8d9dac7f35ca33e0fecf15961492d3205ef2bf4368f02990339ba"
+  },
+  "tests_passed": 3,
+  "physical_branches": 240,
+  "validation_maps": 20,
+  "validation_physical_episodes": 200,
+  "unchanged_files": 204,
+  "unchanged": true,
+  "production_training_changes": 0,
+  "A_retraining_updates": 0,
+  "B_critic_updates_added": 1000,
+  "B_actor_updates_added": 400,
+  "test_policy_executions": 0,
+  "C_executed": false,
+  "online_executed": false,
+  "input_plan_sha256": "91bd06c48f07358a4c9309f1e08ac78263502f9835c804859bc4f097aee6501c"
+}

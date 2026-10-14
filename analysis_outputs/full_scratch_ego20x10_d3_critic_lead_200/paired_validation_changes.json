@@ -1,0 +1,2102 @@
+{
+  "A6000": {
+    "L0": {
+      "gains": 0,
+      "losses": 11,
+      "unchanged_success": 0,
+      "unchanged_failure": 9,
+      "exact_paired_discordance_p": 0.0009765625,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3793905739664757,
+          "tracking_error_change": 0.007695179986471408
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.3830555616376607,
+          "tracking_error_change": 0.015413128810006567
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4005179718181687,
+          "tracking_error_change": 0.012833226123586693
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.39918806130927753,
+          "tracking_error_change": 0.00911241166077565
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4041783980130719,
+          "tracking_error_change": 0.00976202348925686
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.32113733600531147,
+          "tracking_error_change": 0.014622947290367038
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.40240058700609965,
+          "tracking_error_change": 0.009599625835646077
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4005179718181687,
+          "tracking_error_change": 0.009205664837689708
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4068450215007445,
+          "tracking_error_change": 0.00946840130609541
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.36054998388091497,
+          "tracking_error_change": 0.014881803821281016
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.40064141791849084,
+          "tracking_error_change": 0.009207605084255784
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4005179718181687,
+          "tracking_error_change": 0.009205664837689708
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.2362494787638863,
+          "tracking_error_change": 0.014156980158639082
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.09972128599939278,
+          "tracking_error_change": 0.013879857230668674
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.346252772206304,
+          "tracking_error_change": 0.01397807027826327
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.0868303418975116,
+          "tracking_error_change": 0.014142839919061428
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.346252772206304,
+          "tracking_error_change": 0.01397807027826327
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3587572852010603,
+          "tracking_error_change": 0.027127667162927204
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4005179718181687,
+          "tracking_error_change": 0.009205664837689708
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4005179718181687,
+          "tracking_error_change": 0.009205664837689708
+        }
+      ]
+    },
+    "original16m": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.822810001471197,
+          "tracking_error_change": 0.01467226869039789
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -2.3713621405704473,
+          "tracking_error_change": 0.014394755510437958
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.736834483556585,
+          "tracking_error_change": 0.014210996717376665
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.768352240597519,
+          "tracking_error_change": 0.014233437894842318
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.8019699409762246,
+          "tracking_error_change": 0.014441704480805527
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7721068162187041,
+          "tracking_error_change": 0.01422308567373337
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7720995385140679,
+          "tracking_error_change": 0.014223242525089316
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7688794010172781,
+          "tracking_error_change": 0.014225164322242008
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7786220609484644,
+          "tracking_error_change": 0.014168918141923493
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7723342628948338,
+          "tracking_error_change": 0.014245010895236575
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.8513215771950637,
+          "tracking_error_change": 0.014237620484872317
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6190765059776417,
+          "tracking_error_change": 0.023219627365747085
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.6168791573631456,
+          "tracking_error_change": 0.014218593139184261
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7720995385140679,
+          "tracking_error_change": 0.014223242525089316
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.771838422292781,
+          "tracking_error_change": 0.01426420231325253
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7629589854414593,
+          "tracking_error_change": 0.014256593852676806
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.781198376042271,
+          "tracking_error_change": 0.014417740837511218
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7722580843111189,
+          "tracking_error_change": 0.014223347800396587
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7718472808754626,
+          "tracking_error_change": 0.014229861823964516
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.7638242905280652,
+          "tracking_error_change": 0.01447863284599337
+        }
+      ]
+    }
+  },
+  "B5325": {
+    "L0": {
+      "gains": 0,
+      "losses": 11,
+      "unchanged_success": 0,
+      "unchanged_failure": 9,
+      "exact_paired_discordance_p": 0.0009765625,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.46135766744113615,
+          "tracking_error_change": 0.00394165033343688
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0,
+          "tracking_error_change": 0.016430676578050796
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.005969996453749201
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6416981038260401,
+          "tracking_error_change": 0.005927135471780136
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6410412368221241,
+          "tracking_error_change": 0.006399359841984283
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0810725885030642,
+          "tracking_error_change": 0.009785696748097646
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6422140100346119,
+          "tracking_error_change": 0.0062455535212403105
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.012864098405866817
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6423279091135032,
+          "tracking_error_change": 0.006055711263451155
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.03196603447618518,
+          "tracking_error_change": 0.021703200093089
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.005969981220796498
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.0059699820421511285
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.23796193620168454,
+          "tracking_error_change": 0.016906535814521007
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.41159978203504105,
+          "tracking_error_change": 0.010058583191380005
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3733812872189345,
+          "tracking_error_change": 0.011137662021149677
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.26923147824052623,
+          "tracking_error_change": 0.010020683429266113
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3733812872189345,
+          "tracking_error_change": 0.009969112829285098
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3858962819002608,
+          "tracking_error_change": 0.009893434313438587
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.005961524429776013
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.011350217957920905
+        }
+      ]
+    },
+    "original16m": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.3084595385450157,
+          "tracking_error_change": 0.018806060343812506
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 1.7259201923983714,
+          "tracking_error_change": 0.01849553570838058
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.460313053639993,
+          "tracking_error_change": 0.018827297340323457
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.428857040908966,
+          "tracking_error_change": 0.01888270972049188
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.363048197639751,
+          "tracking_error_change": 0.01882917596454415
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.423704181287375,
+          "tracking_error_change": 0.01887086056018105
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.4171066494419957,
+          "tracking_error_change": 0.033236160150051756
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839990251366248
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.345453415389521,
+          "tracking_error_change": 0.018841249221629077
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.314162849186731,
+          "tracking_error_change": 0.018827162597797254
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.571008557461461,
+          "tracking_error_change": 0.01881106995298817
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.4275808981189115,
+          "tracking_error_change": 0.018834549964245818
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.409106543611564,
+          "tracking_error_change": 0.01885515057950647
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.018839459195759842
+        }
+      ]
+    }
+  },
+  "B5600": {
+    "L0": {
+      "gains": 0,
+      "losses": 11,
+      "unchanged_success": 0,
+      "unchanged_failure": 9,
+      "exact_paired_discordance_p": 0.0009765625,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.46135766744113615,
+          "tracking_error_change": 0.004081973882408725
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0,
+          "tracking_error_change": 0.01763027441088146
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.006091864086094885
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6416981038260401,
+          "tracking_error_change": 0.006049924063652654
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6410412368221241,
+          "tracking_error_change": 0.006522536040374094
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0810725885030642,
+          "tracking_error_change": 0.009917753532323059
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6422140100346119,
+          "tracking_error_change": 0.006641795971883307
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.013612902948170545
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6423279091135032,
+          "tracking_error_change": 0.00618136017496472
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.03196603447618518,
+          "tracking_error_change": 0.022523326776285525
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.0060918022789015445
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.006091813170885281
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.23796193620168454,
+          "tracking_error_change": 0.009975997821850765
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.41159978203504105,
+          "tracking_error_change": 0.010181925118654983
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3733812872189345,
+          "tracking_error_change": 0.010098223823602212
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.26923147824052623,
+          "tracking_error_change": 0.010163837760046857
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3733812872189345,
+          "tracking_error_change": 0.010087576065911897
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3858962819002608,
+          "tracking_error_change": 0.010026937971927496
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.006107436777236273
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "height_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.6431381379883039,
+          "tracking_error_change": 0.006122096064575044
+        }
+      ]
+    },
+    "original16m": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.3084595385450157,
+          "tracking_error_change": 0.019046934845157713
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 1.7259201923983714,
+          "tracking_error_change": 0.0187338435146591
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.460313053639993,
+          "tracking_error_change": 0.019065426332419148
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.428857040908966,
+          "tracking_error_change": 0.019180409282242034
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.363048197639751,
+          "tracking_error_change": 0.019055265037494912
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.423704181287375,
+          "tracking_error_change": 0.019098214096320787
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.4171066494419957,
+          "tracking_error_change": 0.03348531668761409
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907831598953112
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.345453415389521,
+          "tracking_error_change": 0.019079565408227864
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.314162849186731,
+          "tracking_error_change": 0.01906543880442833
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.571008557461461,
+          "tracking_error_change": 0.019067867698015942
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.4275808981189115,
+          "tracking_error_change": 0.019076208289234137
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.409106543611564,
+          "tracking_error_change": 0.01910498063287247
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.42504799868251,
+          "tracking_error_change": 0.01907777538235863
+        }
+      ]
+    }
+  },
+  "B6000": {
+    "L0": {
+      "gains": 0,
+      "losses": 11,
+      "unchanged_success": 0,
+      "unchanged_failure": 9,
+      "exact_paired_discordance_p": 0.0009765625,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.38126300034621496,
+          "tracking_error_change": 0.007496169954748274
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.31478515389691086,
+          "tracking_error_change": 0.014744354440845472
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4069302767902837,
+          "tracking_error_change": 0.012559016148482226
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.40566868387294686,
+          "tracking_error_change": 0.008966425215277199
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4066601820238131,
+          "tracking_error_change": 0.009383735653317694
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.31611192887744455,
+          "tracking_error_change": 0.014112465881522021
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "collision",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4077486339005593,
+          "tracking_error_change": 0.020695940491572674
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4069302767902837,
+          "tracking_error_change": 0.008915127016627708
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.40947819498683696,
+          "tracking_error_change": 0.009098762854005609
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.3347855611103323,
+          "tracking_error_change": 0.014334918589053796
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4067437532037972,
+          "tracking_error_change": 0.008909343473824771
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4069302767902837,
+          "tracking_error_change": 0.008915127016627708
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.2362494787638863,
+          "tracking_error_change": 0.01407203805901845
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.09611080215440926,
+          "tracking_error_change": 0.013520284326948954
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.346448852690874,
+          "tracking_error_change": 0.013864000333457234
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.09598605421574347,
+          "tracking_error_change": 0.013751659321975702
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.346448852690874,
+          "tracking_error_change": 0.013864000333457234
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.3589774308931444,
+          "tracking_error_change": 0.02689931059862979
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4069302767902837,
+          "tracking_error_change": 0.008915127016627708
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "success",
+          "candidate_outcome": "xy_bound",
+          "initial_success": true,
+          "candidate_success": false,
+          "minimum_distance_change": 0.4069302767902837,
+          "tracking_error_change": 0.008915127016627708
+        }
+      ]
+    },
+    "original16m": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 1.5469852983853443,
+          "tracking_error_change": 0.042019089544317774
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.6032107705835354,
+          "tracking_error_change": 0.022012420418393405
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.8998609065688061,
+          "tracking_error_change": 0.019620829397074522
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9325884557400261,
+          "tracking_error_change": 0.019446371839305778
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 1.3673282773047575,
+          "tracking_error_change": 0.03730523372792053
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9373141010921806,
+          "tracking_error_change": 0.019517869847821428
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9328274711267852,
+          "tracking_error_change": 0.019846200280613346
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.30429865932330635,
+          "tracking_error_change": 0.02419295853312951
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.940992768843353,
+          "tracking_error_change": 0.019410931515925885
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9366337620352407,
+          "tracking_error_change": 0.01944665201226167
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.01622834532823,
+          "tracking_error_change": 0.019448442038130904
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.5307801097013805,
+          "tracking_error_change": 0.024350312761413476
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.7912070377865987,
+          "tracking_error_change": 0.019389609998387517
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9366337620352407,
+          "tracking_error_change": 0.01944665201226167
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.944458681354206,
+          "tracking_error_change": 0.019613107048910363
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 1.8041953795053125,
+          "tracking_error_change": 0.03399736309975222
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9312440313329535,
+          "tracking_error_change": 0.020501989667548504
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9366337620352407,
+          "tracking_error_change": 0.01944665201226167
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.9368799800739183,
+          "tracking_error_change": 0.01956434671220225
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "timeout",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.953310897395168,
+          "tracking_error_change": 0.01976431664358072
+        }
+      ]
+    }
+  },
+  "B6000_vs_A6000": {
+    "L0": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0018724263797392782,
+          "tracking_error_change": -0.000199010031723134
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.06827040774074983,
+          "tracking_error_change": -0.0006687743691610945
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006412304972114979,
+          "tracking_error_change": -0.0002742099751044669
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006480622563669325,
+          "tracking_error_change": -0.00014598644549845136
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0024817840107411726,
+          "tracking_error_change": -0.00037828783593916657
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.005025407127866893,
+          "tracking_error_change": -0.000510481408845017
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.005348046894459668,
+          "tracking_error_change": 0.011096314655926597
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006412304972114979,
+          "tracking_error_change": -0.0002905378210620001
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0026331734860924882,
+          "tracking_error_change": -0.0003696384520898016
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.025764422770582662,
+          "tracking_error_change": -0.0005468852322272205
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006102335285306348,
+          "tracking_error_change": -0.00029826161043101235
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006412304972114979,
+          "tracking_error_change": -0.0002905378210620001
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.0,
+          "tracking_error_change": -8.494209962063223e-05
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.0036104838449835253,
+          "tracking_error_change": -0.00035957290371971956
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.00019608048456998262,
+          "tracking_error_change": -0.00011406994480603685
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -0.009155712318231868,
+          "tracking_error_change": -0.000391180597085726
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.00019608048456998262,
+          "tracking_error_change": -0.00011406994480603685
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.00022014569208406165,
+          "tracking_error_change": -0.00022835656429741336
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006412304972114979,
+          "tracking_error_change": -0.0002905378210620001
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "xy_bound",
+          "candidate_outcome": "xy_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.006412304972114979,
+          "tracking_error_change": -0.0002905378210620001
+        }
+      ]
+    },
+    "original16m": {
+      "gains": 0,
+      "losses": 0,
+      "unchanged_success": 0,
+      "unchanged_failure": 20,
+      "exact_paired_discordance_p": 1.0,
+      "maps": [
+        {
+          "map_index": 0,
+          "map_id": "ego_forest_20x10_seed2000_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 3.3697952998565412,
+          "tracking_error_change": 0.02734682085391988
+        },
+        {
+          "map_index": 1,
+          "map_id": "ego_forest_20x10_seed2001_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.7681513699869118,
+          "tracking_error_change": 0.007617664907955447
+        },
+        {
+          "map_index": 2,
+          "map_id": "ego_forest_20x10_seed2002_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8369735769877789,
+          "tracking_error_change": 0.005409832679697859
+        },
+        {
+          "map_index": 3,
+          "map_id": "ego_forest_20x10_seed2003_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8357637848574928,
+          "tracking_error_change": 0.00521293394446346
+        },
+        {
+          "map_index": 4,
+          "map_id": "ego_forest_20x10_seed2004_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 3.169298218280982,
+          "tracking_error_change": 0.022863529247115003
+        },
+        {
+          "map_index": 5,
+          "map_id": "ego_forest_20x10_seed2005_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8347927151265235,
+          "tracking_error_change": 0.00529478417408806
+        },
+        {
+          "map_index": 6,
+          "map_id": "ego_forest_20x10_seed2006_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8392720673872827,
+          "tracking_error_change": 0.005622957755524032
+        },
+        {
+          "map_index": 7,
+          "map_id": "ego_forest_20x10_seed2007_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 2.0731780603405845,
+          "tracking_error_change": 0.0099677942108875
+        },
+        {
+          "map_index": 8,
+          "map_id": "ego_forest_20x10_seed2008_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8376292921051114,
+          "tracking_error_change": 0.00524201337400239
+        },
+        {
+          "map_index": 9,
+          "map_id": "ego_forest_20x10_seed2009_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.835700500859593,
+          "tracking_error_change": 0.005201641117025096
+        },
+        {
+          "map_index": 10,
+          "map_id": "ego_forest_20x10_seed2010_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8350932318668338,
+          "tracking_error_change": 0.005210821553258586
+        },
+        {
+          "map_index": 11,
+          "map_id": "ego_forest_20x10_seed2011_v1",
+          "initial_outcome": "collision",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": -1.1498566156790222,
+          "tracking_error_change": 0.0011306853956663913
+        },
+        {
+          "map_index": 12,
+          "map_id": "ego_forest_20x10_seed2012_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8256721195765468,
+          "tracking_error_change": 0.005171016859203258
+        },
+        {
+          "map_index": 13,
+          "map_id": "ego_forest_20x10_seed2013_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8354657764788271,
+          "tracking_error_change": 0.005223409487172355
+        },
+        {
+          "map_index": 14,
+          "map_id": "ego_forest_20x10_seed2014_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.827379740938575,
+          "tracking_error_change": 0.005348904735657835
+        },
+        {
+          "map_index": 15,
+          "map_id": "ego_forest_20x10_seed2015_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "collision",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 3.567154364946772,
+          "tracking_error_change": 0.019740769247075417
+        },
+        {
+          "map_index": 16,
+          "map_id": "ego_forest_20x10_seed2016_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8499543447093174,
+          "tracking_error_change": 0.006084248830037286
+        },
+        {
+          "map_index": 17,
+          "map_id": "ego_forest_20x10_seed2017_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8356243222758781,
+          "tracking_error_change": 0.005223304211865084
+        },
+        {
+          "map_index": 18,
+          "map_id": "ego_forest_20x10_seed2018_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8349673008015444,
+          "tracking_error_change": 0.005334484888237734
+        },
+        {
+          "map_index": 19,
+          "map_id": "ego_forest_20x10_seed2019_v1",
+          "initial_outcome": "height_bound",
+          "candidate_outcome": "height_bound",
+          "initial_success": false,
+          "candidate_success": false,
+          "minimum_distance_change": 0.8105133931328972,
+          "tracking_error_change": 0.005285683797587351
+        }
+      ]
+    }
+  }
+}

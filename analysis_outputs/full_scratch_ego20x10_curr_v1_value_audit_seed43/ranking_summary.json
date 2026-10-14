@@ -1,0 +1,458 @@
+{
+  "near": {
+    "frozen_actor_6k": {
+      "q1_H30": {
+        "states": 3,
+        "concordant": 8,
+        "discordant": 22,
+        "ties": 0,
+        "concordance_fraction": 0.26666666666666666,
+        "mean_spearman": -0.5666666666666665,
+        "top_action_agreement": 0
+      },
+      "q1_H90": {
+        "states": 3,
+        "concordant": 8,
+        "discordant": 22,
+        "ties": 0,
+        "concordance_fraction": 0.26666666666666666,
+        "mean_spearman": -0.5666666666666665,
+        "top_action_agreement": 0
+      },
+      "q2_H30": {
+        "states": 3,
+        "concordant": 7,
+        "discordant": 23,
+        "ties": 0,
+        "concordance_fraction": 0.23333333333333334,
+        "mean_spearman": -0.6999999999999998,
+        "top_action_agreement": 0
+      },
+      "q2_H90": {
+        "states": 3,
+        "concordant": 7,
+        "discordant": 23,
+        "ties": 0,
+        "concordance_fraction": 0.23333333333333334,
+        "mean_spearman": -0.6999999999999998,
+        "top_action_agreement": 0
+      },
+      "q_min_H30": {
+        "states": 3,
+        "concordant": 8,
+        "discordant": 22,
+        "ties": 0,
+        "concordance_fraction": 0.26666666666666666,
+        "mean_spearman": -0.5666666666666665,
+        "top_action_agreement": 0
+      },
+      "q_min_H90": {
+        "states": 3,
+        "concordant": 8,
+        "discordant": 22,
+        "ties": 0,
+        "concordance_fraction": 0.26666666666666666,
+        "mean_spearman": -0.5666666666666665,
+        "top_action_agreement": 0
+      }
+    },
+    "waypoint_height_feedback": {
+      "q1_H30": {
+        "states": 3,
+        "concordant": 10,
+        "discordant": 10,
+        "ties": 10,
+        "concordance_fraction": 0.5,
+        "mean_spearman": 0.0,
+        "top_action_agreement": 0
+      },
+      "q1_H90": {
+        "states": 3,
+        "concordant": 16,
+        "discordant": 4,
+        "ties": 10,
+        "concordance_fraction": 0.8,
+        "mean_spearman": 0.5270462766947298,
+        "top_action_agreement": 1
+      },
+      "q2_H30": {
+        "states": 3,
+        "concordant": 11,
+        "discordant": 9,
+        "ties": 10,
+        "concordance_fraction": 0.55,
+        "mean_spearman": 0.1178511301977579,
+        "top_action_agreement": 0
+      },
+      "q2_H90": {
+        "states": 3,
+        "concordant": 15,
+        "discordant": 5,
+        "ties": 10,
+        "concordance_fraction": 0.75,
+        "mean_spearman": 0.4091951464969719,
+        "top_action_agreement": 1
+      },
+      "q_min_H30": {
+        "states": 3,
+        "concordant": 10,
+        "discordant": 10,
+        "ties": 10,
+        "concordance_fraction": 0.5,
+        "mean_spearman": 0.0,
+        "top_action_agreement": 0
+      },
+      "q_min_H90": {
+        "states": 3,
+        "concordant": 16,
+        "discordant": 4,
+        "ties": 10,
+        "concordance_fraction": 0.8,
+        "mean_spearman": 0.5270462766947298,
+        "top_action_agreement": 1
+      }
+    }
+  },
+  "far": {
+    "frozen_actor_6k": {
+      "q1_H30": {
+        "states": 4,
+        "concordant": 0,
+        "discordant": 27,
+        "ties": 13,
+        "concordance_fraction": 0.0,
+        "mean_spearman": -0.8267766952966368,
+        "top_action_agreement": 0
+      },
+      "q1_H90": {
+        "states": 4,
+        "concordant": 2,
+        "discordant": 30,
+        "ties": 8,
+        "concordance_fraction": 0.0625,
+        "mean_spearman": -0.8017766952966369,
+        "top_action_agreement": 0
+      },
+      "q2_H30": {
+        "states": 4,
+        "concordant": 0,
+        "discordant": 27,
+        "ties": 13,
+        "concordance_fraction": 0.0,
+        "mean_spearman": -0.8267766952966368,
+        "top_action_agreement": 0
+      },
+      "q2_H90": {
+        "states": 4,
+        "concordant": 2,
+        "discordant": 30,
+        "ties": 8,
+        "concordance_fraction": 0.0625,
+        "mean_spearman": -0.8017766952966369,
+        "top_action_agreement": 0
+      },
+      "q_min_H30": {
+        "states": 4,
+        "concordant": 0,
+        "discordant": 27,
+        "ties": 13,
+        "concordance_fraction": 0.0,
+        "mean_spearman": -0.8267766952966368,
+        "top_action_agreement": 0
+      },
+      "q_min_H90": {
+        "states": 4,
+        "concordant": 2,
+        "discordant": 30,
+        "ties": 8,
+        "concordance_fraction": 0.0625,
+        "mean_spearman": -0.8017766952966369,
+        "top_action_agreement": 0
+      }
+    },
+    "waypoint_height_feedback": {
+      "q1_H30": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      },
+      "q1_H90": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      },
+      "q2_H30": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      },
+      "q2_H90": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      },
+      "q_min_H30": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      },
+      "q_min_H90": {
+        "states": 4,
+        "concordant": 12,
+        "discordant": 10,
+        "ties": 18,
+        "concordance_fraction": 0.5454545454545454,
+        "mean_spearman": 0.05839246793769068,
+        "top_action_agreement": 1
+      }
+    }
+  },
+  "above": {
+    "frozen_actor_6k": {
+      "q1_H30": {
+        "states": 5,
+        "concordant": 28,
+        "discordant": 16,
+        "ties": 6,
+        "concordance_fraction": 0.6363636363636364,
+        "mean_spearman": 0.11857864376269048,
+        "top_action_agreement": 2
+      },
+      "q1_H90": {
+        "states": 5,
+        "concordant": 28,
+        "discordant": 16,
+        "ties": 6,
+        "concordance_fraction": 0.6363636363636364,
+        "mean_spearman": 0.11857864376269048,
+        "top_action_agreement": 2
+      },
+      "q2_H30": {
+        "states": 5,
+        "concordant": 17,
+        "discordant": 27,
+        "ties": 6,
+        "concordance_fraction": 0.38636363636363635,
+        "mean_spearman": -0.36142135623730953,
+        "top_action_agreement": 1
+      },
+      "q2_H90": {
+        "states": 5,
+        "concordant": 17,
+        "discordant": 27,
+        "ties": 6,
+        "concordance_fraction": 0.38636363636363635,
+        "mean_spearman": -0.36142135623730953,
+        "top_action_agreement": 1
+      },
+      "q_min_H30": {
+        "states": 5,
+        "concordant": 28,
+        "discordant": 16,
+        "ties": 6,
+        "concordance_fraction": 0.6363636363636364,
+        "mean_spearman": 0.11857864376269048,
+        "top_action_agreement": 2
+      },
+      "q_min_H90": {
+        "states": 5,
+        "concordant": 28,
+        "discordant": 16,
+        "ties": 6,
+        "concordance_fraction": 0.6363636363636364,
+        "mean_spearman": 0.11857864376269048,
+        "top_action_agreement": 2
+      }
+    },
+    "waypoint_height_feedback": {
+      "q1_H30": {
+        "states": 5,
+        "concordant": 6,
+        "discordant": 18,
+        "ties": 26,
+        "concordance_fraction": 0.25,
+        "mean_spearman": -0.34641016151377546,
+        "top_action_agreement": 1
+      },
+      "q1_H90": {
+        "states": 5,
+        "concordant": 6,
+        "discordant": 18,
+        "ties": 26,
+        "concordance_fraction": 0.25,
+        "mean_spearman": -0.34641016151377546,
+        "top_action_agreement": 2
+      },
+      "q2_H30": {
+        "states": 5,
+        "concordant": 3,
+        "discordant": 21,
+        "ties": 26,
+        "concordance_fraction": 0.125,
+        "mean_spearman": -0.5585421958697396,
+        "top_action_agreement": 0
+      },
+      "q2_H90": {
+        "states": 5,
+        "concordant": 1,
+        "discordant": 23,
+        "ties": 26,
+        "concordance_fraction": 0.041666666666666664,
+        "mean_spearman": -0.6999635521070492,
+        "top_action_agreement": 1
+      },
+      "q_min_H30": {
+        "states": 5,
+        "concordant": 6,
+        "discordant": 18,
+        "ties": 26,
+        "concordance_fraction": 0.25,
+        "mean_spearman": -0.34641016151377546,
+        "top_action_agreement": 1
+      },
+      "q_min_H90": {
+        "states": 5,
+        "concordant": 6,
+        "discordant": 18,
+        "ties": 26,
+        "concordance_fraction": 0.25,
+        "mean_spearman": -0.34641016151377546,
+        "top_action_agreement": 2
+      }
+    }
+  },
+  "below": {
+    "frozen_actor_6k": {
+      "q1_H30": {
+        "states": 4,
+        "concordant": 18,
+        "discordant": 18,
+        "ties": 4,
+        "concordance_fraction": 0.5,
+        "mean_spearman": 0.04999999999999999,
+        "top_action_agreement": 1
+      },
+      "q1_H90": {
+        "states": 4,
+        "concordant": 20,
+        "discordant": 18,
+        "ties": 2,
+        "concordance_fraction": 0.5263157894736842,
+        "mean_spearman": 0.04999999999999999,
+        "top_action_agreement": 1
+      },
+      "q2_H30": {
+        "states": 4,
+        "concordant": 1,
+        "discordant": 35,
+        "ties": 4,
+        "concordance_fraction": 0.027777777777777776,
+        "mean_spearman": -0.85,
+        "top_action_agreement": 0
+      },
+      "q2_H90": {
+        "states": 4,
+        "concordant": 3,
+        "discordant": 35,
+        "ties": 2,
+        "concordance_fraction": 0.07894736842105263,
+        "mean_spearman": -0.85,
+        "top_action_agreement": 0
+      },
+      "q_min_H30": {
+        "states": 4,
+        "concordant": 18,
+        "discordant": 18,
+        "ties": 4,
+        "concordance_fraction": 0.5,
+        "mean_spearman": 0.04999999999999999,
+        "top_action_agreement": 1
+      },
+      "q_min_H90": {
+        "states": 4,
+        "concordant": 20,
+        "discordant": 18,
+        "ties": 2,
+        "concordance_fraction": 0.5263157894736842,
+        "mean_spearman": 0.04999999999999999,
+        "top_action_agreement": 1
+      }
+    },
+    "waypoint_height_feedback": {
+      "q1_H30": {
+        "states": 4,
+        "concordant": 4,
+        "discordant": 22,
+        "ties": 14,
+        "concordance_fraction": 0.15384615384615385,
+        "mean_spearman": -0.5140713046747297,
+        "top_action_agreement": 1
+      },
+      "q1_H90": {
+        "states": 4,
+        "concordant": 10,
+        "discordant": 16,
+        "ties": 14,
+        "concordance_fraction": 0.38461538461538464,
+        "mean_spearman": -0.11878659715368223,
+        "top_action_agreement": 1
+      },
+      "q2_H30": {
+        "states": 4,
+        "concordant": 18,
+        "discordant": 8,
+        "ties": 14,
+        "concordance_fraction": 0.6923076923076923,
+        "mean_spearman": 0.3932830462427465,
+        "top_action_agreement": 1
+      },
+      "q2_H90": {
+        "states": 4,
+        "concordant": 24,
+        "discordant": 2,
+        "ties": 14,
+        "concordance_fraction": 0.9230769230769231,
+        "mean_spearman": 0.788567753763794,
+        "top_action_agreement": 1
+      },
+      "q_min_H30": {
+        "states": 4,
+        "concordant": 4,
+        "discordant": 22,
+        "ties": 14,
+        "concordance_fraction": 0.15384615384615385,
+        "mean_spearman": -0.5140713046747297,
+        "top_action_agreement": 1
+      },
+      "q_min_H90": {
+        "states": 4,
+        "concordant": 10,
+        "discordant": 16,
+        "ties": 14,
+        "concordance_fraction": 0.38461538461538464,
+        "mean_spearman": -0.11878659715368223,
+        "top_action_agreement": 1
+      }
+    }
+  }
+}

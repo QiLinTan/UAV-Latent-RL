@@ -27,6 +27,7 @@ from trainers.terminal_coverage_diagnostics import (
     summarize_terminal_episode,
 )
 from trainers.upper_trajectory_export import export_upper_trajectory
+from trainers.paired_trajectory_trace import PairedTrajectoryTrace
 
 
 @contextlib.contextmanager
@@ -91,6 +92,67 @@ def _trajectory_obstacle_specs(env):
     ]
 
 
+class Stage01PairedEvalCallback:
+    """Evaluate retention and adaptation on separate, unmixed map sets."""
+
+    def __init__(self, stage0_callback, stage1_callback):
+        self.stage0_callback = stage0_callback
+        self.stage1_callback = stage1_callback
+
+    def on_step(self, trainer, *, force=False):
+        if not force and trainer.total_steps % self.stage1_callback.interval != 0:
+            return
+        self.stage0_callback.on_step(trainer, force=True)
+        retention = dict(trainer.last_eval_info or {})
+        self.stage1_callback.on_step(trainer, force=True)
+        trainer.last_eval_info.update({
+            "eval/stage0_success_rate": retention["eval/success_rate"],
+            "eval/stage0_collision_rate": retention["eval/collision_rate"],
+        })
+
+    def on_episode_end(self, trainer):
+        pass
+
+    def on_train_end(self, trainer):
+        pass
+
+
+class FullFTTripleEvalCallback:
+    """Primary Full Stage 3 validation plus Full Stage 0 and K1 retention."""
+
+    def __init__(self, full_stage3, full_stage0, k1_stage3):
+        self.full_stage3 = full_stage3
+        self.full_stage0 = full_stage0
+        self.k1_stage3 = k1_stage3
+        self.interval = full_stage3.interval
+
+    def on_step(self, trainer, *, force=False):
+        if not force and trainer.total_steps % self.interval != 0:
+            return
+        self.full_stage3.on_step(trainer, force=True)
+        primary = dict(trainer.last_eval_info or {})
+        self.full_stage0.on_step(trainer, force=True)
+        stage0 = dict(trainer.last_eval_info or {})
+        self.k1_stage3.on_step(trainer, force=True)
+        k1 = dict(trainer.last_eval_info or {})
+        trainer.last_eval_info = {
+            **primary,
+            "eval/full_stage3_success_rate": primary["eval/success_rate"],
+            "eval/full_stage3_collision_rate": primary["eval/collision_rate"],
+            "eval/stage0_success_rate": stage0["eval/success_rate"],
+            "eval/full_stage0_collision_rate": stage0["eval/collision_rate"],
+            "eval/k1_stage3_success_rate": k1["eval/success_rate"],
+            "eval/k1_stage3_collision_rate": k1["eval/collision_rate"],
+        }
+        trainer.last_eval_step = trainer.total_steps
+
+    def on_episode_end(self, trainer):
+        pass
+
+    def on_train_end(self, trainer):
+        pass
+
+
 class EvalCallback:
     def __init__(
         self,
@@ -111,9 +173,48 @@ class EvalCallback:
         action_interface_audit_output_dir=None,
         terminal_xy_q_scan_output_dir=None,
         terminal_coverage_output_dir=None,
+        fixed_curriculum_stage=None,
+        episode_seed_offset=0,
+        episode_seeds=None,
+        paired_trace_output_dir=None,
+        paired_trace_step_dir=False,
+        fixed_command_tape_dir=None,
+        fixed_command_steps=None,
+        command_intervention_start_step=None,
+        command_intervention_steps=None,
+        eval_episode_len_sec=None,
     ):
         self.env_cls = env_cls
         self.env_kwargs = dict(env_kwargs)
+        self.fixed_curriculum_stage = fixed_curriculum_stage
+        self.episode_seed_offset = int(episode_seed_offset)
+        self.episode_seeds = None if episode_seeds is None else tuple(int(seed) for seed in episode_seeds)
+        if self.episode_seeds is not None and not self.episode_seeds:
+            raise ValueError("episode_seeds must be nonempty")
+        self.paired_trace_output_dir = None if paired_trace_output_dir is None else os.fspath(paired_trace_output_dir)
+        self.paired_trace_step_dir = bool(paired_trace_step_dir)
+        self.fixed_command_tape_dir = None if fixed_command_tape_dir is None else os.fspath(fixed_command_tape_dir)
+        self.fixed_command_steps = None if fixed_command_steps is None else int(fixed_command_steps)
+        if self.fixed_command_steps is not None and self.fixed_command_steps <= 0:
+            raise ValueError("fixed_command_steps must be positive")
+        self.command_intervention_start_step = (
+            None if command_intervention_start_step is None else int(command_intervention_start_step)
+        )
+        self.command_intervention_steps = (
+            None if command_intervention_steps is None else int(command_intervention_steps)
+        )
+        if self.command_intervention_start_step is not None:
+            if self.fixed_command_tape_dir is None or self.command_intervention_start_step < 0:
+                raise ValueError("Command intervention requires a tape and nonnegative start step")
+            if self.command_intervention_steps is None or self.command_intervention_steps <= 0:
+                raise ValueError("Command intervention requires positive step count")
+            if self.fixed_command_steps is not None:
+                raise ValueError("Full-tape limit and local command intervention are mutually exclusive")
+        elif self.command_intervention_steps is not None:
+            raise ValueError("Command intervention step count requires a start step")
+        self.eval_episode_len_sec = None if eval_episode_len_sec is None else float(eval_episode_len_sec)
+        if self.eval_episode_len_sec is not None and self.eval_episode_len_sec <= 0:
+            raise ValueError("Evaluation episode length must be positive")
         self.interval = interval
         self.episodes = episodes
         self.step_sleep = step_sleep
@@ -165,6 +266,8 @@ class EvalCallback:
         curriculum_metrics = {}
         if hasattr(trainer.env, "get_curriculum_metrics"):
             curriculum_metrics = dict(trainer.env.get_curriculum_metrics())
+        if self.fixed_curriculum_stage is not None:
+            curriculum_metrics["curriculum_stage"] = int(self.fixed_curriculum_stage)
         curriculum_metrics["replay_size"] = int(
             getattr(getattr(trainer, "buffer", None), "size", 0)
         )
@@ -205,8 +308,10 @@ class EvalCallback:
         with _suppress_native_output(self.quiet):
             eval_env = self.env_cls(**self.env_kwargs, gui=self.eval_gui)
             try:
-                terminal_max_planar_speed = float(eval_env.max_reference_speed)
                 base_eval_env = getattr(eval_env, "base_env", eval_env)
+                if self.eval_episode_len_sec is not None:
+                    base_eval_env.EPISODE_LEN_SEC = self.eval_episode_len_sec
+                terminal_max_planar_speed = float(eval_env.max_reference_speed)
                 reward_model = getattr(base_eval_env, "_reward_model", None)
                 terminal_guidance_radius = float(
                     getattr(reward_model, "near_goal_guidance_radius", 1.2)
@@ -226,14 +331,40 @@ class EvalCallback:
                                 "cmd_xy_speed": float(np.linalg.norm(mapped[:2])),
                             }
                         )
-                if (
+                if self.fixed_curriculum_stage is not None:
+                    eval_env.set_curriculum_stage_override(self.fixed_curriculum_stage)
+                elif (
                     bool(getattr(eval_env, "CURRICULUM_ENABLED", False))
                     and hasattr(eval_env, "set_curriculum_stage_override")
                     and hasattr(trainer.env, "get_curriculum_stage")
                 ):
                     eval_env.set_curriculum_stage_override(trainer.env.get_curriculum_stage())
-                for ep in range(self.episodes):
-                    obs, reset_info = eval_env.reset(seed=ep)
+                evaluation_seeds = (
+                    self.episode_seeds if self.episode_seeds is not None
+                    else tuple(self.episode_seed_offset + ep for ep in range(self.episodes))
+                )
+                for ep, environment_seed in enumerate(evaluation_seeds):
+                    obs, reset_info = eval_env.reset(seed=environment_seed)
+                    paired_trace = None
+                    if self.paired_trace_output_dir is not None:
+                        paired_trace = PairedTrajectoryTrace(eval_env, environment_seed)
+                        paired_trace.install()
+                    fixed_actions = None
+                    fixed_commands = None
+                    fixed_limit = None
+                    if self.fixed_command_tape_dir is not None:
+                        tape_path = os.path.join(self.fixed_command_tape_dir, f"trace_seed{environment_seed}.npz")
+                        with np.load(tape_path) as tape:
+                            fixed_actions = np.asarray(tape["upper_action"], dtype=np.float32).copy()
+                            fixed_commands = np.asarray(tape["upper_command_velocity"], dtype=np.float32).copy()
+                        if fixed_actions.ndim != 2 or fixed_commands.shape != (len(fixed_actions), 3):
+                            raise ValueError(f"Invalid fixed command tape: {tape_path}")
+                        if self.command_intervention_start_step is not None:
+                            if self.command_intervention_start_step + self.command_intervention_steps > len(fixed_actions):
+                                raise ValueError("Intervention window exceeds source command tape")
+                            fixed_limit = None
+                        else:
+                            fixed_limit = len(fixed_actions) if self.fixed_command_steps is None else min(len(fixed_actions), self.fixed_command_steps)
                     state = preprocess_state(obs.reshape(-1))
                     if hasattr(trainer.agent, "reset_episode"):
                         trainer.agent.reset_episode()
@@ -304,9 +435,13 @@ class EvalCallback:
                             getattr(eval_env, "TARGET_POS", initial_position), dtype=np.float32
                         ).copy()
 
-                    while not done:
+                    while not done and (fixed_limit is None or step_idx < fixed_limit):
                         state_before_action = np.asarray(state, dtype=np.float32).copy()
-                        policy_action = trainer.agent.select_action(state)
+                        policy_action = (
+                            trainer.agent.select_action(state)
+                            if fixed_actions is None or self.command_intervention_start_step is not None
+                            else fixed_actions[step_idx].copy()
+                        )
                         action = np.asarray(policy_action, dtype=np.float32).reshape(-1).copy()
                         position_before_action = np.asarray(
                             eval_env.pos[0], dtype=np.float32
@@ -352,7 +487,28 @@ class EvalCallback:
                                 max_vertical_speed=float(eval_env.max_reference_vertical_speed),
                                 gain=self.p_height_gain,
                             )
-                        obs, reward, terminated, truncated, info = eval_env.step(action.reshape(1, -1))
+                        use_fixed_command = fixed_commands is not None and (
+                            self.command_intervention_start_step is None
+                            or self.command_intervention_start_step <= step_idx
+                            < self.command_intervention_start_step + self.command_intervention_steps
+                        )
+                        if not use_fixed_command:
+                            obs, reward, terminated, truncated, info = eval_env.step(action.reshape(1, -1))
+                        else:
+                            # Bypass the state-dependent height-hold mapping so
+                            # Full receives the exact K1 three-dimensional command.
+                            original_mapping = eval_env._velocity_command
+                            fixed_command = fixed_commands[step_idx].copy()
+                            eval_env._velocity_command = lambda _action, command=fixed_command: command.copy()
+                            try:
+                                obs, reward, terminated, truncated, info = eval_env.step(action.reshape(1, -1))
+                            finally:
+                                eval_env._velocity_command = original_mapping
+                        if paired_trace is not None:
+                            paired_trace.record_upper(
+                                action, policy_action, reward, info or {},
+                                pre_observation=state_before_action,
+                            )
                         state = preprocess_state(obs.reshape(-1))
                         done = terminated or truncated
                         ep_ret += float(reward)
@@ -544,6 +700,21 @@ class EvalCallback:
                         if self.step_sleep:
                             sync(step_idx, start_time, eval_env.CTRL_TIMESTEP)
 
+                    if fixed_limit is not None and not done:
+                        last_info = {**last_info, "done_reason": "intervention_end"}
+                    if paired_trace is not None:
+                        paired_trace.uninstall()
+                        trace_directory = self.paired_trace_output_dir
+                        if self.paired_trace_step_dir:
+                            trace_directory = os.path.join(
+                                trace_directory, f"step_{int(trainer.total_steps):07d}"
+                            )
+                        paired_trace.save(
+                            trace_directory,
+                            done_reason=last_info.get("done_reason", "unknown"),
+                            success=last_info.get("success", False),
+                            final_goal_distance=last_info.get("goal_distance", np.nan),
+                        )
                     returns.append(ep_ret)
                     lengths.append(step_idx)
                     if ep_zs:
@@ -807,6 +978,7 @@ class EvalCallback:
             if self.output_dir is not None:
                 record = {
                     "step": int(trainer.total_steps),
+                    "episode_seed_offset": self.episode_seed_offset,
                     "curriculum": curriculum_metrics,
                     "summary": {
                         key: None if value is None else float(value)
@@ -815,6 +987,7 @@ class EvalCallback:
                     "episodes": [
                         {
                             "episode": int(index),
+                            "environment_seed": int(evaluation_seeds[index]),
                             "return": float(returns[index]),
                             "length": int(lengths[index]),
                             "final_goal_distance": float(final_dists[index]),
@@ -842,7 +1015,7 @@ class EvalCallback:
             ):
                 exported = export_upper_trajectory(
                     self.trajectory_output_dir,
-                    seed=0,
+                    seed=self.episode_seed_offset,
                     training_step=trainer.total_steps,
                     trace=seed_zero_trace,
                     tree_specs=seed_zero_obstacle_specs,

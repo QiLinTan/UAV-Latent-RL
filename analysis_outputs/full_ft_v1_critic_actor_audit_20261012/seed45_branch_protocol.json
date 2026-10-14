@@ -1,0 +1,20 @@
+{
+  "training_seed": 45,
+  "source_actor_sha256": "8978c1028a3a392e9dc06bad3a3bd8b036076976fc668caf53287a3c092b2613",
+  "critic_sha256": "33815b7d4a4f2b89059d126d8b02066d2fc1d47cc9ac4f161f38408818f68443",
+  "updated_actor_sha256": "dc3db39b3d3770b3e6a1fb04e4feb8a3441bb5ba1007772b3272456dcc4accf7",
+  "map_seeds": [
+    80,
+    88
+  ],
+  "stages": [
+    0,
+    3
+  ],
+  "branch_indices": "0, 60, first 3D guidance entry",
+  "gamma": 0.99,
+  "reward_scale": 0.1,
+  "execution_projection": true,
+  "torch_num_threads": 1,
+  "reward_integration_dt": 0.008333333333333333
+}

@@ -1,0 +1,21 @@
+{
+  "td_only_exact_B5200": {
+    "actor": true,
+    "actor_target": true,
+    "critic": true,
+    "critic_target": true
+  },
+  "actor_updates": 0,
+  "critic_updates_per_branch": 200,
+  "optimizer_steps_per_branch": 200,
+  "same_main_success_indices_and_target_noise": true,
+  "fit_and_holdout_maps_disjoint": true,
+  "fit_maps": [
+    9,
+    24,
+    46,
+    69,
+    85
+  ],
+  "validation_used_in_training": false
+}

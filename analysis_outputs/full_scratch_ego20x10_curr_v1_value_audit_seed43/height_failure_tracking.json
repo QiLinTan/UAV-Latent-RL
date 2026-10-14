@@ -1,0 +1,342 @@
+[
+  {
+    "index": 0,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29997925101494305,
+    "last_actual_vz": 0.2999648971480398,
+    "last_reference_vz": 0.2999594211578369,
+    "vertical_velocity_tracking_rmse": 0.0047389694904989114,
+    "final_z": 2.7502606751802596,
+    "max_abs_roll_pitch": 0.14763178619587905,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 1,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999676547082914,
+    "last_actual_vz": 0.29996643501300685,
+    "last_reference_vz": 0.29995986819267273,
+    "vertical_velocity_tracking_rmse": 0.004733309867102581,
+    "final_z": 2.7501889599638996,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 2,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998298048162136,
+    "last_actual_vz": 0.2999646316621981,
+    "last_reference_vz": 0.29995816946029663,
+    "vertical_velocity_tracking_rmse": 0.004731800743672914,
+    "final_z": 2.750284510799474,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 3,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999829772378312,
+    "last_actual_vz": 0.29996463090283076,
+    "last_reference_vz": 0.29995816946029663,
+    "vertical_velocity_tracking_rmse": 0.004732340159436813,
+    "final_z": 2.7502845143888495,
+    "max_abs_roll_pitch": 0.14763321724076336,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 4,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998080791259296,
+    "last_actual_vz": 0.29996484166353005,
+    "last_reference_vz": 0.2999587953090668,
+    "vertical_velocity_tracking_rmse": 0.004734794424611924,
+    "final_z": 2.7502709379973997,
+    "max_abs_roll_pitch": 0.14758424560407812,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 5,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999829815764006,
+    "last_actual_vz": 0.29996481853599083,
+    "last_reference_vz": 0.2999582886695862,
+    "vertical_velocity_tracking_rmse": 0.0047318007454708565,
+    "final_z": 2.7502845193652727,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 6,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998298048162136,
+    "last_actual_vz": 0.2999646316621981,
+    "last_reference_vz": 0.29995816946029663,
+    "vertical_velocity_tracking_rmse": 0.004731800743672914,
+    "final_z": 2.750284510799474,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 7,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998198038055784,
+    "last_actual_vz": 0.2999666308290693,
+    "last_reference_vz": 0.2999584376811981,
+    "vertical_velocity_tracking_rmse": 0.004733262174431327,
+    "final_z": 2.7502783868450305,
+    "max_abs_roll_pitch": 0.1476584591631458,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 8,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998289902194014,
+    "last_actual_vz": 0.2999647713475111,
+    "last_reference_vz": 0.299958199262619,
+    "vertical_velocity_tracking_rmse": 0.004731214087721433,
+    "final_z": 2.7502844512031803,
+    "max_abs_roll_pitch": 0.1476611825431336,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 9,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998249265612387,
+    "last_actual_vz": 0.29995807687755394,
+    "last_reference_vz": 0.29995062947273254,
+    "vertical_velocity_tracking_rmse": 0.004731800781329487,
+    "final_z": 2.7502818869290957,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 10,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999827275876285,
+    "last_actual_vz": 0.29996227799087827,
+    "last_reference_vz": 0.2999545633792877,
+    "vertical_velocity_tracking_rmse": 0.004731800840056944,
+    "final_z": 2.7502834546882546,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 11,
+    "done_reason": "collision",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998642693866384,
+    "last_actual_vz": 0.29552391045215975,
+    "last_reference_vz": 0.2999477684497833,
+    "vertical_velocity_tracking_rmse": 0.007070693071219795,
+    "final_z": 1.7377966648178043,
+    "max_abs_roll_pitch": 0.14764506219909457,
+    "duration_seconds": 2.75,
+    "height_crossing_sign": null
+  },
+  {
+    "index": 12,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999803353329094,
+    "last_actual_vz": 0.2999677305627961,
+    "last_reference_vz": 0.2999575138092041,
+    "vertical_velocity_tracking_rmse": 0.004731191160302149,
+    "final_z": 2.750269245216594,
+    "max_abs_roll_pitch": 0.1476587180435858,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 13,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998298048162136,
+    "last_actual_vz": 0.2999646316621981,
+    "last_reference_vz": 0.29995816946029663,
+    "vertical_velocity_tracking_rmse": 0.004731800743672914,
+    "final_z": 2.750284510799474,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 14,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998181762338494,
+    "last_actual_vz": 0.2999490811814553,
+    "last_reference_vz": 0.2999469041824341,
+    "vertical_velocity_tracking_rmse": 0.004731802112104329,
+    "final_z": 2.7502764446520844,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 15,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999826831477029,
+    "last_actual_vz": 0.29996425264194154,
+    "last_reference_vz": 0.2999582886695862,
+    "vertical_velocity_tracking_rmse": 0.004737006532107316,
+    "final_z": 2.7502810589192594,
+    "max_abs_roll_pitch": 0.14767420850759844,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 16,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.2999801072944589,
+    "last_actual_vz": 0.2999184392247228,
+    "last_reference_vz": 0.29995158314704895,
+    "vertical_velocity_tracking_rmse": 0.004732420318016544,
+    "final_z": 2.750270242591678,
+    "max_abs_roll_pitch": 0.1476418449780997,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 17,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998292943247323,
+    "last_actual_vz": 0.29996218387725415,
+    "last_reference_vz": 0.29995688796043396,
+    "vertical_velocity_tracking_rmse": 0.004731800682440626,
+    "final_z": 2.7502839430010084,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 18,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29998246366474907,
+    "last_actual_vz": 0.2999607751415771,
+    "last_reference_vz": 0.2999555170536041,
+    "vertical_velocity_tracking_rmse": 0.004731800768502104,
+    "final_z": 2.7502813829268913,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  },
+  {
+    "index": 19,
+    "done_reason": "height_bound",
+    "initial_velocity": [
+      7.764468683164419e-22,
+      -4.72926728883651e-22,
+      0.000712702357166379
+    ],
+    "command_z_mean": 0.29997623826370756,
+    "last_actual_vz": 0.30004748047267293,
+    "last_reference_vz": 0.29992955923080444,
+    "vertical_velocity_tracking_rmse": 0.004731893551422584,
+    "final_z": 2.750261444818711,
+    "max_abs_roll_pitch": 0.14764065358303896,
+    "duration_seconds": 6.125,
+    "height_crossing_sign": "upper"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "schema_version": "upper_timeout_diagnostic_v1",
+  "training_step": 240000,
+  "decision_rate_hz": 15.0,
+  "window_seconds": 2.0,
+  "timeout_count": 0,
+  "timeouts": []
+}

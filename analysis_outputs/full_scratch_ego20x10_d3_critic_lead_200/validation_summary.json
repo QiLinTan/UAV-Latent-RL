@@ -1,0 +1,302 @@
+{
+  "A5000": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 11,
+        "collision": 0,
+        "height_bound": 0,
+        "xy_bound": 9,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 11,
+        "0.3": 15,
+        "0.5": 17,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.29340003363754436,
+      "final_goal_distance": 1.04001477171549,
+      "tracking_error_mean": 0.007322476440807893,
+      "actual_speed_mean": 0.29144107033993516,
+      "minimum_tree_clearance": 1.9180584251880646,
+      "duration_s": 4.780833333333333,
+      "vertical_action_mean": -0.04094954419326814,
+      "vertical_saturation_fraction": 0.0
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 1,
+        "height_bound": 0,
+        "xy_bound": 0,
+        "timeout": 19
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 13.620244744645515,
+      "final_goal_distance": 13.620244744645515,
+      "tracking_error_mean": 0.0008874232570808462,
+      "actual_speed_mean": 0.07445316152155293,
+      "minimum_tree_clearance": 1.5748745316639543,
+      "duration_s": 39.12583333333333,
+      "vertical_action_mean": 0.11091232511919683,
+      "vertical_saturation_fraction": 0.0
+    }
+  },
+  "A6000": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 2,
+        "height_bound": 0,
+        "xy_bound": 18,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 3,
+        "0.5": 5,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.524944748125572,
+      "final_goal_distance": 2.7356248947528314,
+      "tracking_error_mean": 0.019656601330124104,
+      "actual_speed_mean": 0.7947177389691061,
+      "minimum_tree_clearance": 1.4709610035642982,
+      "duration_s": 4.109583333333332,
+      "vertical_action_mean": 0.999850991227562,
+      "vertical_saturation_fraction": 1.0
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 1,
+        "height_bound": 19,
+        "xy_bound": 0,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 11.939718739977957,
+      "final_goal_distance": 11.939718739977957,
+      "tracking_error_mean": 0.0156278256491195,
+      "actual_speed_mean": 0.7750455056737673,
+      "minimum_tree_clearance": 0.9028234818950296,
+      "duration_s": 5.95625,
+      "vertical_action_mean": 0.9999374617562161,
+      "vertical_saturation_fraction": 1.0
+    }
+  },
+  "B5325": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 6,
+        "height_bound": 14,
+        "xy_bound": 0,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.7459979551856379,
+      "final_goal_distance": 4.791775888830035,
+      "tracking_error_mean": 0.016950516238829455,
+      "actual_speed_mean": 0.8033755553400905,
+      "minimum_tree_clearance": 0.6901399437338114,
+      "duration_s": 5.226250000000001,
+      "vertical_action_mean": 0.9997553216492916,
+      "vertical_saturation_fraction": 0.9897712752363915
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 1,
+        "height_bound": 0,
+        "xy_bound": 19,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 16.0,
+      "final_goal_distance": 18.025045474799747,
+      "tracking_error_mean": 0.020429082593362714,
+      "actual_speed_mean": 0.7819894271793423,
+      "minimum_tree_clearance": 1.9511853376403452,
+      "duration_s": 3.305416666666666,
+      "vertical_action_mean": 0.9999050360176165,
+      "vertical_saturation_fraction": 1.0
+    }
+  },
+  "B5600": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 4,
+        "height_bound": 16,
+        "xy_bound": 0,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.7459979551856379,
+      "final_goal_distance": 5.084817647168723,
+      "tracking_error_mean": 0.016532544377839457,
+      "actual_speed_mean": 0.8057833490128152,
+      "minimum_tree_clearance": 0.6709524270147085,
+      "duration_s": 5.558333333333334,
+      "vertical_action_mean": 0.9998591255444262,
+      "vertical_saturation_fraction": 1.0
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 1,
+        "height_bound": 0,
+        "xy_bound": 19,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 16.0,
+      "final_goal_distance": 18.017934610004392,
+      "tracking_error_mean": 0.02067153397181725,
+      "actual_speed_mean": 0.7813860060918352,
+      "minimum_tree_clearance": 1.9577354023233056,
+      "duration_s": 3.2662500000000003,
+      "vertical_action_mean": 0.9999141789382069,
+      "vertical_saturation_fraction": 1.0
+    }
+  },
+  "B6000": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 3,
+        "height_bound": 0,
+        "xy_bound": 17,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 2,
+        "0.5": 4,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.5321390612064614,
+      "final_goal_distance": 2.682257180203192,
+      "tracking_error_mean": 0.01991912312794029,
+      "actual_speed_mean": 0.7924592341180011,
+      "minimum_tree_clearance": 1.4495269602164627,
+      "duration_s": 4.011249999999999,
+      "vertical_action_mean": 0.9999797186588527,
+      "vertical_saturation_fraction": 1.0
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 5,
+        "height_bound": 15,
+        "xy_bound": 0,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 13.113344883219806,
+      "final_goal_distance": 13.113355874961801,
+      "tracking_error_mean": 0.023804490712641506,
+      "actual_speed_mean": 0.7586004346177538,
+      "minimum_tree_clearance": 0.8177159886807204,
+      "duration_s": 5.47625,
+      "vertical_action_mean": 0.9999549337567435,
+      "vertical_saturation_fraction": 1.0
+    }
+  },
+  "B5200": {
+    "L0": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 11,
+        "collision": 0,
+        "height_bound": 0,
+        "xy_bound": 9,
+        "timeout": 0
+      },
+      "arrivals": {
+        "0.2": 11,
+        "0.3": 15,
+        "0.5": 17,
+        "1.2": 20
+      },
+      "minimum_goal_distance": 0.29340003363754436,
+      "final_goal_distance": 1.04001477171549,
+      "tracking_error_mean": 0.007322476440807893,
+      "actual_speed_mean": 0.29144107033993516,
+      "minimum_tree_clearance": 1.9180584251880646,
+      "duration_s": 4.780833333333333,
+      "vertical_action_mean": -0.04094954419326814,
+      "vertical_saturation_fraction": 0.0
+    },
+    "original16m": {
+      "episodes": 20,
+      "outcomes": {
+        "success": 0,
+        "collision": 1,
+        "height_bound": 0,
+        "xy_bound": 0,
+        "timeout": 19
+      },
+      "arrivals": {
+        "0.2": 0,
+        "0.3": 0,
+        "0.5": 0,
+        "1.2": 0
+      },
+      "minimum_goal_distance": 13.620244744645515,
+      "final_goal_distance": 13.620244744645515,
+      "tracking_error_mean": 0.0008874232570808462,
+      "actual_speed_mean": 0.07445316152155293,
+      "minimum_tree_clearance": 1.5748745316639543,
+      "duration_s": 39.12583333333333,
+      "vertical_action_mean": 0.11091232511919683,
+      "vertical_saturation_fraction": 0.0
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import argparse
+import hashlib
+import json
 import pathlib
 import shlex
 import subprocess
@@ -875,6 +877,147 @@ def build_mode_cmd(mode: str) -> list[str]:
             _replace_scalar_option(cmd, option, value)
         cmd += ["--eval_terminal_coverage_output_dir",
                 f"analysis_outputs/{suffix}_terminal_coverage"]
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startcurr_v1_h8_k1":
+        # Training-only start distribution ablation over the unchanged no_route mode.
+        suffix = mode
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1")
+        cmd += ["--start_distance_curriculum", "true", "--curriculum_stage_override", "0"]
+        _replace_scalar_option(
+            cmd, "--eval_terminal_coverage_output_dir",
+            f"analysis_outputs/{suffix}_terminal_coverage",
+        )
+        for option, value in (
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startobscurr_v1_h8_k1":
+        # Preserve the successful reverse-start course and all TD3/reward/action
+        # settings; unlock randomized obstacle stages only after full starts.
+        suffix = mode
+        cmd = build_mode_cmd(
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startcurr_v1_h8_k1"
+        )
+        cmd += ["--obstacle_curriculum_after_start", "true"]
+        for option, value in (
+            ("--curriculum_success_gated", "false"),
+            ("--eval_map_id", "procedural_forest_multitree_validation_random_v1"),
+            ("--eval_episodes", "20"),
+            ("--eval_interval", "4000"),
+            ("--best_min_success_rate", "0.60"),
+            ("--convergence_guard", "false"),
+            ("--total_steps", "240000"),
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{suffix}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+    elif mode == "full_scratch_curr_v1":
+        cmd = build_mode_cmd(
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startobscurr_v1_h8_k1"
+        )
+        cmd += ["--full_scratch_curr_v1", "true", "--ckpt_interval", "5000"]
+        for option, value in (
+            ("--upper_execution_model", "full"),
+            ("--curriculum_simple_mix_probability", "0.0"),
+            ("--eval_interval", "5000"),
+            ("--log_dir", f"runs/{mode}"),
+            ("--ckpt_dir", f"checkpoints/{mode}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{mode}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{mode}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{mode}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{mode}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+    elif mode == "full_scratch_ego20x10_curr_v1":
+        cmd = build_mode_cmd("full_scratch_curr_v1")
+        _replace_scalar_option(cmd, "--full_scratch_curr_v1", "false")
+        cmd += ["--full_scratch_ego20x10_curr_v1", "true"]
+        for option, value in (
+            ("--curriculum", "false"), ("--route_count_curriculum", "false"),
+            ("--eval_episodes", "20"),
+            ("--log_dir", f"runs/{mode}"), ("--ckpt_dir", f"checkpoints/{mode}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{mode}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{mode}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{mode}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{mode}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+        for option in ("--map_id", "--eval_map_id"):
+            if option in cmd:
+                index = cmd.index(option)
+                del cmd[index:index + 2]
+        index = cmd.index("--success_replay_difficulties")
+        cmd[index + 1:index + 5] = ["10", "20", "30", "40"]
+    elif mode == "full_ft_v1":
+        # Actor-only K1 -> Full adaptation. Stage mixing and validation are
+        # handled by the existing TD3 trainer and evaluation callback.
+        suffix = mode
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1")
+        cmd += [
+            "--full_ft_v1", "true",
+            "--full_ft_actor_source", "checkpoints/startobscurr_v1_selected_20261010/seed43/model_final",
+            "--full_ft_actor_freeze_steps", "4000",
+            "--full_ft_trace_dir", "analysis_outputs/full_ft_v1_seed43/training_traces",
+            "--ckpt_interval", "5000",
+        ]
+        for option, value in (
+            ("--upper_execution_model", "full"),
+            ("--start_timesteps", "0"),
+            ("--update_after", "512"),
+            ("--curriculum_simple_mix_probability", "0.0"),
+            ("--eval_map_id", "procedural_forest_multitree_validation_random_v1"),
+            ("--eval_interval", "5000"),
+            ("--eval_episodes", "10"),
+            ("--total_steps", "40000"),
+            ("--best_window_size", "2"),
+            ("--best_min_success_rate", "0.40"),
+            ("--best_max_collision_rate", "0.60"),
+            ("--policy_anchor_weight", "0.0"),
+            ("--expl_noise_start", "0.15"),
+            ("--expl_noise_end", "0.05"),
+            ("--noise_decay_steps", "40000"),
+            ("--convergence_guard", "false"),
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{suffix}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, value)
+    elif mode == "upper_dslpid_recurrent_multitree_terminal_v2_noroute_stage01_ft_v1_h8_k1":
+        # Warm-start from the four frozen successful policies. Train on a
+        # 50/50 Stage 0/1 mixture; evaluate each stage separately.
+        suffix = mode
+        cmd = build_mode_cmd("upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1")
+        cmd += [
+            "--stage01_finetune", "true",
+            "--stage01_mix_probability", "0.5",
+            "--curriculum_stage_override", "1",
+            "--load_checkpoint", "checkpoints/startcurr_v1_frozen_20261009/seed42/model_final",
+        ]
+        for option, value in (
+            ("--start_timesteps", "0"),
+            ("--eval_map_id", "procedural_forest_multitree_validation_random_v1"),
+            ("--eval_episodes", "20"),
+            ("--eval_interval", "4000"),
+            ("--best_window_size", "2"),
+            ("--total_steps", "40000"),
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{suffix}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, value)
     elif mode == "upper_dslpid_recurrent_multitree_occupancy_v1_h8_k1":
         # Independent spatial-memory ablation over the clean rayfix K1
         # baseline. Reward and executable action semantics remain unchanged.
@@ -1188,6 +1331,12 @@ def main():
             "upper_dslpid_recurrent_multitree_terminal_v1_h8_k1",
             "upper_dslpid_recurrent_multitree_terminal_v2_h8_k1",
             "upper_dslpid_recurrent_multitree_terminal_v2_noroute_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startcurr_v1_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startobscurr_v1_h8_k1",
+            "upper_dslpid_recurrent_multitree_terminal_v2_noroute_stage01_ft_v1_h8_k1",
+            "full_ft_v1",
+            "full_scratch_curr_v1",
+            "full_scratch_ego20x10_curr_v1",
             "upper_dslpid_recurrent_multitree_occupancy_v1_h8_k1",
             "upper_dslpid_recurrent_mavrl_lite_v1",
             "upper_dslpid_one_tree",
@@ -1209,6 +1358,51 @@ def main():
 
     if args.seed is not None:
         cmd[cmd.index("--seed") + 1] = str(args.seed)
+    if args.mode in {
+        "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startcurr_v1_h8_k1",
+        "upper_dslpid_recurrent_multitree_terminal_v2_noroute_startobscurr_v1_h8_k1",
+        "upper_dslpid_recurrent_multitree_terminal_v2_noroute_stage01_ft_v1_h8_k1",
+        "full_ft_v1",
+        "full_scratch_curr_v1",
+        "full_scratch_ego20x10_curr_v1",
+    }:
+        suffix = f"{args.mode}_seed{cmd[cmd.index('--seed') + 1]}"
+        for option, path in (
+            ("--log_dir", f"runs/{suffix}"),
+            ("--ckpt_dir", f"checkpoints/{suffix}"),
+            ("--trajectory_output_dir", f"analysis_outputs/{suffix}_trajectory"),
+            ("--collision_diagnostic_output_dir", f"analysis_outputs/{suffix}_collision_windows"),
+            ("--timeout_diagnostic_output_dir", f"analysis_outputs/{suffix}_timeout_diagnostics"),
+            ("--eval_terminal_coverage_output_dir", f"analysis_outputs/{suffix}_terminal_coverage"),
+        ):
+            _replace_scalar_option(cmd, option, path)
+    if args.mode == "upper_dslpid_recurrent_multitree_terminal_v2_noroute_stage01_ft_v1_h8_k1":
+        seed = int(cmd[cmd.index("--seed") + 1])
+        manifest_path = REPO_ROOT / "checkpoints/startcurr_v1_frozen_20261009/manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if str(seed) not in manifest["seeds"]:
+            parser.error("Stage 0/1 finetuning supports frozen seeds 42, 43, 44, 45 only")
+        prefix = REPO_ROOT / f"checkpoints/startcurr_v1_frozen_20261009/seed{seed}/model_final"
+        for name, metadata in manifest["seeds"][str(seed)]["files"].items():
+            digest = hashlib.sha256((prefix.parent / name).read_bytes()).hexdigest()
+            if digest != metadata["sha256"]:
+                parser.error(f"Frozen checkpoint checksum mismatch: {name}")
+        _replace_scalar_option(cmd, "--load_checkpoint", str(prefix))
+    if args.mode == "full_ft_v1":
+        seed = int(cmd[cmd.index("--seed") + 1])
+        manifest_path = REPO_ROOT / "checkpoints/startobscurr_v1_selected_20261010/manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if str(seed) not in manifest["seeds"]:
+            parser.error("Full FT v1 supports frozen seeds 42, 43, 44, 45 only")
+        prefix = REPO_ROOT / f"checkpoints/startobscurr_v1_selected_20261010/seed{seed}/model_final"
+        actor_file = pathlib.Path(str(prefix) + "_actor")
+        expected = manifest["seeds"][str(seed)]["files"]["model_final_actor"]["sha256"]
+        if hashlib.sha256(actor_file.read_bytes()).hexdigest() != expected:
+            parser.error("Frozen source Actor checksum mismatch")
+        _replace_scalar_option(cmd, "--full_ft_actor_source", str(prefix))
+        _replace_scalar_option(
+            cmd, "--full_ft_trace_dir", f"analysis_outputs/full_ft_v1_seed{seed}/training_traces"
+        )
     if args.total_steps is not None:
         cmd[cmd.index("--total_steps") + 1] = str(args.total_steps)
     if args.gui is not None:

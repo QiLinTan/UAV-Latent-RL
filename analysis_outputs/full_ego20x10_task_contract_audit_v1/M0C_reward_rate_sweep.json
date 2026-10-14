@@ -1,0 +1,482 @@
+[
+  {
+    "distance": 16.0,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 6.148967187464237,
+    "progress_rate": 6.4013671875,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 16.0,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -0.25,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 16.0,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -6.651936132848263,
+    "progress_rate": -6.3995361328125,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 16.0,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -0.28690000146627426,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 8.0,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 6.148051660120487,
+    "progress_rate": 6.40045166015625,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 8.0,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -0.25,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 8.0,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -6.652393896520138,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 8.0,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -0.28690000146627426,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 4.0,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 6.147593896448612,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 4.0,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -0.25,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 4.0,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -6.652393896520138,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 4.0,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -0.28644223779439926,
+    "progress_rate": 0.000457763671875,
+    "tracking_cost_rate": 0.0
+  },
+  {
+    "distance": 1.2,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 6.147593896448612,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 2.168404344466138e-18
+  },
+  {
+    "distance": 1.2,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -0.25009765622050967,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 9.765622050963429e-05
+  },
+  {
+    "distance": 1.2,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -6.652784521474937,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 0.00039062495479811335
+  },
+  {
+    "distance": 1.2,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -0.2844936903976226,
+    "progress_rate": 0.0025177001953125,
+    "tracking_cost_rate": 0.00011138912666091015
+  },
+  {
+    "distance": 1.1,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 5.755592921912097,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 0.3920009745365148
+  },
+  {
+    "distance": 1.1,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -42.882033950799254,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 42.632033950799254
+  },
+  {
+    "distance": 1.1,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -193.924568037446,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 187.27217414092587
+  },
+  {
+    "distance": 1.1,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -50.11619213860386,
+    "progress_rate": 0.00274658203125,
+    "tracking_cost_rate": 49.832038719168835
+  },
+  {
+    "distance": 1.0,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": 3.0115944553017617,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 3.13599944114685
+  },
+  {
+    "distance": 1.0,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -69.94600677490233,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 69.69600677490233
+  },
+  {
+    "distance": 1.0,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -347.70841654056306,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 341.0560226440429
+  },
+  {
+    "distance": 1.0,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -84.37993665307758,
+    "progress_rate": 0.0029754638671875,
+    "tracking_cost_rate": 84.0960121154785
+  },
+  {
+    "distance": 0.8,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -6.396393139302731,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 12.543987035751343
+  },
+  {
+    "distance": 0.8,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -43.5140266418457,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 43.2640266418457
+  },
+  {
+    "distance": 0.8,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -285.4364591431022,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 278.78406524658203
+  },
+  {
+    "distance": 0.8,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -57.94720788568258,
+    "progress_rate": 0.003719329833984375,
+    "tracking_cost_rate": 57.66402721405029
+  },
+  {
+    "distance": 0.5,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -32.2684079002738,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 38.41600179672241
+  },
+  {
+    "distance": 0.5,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -15.626000404357908,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 15.376000404357908
+  },
+  {
+    "distance": 0.5,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -203.78839548343421,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 197.13600158691406
+  },
+  {
+    "distance": 0.5,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -30.056892829835412,
+    "progress_rate": 0.006008148193359375,
+    "tracking_cost_rate": 29.7760009765625
+  },
+  {
+    "distance": 0.3,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -57.356381971776486,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 63.503975868225105
+  },
+  {
+    "distance": 0.3,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -4.874007344245911,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 4.624007344245911
+  },
+  {
+    "distance": 0.3,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -157.19643648380043,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 150.54404258728027
+  },
+  {
+    "distance": 0.3,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -19.300893741548062,
+    "progress_rate": 0.010013580322265625,
+    "tracking_cost_rate": 19.024007320404053
+  },
+  {
+    "distance": 0.21,
+    "behavior": "toward_max",
+    "velocity": [
+      0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -70.69223936313391,
+    "progress_rate": 6.399993896484375,
+    "tracking_cost_rate": 76.83983325958252
+  },
+  {
+    "distance": 0.21,
+    "behavior": "hover",
+    "velocity": [
+      0,
+      0,
+      0
+    ],
+    "reward_rate_approx": -2.0818407237529755,
+    "progress_rate": 0.0,
+    "tracking_cost_rate": 1.8318407237529755
+  },
+  {
+    "distance": 0.21,
+    "behavior": "away_max",
+    "velocity": [
+      -0.8,
+      0,
+      0
+    ],
+    "reward_rate_approx": -138.2762533020377,
+    "progress_rate": -6.399993896484375,
+    "tracking_cost_rate": 131.62385940551758
+  },
+  {
+    "distance": 0.21,
+    "behavior": "vertical_up",
+    "velocity": [
+      0,
+      0,
+      0.3
+    ],
+    "reward_rate_approx": -16.504450040757657,
+    "progress_rate": 0.014290809631347656,
+    "tracking_cost_rate": 16.23184084892273
+  }
+]

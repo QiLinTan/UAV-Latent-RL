@@ -1,0 +1,192 @@
+{
+  "baseline": [
+    {
+      "task": "initial16m",
+      "raw_return": 22.101550640841324,
+      "tracking_cost": 0.0,
+      "lower_ticks": 480,
+      "upper_steps": 60,
+      "outcome": "running",
+      "final_distance": 13.109479063802167,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_above",
+      "raw_return": 236.66844261837372,
+      "tracking_cost": 16.652747959633412,
+      "lower_ticks": 347,
+      "upper_steps": 44,
+      "outcome": "success",
+      "final_distance": 0.19947342168438004,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_below",
+      "raw_return": 244.42746028755528,
+      "tracking_cost": 8.010720777208917,
+      "lower_ticks": 274,
+      "upper_steps": 35,
+      "outcome": "success",
+      "final_distance": 0.19985579343694615,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    }
+  ],
+  "goal_range": [
+    {
+      "task": "initial16m",
+      "raw_return": 22.101550640841324,
+      "tracking_cost": 0.0,
+      "lower_ticks": 480,
+      "upper_steps": 60,
+      "outcome": "running",
+      "final_distance": 13.109479063802167,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_above",
+      "raw_return": 236.66844261837372,
+      "tracking_cost": 16.652747959633412,
+      "lower_ticks": 347,
+      "upper_steps": 44,
+      "outcome": "success",
+      "final_distance": 0.19947342168438004,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_below",
+      "raw_return": 244.42746028755528,
+      "tracking_cost": 8.010720777208917,
+      "lower_ticks": 274,
+      "upper_steps": 35,
+      "outcome": "success",
+      "final_distance": 0.19985579343694615,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    }
+  ],
+  "position_scale": [
+    {
+      "task": "initial16m",
+      "raw_return": 22.101550640841324,
+      "tracking_cost": 0.0,
+      "lower_ticks": 480,
+      "upper_steps": 60,
+      "outcome": "running",
+      "final_distance": 13.109479063802167,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_above",
+      "raw_return": 236.66844261837372,
+      "tracking_cost": 16.652747959633412,
+      "lower_ticks": 347,
+      "upper_steps": 44,
+      "outcome": "success",
+      "final_distance": 0.19947342168438004,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_below",
+      "raw_return": 244.42746028755528,
+      "tracking_cost": 8.010720777208917,
+      "lower_ticks": 274,
+      "upper_steps": 35,
+      "outcome": "success",
+      "final_distance": 0.19985579343694615,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    }
+  ],
+  "guidance_project": [
+    {
+      "task": "initial16m",
+      "raw_return": 22.101550640841324,
+      "tracking_cost": 0.0,
+      "lower_ticks": 480,
+      "upper_steps": 60,
+      "outcome": "running",
+      "final_distance": 13.109479063802167,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_above",
+      "raw_return": 247.94639263175995,
+      "tracking_cost": 5.374797946247177,
+      "lower_ticks": 347,
+      "upper_steps": 44,
+      "outcome": "success",
+      "final_distance": 0.19947342168438004,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": true
+    },
+    {
+      "task": "near_below",
+      "raw_return": 247.13823899829808,
+      "tracking_cost": 5.299942066466128,
+      "lower_ticks": 274,
+      "upper_steps": 35,
+      "outcome": "success",
+      "final_distance": 0.19985579343694615,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": true
+    }
+  ],
+  "gamma997": [
+    {
+      "task": "initial16m",
+      "raw_return": 22.101550640841324,
+      "tracking_cost": 0.0,
+      "lower_ticks": 480,
+      "upper_steps": 60,
+      "outcome": "running",
+      "final_distance": 13.109479063802167,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_above",
+      "raw_return": 236.66844261837372,
+      "tracking_cost": 16.652747959633412,
+      "lower_ticks": 347,
+      "upper_steps": 44,
+      "outcome": "success",
+      "final_distance": 0.19947342168438004,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    },
+    {
+      "task": "near_below",
+      "raw_return": 244.42746028755528,
+      "tracking_cost": 8.010720777208917,
+      "lower_ticks": 274,
+      "upper_steps": 35,
+      "outcome": "success",
+      "final_distance": 0.19985579343694615,
+      "max_upper_reward_sum_error": 0.0,
+      "physical_tape_matches_baseline": true,
+      "reward_changed": false
+    }
+  ]
+}

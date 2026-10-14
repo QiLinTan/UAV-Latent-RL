@@ -1,0 +1,14 @@
+{
+  "network_hash_matches": {
+    "actor": true,
+    "critic": true,
+    "actor_target": true,
+    "critic_target": true
+  },
+  "replay_exact": true,
+  "success_replay_exact": true,
+  "critic_it": 1001,
+  "new_critic_updates": 1000,
+  "new_actor_updates": 500,
+  "sampler_exact": true
+}

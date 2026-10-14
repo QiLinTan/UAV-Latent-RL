@@ -1,0 +1,33 @@
+{
+  "states": 2131,
+  "old_tracking_rate": {
+    "mean": 64.40446427507902,
+    "std": 58.43526308612033,
+    "min": 0.2230326570042839,
+    "p05": 8.323873962152632,
+    "p50": 49.833173751831055,
+    "p95": 170.88465690612793,
+    "max": 411.59488677978516
+  },
+  "new_tracking_rate": {
+    "mean": 64.11894500316417,
+    "std": 57.667786625161575,
+    "min": 0.2230326570042839,
+    "p05": 8.250668626394578,
+    "p50": 49.833173751831055,
+    "p95": 169.33335081001474,
+    "max": 411.59488677978516
+  },
+  "reward_rate_change": {
+    "mean": 0.28551927191484566,
+    "std": 2.9137721427510153,
+    "min": 0.0,
+    "p05": 0.0,
+    "p50": 0.0,
+    "p95": 0.0,
+    "max": 49.095020427530436
+  },
+  "old_infeasible_fraction": 0.02017832003754106,
+  "new_target_feasible": true,
+  "note": "Instantaneous rates on real Replay states; not reaggregated episode rewards or a converted learning Replay."
+}

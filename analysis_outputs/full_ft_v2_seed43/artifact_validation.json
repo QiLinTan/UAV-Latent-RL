@@ -1,0 +1,32 @@
+[
+  {
+    "branch": "A",
+    "all_requested_actor_snapshots_present": true,
+    "optimizer_lrs_correct": true,
+    "fixed_source_anchor_correct": true,
+    "raw_final_matches_saved_6k_network": true,
+    "best_is_explicit_source_fallback": true,
+    "raw_final_distinct_from_best": true,
+    "all_online_and_target_parameters_finite_at_6k": true
+  },
+  {
+    "branch": "B",
+    "all_requested_actor_snapshots_present": true,
+    "optimizer_lrs_correct": true,
+    "fixed_source_anchor_correct": true,
+    "raw_final_matches_saved_6k_network": true,
+    "best_is_explicit_source_fallback": true,
+    "raw_final_distinct_from_best": true,
+    "all_online_and_target_parameters_finite_at_6k": true
+  },
+  {
+    "branch": "C",
+    "all_requested_actor_snapshots_present": true,
+    "optimizer_lrs_correct": true,
+    "fixed_source_anchor_correct": true,
+    "raw_final_matches_saved_6k_network": true,
+    "best_is_explicit_source_fallback": true,
+    "raw_final_distinct_from_best": true,
+    "all_online_and_target_parameters_finite_at_6k": true
+  }
+]

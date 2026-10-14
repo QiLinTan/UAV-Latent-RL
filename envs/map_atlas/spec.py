@@ -118,13 +118,21 @@ class MapSpec:
     license: str | None = None
     raw_asset_status: str = "local"
     notes: str = ""
+    xy_half_extents: tuple[float, float] | None = None
+    episode_len_sec: float | None = None
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any], *, root: Path) -> "MapSpec":
         map_id = str(data.get("map_id", "")).strip()
         if not map_id:
             raise ValueError("map_id is required.")
-        xy_half_extent = float(data.get("xy_half_extent", 0.0))
+        rectangular = data.get("xy_half_extents")
+        if rectangular is not None:
+            rectangular = np.asarray(rectangular, dtype=float)
+            if rectangular.shape != (2,) or not np.isfinite(rectangular).all() or np.any(rectangular <= 0):
+                raise ValueError("xy_half_extents must contain two finite positive values")
+            rectangular = tuple(float(v) for v in rectangular)
+        xy_half_extent = float(data.get("xy_half_extent", max(rectangular) if rectangular else 0.0))
         sensor_range = float(data.get("obstacle_sensor_range", 0.0))
         if xy_half_extent <= 0.0 or sensor_range <= 0.0:
             raise ValueError("xy_half_extent and obstacle_sensor_range must be positive.")
@@ -133,6 +141,11 @@ class MapSpec:
             for item in data.get("obstacles", ())
         )
         overrides = dict(data.get("environment_overrides", {}))
+        episode_len_sec = data.get("episode_len_sec")
+        if episode_len_sec is not None:
+            episode_len_sec = float(episode_len_sec)
+            if not np.isfinite(episode_len_sec) or episode_len_sec <= 0:
+                raise ValueError("episode_len_sec must be finite and positive")
         return cls(
             map_id=map_id,
             source=str(data.get("source", "unknown")),
@@ -148,6 +161,8 @@ class MapSpec:
             license=data.get("license"),
             raw_asset_status=str(data.get("raw_asset_status", "local")),
             notes=str(data.get("notes", "")),
+            xy_half_extents=rectangular,
+            episode_len_sec=episode_len_sec,
         )
 
     @property
@@ -155,7 +170,11 @@ class MapSpec:
         return any(obstacle.kind == "mesh" for obstacle in self.obstacles)
 
     def endpoint_inside_bounds(self, point: np.ndarray) -> bool:
-        return bool(np.all(np.abs(point[:2]) <= self.xy_half_extent))
+        return bool(np.all(np.abs(point[:2]) <= self.bounds_xy))
+
+    @property
+    def bounds_xy(self) -> tuple[float, float]:
+        return self.xy_half_extents or (self.xy_half_extent, self.xy_half_extent)
 
     def point_is_occupied(self, point: np.ndarray, *, drone_radius: float) -> bool:
         point = np.asarray(point, dtype=np.float32)
@@ -209,12 +228,13 @@ class MapSpec:
                 "mesh collision is loadable, but route validation requires a converted occupancy map",
             )
 
-        xs = np.arange(-self.xy_half_extent, self.xy_half_extent + resolution * 0.5, resolution)
-        ys = np.arange(-self.xy_half_extent, self.xy_half_extent + resolution * 0.5, resolution)
+        half_x, half_y = self.bounds_xy
+        xs = np.arange(-half_x, half_x + resolution * 0.5, resolution)
+        ys = np.arange(-half_y, half_y + resolution * 0.5, resolution)
 
         def to_index(point: np.ndarray) -> tuple[int, int]:
-            ix = int(np.clip(np.rint((point[0] + self.xy_half_extent) / resolution), 0, len(xs) - 1))
-            iy = int(np.clip(np.rint((point[1] + self.xy_half_extent) / resolution), 0, len(ys) - 1))
+            ix = int(np.clip(np.rint((point[0] + half_x) / resolution), 0, len(xs) - 1))
+            iy = int(np.clip(np.rint((point[1] + half_y) / resolution), 0, len(ys) - 1))
             return ix, iy
 
         start_index = to_index(start)

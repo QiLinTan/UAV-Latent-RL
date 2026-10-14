@@ -1,0 +1,72 @@
+{
+  "related_tests_passed": 10,
+  "training_smoke": {
+    "requested_budget_completed": true,
+    "main_20k_completed": false,
+    "cumulative_upper_transitions": 4002,
+    "new_transitions_after_4k": 2,
+    "critic_updates": 3491,
+    "actor_updates": 0,
+    "prefix_verified": true,
+    "critic_lr": 0.0003,
+    "checkpoint_directory": "/tmp/full_critic_frozen_smoke_20261013/checkpoints",
+    "no_best_critic_restore": true
+  },
+  "prefix_verification": {
+    "reference": "checkpoints/full_ft_v1_unfreeze_audit_20261012/seed43/model_004000_full_snapshot.pt",
+    "reference_sha256": "d397dce0c6a356141dc4c069401ff186860ccba080dd024b19b8f2011ee90499",
+    "all_fields_exactly_equal": true,
+    "mismatches": [],
+    "fields_checked": [
+      "upper_step",
+      "actor_updates",
+      "critic_updates",
+      "actor_frozen",
+      "actor",
+      "actor_target",
+      "critic",
+      "critic_target",
+      "actor_optimizer",
+      "critic_optimizer",
+      "rng",
+      "trainer",
+      "stage_mixer",
+      "environment",
+      "base_environment",
+      "environment_rng",
+      "controller",
+      "tree_specs",
+      "target",
+      "replay",
+      "success_replay"
+    ],
+    "trajectory": {
+      "steps_checked": 4000,
+      "state": 0.0,
+      "action": 0.0,
+      "reward": 0.0,
+      "position": 0.0
+    },
+    "torch_threads": 6,
+    "seed43_prefix_replay_exception_authorized_in_previous_turn": true
+  },
+  "original_artifact_integrity": {
+    "protected_files": 2850,
+    "changed_files": [],
+    "all_original_files_unchanged": true
+  },
+  "audit_smoke_only": true,
+  "audit_noise_smoke_complete": true,
+  "audit_smoke_verdict": {
+    "source_value_calibrated": false,
+    "candidate_value_calibrated": false,
+    "level1_value_pass": false,
+    "ranking_evidence_sufficient": false,
+    "gradient_evidence_sufficient": false,
+    "level2_guidance_pass": false,
+    "level2_status": "insufficient_evidence",
+    "actor_utilization_scope": "local action-space guidance only; actor was never updated"
+  },
+  "formal_20k_started": false,
+  "smoke_root": "/tmp/full_critic_frozen_smoke_20261013"
+}

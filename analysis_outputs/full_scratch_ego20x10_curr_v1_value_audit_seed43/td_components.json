@@ -1,0 +1,74 @@
+[
+  {
+    "file": "step5001.npz",
+    "terminal_count": 0,
+    "success_terminal_count": 0,
+    "failure_terminal_count": 0,
+    "terminal_target_square_mass_fraction": 0.0,
+    "mean_scaled_reward": -0.13225437700748444,
+    "mean_discounted_bootstrap": -0.028177410364151,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": 0.00826314277946949,
+    "target_noise_z_std": 0.20092733204364777
+  },
+  {
+    "file": "step5020.npz",
+    "terminal_count": 2,
+    "success_terminal_count": 1,
+    "failure_terminal_count": 1,
+    "terminal_target_square_mass_fraction": 0.9782291650772095,
+    "mean_scaled_reward": -0.11659113317728043,
+    "mean_discounted_bootstrap": -0.03627818822860718,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": -0.00652941782027483,
+    "target_noise_z_std": 0.20258350670337677
+  },
+  {
+    "file": "step5100.npz",
+    "terminal_count": 2,
+    "success_terminal_count": 1,
+    "failure_terminal_count": 1,
+    "terminal_target_square_mass_fraction": 0.9717255234718323,
+    "mean_scaled_reward": -0.12310825288295746,
+    "mean_discounted_bootstrap": -0.06906915456056595,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": 0.02297358028590679,
+    "target_noise_z_std": 0.2016553431749344
+  },
+  {
+    "file": "step5200.npz",
+    "terminal_count": 3,
+    "success_terminal_count": 1,
+    "failure_terminal_count": 2,
+    "terminal_target_square_mass_fraction": 0.969795823097229,
+    "mean_scaled_reward": -0.2107737511396408,
+    "mean_discounted_bootstrap": -0.126205176115036,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": 0.02291911281645298,
+    "target_noise_z_std": 0.1752873957157135
+  },
+  {
+    "file": "step5500.npz",
+    "terminal_count": 0,
+    "success_terminal_count": 0,
+    "failure_terminal_count": 0,
+    "terminal_target_square_mass_fraction": 0.0,
+    "mean_scaled_reward": -0.19045263528823853,
+    "mean_discounted_bootstrap": -0.1899440884590149,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": -0.005200768820941448,
+    "target_noise_z_std": 0.18574152886867523
+  },
+  {
+    "file": "step6000.npz",
+    "terminal_count": 1,
+    "success_terminal_count": 0,
+    "failure_terminal_count": 1,
+    "terminal_target_square_mass_fraction": 0.8144091963768005,
+    "mean_scaled_reward": -0.2767100930213928,
+    "mean_discounted_bootstrap": -0.4161379337310791,
+    "terminal_target_equals_reward": true,
+    "target_noise_z_mean": 0.02771330624818802,
+    "target_noise_z_std": 0.19599634408950806
+  }
+]

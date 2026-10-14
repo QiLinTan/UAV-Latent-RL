@@ -1,0 +1,12 @@
+{
+  "envs/map_atlas/forest_pool.py": true,
+  "envs/forest/ego_curriculum_env.py": true,
+  "envs/forest/start_curriculum.py": true,
+  "envs/forest/start_curriculum_env.py": true,
+  "trainers/full_scratch.py": true,
+  "trainers/td3_trainer.py": true,
+  "trainers/callbacks/ego_pool_eval.py": true,
+  "algos/td3/td3_upper_recurrent.py": true,
+  "scripts/change_td3.py": true,
+  "scripts/run_change_td3.py": true
+}

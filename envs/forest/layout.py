@@ -21,6 +21,11 @@ class ForestLayoutConfig:
     route_blocking_tree_count: int = 1
     route_tree_lateral_range: float = 0.55
     route_tree_layout: str = "random"
+    xy_half_extents: tuple[float, float] | None = None
+
+    @property
+    def bounds_xy(self):
+        return np.asarray(self.xy_half_extents or (self.forest_half_extent, self.forest_half_extent))
 
 
 class ForestLayoutGenerator:
@@ -172,7 +177,7 @@ class ForestLayoutGenerator:
                     rng.uniform(-self.config.route_tree_lateral_range, self.config.route_tree_lateral_range)
                 )
             xy = (start_xy + fraction * route + lateral_offset * perp_dir).astype(np.float32)
-            if np.any(np.abs(xy) > self.config.forest_half_extent - max(radius, 0.05)):
+            if np.any(np.abs(xy) > self.config.bounds_xy - max(radius, 0.05)):
                 continue
             if not self._is_tree_placement_valid(
                 xy=xy,
@@ -312,8 +317,8 @@ class ForestLayoutGenerator:
                 return xy
 
         return rng.uniform(
-            low=-self.config.forest_half_extent,
-            high=self.config.forest_half_extent,
+            low=-self.config.bounds_xy,
+            high=self.config.bounds_xy,
             size=2,
         ).astype(np.float32)
 
@@ -336,7 +341,7 @@ class ForestLayoutGenerator:
                 offset_mag *= -1.0 if rng.random() < 0.5 else 1.0
 
             xy = base_xy + perp_dir * offset_mag
-            if np.all(np.abs(xy) <= self.config.forest_half_extent - max(radius, 0.05)):
+            if np.all(np.abs(xy) <= self.config.bounds_xy - max(radius, 0.05)):
                 return xy.astype(np.float32)
 
         return None
@@ -345,6 +350,6 @@ class ForestLayoutGenerator:
         for _ in range(32):
             t = float(rng.uniform(0.0, 1.0))
             point = start_xy + t * (goal_xy - start_xy)
-            if np.all(np.abs(point) <= self.config.forest_half_extent - 0.05):
+            if np.all(np.abs(point) <= self.config.bounds_xy - 0.05):
                 return point.astype(np.float32)
         return None
