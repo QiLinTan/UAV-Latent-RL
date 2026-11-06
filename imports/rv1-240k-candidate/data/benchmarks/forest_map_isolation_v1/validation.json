@@ -1,0 +1,5613 @@
+[
+  {
+    "corridor_width": null,
+    "family": "clear",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.611705,
+      2.61127,
+      1.0
+    ],
+    "initial_yaw": 2.144686774987992,
+    "map_id": "8c334c30162820bfd42249c5338620d0aaaed61982642b6b1f946ab6e61304dd",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360907,
+    "start": [
+      1.828197,
+      -2.655831,
+      1.0
+    ],
+    "trees": []
+  },
+  {
+    "corridor_width": null,
+    "family": "single",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -2.222507,
+      2.421763,
+      1.0
+    ],
+    "initial_yaw": 2.5792640664090682,
+    "map_id": "3dbb5bf9335fe8db2a688b0787d709ca66f80a68385720d952cfdc99ced8fc11",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360908,
+    "start": [
+      2.286455,
+      -2.227615,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.09079,
+        "radius": 0.259848,
+        "xy": [
+          0.247218,
+          -0.176133
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "sparse_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.683432,
+      1.287363,
+      1.0
+    ],
+    "initial_yaw": 0.34490613330939657,
+    "map_id": "6430965212896f33df07f3e96500e271bd05dbba0942e067032b3438a6c52255",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360909,
+    "start": [
+      -2.644949,
+      -1.762306,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.850389,
+        "radius": 0.130487,
+        "xy": [
+          -1.547117,
+          0.000578
+        ]
+      },
+      {
+        "height": 2.325617,
+        "radius": 0.173794,
+        "xy": [
+          -0.65549,
+          -0.966267
+        ]
+      },
+      {
+        "height": 1.97887,
+        "radius": 0.165509,
+        "xy": [
+          -0.491763,
+          2.184428
+        ]
+      },
+      {
+        "height": 1.95471,
+        "radius": 0.141397,
+        "xy": [
+          0.183754,
+          2.275628
+        ]
+      },
+      {
+        "height": 2.222651,
+        "radius": 0.159912,
+        "xy": [
+          0.406363,
+          -2.646917
+        ]
+      },
+      {
+        "height": 1.828942,
+        "radius": 0.157981,
+        "xy": [
+          1.118441,
+          -0.711469
+        ]
+      },
+      {
+        "height": 2.161305,
+        "radius": 0.120793,
+        "xy": [
+          1.555884,
+          -1.643692
+        ]
+      },
+      {
+        "height": 1.829103,
+        "radius": 0.190531,
+        "xy": [
+          2.687705,
+          -0.298853
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dense_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -3.052888,
+      1.085699,
+      1.0
+    ],
+    "initial_yaw": 2.9675390164700177,
+    "map_id": "7ed1b6b7595403b8ff901c1f0d3dbc25b97c6e8f0c094a96a7c326214e9453c9",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360910,
+    "start": [
+      3.028292,
+      -1.248011,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.880785,
+        "radius": 0.141731,
+        "xy": [
+          -2.553734,
+          -0.246138
+        ]
+      },
+      {
+        "height": 2.37179,
+        "radius": 0.151403,
+        "xy": [
+          -2.375256,
+          -1.666567
+        ]
+      },
+      {
+        "height": 2.188016,
+        "radius": 0.179181,
+        "xy": [
+          -2.021644,
+          1.388438
+        ]
+      },
+      {
+        "height": 2.000422,
+        "radius": 0.140783,
+        "xy": [
+          -1.457161,
+          2.814475
+        ]
+      },
+      {
+        "height": 2.009116,
+        "radius": 0.186515,
+        "xy": [
+          -1.292529,
+          -0.649521
+        ]
+      },
+      {
+        "height": 2.131363,
+        "radius": 0.175701,
+        "xy": [
+          -1.209968,
+          0.70985
+        ]
+      },
+      {
+        "height": 2.059393,
+        "radius": 0.161884,
+        "xy": [
+          -0.992815,
+          -2.007095
+        ]
+      },
+      {
+        "height": 1.85437,
+        "radius": 0.144314,
+        "xy": [
+          -0.764452,
+          -0.231095
+        ]
+      },
+      {
+        "height": 1.801352,
+        "radius": 0.174343,
+        "xy": [
+          -0.637275,
+          2.078312
+        ]
+      },
+      {
+        "height": 1.879353,
+        "radius": 0.170378,
+        "xy": [
+          -0.636855,
+          -0.920229
+        ]
+      },
+      {
+        "height": 1.938015,
+        "radius": 0.124805,
+        "xy": [
+          -0.402788,
+          -1.811778
+        ]
+      },
+      {
+        "height": 2.364876,
+        "radius": 0.169718,
+        "xy": [
+          -0.005609,
+          0.615318
+        ]
+      },
+      {
+        "height": 1.862489,
+        "radius": 0.171594,
+        "xy": [
+          0.022004,
+          -0.434419
+        ]
+      },
+      {
+        "height": 2.072459,
+        "radius": 0.196613,
+        "xy": [
+          0.037036,
+          2.181122
+        ]
+      },
+      {
+        "height": 2.049957,
+        "radius": 0.161807,
+        "xy": [
+          0.326875,
+          -1.443873
+        ]
+      },
+      {
+        "height": 1.916263,
+        "radius": 0.134794,
+        "xy": [
+          0.663458,
+          0.437702
+        ]
+      },
+      {
+        "height": 2.031513,
+        "radius": 0.188689,
+        "xy": [
+          0.856801,
+          1.701887
+        ]
+      },
+      {
+        "height": 2.335898,
+        "radius": 0.176772,
+        "xy": [
+          0.945547,
+          0.008828
+        ]
+      },
+      {
+        "height": 2.078706,
+        "radius": 0.155629,
+        "xy": [
+          1.100554,
+          -1.444797
+        ]
+      },
+      {
+        "height": 1.858942,
+        "radius": 0.135841,
+        "xy": [
+          1.260597,
+          1.041788
+        ]
+      },
+      {
+        "height": 1.958445,
+        "radius": 0.19065,
+        "xy": [
+          1.621258,
+          -1.592545
+        ]
+      },
+      {
+        "height": 1.939598,
+        "radius": 0.164715,
+        "xy": [
+          2.231648,
+          1.843293
+        ]
+      },
+      {
+        "height": 2.015757,
+        "radius": 0.191114,
+        "xy": [
+          2.450701,
+          0.842518
+        ]
+      },
+      {
+        "height": 2.138822,
+        "radius": 0.170312,
+        "xy": [
+          2.942447,
+          1.528842
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "route_blocking",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.936066,
+      -2.573691,
+      1.0
+    ],
+    "initial_yaw": -2.459835930274793,
+    "map_id": "5feb89d66ca12fbbd521db1af1971181c3fe0d6d67c63b89e59197d970ec0ef2",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360911,
+    "start": [
+      2.178355,
+      2.508994,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.387935,
+        "radius": 0.13354,
+        "xy": [
+          -2.864141,
+          -0.431301
+        ]
+      },
+      {
+        "height": 2.126238,
+        "radius": 0.14498,
+        "xy": [
+          -1.963242,
+          -1.180498
+        ]
+      },
+      {
+        "height": 1.956896,
+        "radius": 0.149486,
+        "xy": [
+          -1.758449,
+          -0.346336
+        ]
+      },
+      {
+        "height": 2.204438,
+        "radius": 0.1743,
+        "xy": [
+          -1.681529,
+          0.156525
+        ]
+      },
+      {
+        "height": 1.853489,
+        "radius": 0.167221,
+        "xy": [
+          -1.095527,
+          -1.246931
+        ]
+      },
+      {
+        "height": 2.399101,
+        "radius": 0.141366,
+        "xy": [
+          -0.837358,
+          0.727576
+        ]
+      },
+      {
+        "height": 2.350847,
+        "radius": 0.158116,
+        "xy": [
+          -0.685751,
+          2.49977
+        ]
+      },
+      {
+        "height": 2.020358,
+        "radius": 0.143017,
+        "xy": [
+          -0.603804,
+          -1.848722
+        ]
+      },
+      {
+        "height": 1.942346,
+        "radius": 0.135539,
+        "xy": [
+          -0.52175,
+          1.031287
+        ]
+      },
+      {
+        "height": 1.872889,
+        "radius": 0.166733,
+        "xy": [
+          -0.435646,
+          1.644013
+        ]
+      },
+      {
+        "height": 1.822295,
+        "radius": 0.162326,
+        "xy": [
+          -0.085824,
+          0.035666
+        ]
+      },
+      {
+        "height": 1.909039,
+        "radius": 0.179553,
+        "xy": [
+          0.000731,
+          3.017767
+        ]
+      },
+      {
+        "height": 2.104515,
+        "radius": 0.193734,
+        "xy": [
+          0.096518,
+          1.503459
+        ]
+      },
+      {
+        "height": 2.306142,
+        "radius": 0.170919,
+        "xy": [
+          0.193389,
+          0.622142
+        ]
+      },
+      {
+        "height": 2.012284,
+        "radius": 0.199915,
+        "xy": [
+          0.290581,
+          -1.508696
+        ]
+      },
+      {
+        "height": 1.905267,
+        "radius": 0.138596,
+        "xy": [
+          0.34438,
+          2.072233
+        ]
+      },
+      {
+        "height": 2.215704,
+        "radius": 0.155593,
+        "xy": [
+          0.622347,
+          0.288055
+        ]
+      },
+      {
+        "height": 2.223106,
+        "radius": 0.134725,
+        "xy": [
+          1.103243,
+          1.016891
+        ]
+      },
+      {
+        "height": 1.828507,
+        "radius": 0.155768,
+        "xy": [
+          1.105577,
+          0.172921
+        ]
+      },
+      {
+        "height": 2.305979,
+        "radius": 0.178369,
+        "xy": [
+          1.389933,
+          -2.04251
+        ]
+      },
+      {
+        "height": 2.300097,
+        "radius": 0.12758,
+        "xy": [
+          1.457555,
+          -0.653689
+        ]
+      },
+      {
+        "height": 2.14877,
+        "radius": 0.153079,
+        "xy": [
+          2.01342,
+          1.202237
+        ]
+      },
+      {
+        "height": 1.981108,
+        "radius": 0.182887,
+        "xy": [
+          2.322145,
+          -0.803063
+        ]
+      },
+      {
+        "height": 1.887943,
+        "radius": 0.127689,
+        "xy": [
+          2.598711,
+          0.10074
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "symmetric",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -2.877952,
+      0.439441,
+      1.0
+    ],
+    "initial_yaw": 3.137248975766907,
+    "map_id": "6a3ff4549e31a9732f489a15f0ed78e6d3abad41caf0aaf8e8d04e3ad3dd028b",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360912,
+    "start": [
+      3.241571,
+      -0.457708,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.232323,
+        "radius": 0.19595,
+        "xy": [
+          -0.443744,
+          0.958211
+        ]
+      },
+      {
+        "height": 2.321443,
+        "radius": 0.175126,
+        "xy": [
+          0.103087,
+          0.89926
+        ]
+      },
+      {
+        "height": 2.045581,
+        "radius": 0.243967,
+        "xy": [
+          0.329525,
+          -0.088835
+        ]
+      },
+      {
+        "height": 2.238931,
+        "radius": 0.174801,
+        "xy": [
+          0.649919,
+          0.840309
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": 0.961118464017627,
+    "family": "narrow_corridor",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.324724,
+      -2.53258,
+      1.0
+    ],
+    "initial_yaw": -1.8635211816264914,
+    "map_id": "ccc680d19807c889823f0ec37e5974dc1a50d7e3dbc14139b406be2bf975d925",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360913,
+    "start": [
+      1.132742,
+      2.800286,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.973564,
+        "radius": 0.18,
+        "xy": [
+          -1.545943,
+          -1.799285
+        ]
+      },
+      {
+        "height": 1.965596,
+        "radius": 0.18,
+        "xy": [
+          -1.393651,
+          -1.409819
+        ]
+      },
+      {
+        "height": 2.246826,
+        "radius": 0.18,
+        "xy": [
+          -1.241359,
+          -1.020354
+        ]
+      },
+      {
+        "height": 2.090107,
+        "radius": 0.18,
+        "xy": [
+          -1.089066,
+          -0.630889
+        ]
+      },
+      {
+        "height": 2.369751,
+        "radius": 0.18,
+        "xy": [
+          -0.936774,
+          -0.241424
+        ]
+      },
+      {
+        "height": 2.214476,
+        "radius": 0.18,
+        "xy": [
+          -0.784482,
+          0.148041
+        ]
+      },
+      {
+        "height": 2.366493,
+        "radius": 0.18,
+        "xy": [
+          -0.63219,
+          0.537506
+        ]
+      },
+      {
+        "height": 2.125506,
+        "radius": 0.18,
+        "xy": [
+          -0.479898,
+          0.926972
+        ]
+      },
+      {
+        "height": 2.384946,
+        "radius": 0.18,
+        "xy": [
+          -0.327606,
+          1.316437
+        ]
+      },
+      {
+        "height": 1.913182,
+        "radius": 0.18,
+        "xy": [
+          -0.315546,
+          -2.280405
+        ]
+      },
+      {
+        "height": 1.83846,
+        "radius": 0.18,
+        "xy": [
+          -0.175313,
+          1.705902
+        ]
+      },
+      {
+        "height": 2.393095,
+        "radius": 0.18,
+        "xy": [
+          -0.163254,
+          -1.89094
+        ]
+      },
+      {
+        "height": 1.831102,
+        "radius": 0.18,
+        "xy": [
+          -0.023021,
+          2.095367
+        ]
+      },
+      {
+        "height": 2.395241,
+        "radius": 0.18,
+        "xy": [
+          -0.010962,
+          -1.501475
+        ]
+      },
+      {
+        "height": 2.305919,
+        "radius": 0.18,
+        "xy": [
+          0.129271,
+          2.484832
+        ]
+      },
+      {
+        "height": 2.343904,
+        "radius": 0.18,
+        "xy": [
+          0.141331,
+          -1.11201
+        ]
+      },
+      {
+        "height": 1.931237,
+        "radius": 0.18,
+        "xy": [
+          0.293623,
+          -0.722545
+        ]
+      },
+      {
+        "height": 2.152135,
+        "radius": 0.18,
+        "xy": [
+          0.445915,
+          -0.33308
+        ]
+      },
+      {
+        "height": 2.007584,
+        "radius": 0.18,
+        "xy": [
+          0.598207,
+          0.056386
+        ]
+      },
+      {
+        "height": 2.259866,
+        "radius": 0.18,
+        "xy": [
+          0.750499,
+          0.445851
+        ]
+      },
+      {
+        "height": 2.176265,
+        "radius": 0.18,
+        "xy": [
+          0.902791,
+          0.835316
+        ]
+      },
+      {
+        "height": 1.880542,
+        "radius": 0.18,
+        "xy": [
+          1.055084,
+          1.224781
+        ]
+      },
+      {
+        "height": 2.2633,
+        "radius": 0.18,
+        "xy": [
+          1.207376,
+          1.614246
+        ]
+      },
+      {
+        "height": 2.028937,
+        "radius": 0.18,
+        "xy": [
+          1.359668,
+          2.003712
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dead_end",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      1.059368,
+      2.780133,
+      1.0
+    ],
+    "initial_yaw": 0.895783279913951,
+    "map_id": "adca7b5c9cedef91c049a14c4d8b9e23752d26d2c21664a34af05e6c21b7aaa0",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360914,
+    "start": [
+      -1.453766,
+      -2.952318,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.882076,
+        "radius": 0.18,
+        "xy": [
+          -1.446514,
+          -0.806213
+        ]
+      },
+      {
+        "height": 2.315207,
+        "radius": 0.18,
+        "xy": [
+          -1.325092,
+          -0.55391
+        ]
+      },
+      {
+        "height": 1.834108,
+        "radius": 0.18,
+        "xy": [
+          -1.203671,
+          -0.301606
+        ]
+      },
+      {
+        "height": 2.179159,
+        "radius": 0.18,
+        "xy": [
+          -1.08225,
+          -0.049303
+        ]
+      },
+      {
+        "height": 2.320927,
+        "radius": 0.18,
+        "xy": [
+          -0.960829,
+          0.203
+        ]
+      },
+      {
+        "height": 2.001554,
+        "radius": 0.18,
+        "xy": [
+          -0.839407,
+          0.455303
+        ]
+      },
+      {
+        "height": 2.376105,
+        "radius": 0.18,
+        "xy": [
+          -0.709313,
+          0.725628
+        ]
+      },
+      {
+        "height": 2.027232,
+        "radius": 0.18,
+        "xy": [
+          -0.438988,
+          0.595533
+        ]
+      },
+      {
+        "height": 2.166077,
+        "radius": 0.18,
+        "xy": [
+          -0.168663,
+          0.465439
+        ]
+      },
+      {
+        "height": 2.398979,
+        "radius": 0.18,
+        "xy": [
+          0.101661,
+          0.335345
+        ]
+      },
+      {
+        "height": 2.08438,
+        "radius": 0.18,
+        "xy": [
+          0.175435,
+          -1.586778
+        ]
+      },
+      {
+        "height": 2.23303,
+        "radius": 0.18,
+        "xy": [
+          0.296856,
+          -1.334475
+        ]
+      },
+      {
+        "height": 2.253851,
+        "radius": 0.18,
+        "xy": [
+          0.371986,
+          0.205251
+        ]
+      },
+      {
+        "height": 2.157029,
+        "radius": 0.18,
+        "xy": [
+          0.418278,
+          -1.082172
+        ]
+      },
+      {
+        "height": 2.333849,
+        "radius": 0.18,
+        "xy": [
+          0.539699,
+          -0.829869
+        ]
+      },
+      {
+        "height": 2.041424,
+        "radius": 0.18,
+        "xy": [
+          0.642311,
+          0.075156
+        ]
+      },
+      {
+        "height": 1.882316,
+        "radius": 0.18,
+        "xy": [
+          0.66112,
+          -0.577566
+        ]
+      },
+      {
+        "height": 1.92025,
+        "radius": 0.18,
+        "xy": [
+          0.782541,
+          -0.325263
+        ]
+      },
+      {
+        "height": 2.03348,
+        "radius": 0.18,
+        "xy": [
+          0.912636,
+          -0.054938
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "multiple_turns",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.920672,
+      0.673664,
+      1.0
+    ],
+    "initial_yaw": 0.19717517344227103,
+    "map_id": "3e3a7e1a8c00d9a34d087b0fe8923f060419d22aba6db2fe0e020d670eca9339",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360915,
+    "start": [
+      -2.885396,
+      -0.842425,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.174514,
+        "radius": 0.18,
+        "xy": [
+          -2.047249,
+          1.92404
+        ]
+      },
+      {
+        "height": 1.835026,
+        "radius": 0.18,
+        "xy": [
+          -1.960573,
+          1.584942
+        ]
+      },
+      {
+        "height": 1.889999,
+        "radius": 0.18,
+        "xy": [
+          -1.873897,
+          1.245844
+        ]
+      },
+      {
+        "height": 2.261751,
+        "radius": 0.18,
+        "xy": [
+          -1.787222,
+          0.906747
+        ]
+      },
+      {
+        "height": 1.990157,
+        "radius": 0.18,
+        "xy": [
+          -1.700546,
+          0.567649
+        ]
+      },
+      {
+        "height": 2.200446,
+        "radius": 0.18,
+        "xy": [
+          -1.61387,
+          0.228551
+        ]
+      },
+      {
+        "height": 1.817878,
+        "radius": 0.18,
+        "xy": [
+          -1.527194,
+          -0.110547
+        ]
+      },
+      {
+        "height": 2.131317,
+        "radius": 0.18,
+        "xy": [
+          -1.440519,
+          -0.449644
+        ]
+      },
+      {
+        "height": 2.045733,
+        "radius": 0.18,
+        "xy": [
+          -1.353843,
+          -0.788742
+        ]
+      },
+      {
+        "height": 1.979598,
+        "radius": 0.18,
+        "xy": [
+          -0.123447,
+          0.454691
+        ]
+      },
+      {
+        "height": 2.384678,
+        "radius": 0.18,
+        "xy": [
+          -0.036771,
+          0.115593
+        ]
+      },
+      {
+        "height": 2.118865,
+        "radius": 0.18,
+        "xy": [
+          0.049904,
+          -0.223505
+        ]
+      },
+      {
+        "height": 2.3592,
+        "radius": 0.18,
+        "xy": [
+          0.13658,
+          -0.562602
+        ]
+      },
+      {
+        "height": 1.929681,
+        "radius": 0.18,
+        "xy": [
+          0.223256,
+          -0.9017
+        ]
+      },
+      {
+        "height": 2.085892,
+        "radius": 0.18,
+        "xy": [
+          0.309932,
+          -1.240798
+        ]
+      },
+      {
+        "height": 2.359968,
+        "radius": 0.18,
+        "xy": [
+          0.396607,
+          -1.579896
+        ]
+      },
+      {
+        "height": 1.924725,
+        "radius": 0.18,
+        "xy": [
+          0.483283,
+          -1.918993
+        ]
+      },
+      {
+        "height": 2.3333,
+        "radius": 0.18,
+        "xy": [
+          0.569959,
+          -2.258091
+        ]
+      },
+      {
+        "height": 2.195034,
+        "radius": 0.18,
+        "xy": [
+          0.859304,
+          2.666975
+        ]
+      },
+      {
+        "height": 1.880672,
+        "radius": 0.18,
+        "xy": [
+          0.945979,
+          2.327877
+        ]
+      },
+      {
+        "height": 1.994847,
+        "radius": 0.18,
+        "xy": [
+          1.032655,
+          1.98878
+        ]
+      },
+      {
+        "height": 2.238042,
+        "radius": 0.18,
+        "xy": [
+          1.119331,
+          1.649682
+        ]
+      },
+      {
+        "height": 2.112988,
+        "radius": 0.18,
+        "xy": [
+          1.206007,
+          1.310584
+        ]
+      },
+      {
+        "height": 2.336165,
+        "radius": 0.18,
+        "xy": [
+          1.292682,
+          0.971486
+        ]
+      },
+      {
+        "height": 2.138906,
+        "radius": 0.18,
+        "xy": [
+          1.379358,
+          0.632388
+        ]
+      },
+      {
+        "height": 1.971434,
+        "radius": 0.18,
+        "xy": [
+          1.466034,
+          0.293291
+        ]
+      },
+      {
+        "height": 1.876412,
+        "radius": 0.18,
+        "xy": [
+          1.55271,
+          -0.045807
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "clear",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -3.174285,
+      0.905262,
+      1.0
+    ],
+    "initial_yaw": 2.8142862351912603,
+    "map_id": "ea5a8efa8c0e7bc58ea4442567119f5dfc5144891d73d1721b97b4d0913f4b57",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360916,
+    "start": [
+      3.147468,
+      -0.858231,
+      1.0
+    ],
+    "trees": []
+  },
+  {
+    "corridor_width": null,
+    "family": "single",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.883539,
+      -1.065401,
+      1.0
+    ],
+    "initial_yaw": -0.5857453314322179,
+    "map_id": "7427aaa447eb23e62a3964b3dd288c6767f39ab1a2332b78fd6d53e535317d0f",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360917,
+    "start": [
+      -2.563411,
+      1.329106,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.249268,
+        "radius": 0.256747,
+        "xy": [
+          0.192904,
+          -0.048735
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "sparse_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      1.972314,
+      -2.097898,
+      1.0
+    ],
+    "initial_yaw": -0.531522160985842,
+    "map_id": "85a37f7826a2252965d442e3e841f7b521a55c39aa3d7cfa677266c65a1d101d",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360918,
+    "start": [
+      -2.195249,
+      2.099449,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.077289,
+        "radius": 0.133662,
+        "xy": [
+          -1.855553,
+          0.705465
+        ]
+      },
+      {
+        "height": 2.176064,
+        "radius": 0.141512,
+        "xy": [
+          -1.493897,
+          -0.353385
+        ]
+      },
+      {
+        "height": 2.197321,
+        "radius": 0.158475,
+        "xy": [
+          -0.582204,
+          0.714752
+        ]
+      },
+      {
+        "height": 2.25268,
+        "radius": 0.179887,
+        "xy": [
+          -0.145982,
+          -0.860683
+        ]
+      },
+      {
+        "height": 2.106731,
+        "radius": 0.125612,
+        "xy": [
+          -0.101259,
+          0.112242
+        ]
+      },
+      {
+        "height": 2.256515,
+        "radius": 0.175168,
+        "xy": [
+          -0.005575,
+          3.240103
+        ]
+      },
+      {
+        "height": 2.103607,
+        "radius": 0.18237,
+        "xy": [
+          0.005554,
+          0.662196
+        ]
+      },
+      {
+        "height": 1.872382,
+        "radius": 0.185138,
+        "xy": [
+          0.218231,
+          1.852361
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dense_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      3.062168,
+      -1.026496,
+      1.0
+    ],
+    "initial_yaw": -0.590372509095153,
+    "map_id": "fc3fb863775fadd0bd60768b96e21738a5fb3d05d57a7f33fca265924ea96e1b",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360919,
+    "start": [
+      -2.921638,
+      1.429204,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.068459,
+        "radius": 0.164338,
+        "xy": [
+          -2.563668,
+          -0.096404
+        ]
+      },
+      {
+        "height": 2.146764,
+        "radius": 0.170789,
+        "xy": [
+          -1.821335,
+          0.08411
+        ]
+      },
+      {
+        "height": 2.371817,
+        "radius": 0.151418,
+        "xy": [
+          -1.758438,
+          -1.046102
+        ]
+      },
+      {
+        "height": 2.188487,
+        "radius": 0.162147,
+        "xy": [
+          -1.67702,
+          1.058817
+        ]
+      },
+      {
+        "height": 2.099126,
+        "radius": 0.173378,
+        "xy": [
+          -1.357978,
+          -0.620836
+        ]
+      },
+      {
+        "height": 1.900218,
+        "radius": 0.162844,
+        "xy": [
+          -0.788708,
+          2.228005
+        ]
+      },
+      {
+        "height": 2.033784,
+        "radius": 0.19232,
+        "xy": [
+          -0.711721,
+          1.208433
+        ]
+      },
+      {
+        "height": 2.144622,
+        "radius": 0.196994,
+        "xy": [
+          -0.347358,
+          0.081634
+        ]
+      },
+      {
+        "height": 2.343158,
+        "radius": 0.169157,
+        "xy": [
+          -0.1738,
+          -2.491863
+        ]
+      },
+      {
+        "height": 1.87235,
+        "radius": 0.16194,
+        "xy": [
+          -0.135917,
+          1.072571
+        ]
+      },
+      {
+        "height": 2.271216,
+        "radius": 0.18967,
+        "xy": [
+          0.092516,
+          -1.2777
+        ]
+      },
+      {
+        "height": 1.810685,
+        "radius": 0.166236,
+        "xy": [
+          0.255513,
+          0.463724
+        ]
+      },
+      {
+        "height": 2.054242,
+        "radius": 0.136389,
+        "xy": [
+          0.371798,
+          -2.301421
+        ]
+      },
+      {
+        "height": 2.360579,
+        "radius": 0.121115,
+        "xy": [
+          0.645984,
+          2.597077
+        ]
+      },
+      {
+        "height": 1.930114,
+        "radius": 0.197459,
+        "xy": [
+          0.956791,
+          1.131463
+        ]
+      },
+      {
+        "height": 1.870752,
+        "radius": 0.136819,
+        "xy": [
+          0.972492,
+          -2.806118
+        ]
+      },
+      {
+        "height": 2.011591,
+        "radius": 0.199632,
+        "xy": [
+          1.018399,
+          -1.233934
+        ]
+      },
+      {
+        "height": 2.052819,
+        "radius": 0.120864,
+        "xy": [
+          1.056912,
+          1.996371
+        ]
+      },
+      {
+        "height": 2.391668,
+        "radius": 0.140731,
+        "xy": [
+          1.288212,
+          -2.145001
+        ]
+      },
+      {
+        "height": 2.380378,
+        "radius": 0.124037,
+        "xy": [
+          1.64125,
+          -1.662763
+        ]
+      },
+      {
+        "height": 2.154328,
+        "radius": 0.155594,
+        "xy": [
+          1.750533,
+          0.95432
+        ]
+      },
+      {
+        "height": 2.236131,
+        "radius": 0.186193,
+        "xy": [
+          2.249589,
+          0.344765
+        ]
+      },
+      {
+        "height": 2.285955,
+        "radius": 0.126577,
+        "xy": [
+          2.887362,
+          0.349656
+        ]
+      },
+      {
+        "height": 2.048702,
+        "radius": 0.163303,
+        "xy": [
+          2.959778,
+          1.282455
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "route_blocking",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -2.213984,
+      -2.103571,
+      1.0
+    ],
+    "initial_yaw": -2.3739885926084616,
+    "map_id": "8ba92e141bcbdf420d1a98f93cd98cfb0d32088349ddcb0c7633a36a3cb1af8c",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360920,
+    "start": [
+      2.136922,
+      2.254736,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.222145,
+        "radius": 0.153104,
+        "xy": [
+          -2.837779,
+          0.021245
+        ]
+      },
+      {
+        "height": 2.258085,
+        "radius": 0.174976,
+        "xy": [
+          -2.383348,
+          1.170536
+        ]
+      },
+      {
+        "height": 2.02623,
+        "radius": 0.125455,
+        "xy": [
+          -1.376694,
+          -0.4998
+        ]
+      },
+      {
+        "height": 1.904206,
+        "radius": 0.131829,
+        "xy": [
+          -1.188336,
+          -1.086721
+        ]
+      },
+      {
+        "height": 2.224808,
+        "radius": 0.134476,
+        "xy": [
+          -1.037404,
+          -1.476575
+        ]
+      },
+      {
+        "height": 2.041051,
+        "radius": 0.122783,
+        "xy": [
+          -0.908532,
+          1.414438
+        ]
+      },
+      {
+        "height": 2.010561,
+        "radius": 0.136998,
+        "xy": [
+          -0.444199,
+          3.107555
+        ]
+      },
+      {
+        "height": 1.957052,
+        "radius": 0.178498,
+        "xy": [
+          -0.379783,
+          1.200282
+        ]
+      },
+      {
+        "height": 2.27088,
+        "radius": 0.12365,
+        "xy": [
+          -0.144724,
+          3.388868
+        ]
+      },
+      {
+        "height": 2.100565,
+        "radius": 0.175527,
+        "xy": [
+          -0.140747,
+          -2.222774
+        ]
+      },
+      {
+        "height": 2.138154,
+        "radius": 0.15217,
+        "xy": [
+          0.054005,
+          -0.13889
+        ]
+      },
+      {
+        "height": 1.832497,
+        "radius": 0.156184,
+        "xy": [
+          0.207141,
+          -0.624589
+        ]
+      },
+      {
+        "height": 1.877903,
+        "radius": 0.148174,
+        "xy": [
+          0.298382,
+          -1.841571
+        ]
+      },
+      {
+        "height": 2.282937,
+        "radius": 0.183567,
+        "xy": [
+          0.316979,
+          2.613332
+        ]
+      },
+      {
+        "height": 2.190407,
+        "radius": 0.172569,
+        "xy": [
+          0.541162,
+          1.222838
+        ]
+      },
+      {
+        "height": 1.858647,
+        "radius": 0.128693,
+        "xy": [
+          0.940073,
+          -0.058385
+        ]
+      },
+      {
+        "height": 2.362642,
+        "radius": 0.144195,
+        "xy": [
+          1.122346,
+          1.224064
+        ]
+      },
+      {
+        "height": 1.865986,
+        "radius": 0.130978,
+        "xy": [
+          1.254279,
+          2.410554
+        ]
+      },
+      {
+        "height": 2.302271,
+        "radius": 0.168009,
+        "xy": [
+          1.652685,
+          -0.564362
+        ]
+      },
+      {
+        "height": 2.174554,
+        "radius": 0.193221,
+        "xy": [
+          1.724614,
+          1.364706
+        ]
+      },
+      {
+        "height": 2.269755,
+        "radius": 0.139882,
+        "xy": [
+          1.992938,
+          0.62241
+        ]
+      },
+      {
+        "height": 1.819214,
+        "radius": 0.173612,
+        "xy": [
+          2.282757,
+          0.198447
+        ]
+      },
+      {
+        "height": 2.017506,
+        "radius": 0.195783,
+        "xy": [
+          2.396879,
+          -1.081481
+        ]
+      },
+      {
+        "height": 2.25642,
+        "radius": 0.121188,
+        "xy": [
+          2.812698,
+          -0.505582
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "symmetric",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.017041,
+      3.223107,
+      1.0
+    ],
+    "initial_yaw": 1.4303915260435822,
+    "map_id": "e3ffebb4ada89bb773d874e4da1384772dfff70ca7163024729f10255b117b7a",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360921,
+    "start": [
+      0.059576,
+      -3.27594,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.336593,
+        "radius": 0.152623,
+        "xy": [
+          -0.762427,
+          0.589491
+        ]
+      },
+      {
+        "height": 2.187289,
+        "radius": 0.132334,
+        "xy": [
+          -0.739215,
+          0.039981
+        ]
+      },
+      {
+        "height": 2.279336,
+        "radius": 0.150058,
+        "xy": [
+          -0.716003,
+          -0.509529
+        ]
+      },
+      {
+        "height": 2.034156,
+        "radius": 0.255072,
+        "xy": [
+          0.045582,
+          -0.192498
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": 0.8039577340197509,
+    "family": "narrow_corridor",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -3.294038,
+      -0.244961,
+      1.0
+    ],
+    "initial_yaw": -2.9883055530732365,
+    "map_id": "dd8067baa1b7fbadff635f287f6f47cfdbb8b159c9c3b2fc8edd9ae5faeff518",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360922,
+    "start": [
+      3.273114,
+      0.321618,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.923396,
+        "radius": 0.18,
+        "xy": [
+          -2.380252,
+          0.424538
+        ]
+      },
+      {
+        "height": 2.321337,
+        "radius": 0.18,
+        "xy": [
+          -2.312089,
+          -0.737422
+        ]
+      },
+      {
+        "height": 2.357665,
+        "radius": 0.18,
+        "xy": [
+          -1.962788,
+          0.449027
+        ]
+      },
+      {
+        "height": 2.215434,
+        "radius": 0.18,
+        "xy": [
+          -1.894625,
+          -0.712933
+        ]
+      },
+      {
+        "height": 2.226662,
+        "radius": 0.18,
+        "xy": [
+          -1.545324,
+          0.473516
+        ]
+      },
+      {
+        "height": 1.907005,
+        "radius": 0.18,
+        "xy": [
+          -1.477161,
+          -0.688444
+        ]
+      },
+      {
+        "height": 1.83772,
+        "radius": 0.18,
+        "xy": [
+          -1.12786,
+          0.498006
+        ]
+      },
+      {
+        "height": 1.815944,
+        "radius": 0.18,
+        "xy": [
+          -1.059697,
+          -0.663955
+        ]
+      },
+      {
+        "height": 2.098382,
+        "radius": 0.18,
+        "xy": [
+          -0.710396,
+          0.522495
+        ]
+      },
+      {
+        "height": 1.859749,
+        "radius": 0.18,
+        "xy": [
+          -0.642233,
+          -0.639465
+        ]
+      },
+      {
+        "height": 2.205447,
+        "radius": 0.18,
+        "xy": [
+          -0.292931,
+          0.546984
+        ]
+      },
+      {
+        "height": 2.246367,
+        "radius": 0.18,
+        "xy": [
+          -0.224769,
+          -0.614976
+        ]
+      },
+      {
+        "height": 2.15982,
+        "radius": 0.18,
+        "xy": [
+          0.124533,
+          0.571473
+        ]
+      },
+      {
+        "height": 2.389963,
+        "radius": 0.18,
+        "xy": [
+          0.192696,
+          -0.590487
+        ]
+      },
+      {
+        "height": 1.865451,
+        "radius": 0.18,
+        "xy": [
+          0.541997,
+          0.595963
+        ]
+      },
+      {
+        "height": 1.976458,
+        "radius": 0.18,
+        "xy": [
+          0.61016,
+          -0.565998
+        ]
+      },
+      {
+        "height": 2.094813,
+        "radius": 0.18,
+        "xy": [
+          0.959461,
+          0.620452
+        ]
+      },
+      {
+        "height": 1.842089,
+        "radius": 0.18,
+        "xy": [
+          1.027624,
+          -0.541508
+        ]
+      },
+      {
+        "height": 1.933614,
+        "radius": 0.18,
+        "xy": [
+          1.376925,
+          0.644941
+        ]
+      },
+      {
+        "height": 1.976445,
+        "radius": 0.18,
+        "xy": [
+          1.445088,
+          -0.517019
+        ]
+      },
+      {
+        "height": 2.32275,
+        "radius": 0.18,
+        "xy": [
+          1.794389,
+          0.66943
+        ]
+      },
+      {
+        "height": 1.998903,
+        "radius": 0.18,
+        "xy": [
+          1.862552,
+          -0.49253
+        ]
+      },
+      {
+        "height": 2.08442,
+        "radius": 0.18,
+        "xy": [
+          2.211853,
+          0.69392
+        ]
+      },
+      {
+        "height": 2.325927,
+        "radius": 0.18,
+        "xy": [
+          2.280016,
+          -0.468041
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dead_end",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -2.869468,
+      -0.283935,
+      1.0
+    ],
+    "initial_yaw": -3.0559222527238874,
+    "map_id": "ee78621de16c98adf21d5ed6d4c4f9ff435fef6311929b07801195c61ad5097a",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360923,
+    "start": [
+      3.174799,
+      0.485497,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.987035,
+        "radius": 0.18,
+        "xy": [
+          -0.512325,
+          0.93757
+        ]
+      },
+      {
+        "height": 2.109513,
+        "radius": 0.18,
+        "xy": [
+          -0.469729,
+          0.64061
+        ]
+      },
+      {
+        "height": 2.315019,
+        "radius": 0.18,
+        "xy": [
+          -0.427132,
+          0.343649
+        ]
+      },
+      {
+        "height": 2.308133,
+        "radius": 0.18,
+        "xy": [
+          -0.384535,
+          0.046689
+        ]
+      },
+      {
+        "height": 2.29911,
+        "radius": 0.18,
+        "xy": [
+          -0.341938,
+          -0.250271
+        ]
+      },
+      {
+        "height": 1.987766,
+        "radius": 0.18,
+        "xy": [
+          -0.299342,
+          -0.547232
+        ]
+      },
+      {
+        "height": 1.946061,
+        "radius": 0.18,
+        "xy": [
+          -0.256745,
+          -0.844192
+        ]
+      },
+      {
+        "height": 1.820948,
+        "radius": 0.18,
+        "xy": [
+          -0.215365,
+          0.980167
+        ]
+      },
+      {
+        "height": 1.853365,
+        "radius": 0.18,
+        "xy": [
+          0.040216,
+          -0.801596
+        ]
+      },
+      {
+        "height": 2.089932,
+        "radius": 0.18,
+        "xy": [
+          0.061798,
+          1.019924
+        ]
+      },
+      {
+        "height": 1.971196,
+        "radius": 0.18,
+        "xy": [
+          0.317379,
+          -0.761839
+        ]
+      },
+      {
+        "height": 2.134382,
+        "radius": 0.18,
+        "xy": [
+          0.338961,
+          1.059681
+        ]
+      },
+      {
+        "height": 1.860512,
+        "radius": 0.18,
+        "xy": [
+          0.594542,
+          -0.722082
+        ]
+      },
+      {
+        "height": 2.348303,
+        "radius": 0.18,
+        "xy": [
+          0.616124,
+          1.099438
+        ]
+      },
+      {
+        "height": 2.26227,
+        "radius": 0.18,
+        "xy": [
+          0.871705,
+          -0.682325
+        ]
+      },
+      {
+        "height": 2.010439,
+        "radius": 0.18,
+        "xy": [
+          0.893288,
+          1.139195
+        ]
+      },
+      {
+        "height": 1.819429,
+        "radius": 0.18,
+        "xy": [
+          1.148868,
+          -0.642568
+        ]
+      },
+      {
+        "height": 2.016586,
+        "radius": 0.18,
+        "xy": [
+          1.170451,
+          1.178952
+        ]
+      },
+      {
+        "height": 1.813463,
+        "radius": 0.18,
+        "xy": [
+          1.426031,
+          -0.602811
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "multiple_turns",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.127569,
+      3.134031,
+      1.0
+    ],
+    "initial_yaw": 1.391337908720661,
+    "map_id": "437535c7be4130954ab44457f1c27e210d5d0b7a922f540ee06afbcd40a3d9a5",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360924,
+    "start": [
+      0.164028,
+      -3.285155,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.158943,
+        "radius": 0.18,
+        "xy": [
+          -2.398626,
+          1.35425
+        ]
+      },
+      {
+        "height": 2.090577,
+        "radius": 0.18,
+        "xy": [
+          -2.326985,
+          -1.644894
+        ]
+      },
+      {
+        "height": 2.185764,
+        "radius": 0.18,
+        "xy": [
+          -2.048725,
+          1.362608
+        ]
+      },
+      {
+        "height": 2.315556,
+        "radius": 0.18,
+        "xy": [
+          -1.977085,
+          -1.636536
+        ]
+      },
+      {
+        "height": 2.361732,
+        "radius": 0.18,
+        "xy": [
+          -1.698825,
+          1.370966
+        ]
+      },
+      {
+        "height": 2.395805,
+        "radius": 0.18,
+        "xy": [
+          -1.627185,
+          -1.628178
+        ]
+      },
+      {
+        "height": 2.152077,
+        "radius": 0.18,
+        "xy": [
+          -1.348925,
+          1.379324
+        ]
+      },
+      {
+        "height": 2.122584,
+        "radius": 0.18,
+        "xy": [
+          -1.277285,
+          -1.61982
+        ]
+      },
+      {
+        "height": 2.050383,
+        "radius": 0.18,
+        "xy": [
+          -0.999025,
+          1.387682
+        ]
+      },
+      {
+        "height": 1.978683,
+        "radius": 0.18,
+        "xy": [
+          -0.927384,
+          -1.611462
+        ]
+      },
+      {
+        "height": 2.379368,
+        "radius": 0.18,
+        "xy": [
+          -0.649125,
+          1.396041
+        ]
+      },
+      {
+        "height": 2.286341,
+        "radius": 0.18,
+        "xy": [
+          -0.577484,
+          -1.603104
+        ]
+      },
+      {
+        "height": 2.243017,
+        "radius": 0.18,
+        "xy": [
+          -0.463347,
+          -0.09995
+        ]
+      },
+      {
+        "height": 2.125872,
+        "radius": 0.18,
+        "xy": [
+          -0.299225,
+          1.404399
+        ]
+      },
+      {
+        "height": 2.014424,
+        "radius": 0.18,
+        "xy": [
+          -0.227584,
+          -1.594746
+        ]
+      },
+      {
+        "height": 2.163892,
+        "radius": 0.18,
+        "xy": [
+          -0.113447,
+          -0.091592
+        ]
+      },
+      {
+        "height": 2.222122,
+        "radius": 0.18,
+        "xy": [
+          0.050676,
+          1.412757
+        ]
+      },
+      {
+        "height": 1.950043,
+        "radius": 0.18,
+        "xy": [
+          0.122316,
+          -1.586388
+        ]
+      },
+      {
+        "height": 1.927369,
+        "radius": 0.18,
+        "xy": [
+          0.236453,
+          -0.083234
+        ]
+      },
+      {
+        "height": 2.230981,
+        "radius": 0.18,
+        "xy": [
+          0.400576,
+          1.421115
+        ]
+      },
+      {
+        "height": 2.229852,
+        "radius": 0.18,
+        "xy": [
+          0.472216,
+          -1.57803
+        ]
+      },
+      {
+        "height": 2.285006,
+        "radius": 0.18,
+        "xy": [
+          0.586353,
+          -0.074876
+        ]
+      },
+      {
+        "height": 2.069457,
+        "radius": 0.18,
+        "xy": [
+          0.936253,
+          -0.066517
+        ]
+      },
+      {
+        "height": 2.37897,
+        "radius": 0.18,
+        "xy": [
+          1.286154,
+          -0.058159
+        ]
+      },
+      {
+        "height": 2.035973,
+        "radius": 0.18,
+        "xy": [
+          1.636054,
+          -0.049801
+        ]
+      },
+      {
+        "height": 2.36965,
+        "radius": 0.18,
+        "xy": [
+          1.985954,
+          -0.041443
+        ]
+      },
+      {
+        "height": 2.321896,
+        "radius": 0.18,
+        "xy": [
+          2.335854,
+          -0.033085
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "clear",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.090299,
+      2.886035,
+      1.0
+    ],
+    "initial_yaw": 1.7007107415063785,
+    "map_id": "6fa2a966e4ced4193524b093d49733f8e7713ad232c382300504697c8b391a0c",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360925,
+    "start": [
+      0.772022,
+      -3.055732,
+      1.0
+    ],
+    "trees": []
+  },
+  {
+    "corridor_width": null,
+    "family": "single",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.914447,
+      0.026413,
+      1.0
+    ],
+    "initial_yaw": 0.164004426068653,
+    "map_id": "989604ed3bf631f216f71381a8c295766202345b719d24f6caa82c8e84d296a8",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360926,
+    "start": [
+      -3.356815,
+      0.259699,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.104603,
+        "radius": 0.214418,
+        "xy": [
+          0.318225,
+          0.127161
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "sparse_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.804395,
+      -2.385384,
+      1.0
+    ],
+    "initial_yaw": -2.348932789080148,
+    "map_id": "a6c4da70027c1b0b649ff2fe9f88cf5ba0ecb33ee237c8fd495361526fff76e4",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360927,
+    "start": [
+      1.857925,
+      2.359632,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.801176,
+        "radius": 0.168884,
+        "xy": [
+          -3.193617,
+          -0.290819
+        ]
+      },
+      {
+        "height": 1.93574,
+        "radius": 0.130732,
+        "xy": [
+          -1.997969,
+          -0.622079
+        ]
+      },
+      {
+        "height": 2.367334,
+        "radius": 0.162059,
+        "xy": [
+          -1.503813,
+          2.181987
+        ]
+      },
+      {
+        "height": 1.887707,
+        "radius": 0.137735,
+        "xy": [
+          -0.604304,
+          -0.984813
+        ]
+      },
+      {
+        "height": 2.127665,
+        "radius": 0.143352,
+        "xy": [
+          -0.31475,
+          -2.262808
+        ]
+      },
+      {
+        "height": 2.212405,
+        "radius": 0.139585,
+        "xy": [
+          -0.185388,
+          -1.806884
+        ]
+      },
+      {
+        "height": 2.152113,
+        "radius": 0.147201,
+        "xy": [
+          0.011245,
+          -2.91392
+        ]
+      },
+      {
+        "height": 2.164505,
+        "radius": 0.195544,
+        "xy": [
+          0.752438,
+          -2.829069
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dense_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      1.128536,
+      -3.181183,
+      1.0
+    ],
+    "initial_yaw": -1.190321895474166,
+    "map_id": "ecd17fa22557d45d8f83d1e0fc5e4bd68ee9b610fc7f8292310b7cdb36da4f39",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360928,
+    "start": [
+      -0.994485,
+      2.778038,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.264843,
+        "radius": 0.176862,
+        "xy": [
+          -1.796819,
+          0.424067
+        ]
+      },
+      {
+        "height": 2.052739,
+        "radius": 0.143345,
+        "xy": [
+          -1.496402,
+          -2.025725
+        ]
+      },
+      {
+        "height": 1.971726,
+        "radius": 0.184124,
+        "xy": [
+          -1.248519,
+          1.05309
+        ]
+      },
+      {
+        "height": 2.093914,
+        "radius": 0.188714,
+        "xy": [
+          -1.208181,
+          0.317039
+        ]
+      },
+      {
+        "height": 2.088719,
+        "radius": 0.179919,
+        "xy": [
+          -1.10152,
+          -1.697113
+        ]
+      },
+      {
+        "height": 1.84974,
+        "radius": 0.16877,
+        "xy": [
+          -1.073448,
+          -2.507227
+        ]
+      },
+      {
+        "height": 1.946319,
+        "radius": 0.189382,
+        "xy": [
+          -0.737067,
+          -0.756131
+        ]
+      },
+      {
+        "height": 1.835213,
+        "radius": 0.156256,
+        "xy": [
+          -0.614118,
+          -2.116437
+        ]
+      },
+      {
+        "height": 2.168466,
+        "radius": 0.180973,
+        "xy": [
+          -0.447617,
+          2.201212
+        ]
+      },
+      {
+        "height": 1.95416,
+        "radius": 0.127665,
+        "xy": [
+          -0.415168,
+          1.600757
+        ]
+      },
+      {
+        "height": 2.14068,
+        "radius": 0.134758,
+        "xy": [
+          0.207783,
+          -1.766213
+        ]
+      },
+      {
+        "height": 1.938483,
+        "radius": 0.161608,
+        "xy": [
+          0.367291,
+          1.852836
+        ]
+      },
+      {
+        "height": 2.130882,
+        "radius": 0.121896,
+        "xy": [
+          0.482367,
+          1.28562
+        ]
+      },
+      {
+        "height": 1.862254,
+        "radius": 0.171212,
+        "xy": [
+          0.590436,
+          -1.229809
+        ]
+      },
+      {
+        "height": 2.114588,
+        "radius": 0.199075,
+        "xy": [
+          0.60623,
+          -0.014065
+        ]
+      },
+      {
+        "height": 2.330289,
+        "radius": 0.156632,
+        "xy": [
+          0.731841,
+          -0.738051
+        ]
+      },
+      {
+        "height": 2.158193,
+        "radius": 0.120469,
+        "xy": [
+          0.811354,
+          -1.649101
+        ]
+      },
+      {
+        "height": 2.085631,
+        "radius": 0.126654,
+        "xy": [
+          0.83453,
+          1.735768
+        ]
+      },
+      {
+        "height": 1.800152,
+        "radius": 0.126568,
+        "xy": [
+          1.328939,
+          -2.264571
+        ]
+      },
+      {
+        "height": 1.897716,
+        "radius": 0.137844,
+        "xy": [
+          1.368867,
+          0.968914
+        ]
+      },
+      {
+        "height": 2.385042,
+        "radius": 0.162844,
+        "xy": [
+          1.508183,
+          2.217014
+        ]
+      },
+      {
+        "height": 2.121629,
+        "radius": 0.149141,
+        "xy": [
+          2.09987,
+          1.274285
+        ]
+      },
+      {
+        "height": 1.978116,
+        "radius": 0.12537,
+        "xy": [
+          2.164227,
+          -0.540814
+        ]
+      },
+      {
+        "height": 2.3159,
+        "radius": 0.171808,
+        "xy": [
+          2.189917,
+          0.31264
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "route_blocking",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.993692,
+      0.457658,
+      1.0
+    ],
+    "initial_yaw": 0.23771430258831178,
+    "map_id": "907e3e6c093791d2a996266eb729a19a4c02bccd3e9f3a10e0524dcef297f398",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360929,
+    "start": [
+      -2.994591,
+      -0.510345,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.243524,
+        "radius": 0.197724,
+        "xy": [
+          -2.317061,
+          2.208772
+        ]
+      },
+      {
+        "height": 1.923857,
+        "radius": 0.178378,
+        "xy": [
+          -2.181227,
+          -0.321403
+        ]
+      },
+      {
+        "height": 2.373063,
+        "radius": 0.168378,
+        "xy": [
+          -1.944528,
+          -2.666291
+        ]
+      },
+      {
+        "height": 2.230888,
+        "radius": 0.167111,
+        "xy": [
+          -1.902172,
+          1.245399
+        ]
+      },
+      {
+        "height": 1.817662,
+        "radius": 0.129304,
+        "xy": [
+          -1.632135,
+          0.759634
+        ]
+      },
+      {
+        "height": 1.832699,
+        "radius": 0.140568,
+        "xy": [
+          -1.551119,
+          0.087329
+        ]
+      },
+      {
+        "height": 2.05664,
+        "radius": 0.134174,
+        "xy": [
+          -1.475751,
+          -2.317946
+        ]
+      },
+      {
+        "height": 2.194647,
+        "radius": 0.156266,
+        "xy": [
+          -0.911276,
+          0.234542
+        ]
+      },
+      {
+        "height": 2.241642,
+        "radius": 0.164415,
+        "xy": [
+          -0.711482,
+          -0.698424
+        ]
+      },
+      {
+        "height": 2.352999,
+        "radius": 0.138271,
+        "xy": [
+          -0.621435,
+          -2.014843
+        ]
+      },
+      {
+        "height": 2.177236,
+        "radius": 0.174691,
+        "xy": [
+          -0.258753,
+          1.07501
+        ]
+      },
+      {
+        "height": 2.084785,
+        "radius": 0.144687,
+        "xy": [
+          -0.113873,
+          2.569348
+        ]
+      },
+      {
+        "height": 2.366348,
+        "radius": 0.141264,
+        "xy": [
+          0.033869,
+          0.035664
+        ]
+      },
+      {
+        "height": 2.135881,
+        "radius": 0.182602,
+        "xy": [
+          0.563706,
+          1.059732
+        ]
+      },
+      {
+        "height": 2.091201,
+        "radius": 0.141182,
+        "xy": [
+          0.601927,
+          -0.773828
+        ]
+      },
+      {
+        "height": 2.183896,
+        "radius": 0.169841,
+        "xy": [
+          0.61113,
+          1.642615
+        ]
+      },
+      {
+        "height": 2.376788,
+        "radius": 0.133598,
+        "xy": [
+          1.048346,
+          -0.243847
+        ]
+      },
+      {
+        "height": 2.064986,
+        "radius": 0.134209,
+        "xy": [
+          1.425227,
+          1.811742
+        ]
+      },
+      {
+        "height": 1.809147,
+        "radius": 0.165434,
+        "xy": [
+          1.447125,
+          0.434853
+        ]
+      },
+      {
+        "height": 2.340189,
+        "radius": 0.159565,
+        "xy": [
+          1.466142,
+          -1.487101
+        ]
+      },
+      {
+        "height": 2.039375,
+        "radius": 0.183302,
+        "xy": [
+          1.60674,
+          1.023126
+        ]
+      },
+      {
+        "height": 1.995943,
+        "radius": 0.196532,
+        "xy": [
+          2.05182,
+          2.369874
+        ]
+      },
+      {
+        "height": 2.015311,
+        "radius": 0.193266,
+        "xy": [
+          2.071796,
+          0.665122
+        ]
+      },
+      {
+        "height": 1.949913,
+        "radius": 0.121275,
+        "xy": [
+          2.574425,
+          -0.561854
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "symmetric",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      1.297196,
+      -2.909108,
+      1.0
+    ],
+    "initial_yaw": -1.2485891406317826,
+    "map_id": "a75d08da8d85e47c6c44f69f7a4b53a3d0c907030d4d10eb43ed202ecac8456c",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360930,
+    "start": [
+      -1.231166,
+      3.031467,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.278469,
+        "radius": 0.276598,
+        "xy": [
+          0.08462,
+          0.107391
+        ]
+      },
+      {
+        "height": 1.817311,
+        "radius": 0.128138,
+        "xy": [
+          0.513777,
+          0.978599
+        ]
+      },
+      {
+        "height": 2.240159,
+        "radius": 0.191508,
+        "xy": [
+          0.751644,
+          0.482696
+        ]
+      },
+      {
+        "height": 2.318061,
+        "radius": 0.182216,
+        "xy": [
+          0.989511,
+          -0.013207
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": 1.0743577099337176,
+    "family": "narrow_corridor",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.375017,
+      -2.205493,
+      1.0
+    ],
+    "initial_yaw": -0.9819716677980653,
+    "map_id": "d123c889c3b4911e6fef557c972975da55c8fe2e714c77492f004a29f6160bfd",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360931,
+    "start": [
+      -2.189291,
+      1.921056,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.132007,
+        "radius": 0.18,
+        "xy": [
+          -2.171297,
+          0.942903
+        ]
+      },
+      {
+        "height": 1.935464,
+        "radius": 0.18,
+        "xy": [
+          -1.864163,
+          0.6591
+        ]
+      },
+      {
+        "height": 1.938498,
+        "radius": 0.18,
+        "xy": [
+          -1.557028,
+          0.375296
+        ]
+      },
+      {
+        "height": 2.233878,
+        "radius": 0.18,
+        "xy": [
+          -1.249893,
+          0.091493
+        ]
+      },
+      {
+        "height": 2.190939,
+        "radius": 0.18,
+        "xy": [
+          -1.197856,
+          1.996371
+        ]
+      },
+      {
+        "height": 1.961715,
+        "radius": 0.18,
+        "xy": [
+          -0.942758,
+          -0.19231
+        ]
+      },
+      {
+        "height": 1.891956,
+        "radius": 0.18,
+        "xy": [
+          -0.890721,
+          1.712567
+        ]
+      },
+      {
+        "height": 2.208473,
+        "radius": 0.18,
+        "xy": [
+          -0.635624,
+          -0.476114
+        ]
+      },
+      {
+        "height": 2.258502,
+        "radius": 0.18,
+        "xy": [
+          -0.583587,
+          1.428764
+        ]
+      },
+      {
+        "height": 2.21208,
+        "radius": 0.18,
+        "xy": [
+          -0.328489,
+          -0.759917
+        ]
+      },
+      {
+        "height": 1.932875,
+        "radius": 0.18,
+        "xy": [
+          -0.276452,
+          1.144961
+        ]
+      },
+      {
+        "height": 2.16513,
+        "radius": 0.18,
+        "xy": [
+          -0.021354,
+          -1.04372
+        ]
+      },
+      {
+        "height": 1.945391,
+        "radius": 0.18,
+        "xy": [
+          0.030683,
+          0.861157
+        ]
+      },
+      {
+        "height": 2.138779,
+        "radius": 0.18,
+        "xy": [
+          0.28578,
+          -1.327523
+        ]
+      },
+      {
+        "height": 1.847205,
+        "radius": 0.18,
+        "xy": [
+          0.337817,
+          0.577354
+        ]
+      },
+      {
+        "height": 1.81335,
+        "radius": 0.18,
+        "xy": [
+          0.592915,
+          -1.611327
+        ]
+      },
+      {
+        "height": 1.844316,
+        "radius": 0.18,
+        "xy": [
+          0.644952,
+          0.293551
+        ]
+      },
+      {
+        "height": 2.223934,
+        "radius": 0.18,
+        "xy": [
+          0.90005,
+          -1.89513
+        ]
+      },
+      {
+        "height": 1.952203,
+        "radius": 0.18,
+        "xy": [
+          0.952087,
+          0.009748
+        ]
+      },
+      {
+        "height": 2.177063,
+        "radius": 0.18,
+        "xy": [
+          1.207185,
+          -2.178933
+        ]
+      },
+      {
+        "height": 2.147976,
+        "radius": 0.18,
+        "xy": [
+          1.259222,
+          -0.274056
+        ]
+      },
+      {
+        "height": 2.210179,
+        "radius": 0.18,
+        "xy": [
+          1.566356,
+          -0.557859
+        ]
+      },
+      {
+        "height": 2.379741,
+        "radius": 0.18,
+        "xy": [
+          1.873491,
+          -0.841662
+        ]
+      },
+      {
+        "height": 1.878139,
+        "radius": 0.18,
+        "xy": [
+          2.180626,
+          -1.125466
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dead_end",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.072677,
+      3.086333,
+      1.0
+    ],
+    "initial_yaw": 1.829363111304529,
+    "map_id": "03b7df81c2cc5bc4c8926d14c0ebc7c0e989a8a1a64850e8f33055ba58e37e4b",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360932,
+    "start": [
+      0.031805,
+      -2.949832,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.801567,
+        "radius": 0.18,
+        "xy": [
+          -0.978719,
+          0.535927
+        ]
+      },
+      {
+        "height": 2.200693,
+        "radius": 0.18,
+        "xy": [
+          -0.968076,
+          0.236116
+        ]
+      },
+      {
+        "height": 2.100183,
+        "radius": 0.18,
+        "xy": [
+          -0.958142,
+          -0.043708
+        ]
+      },
+      {
+        "height": 2.377801,
+        "radius": 0.18,
+        "xy": [
+          -0.948208,
+          -0.323532
+        ]
+      },
+      {
+        "height": 2.358083,
+        "radius": 0.18,
+        "xy": [
+          -0.938275,
+          -0.603356
+        ]
+      },
+      {
+        "height": 1.951258,
+        "radius": 0.18,
+        "xy": [
+          -0.928341,
+          -0.883179
+        ]
+      },
+      {
+        "height": 1.984208,
+        "radius": 0.18,
+        "xy": [
+          -0.918407,
+          -1.163003
+        ]
+      },
+      {
+        "height": 2.356261,
+        "radius": 0.18,
+        "xy": [
+          -0.678908,
+          0.54657
+        ]
+      },
+      {
+        "height": 2.093578,
+        "radius": 0.18,
+        "xy": [
+          -0.379097,
+          0.557213
+        ]
+      },
+      {
+        "height": 2.387403,
+        "radius": 0.18,
+        "xy": [
+          -0.079286,
+          0.567857
+        ]
+      },
+      {
+        "height": 2.377629,
+        "radius": 0.18,
+        "xy": [
+          0.220525,
+          0.5785
+        ]
+      },
+      {
+        "height": 1.814368,
+        "radius": 0.18,
+        "xy": [
+          0.520336,
+          0.589143
+        ]
+      },
+      {
+        "height": 1.863608,
+        "radius": 0.18,
+        "xy": [
+          0.820148,
+          0.599787
+        ]
+      },
+      {
+        "height": 1.920455,
+        "radius": 0.18,
+        "xy": [
+          0.830791,
+          0.299975
+        ]
+      },
+      {
+        "height": 2.136498,
+        "radius": 0.18,
+        "xy": [
+          0.840725,
+          0.020152
+        ]
+      },
+      {
+        "height": 1.971928,
+        "radius": 0.18,
+        "xy": [
+          0.850658,
+          -0.259672
+        ]
+      },
+      {
+        "height": 2.012232,
+        "radius": 0.18,
+        "xy": [
+          0.860592,
+          -0.539496
+        ]
+      },
+      {
+        "height": 2.105352,
+        "radius": 0.18,
+        "xy": [
+          0.870526,
+          -0.819319
+        ]
+      },
+      {
+        "height": 2.086227,
+        "radius": 0.18,
+        "xy": [
+          0.88046,
+          -1.099143
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "multiple_turns",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.361071,
+      -1.839561,
+      1.0
+    ],
+    "initial_yaw": -0.4852941645908946,
+    "map_id": "bfde1a5023b2994b556f7f3719bbcede88ce3f91216bf6c559a7457fdfce86de",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360933,
+    "start": [
+      -2.418934,
+      2.011346,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.063866,
+        "radius": 0.18,
+        "xy": [
+          -1.404434,
+          0.649134
+        ]
+      },
+      {
+        "height": 2.152463,
+        "radius": 0.18,
+        "xy": [
+          -1.361907,
+          -1.771236
+        ]
+      },
+      {
+        "height": 2.129674,
+        "radius": 0.18,
+        "xy": [
+          -1.192418,
+          0.92761
+        ]
+      },
+      {
+        "height": 2.163165,
+        "radius": 0.18,
+        "xy": [
+          -1.149891,
+          -1.49276
+        ]
+      },
+      {
+        "height": 2.27648,
+        "radius": 0.18,
+        "xy": [
+          -0.980402,
+          1.206087
+        ]
+      },
+      {
+        "height": 2.072552,
+        "radius": 0.18,
+        "xy": [
+          -0.937875,
+          -1.214283
+        ]
+      },
+      {
+        "height": 2.311532,
+        "radius": 0.18,
+        "xy": [
+          -0.768386,
+          1.484564
+        ]
+      },
+      {
+        "height": 2.30126,
+        "radius": 0.18,
+        "xy": [
+          -0.725859,
+          -0.935807
+        ]
+      },
+      {
+        "height": 2.316242,
+        "radius": 0.18,
+        "xy": [
+          -0.55637,
+          1.76304
+        ]
+      },
+      {
+        "height": 2.285971,
+        "radius": 0.18,
+        "xy": [
+          -0.513843,
+          -0.65733
+        ]
+      },
+      {
+        "height": 1.914366,
+        "radius": 0.18,
+        "xy": [
+          -0.344354,
+          2.041517
+        ]
+      },
+      {
+        "height": 2.282112,
+        "radius": 0.18,
+        "xy": [
+          -0.301827,
+          -0.378853
+        ]
+      },
+      {
+        "height": 2.089769,
+        "radius": 0.18,
+        "xy": [
+          -0.132338,
+          2.319993
+        ]
+      },
+      {
+        "height": 2.377309,
+        "radius": 0.18,
+        "xy": [
+          -0.089811,
+          -0.100377
+        ]
+      },
+      {
+        "height": 1.851482,
+        "radius": 0.18,
+        "xy": [
+          0.079679,
+          2.59847
+        ]
+      },
+      {
+        "height": 2.034215,
+        "radius": 0.18,
+        "xy": [
+          0.122205,
+          0.1781
+        ]
+      },
+      {
+        "height": 2.281768,
+        "radius": 0.18,
+        "xy": [
+          0.291695,
+          2.876946
+        ]
+      },
+      {
+        "height": 2.295603,
+        "radius": 0.18,
+        "xy": [
+          0.334221,
+          0.456576
+        ]
+      },
+      {
+        "height": 2.297309,
+        "radius": 0.18,
+        "xy": [
+          0.982508,
+          -1.168147
+        ]
+      },
+      {
+        "height": 2.197696,
+        "radius": 0.18,
+        "xy": [
+          1.194524,
+          -0.88967
+        ]
+      },
+      {
+        "height": 2.071954,
+        "radius": 0.18,
+        "xy": [
+          1.40654,
+          -0.611194
+        ]
+      },
+      {
+        "height": 1.970798,
+        "radius": 0.18,
+        "xy": [
+          1.618556,
+          -0.332717
+        ]
+      },
+      {
+        "height": 1.885222,
+        "radius": 0.18,
+        "xy": [
+          1.830572,
+          -0.05424
+        ]
+      },
+      {
+        "height": 1.977818,
+        "radius": 0.18,
+        "xy": [
+          2.042588,
+          0.224236
+        ]
+      },
+      {
+        "height": 1.888823,
+        "radius": 0.18,
+        "xy": [
+          2.254604,
+          0.502713
+        ]
+      },
+      {
+        "height": 2.033581,
+        "radius": 0.18,
+        "xy": [
+          2.46662,
+          0.781189
+        ]
+      },
+      {
+        "height": 1.878342,
+        "radius": 0.18,
+        "xy": [
+          2.678636,
+          1.059666
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "clear",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      1.53499,
+      2.693953,
+      1.0
+    ],
+    "initial_yaw": 1.0800777719908163,
+    "map_id": "d7474ab9da04af4df1287c17814319357396bb2cc75f30a7caefad97ec636dcc",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360934,
+    "start": [
+      -1.387,
+      -2.8947,
+      1.0
+    ],
+    "trees": []
+  },
+  {
+    "corridor_width": null,
+    "family": "single",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      0.072779,
+      2.910791,
+      1.0
+    ],
+    "initial_yaw": 1.6803546570610155,
+    "map_id": "85edc68e4e532bfbfcb8776a6a1a20e78fdf2240e729f354222a22c8f40edbe3",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360935,
+    "start": [
+      -0.266759,
+      -3.115947,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.23237,
+        "radius": 0.272479,
+        "xy": [
+          -0.279439,
+          -0.080104
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "sparse_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.597053,
+      1.920902,
+      1.0
+    ],
+    "initial_yaw": 0.5156774532247246,
+    "map_id": "eb3adf07e721e58695db12d1a6282c1f63bb663caaa1d513ec1f447e38f2c5f7",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360936,
+    "start": [
+      -2.523895,
+      -1.972086,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.026218,
+        "radius": 0.195957,
+        "xy": [
+          -2.957801,
+          0.600013
+        ]
+      },
+      {
+        "height": 2.116173,
+        "radius": 0.153501,
+        "xy": [
+          -0.838196,
+          -0.698586
+        ]
+      },
+      {
+        "height": 2.011322,
+        "radius": 0.151215,
+        "xy": [
+          -0.560382,
+          0.225456
+        ]
+      },
+      {
+        "height": 1.925389,
+        "radius": 0.138254,
+        "xy": [
+          -0.193698,
+          -1.972468
+        ]
+      },
+      {
+        "height": 1.839919,
+        "radius": 0.155606,
+        "xy": [
+          0.020564,
+          1.846235
+        ]
+      },
+      {
+        "height": 2.361864,
+        "radius": 0.19938,
+        "xy": [
+          0.024057,
+          -2.912487
+        ]
+      },
+      {
+        "height": 2.019306,
+        "radius": 0.12321,
+        "xy": [
+          0.093019,
+          -1.476858
+        ]
+      },
+      {
+        "height": 1.844836,
+        "radius": 0.120526,
+        "xy": [
+          2.618647,
+          0.407944
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dense_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -1.804906,
+      2.215604,
+      1.0
+    ],
+    "initial_yaw": 2.105562503521266,
+    "map_id": "46aa7552b1da507f768b350193dc9d1a4a5664a46e5d7de342b9d477b6a80c0b",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360937,
+    "start": [
+      2.307912,
+      -2.31746,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.823069,
+        "radius": 0.199759,
+        "xy": [
+          -2.412179,
+          -0.469229
+        ]
+      },
+      {
+        "height": 1.84701,
+        "radius": 0.164222,
+        "xy": [
+          -2.339495,
+          1.082605
+        ]
+      },
+      {
+        "height": 1.969166,
+        "radius": 0.134205,
+        "xy": [
+          -1.690166,
+          1.181725
+        ]
+      },
+      {
+        "height": 1.812884,
+        "radius": 0.178021,
+        "xy": [
+          -1.668318,
+          -0.272794
+        ]
+      },
+      {
+        "height": 1.866051,
+        "radius": 0.132449,
+        "xy": [
+          -1.623734,
+          0.495474
+        ]
+      },
+      {
+        "height": 2.293838,
+        "radius": 0.195039,
+        "xy": [
+          -1.047908,
+          -1.57215
+        ]
+      },
+      {
+        "height": 2.324672,
+        "radius": 0.191638,
+        "xy": [
+          -0.946496,
+          1.813093
+        ]
+      },
+      {
+        "height": 2.189663,
+        "radius": 0.157967,
+        "xy": [
+          -0.924473,
+          -0.191923
+        ]
+      },
+      {
+        "height": 2.383193,
+        "radius": 0.16085,
+        "xy": [
+          -0.904978,
+          -0.822545
+        ]
+      },
+      {
+        "height": 1.873937,
+        "radius": 0.197865,
+        "xy": [
+          -0.550494,
+          -2.898125
+        ]
+      },
+      {
+        "height": 1.881919,
+        "radius": 0.134414,
+        "xy": [
+          -0.302332,
+          -0.016807
+        ]
+      },
+      {
+        "height": 1.867121,
+        "radius": 0.188403,
+        "xy": [
+          -0.082947,
+          -1.734753
+        ]
+      },
+      {
+        "height": 1.842112,
+        "radius": 0.161227,
+        "xy": [
+          0.116816,
+          0.377219
+        ]
+      },
+      {
+        "height": 1.841849,
+        "radius": 0.173842,
+        "xy": [
+          0.135339,
+          2.664376
+        ]
+      },
+      {
+        "height": 2.09813,
+        "radius": 0.141628,
+        "xy": [
+          0.305148,
+          1.045446
+        ]
+      },
+      {
+        "height": 2.26375,
+        "radius": 0.124296,
+        "xy": [
+          0.490049,
+          -0.186098
+        ]
+      },
+      {
+        "height": 1.999112,
+        "radius": 0.185224,
+        "xy": [
+          0.761398,
+          1.568119
+        ]
+      },
+      {
+        "height": 2.371371,
+        "radius": 0.164762,
+        "xy": [
+          0.993707,
+          2.210338
+        ]
+      },
+      {
+        "height": 2.374322,
+        "radius": 0.197325,
+        "xy": [
+          1.210993,
+          -2.240228
+        ]
+      },
+      {
+        "height": 2.379019,
+        "radius": 0.189314,
+        "xy": [
+          1.425926,
+          -1.267517
+        ]
+      },
+      {
+        "height": 2.322782,
+        "radius": 0.181931,
+        "xy": [
+          1.466811,
+          0.218166
+        ]
+      },
+      {
+        "height": 2.369639,
+        "radius": 0.16045,
+        "xy": [
+          2.021171,
+          -0.764071
+        ]
+      },
+      {
+        "height": 1.832213,
+        "radius": 0.182185,
+        "xy": [
+          2.72502,
+          0.61901
+        ]
+      },
+      {
+        "height": 2.384327,
+        "radius": 0.149523,
+        "xy": [
+          3.068067,
+          0.12732
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "route_blocking",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -3.033367,
+      -0.179889,
+      1.0
+    ],
+    "initial_yaw": -3.1225390855968835,
+    "map_id": "ad047ce452f302a9e30e491a6be6354e8375953b052e4a8e637cb867f5c6a33e",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360938,
+    "start": [
+      3.343968,
+      0.255589,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.920215,
+        "radius": 0.188976,
+        "xy": [
+          -2.208536,
+          -1.217612
+        ]
+      },
+      {
+        "height": 2.122294,
+        "radius": 0.168992,
+        "xy": [
+          -2.200918,
+          1.073277
+        ]
+      },
+      {
+        "height": 1.825084,
+        "radius": 0.142193,
+        "xy": [
+          -2.136026,
+          1.643833
+        ]
+      },
+      {
+        "height": 2.356154,
+        "radius": 0.183597,
+        "xy": [
+          -1.56008,
+          -1.818631
+        ]
+      },
+      {
+        "height": 2.064248,
+        "radius": 0.134767,
+        "xy": [
+          -1.509895,
+          0.222431
+        ]
+      },
+      {
+        "height": 2.350569,
+        "radius": 0.17662,
+        "xy": [
+          -1.412165,
+          -0.91129
+        ]
+      },
+      {
+        "height": 1.838574,
+        "radius": 0.185037,
+        "xy": [
+          -1.17229,
+          1.202102
+        ]
+      },
+      {
+        "height": 2.24245,
+        "radius": 0.151832,
+        "xy": [
+          -0.938934,
+          -0.595504
+        ]
+      },
+      {
+        "height": 2.399683,
+        "radius": 0.199767,
+        "xy": [
+          -0.739939,
+          2.079272
+        ]
+      },
+      {
+        "height": 1.874403,
+        "radius": 0.133635,
+        "xy": [
+          -0.493972,
+          0.199849
+        ]
+      },
+      {
+        "height": 1.837635,
+        "radius": 0.145644,
+        "xy": [
+          -0.360593,
+          -1.800006
+        ]
+      },
+      {
+        "height": 2.322622,
+        "radius": 0.156464,
+        "xy": [
+          -0.255989,
+          0.996921
+        ]
+      },
+      {
+        "height": 2.042697,
+        "radius": 0.139326,
+        "xy": [
+          -0.083809,
+          0.564518
+        ]
+      },
+      {
+        "height": 1.943796,
+        "radius": 0.192585,
+        "xy": [
+          0.201928,
+          -2.012095
+        ]
+      },
+      {
+        "height": 2.04333,
+        "radius": 0.129592,
+        "xy": [
+          0.221336,
+          0.09798
+        ]
+      },
+      {
+        "height": 1.894408,
+        "radius": 0.198259,
+        "xy": [
+          0.569915,
+          -0.912461
+        ]
+      },
+      {
+        "height": 2.106827,
+        "radius": 0.154834,
+        "xy": [
+          0.943334,
+          1.491439
+        ]
+      },
+      {
+        "height": 1.832953,
+        "radius": 0.157028,
+        "xy": [
+          0.974024,
+          0.48029
+        ]
+      },
+      {
+        "height": 1.823844,
+        "radius": 0.188779,
+        "xy": [
+          1.747976,
+          2.128786
+        ]
+      },
+      {
+        "height": 1.999682,
+        "radius": 0.159892,
+        "xy": [
+          1.858047,
+          -1.550055
+        ]
+      },
+      {
+        "height": 2.333319,
+        "radius": 0.176313,
+        "xy": [
+          1.862659,
+          0.06445
+        ]
+      },
+      {
+        "height": 2.192866,
+        "radius": 0.135166,
+        "xy": [
+          1.944163,
+          -1.092095
+        ]
+      },
+      {
+        "height": 2.322081,
+        "radius": 0.138762,
+        "xy": [
+          2.258188,
+          1.720855
+        ]
+      },
+      {
+        "height": 1.9268,
+        "radius": 0.160004,
+        "xy": [
+          2.317383,
+          0.9836
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "symmetric",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.99084,
+      -1.24489,
+      1.0
+    ],
+    "initial_yaw": -0.5422066957278675,
+    "map_id": "5b7755834facad82b6381b999be0206dc9eabf9ae8c949f06d64163abb075086",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360939,
+    "start": [
+      -2.757404,
+      1.294619,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.282668,
+        "radius": 0.252149,
+        "xy": [
+          -0.262916,
+          0.11609
+        ]
+      },
+      {
+        "height": 2.354016,
+        "radius": 0.160083,
+        "xy": [
+          -0.074208,
+          1.078741
+        ]
+      },
+      {
+        "height": 2.364057,
+        "radius": 0.161386,
+        "xy": [
+          0.415874,
+          0.829102
+        ]
+      },
+      {
+        "height": 1.924955,
+        "radius": 0.1219,
+        "xy": [
+          0.905957,
+          0.579464
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": 0.9972061867307759,
+    "family": "narrow_corridor",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.640646,
+      3.133999,
+      1.0
+    ],
+    "initial_yaw": 1.6107862242837812,
+    "map_id": "9409eb699341cfd15ef8c396494ad8c751a5efc9ca774246f0fcd97349232d05",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360940,
+    "start": [
+      0.656154,
+      -3.052,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 2.288369,
+        "radius": 0.18,
+        "xy": [
+          -1.075399,
+          2.035891
+        ]
+      },
+      {
+        "height": 2.190476,
+        "radius": 0.18,
+        "xy": [
+          -0.998996,
+          1.624748
+        ]
+      },
+      {
+        "height": 2.25525,
+        "radius": 0.18,
+        "xy": [
+          -0.922593,
+          1.213605
+        ]
+      },
+      {
+        "height": 2.062396,
+        "radius": 0.18,
+        "xy": [
+          -0.84619,
+          0.802462
+        ]
+      },
+      {
+        "height": 2.320689,
+        "radius": 0.18,
+        "xy": [
+          -0.769788,
+          0.391319
+        ]
+      },
+      {
+        "height": 2.380638,
+        "radius": 0.18,
+        "xy": [
+          -0.693385,
+          -0.019825
+        ]
+      },
+      {
+        "height": 2.387715,
+        "radius": 0.18,
+        "xy": [
+          -0.616982,
+          -0.430968
+        ]
+      },
+      {
+        "height": 1.840737,
+        "radius": 0.18,
+        "xy": [
+          -0.540579,
+          -0.842111
+        ]
+      },
+      {
+        "height": 1.956883,
+        "radius": 0.18,
+        "xy": [
+          -0.464177,
+          -1.253254
+        ]
+      },
+      {
+        "height": 2.311303,
+        "radius": 0.18,
+        "xy": [
+          -0.387774,
+          -1.664397
+        ]
+      },
+      {
+        "height": 1.878601,
+        "radius": 0.18,
+        "xy": [
+          -0.311371,
+          -2.07554
+        ]
+      },
+      {
+        "height": 1.831465,
+        "radius": 0.18,
+        "xy": [
+          -0.234968,
+          -2.486683
+        ]
+      },
+      {
+        "height": 1.943051,
+        "radius": 0.18,
+        "xy": [
+          0.258963,
+          2.283856
+        ]
+      },
+      {
+        "height": 2.281024,
+        "radius": 0.18,
+        "xy": [
+          0.335366,
+          1.872713
+        ]
+      },
+      {
+        "height": 2.30418,
+        "radius": 0.18,
+        "xy": [
+          0.411769,
+          1.461569
+        ]
+      },
+      {
+        "height": 1.955372,
+        "radius": 0.18,
+        "xy": [
+          0.488172,
+          1.050426
+        ]
+      },
+      {
+        "height": 1.996232,
+        "radius": 0.18,
+        "xy": [
+          0.564574,
+          0.639283
+        ]
+      },
+      {
+        "height": 2.083234,
+        "radius": 0.18,
+        "xy": [
+          0.640977,
+          0.22814
+        ]
+      },
+      {
+        "height": 1.830207,
+        "radius": 0.18,
+        "xy": [
+          0.71738,
+          -0.183003
+        ]
+      },
+      {
+        "height": 2.275855,
+        "radius": 0.18,
+        "xy": [
+          0.793783,
+          -0.594146
+        ]
+      },
+      {
+        "height": 2.225477,
+        "radius": 0.18,
+        "xy": [
+          0.870186,
+          -1.005289
+        ]
+      },
+      {
+        "height": 1.89022,
+        "radius": 0.18,
+        "xy": [
+          0.946588,
+          -1.416432
+        ]
+      },
+      {
+        "height": 2.007649,
+        "radius": 0.18,
+        "xy": [
+          1.022991,
+          -1.827575
+        ]
+      },
+      {
+        "height": 2.055914,
+        "radius": 0.18,
+        "xy": [
+          1.099394,
+          -2.238718
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dead_end",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.817016,
+      2.839475,
+      1.0
+    ],
+    "initial_yaw": 1.6863340385563406,
+    "map_id": "308916174598bb371c142e0ff436fa6bdfd6fb0306a1b115f2cdd49ac2641469",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360941,
+    "start": [
+      1.198852,
+      -2.992143,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.822198,
+        "radius": 0.18,
+        "xy": [
+          -0.952378,
+          0.182541
+        ]
+      },
+      {
+        "height": 2.087584,
+        "radius": 0.18,
+        "xy": [
+          -0.861174,
+          -0.10326
+        ]
+      },
+      {
+        "height": 2.155475,
+        "radius": 0.18,
+        "xy": [
+          -0.776051,
+          -0.370007
+        ]
+      },
+      {
+        "height": 2.069931,
+        "radius": 0.18,
+        "xy": [
+          -0.690928,
+          -0.636754
+        ]
+      },
+      {
+        "height": 2.371798,
+        "radius": 0.18,
+        "xy": [
+          -0.666577,
+          0.273744
+        ]
+      },
+      {
+        "height": 1.860144,
+        "radius": 0.18,
+        "xy": [
+          -0.605805,
+          -0.903501
+        ]
+      },
+      {
+        "height": 2.005038,
+        "radius": 0.18,
+        "xy": [
+          -0.520682,
+          -1.170248
+        ]
+      },
+      {
+        "height": 2.192283,
+        "radius": 0.18,
+        "xy": [
+          -0.435559,
+          -1.436995
+        ]
+      },
+      {
+        "height": 2.327346,
+        "radius": 0.18,
+        "xy": [
+          -0.380777,
+          0.364948
+        ]
+      },
+      {
+        "height": 1.89353,
+        "radius": 0.18,
+        "xy": [
+          -0.094976,
+          0.456151
+        ]
+      },
+      {
+        "height": 1.886838,
+        "radius": 0.18,
+        "xy": [
+          0.190824,
+          0.547354
+        ]
+      },
+      {
+        "height": 2.339773,
+        "radius": 0.18,
+        "xy": [
+          0.476625,
+          0.638558
+        ]
+      },
+      {
+        "height": 2.118591,
+        "radius": 0.18,
+        "xy": [
+          0.762426,
+          0.729761
+        ]
+      },
+      {
+        "height": 2.327008,
+        "radius": 0.18,
+        "xy": [
+          0.853629,
+          0.44396
+        ]
+      },
+      {
+        "height": 1.888954,
+        "radius": 0.18,
+        "xy": [
+          0.938752,
+          0.177213
+        ]
+      },
+      {
+        "height": 2.381497,
+        "radius": 0.18,
+        "xy": [
+          1.023875,
+          -0.089534
+        ]
+      },
+      {
+        "height": 1.839382,
+        "radius": 0.18,
+        "xy": [
+          1.108998,
+          -0.356281
+        ]
+      },
+      {
+        "height": 2.186022,
+        "radius": 0.18,
+        "xy": [
+          1.194121,
+          -0.623028
+        ]
+      },
+      {
+        "height": 2.056425,
+        "radius": 0.18,
+        "xy": [
+          1.279244,
+          -0.889776
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "multiple_turns",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -2.327924,
+      1.775333,
+      1.0
+    ],
+    "initial_yaw": 2.728980675825955,
+    "map_id": "bc482f210a5c65f09d2cdd3027f416435f78a3975d342b2ff18a3fd4e85c0366",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360942,
+    "start": [
+      2.712653,
+      -1.898487,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.946907,
+        "radius": 0.18,
+        "xy": [
+          -2.537997,
+          -0.976515
+        ]
+      },
+      {
+        "height": 1.929405,
+        "radius": 0.18,
+        "xy": [
+          -2.327301,
+          -0.697039
+        ]
+      },
+      {
+        "height": 1.975919,
+        "radius": 0.18,
+        "xy": [
+          -2.116605,
+          -0.417562
+        ]
+      },
+      {
+        "height": 2.382917,
+        "radius": 0.18,
+        "xy": [
+          -1.905909,
+          -0.138086
+        ]
+      },
+      {
+        "height": 2.216428,
+        "radius": 0.18,
+        "xy": [
+          -1.695213,
+          0.141391
+        ]
+      },
+      {
+        "height": 2.205615,
+        "radius": 0.18,
+        "xy": [
+          -1.484516,
+          0.420867
+        ]
+      },
+      {
+        "height": 2.293358,
+        "radius": 0.18,
+        "xy": [
+          -1.27382,
+          0.700344
+        ]
+      },
+      {
+        "height": 1.817749,
+        "radius": 0.18,
+        "xy": [
+          -1.063124,
+          0.97982
+        ]
+      },
+      {
+        "height": 1.820817,
+        "radius": 0.18,
+        "xy": [
+          -0.852428,
+          1.259297
+        ]
+      },
+      {
+        "height": 2.003639,
+        "radius": 0.18,
+        "xy": [
+          -0.196462,
+          -0.362341
+        ]
+      },
+      {
+        "height": 2.034206,
+        "radius": 0.18,
+        "xy": [
+          -0.142485,
+          -2.782483
+        ]
+      },
+      {
+        "height": 2.024463,
+        "radius": 0.18,
+        "xy": [
+          0.014235,
+          -0.082864
+        ]
+      },
+      {
+        "height": 2.308114,
+        "radius": 0.18,
+        "xy": [
+          0.068212,
+          -2.503006
+        ]
+      },
+      {
+        "height": 2.116562,
+        "radius": 0.18,
+        "xy": [
+          0.224931,
+          0.196612
+        ]
+      },
+      {
+        "height": 2.033269,
+        "radius": 0.18,
+        "xy": [
+          0.278908,
+          -2.22353
+        ]
+      },
+      {
+        "height": 2.319506,
+        "radius": 0.18,
+        "xy": [
+          0.435627,
+          0.476089
+        ]
+      },
+      {
+        "height": 2.189045,
+        "radius": 0.18,
+        "xy": [
+          0.489604,
+          -1.944053
+        ]
+      },
+      {
+        "height": 2.374082,
+        "radius": 0.18,
+        "xy": [
+          0.646323,
+          0.755565
+        ]
+      },
+      {
+        "height": 1.981426,
+        "radius": 0.18,
+        "xy": [
+          0.7003,
+          -1.664577
+        ]
+      },
+      {
+        "height": 2.170899,
+        "radius": 0.18,
+        "xy": [
+          0.857019,
+          1.035042
+        ]
+      },
+      {
+        "height": 2.031756,
+        "radius": 0.18,
+        "xy": [
+          0.910996,
+          -1.3851
+        ]
+      },
+      {
+        "height": 1.800231,
+        "radius": 0.18,
+        "xy": [
+          1.067716,
+          1.314518
+        ]
+      },
+      {
+        "height": 2.149448,
+        "radius": 0.18,
+        "xy": [
+          1.121693,
+          -1.105624
+        ]
+      },
+      {
+        "height": 2.211877,
+        "radius": 0.18,
+        "xy": [
+          1.278412,
+          1.593995
+        ]
+      },
+      {
+        "height": 1.936239,
+        "radius": 0.18,
+        "xy": [
+          1.332389,
+          -0.826147
+        ]
+      },
+      {
+        "height": 1.833767,
+        "radius": 0.18,
+        "xy": [
+          1.489108,
+          1.873471
+        ]
+      },
+      {
+        "height": 2.233243,
+        "radius": 0.18,
+        "xy": [
+          1.543085,
+          -0.546671
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "clear",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.940991,
+      1.275241,
+      1.0
+    ],
+    "initial_yaw": 0.41735382836386625,
+    "map_id": "482aac411d38509752445ab0e83d5b6c5b69a60270eb9c493d4a3056ddcb457d",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360943,
+    "start": [
+      -2.714255,
+      -1.332988,
+      1.0
+    ],
+    "trees": []
+  },
+  {
+    "corridor_width": null,
+    "family": "single",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.180733,
+      1.931113,
+      1.0
+    ],
+    "initial_yaw": 0.7103525547166889,
+    "map_id": "9ac4a24032c280e573cb40cfad6d56bdc85631a56e9089027e6cbeca45db5e25",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360944,
+    "start": [
+      -2.222012,
+      -2.248253,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.989773,
+        "radius": 0.251619,
+        "xy": [
+          -0.292099,
+          -0.178506
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "sparse_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      -0.295351,
+      -2.946676,
+      1.0
+    ],
+    "initial_yaw": -1.5712769294787936,
+    "map_id": "3736a8b4109c8c5f88ae573271828516c007ff806a15b6fe33bd544dacb2ccf2",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360945,
+    "start": [
+      0.52173,
+      3.25044,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.946252,
+        "radius": 0.120044,
+        "xy": [
+          -2.285206,
+          0.662017
+        ]
+      },
+      {
+        "height": 1.997392,
+        "radius": 0.199458,
+        "xy": [
+          -2.100263,
+          -2.378349
+        ]
+      },
+      {
+        "height": 1.987149,
+        "radius": 0.187318,
+        "xy": [
+          -1.286442,
+          -0.197674
+        ]
+      },
+      {
+        "height": 1.971168,
+        "radius": 0.135452,
+        "xy": [
+          -1.03278,
+          1.003075
+        ]
+      },
+      {
+        "height": 2.218547,
+        "radius": 0.199812,
+        "xy": [
+          -0.587503,
+          1.601009
+        ]
+      },
+      {
+        "height": 1.959579,
+        "radius": 0.136623,
+        "xy": [
+          1.330602,
+          -0.991309
+        ]
+      },
+      {
+        "height": 2.100839,
+        "radius": 0.142564,
+        "xy": [
+          2.256571,
+          -1.934019
+        ]
+      },
+      {
+        "height": 1.956873,
+        "radius": 0.15126,
+        "xy": [
+          2.267141,
+          0.697849
+        ]
+      }
+    ]
+  },
+  {
+    "corridor_width": null,
+    "family": "dense_forest",
+    "generator_version": "forest_map_isolation_v1",
+    "goal": [
+      2.862044,
+      1.002961,
+      1.0
+    ],
+    "initial_yaw": 0.3042583786445144,
+    "map_id": "fc38d12e982e59da0d72067207e06261b7ac8bf7c6beff2c43c6bd5b6f22a7b4",
+    "reachability": {
+      "inflation": 0.16,
+      "method": "4-neighbour BFS at z=1m",
+      "purpose": "geometry validation only; never a training label or policy input",
+      "reachable": true,
+      "resolution": 0.1
+    },
+    "required_route": null,
+    "required_route_note": "Not inferred from family; both sides may be feasible.",
+    "seed": 20360946,
+    "start": [
+      -3.128492,
+      -0.693632,
+      1.0
+    ],
+    "trees": [
+      {
+        "height": 1.850413,
+        "radius": 0.191128,
+        "xy": [
+          -3.140895,
+          1.435991
+        ]
+      },
+      {
+        "height": 1.836687,
+        "radius": 0.177647,
+        "xy": [
+          -2.422002,
+          1.489562
+        ]
+      },
+      {
+        "height": 2.241032,
+        "radius": 0.125636,
+        "xy": [
+          -2.304897,
+          0.440588
+        ]
+      },
+      {
+        "height": 2.040282,
+        "radius": 0.148442,
+        "xy": [
+          -1.939636,
+          -1.992479
+        ]
+      },
+      {
+        "height": 1.917503,
+        "radius": 0.126112,
+        "xy": [
+          -1.87234,
+          -1.316289
+        ]
+      },
+      {
+        "height": 1.804828,
+        "radius": 0.181868,
+        "xy": [
+          -1.823091,
+          -0.302219
+        ]
+      },
+      {
+        "height": 2.1396,
+        "radius": 0.168332,
+        "xy": [
+          -1.547756,
+          0.501019
+        ]
+      },
+      {
+        "height": 2.330499,
+        "radius": 0.14527,
+        "xy": [
+          -1.312415,
+          -0.454835
+        ]
+      },
+      {
+        "height": 2.109596,
+        "radius": 0.172402,
+        "xy": [
+          -1.206184,
+          1.24364
+        ]
+      },
+      {
+        "height": 1.933306,
+        "radius": 0.153818,
+        "xy": [
+          -1.172708,
+          -2.131376
+        ]
+      },
+      {
+        "height": 2.170997,
+        "radius": 0.12132,
+        "xy": [
+          -1.109457,
+          -1.689812
+        ]
+      },
+      {
+        "height": 2.252183,
+        "radius": 0.146721,
+        "xy": [
+          -0.432891,
+          -2.247581
+        ]
+      },
+      {
+        "height": 2.130353,
+        "radius": 0.163963,
+        "xy": [
+          -0.395365,
+          2.488619
+        ]
+      },
+      {
+        "height": 1.969689,
+        "radius": 0.148637,
+        "xy": [
+          0.03452,
+          -2.165011
+        ]
+      },
+      {
+        "height": 2.059904,
+        "radius": 0.194065,
+        "xy": [
+          0.231927,
+          2.669039
+        ]
+      },
+      {
+        "height": 1.879447,
+        "radius": 0.195067,
+        "xy": [
+          0.796711,
+          1.095846
+        ]
+      },
+      {
+        "height": 2.196005,
+        "radius": 0.15251,
+        "xy": [
+          0.843254,
+          -0.061392
+        ]
+      },
+      {
+        "height": 1.973672,
+        "radius": 0.192433,
+        "xy": [
+          1.35579,
+          0.797899
+        ]
+      },
+      {
+        "height": 2.061091,
+        "radius": 0.183773,
+        "xy": [
+          1.674605,
+          -0.29423
+        ]
+      },
+      {
+        "height": 1.921129,
+        "radius": 0.199371,
+        "xy": [
+          1.729827,
+          1.77533
+        ]
+      },
+      {
+        "height": 2.155052,
+        "radius": 0.126074,
+        "xy": [
+          1.78111,
+          1.203892
+        ]
+      },
+      {
+        "height": 2.158237,
+        "radius": 0.159668,
+        "xy": [
+          1.831906,
+          -1.039618
+        ]
+      },
+      {
+        "height": 2.089312,
+        "radius": 0.124251,
+        "xy": [
+          2.313913,
+          -1.857854
+        ]
+      },
+      {
+        "height": 2.085207,
+        "radius": 0.168817,
+        "xy": [
+          2.328748,
+          -0.937785
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "variant": "NF-StaticLearnable",
+  "seed": 43,
+  "initialization": "from scratch, same common-network RNG order as NF-Gated",
+  "gate": "independent actor/critic global trainable two-logit softmax",
+  "initial_actor_weights": [
+    0.5,
+    0.5
+  ],
+  "initial_critic_weights": [
+    0.5,
+    0.5
+  ],
+  "budget": 240000,
+  "model_checkpoints": [
+    20000,
+    40000,
+    80000,
+    120000,
+    160000,
+    200000,
+    240000
+  ],
+  "full_recovery_checkpoints": [
+    40000,
+    240000
+  ],
+  "algorithm": "original feedforward TD3",
+  "retention": "all lightweight models, at most two verified recoveries; final recovery retained",
+  "multi_seed_autostart": false,
+  "rolling_recovery_interval": 5000,
+  "rolling_recovery_retained": 2,
+  "rolling_recovery_peak_packages": 3
+}

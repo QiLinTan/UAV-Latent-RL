@@ -1,0 +1,22 @@
+{
+  "__init__.py": "8d994f7456a9223313db8e39ae374c7f3a022dd6a1ab06f6750eff70f3f338f1",
+  "configs/control_acceptance_v1.json": "723f5d1a591871448fa81527210b3aa97b9bc1ab56f185266efac6e6cf30da9e",
+  "configs/control_acceptance_v2.json": "58ccd8ff4434227358a56bc32c1a8fa4dbb5f0ec125e6b689a36edad91e0c007",
+  "configs/control_calibration_v1.json": "1b39b8e7e77fe8f0221fd19117d691507524ef18c492100a278c3702f5c1ddbc",
+  "configs/control_calibration_v2.json": "05705aaa162c4462f449016a1529bf9d90a14585dd76a99fc19f5a802aee56ec",
+  "contracts.py": "c866c3472dc626173c07d96af75e665bf152824b99119a26b56af8d049622f09",
+  "controls/__init__.py": "656ad313502a78bf38613b5aaf77cd2f39dcc398675e3b69bc8eb508d08e24fd",
+  "controls/velocity_control_adapter.py": "cca2e957a31c3b9a2527cc3508aec5be060432a8618d2a65e0a29965a354849a",
+  "controls/velocity_tracking.py": "90c72062e3fc323b2621778e2e7dcd56ade36209d51f59f5aabc41023460fe01",
+  "run_control_acceptance.py": "a14a1431990bf2502774c584aa8b1a4b57eb9e977b0f876c25954d9cc6eec990",
+  "testing/__init__.py": "1c01b0c9f047e77dd801579265c0f2f2dfa73ec01ddd2ce7499dbaf57d8f20bb",
+  "testing/control_fixture.py": "29114d1c95c7482c8b4e8bae2912b2921016b6cceef9941fc9efcbdabf89534d",
+  "testing/control_metrics.py": "eef4d32c1d31beead12dbdacc52a39d71073ea18f51b966b4433a04579efa95d",
+  "testing/scenarios.py": "ab20b8c3872684440fba475265451a916eaf385c30819fb2b7441013f7105607",
+  "tests/__init__.py": "add2434110287d7f37a85126724397731eb00c4f361a120c4fe47cbbae8dc0b0",
+  "tests/test_attitude_adapter.py": "e88155d0879fe246f322ae0a43ce695e1ecca4b5f7f12901de51c76618083db8",
+  "tests/test_contracts.py": "cf4892934f0fb8f8b294b0bd3d99ccc2e69b8bfe440d72c0f860cd521db53541",
+  "tests/test_control_full.py": "84a19fa86a3b5df32171bbf88158428906fb561039fbc6349ff639bf16f93e4d",
+  "tests/test_metrics.py": "dea83abd068bdf6512057cf8a8a17e9ba90a2ce81ded56af95000c865a809bed",
+  "tests/test_velocity_pi.py": "8f9540b720f53ad80bd8afff274f03493f8b49c847138ef5d6a62eda5c627b4a"
+}

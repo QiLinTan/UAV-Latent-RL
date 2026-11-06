@@ -1,0 +1,16 @@
+{
+  "configs/dv0_navigation_v1.json": "129f70c828bd61382e6b7952ef83947f88a25183ed545393ff6cdc2ef403ef37",
+  "envs/curriculum_adapter.py": "1f86679da501b300cf7d4eabb69187d47cc8b90261089b797b0160ac2be45adc",
+  "envs/direct_velocity_full.py": "2e015827b7f9e1f49551c7d40775e6910bd4be37c1810cf8d7c11c343da57205",
+  "evaluate.py": "01eed0509206291fc0cab6bfd1f51957cbfff7157a98726432e4f8b3850217aa",
+  "gate_b.py": "b518877b1cd3ce2cd200eee876d460bf17bab39c6b5260f16830ab7561a3fa99",
+  "observations/local_nav_state.py": "78231251a7c0c09e6cd6f63e16646566dbf293e3c3610cff0568a3c1c3b66466",
+  "observations/range96_adapter.py": "ad4517cdccec7fd878c759cc1f5c0509b70eea5b2345d339cde3e6286cfe7695",
+  "rl/checkpoint.py": "7303835768e7c395b12cb5418be294c5e713af0ca78cd26e7325ea998b064d43",
+  "rl/td3_adapter.py": "8d30a795654cb6c72d0f5ee2fe61ba8b118a12f3da1b430e5f5cc8f5b6fb84d3",
+  "rl/versioned_replay.py": "f0415b482bcd3eec2271191490499c1fd3863c90187beec59e5440801683aab5",
+  "task_factory.py": "813474ffdcc2a47511026159f385221a2ceb0c21923c569f97c2e1ed732a20c7",
+  "tests/test_navigation_contract.py": "185773da978a088a1d1025d38433ea1e7d11768d6737e5ea04dc248635661a18",
+  "tests/test_navigation_data.py": "5b13d356458ec2deaa00a135fbab37b0ac46c246ba0baa75dced4e8f47593e4f",
+  "train.py": "010f457955eaa5e05b5bde81f0ac7d5bec71465f121d4d7c605be1523be37497"
+}

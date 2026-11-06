@@ -1,0 +1,1005 @@
+{
+  "actor_sha256": "d1b8b6387ee0b8cb82b16d36094af283c912cc15a34c9d81b5617380a0c463de",
+  "archive": {
+    "bytes": 1970201,
+    "path": "/home/tequila/UAV-Latent-RL/checkpoints/experiment_archives/logical_async_reference_pid_v1/models_data_dependencies.zip",
+    "sha256": "a68eaff284e0140acf2340a73448e2be8685ad87ef4e43cb4dfab79ef9c27274"
+  },
+  "artifacts": [
+    {
+      "archive_member": "source/async_control/__init__.py",
+      "bytes": 769,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/__init__.py",
+      "sha256": "49fb372f8ca934c83a29040b34364d5844bcd5b64d87272551c40fbd5712d3cc"
+    },
+    {
+      "archive_member": "source/async_control/async_buffer.py",
+      "bytes": 1659,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/async_buffer.py",
+      "sha256": "2a5c09aa866643d1464f16e51680bed49204733235c65dc1d7525f015bd866db"
+    },
+    {
+      "archive_member": "source/async_control/async_scheduler.py",
+      "bytes": 8704,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/async_scheduler.py",
+      "sha256": "9e21a9065095be6c7bd25e5be2d5d95b678f606d19c0c21b912591070ad10c8d"
+    },
+    {
+      "archive_member": "source/async_control/reference_generator.py",
+      "bytes": 6871,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/reference_generator.py",
+      "sha256": "bc725555c07c18dfc7af7c66c66915f3c2e40728a70049273f7d1f944256c0d7"
+    },
+    {
+      "archive_member": "source/async_control/reference_packet.py",
+      "bytes": 4950,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/reference_packet.py",
+      "sha256": "c2996ff9acf2509cf39fedfc2ba0a3eeb7f6b0fd8ddb8a58432e4489554de4c9"
+    },
+    {
+      "archive_member": "source/high_level_planner/__init__.py",
+      "bytes": 686,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/__init__.py",
+      "sha256": "819b26149ad22b7feed11e5144e0b7a5a6f741c524d7ed399e34c13fe5aa5f48"
+    },
+    {
+      "archive_member": "source/high_level_planner/reference_dataset.py",
+      "bytes": 6104,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_dataset.py",
+      "sha256": "f9581f998e0f2ee480ee4d07b68edbf9a3b468bc127f105fa41714f2f78e9f38"
+    },
+    {
+      "archive_member": "source/high_level_planner/reference_planner.py",
+      "bytes": 3666,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_planner.py",
+      "sha256": "267863facc91143b19fb373b41fec312979b88c22fdeb3cbe23110261819fe4a"
+    },
+    {
+      "archive_member": "source/high_level_planner/reference_utils.py",
+      "bytes": 9882,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_utils.py",
+      "sha256": "ffc650c40456798d99c90a5c4824e6d6c3146030d63aca3bfdd00ee409f38478"
+    },
+    {
+      "archive_member": "source/envs/ForestAviary.py",
+      "bytes": 82,
+      "path": "/home/tequila/UAV-Latent-RL/envs/ForestAviary.py",
+      "sha256": "72f246caab70b81c8804ad77045e7175c37ade716db8822f6423db5c5eb1a570"
+    },
+    {
+      "archive_member": "source/envs/forest/__init__.py",
+      "bytes": 562,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/__init__.py",
+      "sha256": "b5b2717dd80cfff111eeb587c636a97f4cecb1e9ca8e9ac45eaf550998570ebd"
+    },
+    {
+      "archive_member": "source/envs/forest/core.py",
+      "bytes": 19802,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/core.py",
+      "sha256": "e38876eb9925b3056e7e2e31817c640fbc0651c7adb8eedeeb08a6da8f77c01a"
+    },
+    {
+      "archive_member": "source/envs/forest/curriculum.py",
+      "bytes": 5336,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/curriculum.py",
+      "sha256": "395c85dd121e90a05fc09105fe8a8348624fa32dcf1b1b3b81012570af50c8b7"
+    },
+    {
+      "archive_member": "source/envs/forest/geometry.py",
+      "bytes": 1822,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/geometry.py",
+      "sha256": "b276bf1fee36b1a821a406154e03f5e7a8a67b524d3ae1549c7540e883073570"
+    },
+    {
+      "archive_member": "source/envs/forest/layout.py",
+      "bytes": 12001,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/layout.py",
+      "sha256": "6071bb274982034ada505fe4ce2a5bb30ccf6aab5c20fe6d4b3b80d48eea3602"
+    },
+    {
+      "archive_member": "source/envs/forest/rewards.py",
+      "bytes": 5539,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/rewards.py",
+      "sha256": "bdeec98e52913d4d263e6ba0aa0ca0546eaec44c2e7eb9e54ffb270cd8f3b81a"
+    },
+    {
+      "archive_member": "source/envs/learned_upper_dslpid.py",
+      "bytes": 18285,
+      "path": "/home/tequila/UAV-Latent-RL/envs/learned_upper_dslpid.py",
+      "sha256": "1254a56a8d05b7b6166e9f71eb8427feab048486bfe690b56fd73e4b480776d5"
+    },
+    {
+      "archive_member": "source/envs/observation_layout.py",
+      "bytes": 2754,
+      "path": "/home/tequila/UAV-Latent-RL/envs/observation_layout.py",
+      "sha256": "78767559c0c9b7682517c1931c408d6091da5ad7ff8e13722321578eebaa1c8f"
+    },
+    {
+      "archive_member": "source/envs/preprocess.py",
+      "bytes": 619,
+      "path": "/home/tequila/UAV-Latent-RL/envs/preprocess.py",
+      "sha256": "67b2a12aac79ad844abfcceb1b14dd611ce2e56a56cd08d873936d1cb626cc39"
+    },
+    {
+      "archive_member": "source/models/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/UAV-Latent-RL/models/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "source/models/async_reference_channel.py",
+      "bytes": 6069,
+      "path": "/home/tequila/UAV-Latent-RL/models/async_reference_channel.py",
+      "sha256": "91137918c1968c3743660a55f9350ebde5196f55d4d000096bdd3798a98a1cd0"
+    },
+    {
+      "archive_member": "source/models/encoder.py",
+      "bytes": 315,
+      "path": "/home/tequila/UAV-Latent-RL/models/encoder.py",
+      "sha256": "6bf744884f92f80f8dd1d0bc59bf69930036b909fd2757a9a03915464d6abc72"
+    },
+    {
+      "archive_member": "source/models/heads.py",
+      "bytes": 905,
+      "path": "/home/tequila/UAV-Latent-RL/models/heads.py",
+      "sha256": "8ffba1887b9732f16adfdf00f2cfc538bebde87a03fd9490b16bc5deafbaf07b"
+    },
+    {
+      "archive_member": "source/models/hierarchical_async.py",
+      "bytes": 4019,
+      "path": "/home/tequila/UAV-Latent-RL/models/hierarchical_async.py",
+      "sha256": "de1ff020f327ab0ee0ea98218a58784820db321f7ee2be0c8b4481d91e532091"
+    },
+    {
+      "archive_member": "source/models/motor_action_codec.py",
+      "bytes": 7240,
+      "path": "/home/tequila/UAV-Latent-RL/models/motor_action_codec.py",
+      "sha256": "354de966ec47d437082b3fd61b3f9ec59554ab9a95fa80ce1560ff7c5cdaa5ed"
+    },
+    {
+      "archive_member": "source/models/reference_packet.py",
+      "bytes": 15301,
+      "path": "/home/tequila/UAV-Latent-RL/models/reference_packet.py",
+      "sha256": "a7adfde6ecea06a894264db86d729d38e7d5d8120a1a3b10efd211454e29e5a3"
+    },
+    {
+      "archive_member": "source/algos/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/UAV-Latent-RL/algos/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "source/algos/td3/__init__.py",
+      "bytes": 564,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/__init__.py",
+      "sha256": "c365f83b53b865fcd00d2c8e6bf7c1a6fdeef11722c416d67055d50dc655da2e"
+    },
+    {
+      "archive_member": "source/algos/td3/grad_utils.py",
+      "bytes": 1450,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/grad_utils.py",
+      "sha256": "701ced5c1578225e4c39e690d5db1ef521e0da5daef6ccf9d8445f59b629c13c"
+    },
+    {
+      "archive_member": "source/algos/td3/latent_aux_heads.py",
+      "bytes": 518,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/latent_aux_heads.py",
+      "sha256": "ebbe38cfa50cb673801e0753d9cce2bd4baec414e8f7b06e4ecb851d9656926c"
+    },
+    {
+      "archive_member": "source/algos/td3/latent_regularizers.py",
+      "bytes": 3603,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/latent_regularizers.py",
+      "sha256": "df45d56907ad95b10119c42688dc7a9896267f11e85d0555bb19ea5ceaf71259"
+    },
+    {
+      "archive_member": "source/algos/td3/networks.py",
+      "bytes": 4781,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/networks.py",
+      "sha256": "edc4eb58dc3888c79e080aa3e24277e2b004ced761d58cfd2e3197d736390015"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_hierarchical_async.py",
+      "bytes": 25414,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_hierarchical_async.py",
+      "sha256": "246da2b1e6a40967ad7fff644d6e52aefcaad49fbd0fd84f32216795c6a1ab62"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_latent.py",
+      "bytes": 14789,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_latent.py",
+      "sha256": "4fe588012920435f4a5cd4a3f8825ce2272c5cd63c6465a0165982a642726e79"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_latent_affordance.py",
+      "bytes": 24689,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_latent_affordance.py",
+      "sha256": "35c40189f47479812ff8f832c7149611ef3785c1b0f5a75f043a3c0280af649b"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_latent_only.py",
+      "bytes": 17213,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_latent_only.py",
+      "sha256": "2426093792617a44ee31aee3083d130e97678d333043e370d705ca3bcbd1158d"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_plain.py",
+      "bytes": 5360,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_plain.py",
+      "sha256": "5d6fba79af5dda2105563ff265f45d97f86811812b040a1e79b408e22d9b9763"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_reference_tracking.py",
+      "bytes": 28634,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_reference_tracking.py",
+      "sha256": "fdb38979defaabb5306be9aa0e5be1879725aed2ba7715b80b095a9a051b4671"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_upper_semantic_latent.py",
+      "bytes": 10561,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_upper_semantic_latent.py",
+      "sha256": "46054ff42baac6ce8c53d9c67e1cabb992a1fbd352ed5521b60559240a5d0d12"
+    },
+    {
+      "archive_member": "source/algos/td3/td3_v1trust.py",
+      "bytes": 22808,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/td3_v1trust.py",
+      "sha256": "704faecaead9a60eea1b0f4562bf02bf41d6876c7f5df0598ddec436b2932423"
+    },
+    {
+      "archive_member": "source/utils/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/UAV-Latent-RL/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "source/utils/gym_pybullet_compat.py",
+      "bytes": 1984,
+      "path": "/home/tequila/UAV-Latent-RL/utils/gym_pybullet_compat.py",
+      "sha256": "b88a9ecf251c1bbccdb61e65fdf3212db8671e6f8cc7fc97ef1364381ea139ec"
+    },
+    {
+      "archive_member": "source/scripts/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "source/scripts/bc_scenarios.py",
+      "bytes": 13872,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/bc_scenarios.py",
+      "sha256": "d873f204df4df87c625dd155791e802d9ec76e157e10d0f11e97507d52c8ab14"
+    },
+    {
+      "archive_member": "source/scripts/change_td3.py",
+      "bytes": 33793,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/change_td3.py",
+      "sha256": "131d744c7f0a5cc47d4242faaba887a476bb9c26e3e12d4a71c574fd9c160ec8"
+    },
+    {
+      "archive_member": "source/scripts/change_td3_backup.py",
+      "bytes": 26198,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/change_td3_backup.py",
+      "sha256": "e3db523aee52361ce43bfb579f56310753398e132b1de491fd0cc8370577a7a1"
+    },
+    {
+      "archive_member": "source/scripts/collect_bc_dataset.py",
+      "bytes": 22555,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/collect_bc_dataset.py",
+      "sha256": "1e3df40ed35a834672ca289ffbb7cf51c26b0068e13cf0125f6f9769f07dcb8b"
+    },
+    {
+      "archive_member": "source/scripts/collect_dagger_rollouts.py",
+      "bytes": 7466,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/collect_dagger_rollouts.py",
+      "sha256": "7f22ca5ca41fe31504bc5e427bb34ca854cf0e051ced1aad16beafd893cc3b98"
+    },
+    {
+      "archive_member": "source/scripts/collect_reference_planner_dataset.py",
+      "bytes": 17216,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/collect_reference_planner_dataset.py",
+      "sha256": "0d02a2840b37f6489836c239bb3027761de0ece2486b70c3ae92c0a2bae9601a"
+    },
+    {
+      "archive_member": "source/scripts/diagnose_motor_action_interfaces.py",
+      "bytes": 28229,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/diagnose_motor_action_interfaces.py",
+      "sha256": "ef3294d92655f5dda61d7edffc02e6c71084f7c06af73d950c708f0908aafab3"
+    },
+    {
+      "archive_member": "source/scripts/diagnose_teacher_state_aliasing.py",
+      "bytes": 6192,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/diagnose_teacher_state_aliasing.py",
+      "sha256": "7600f6d0d2a76fe4a2c028478c77be38b683fad97663313b2f2a4707e2e02a9c"
+    },
+    {
+      "archive_member": "source/scripts/dual_lower_evaluator.py",
+      "bytes": 17726,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/dual_lower_evaluator.py",
+      "sha256": "57c491261ad99abc20364ef0c1351361f37f6ad07cc99a2ecb6b264471b6a8c7"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_bc_actor.py",
+      "bytes": 27625,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_bc_actor.py",
+      "sha256": "82d716662f2f97e4437055d17e43623e3d719bab4e29bc7b66b55fa363cfba63"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_dual_lower_robustness.py",
+      "bytes": 8421,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_dual_lower_robustness.py",
+      "sha256": "843917f63d00c623ad9168c82d4a08e025e0cbff4c62f4f9d5cb392954a4667d"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_latent_async_pid.py",
+      "bytes": 16064,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_latent_async_pid.py",
+      "sha256": "9a1b4396c94cb1d9279b051761aaf8f065ee005808a41ec3907459b874500e03"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_lower_capability_boundary.py",
+      "bytes": 6309,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_lower_capability_boundary.py",
+      "sha256": "ed5f1f846ed711fca9bdb840682fe2f06d2328d99867b9748b2130fbc53f977a"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_reference_planner.py",
+      "bytes": 12446,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_reference_planner.py",
+      "sha256": "b7bc32da70ea298367eb65142067676a5ffc0b5dd70338a741c1cdfbada5b8b7"
+    },
+    {
+      "archive_member": "source/scripts/evaluate_rule_upper_async.py",
+      "bytes": 12231,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_rule_upper_async.py",
+      "sha256": "2e9a15c85883d24a2a52f412e4db98738504c146d40cb9e74ac92d1e48a8ef45"
+    },
+    {
+      "archive_member": "source/scripts/freeze_logical_async.py",
+      "bytes": 10330,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/freeze_logical_async.py",
+      "sha256": "016237dc6d51bf3d49ba27f78319273c4937ac1679d49a097c147727db934713"
+    },
+    {
+      "archive_member": "source/scripts/freeze_lower_baselines.py",
+      "bytes": 5287,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/freeze_lower_baselines.py",
+      "sha256": "8a74fc13f1a3b7c5e09ceda86ba5f3f8754548ef6082e4d9f10c9398808811d0"
+    },
+    {
+      "archive_member": "source/scripts/original_td3.py",
+      "bytes": 22459,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/original_td3.py",
+      "sha256": "85694a55c24b71bf4a8e7bb71b7bd961d777c58f5b6b6a41dd5b712702b33134"
+    },
+    {
+      "archive_member": "source/scripts/run_change_td3.py",
+      "bytes": 19652,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/run_change_td3.py",
+      "sha256": "c77f0eeb283be53539f565d48810bb175e207fec7d6626c430eef034bde44a52"
+    },
+    {
+      "archive_member": "source/scripts/td3_latent_uav.py",
+      "bytes": 41453,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/td3_latent_uav.py",
+      "sha256": "f7c81526c9a9de0e35835dfe7fd12a28c4afb3fadc2288263a4184e43864e172"
+    },
+    {
+      "archive_member": "source/scripts/td3_latent_uav_12.py",
+      "bytes": 59206,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/td3_latent_uav_12.py",
+      "sha256": "fb2b1b31c9f2b0fc09061f82b6f6f4418177bd1c93e1a2af0bf5e484036fceec"
+    },
+    {
+      "archive_member": "source/scripts/td3_latent_uav_72.py",
+      "bytes": 58706,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/td3_latent_uav_72.py",
+      "sha256": "6bf7b4cc4a29cb10f3132157a3acb013e19b8163cb6a8e0337ffad269f602308"
+    },
+    {
+      "archive_member": "source/scripts/train_bc_actor.py",
+      "bytes": 11954,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/train_bc_actor.py",
+      "sha256": "95e2ce86c22d2246e84fd4e73337009d871f40281c93c11fb72ad2b5d9758e1f"
+    },
+    {
+      "archive_member": "source/scripts/train_bc_actor_dagger.py",
+      "bytes": 15118,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/train_bc_actor_dagger.py",
+      "sha256": "f5bc9a22f2421d2838520b9395776b0a6b0df5c2fc9d1657174f3f3038b3f720"
+    },
+    {
+      "archive_member": "source/scripts/train_reference_planner.py",
+      "bytes": 7582,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/train_reference_planner.py",
+      "sha256": "8e69476aac8e555bad4c3848122e6f8c602dc9069e384292df2fc56c3c9872b8"
+    },
+    {
+      "archive_member": "source/scripts/validate_reference_tracking.py",
+      "bytes": 6133,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/validate_reference_tracking.py",
+      "sha256": "327e3b14b38be94f1cd1e2009bd86cda474ecd0916e5f41aa038f653a0c54ac9"
+    },
+    {
+      "archive_member": "source/tests/test_async_control.py",
+      "bytes": 4401,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_async_control.py",
+      "sha256": "7ec9010a9db41a97f55929d41edede8a8e4eb4559e33db3e0ef5169bfcc31698"
+    },
+    {
+      "archive_member": "source/tests/test_best_checkpoint_selection.py",
+      "bytes": 2278,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_best_checkpoint_selection.py",
+      "sha256": "4b3d0610c6f4c01d3f941fc90bdb5e318bce70a8f3a47bad70893395542d079a"
+    },
+    {
+      "archive_member": "source/tests/test_curriculum_safety.py",
+      "bytes": 2105,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_curriculum_safety.py",
+      "sha256": "efda710989d346ce510da25f36569cac177bc3d78144f4c804de6b9b51c4c0fd"
+    },
+    {
+      "archive_member": "source/tests/test_hierarchical_async.py",
+      "bytes": 6807,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_hierarchical_async.py",
+      "sha256": "3e3ef56a430b8d9e613e465b40fdd643fcfcd25508d483d42e4db2ab0236a8dd"
+    },
+    {
+      "archive_member": "source/tests/test_learned_upper_dslpid.py",
+      "bytes": 4027,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_learned_upper_dslpid.py",
+      "sha256": "143edd0118c31598f4fb4fe66bdea3064c16d2926f5ef4722276ea786ffd831b"
+    },
+    {
+      "archive_member": "source/tests/test_motor_action_codec.py",
+      "bytes": 2364,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_motor_action_codec.py",
+      "sha256": "d8fef27fa6351b4e460dbafc878d2062d856b4b114929c394e2333a66c9df5f9"
+    },
+    {
+      "archive_member": "source/tests/test_observation_layout.py",
+      "bytes": 2628,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_observation_layout.py",
+      "sha256": "98569628620a742ed088f4f31af02888f04e351c9382803bd4722840c414e32a"
+    },
+    {
+      "archive_member": "source/tests/test_random_route_obstacles.py",
+      "bytes": 4948,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_random_route_obstacles.py",
+      "sha256": "af9227c0a8644bf432bc4908a87c9103cdc47aad6eec62dde9c29c5dbd6dfd94"
+    },
+    {
+      "archive_member": "source/tests/test_reference_planner.py",
+      "bytes": 4469,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_reference_planner.py",
+      "sha256": "74823d6483e507315eebda1aea593fea0a244d72c8a5efa1602c2c23e2bcb801"
+    },
+    {
+      "archive_member": "source/tests/test_reference_tracking.py",
+      "bytes": 11591,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_reference_tracking.py",
+      "sha256": "d402dc410c0e16a94883731c3d701cdf7c6d5e70f097c1bd98310c8ddbbace56"
+    },
+    {
+      "archive_member": "source/tests/test_upper_semantic_latent.py",
+      "bytes": 1039,
+      "path": "/home/tequila/UAV-Latent-RL/tests/test_upper_semantic_latent.py",
+      "sha256": "5f3919e9d4ea01d9e038fdf9ed038b45a7e27089499cd2351a441b2d00aff754"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/base.py",
+      "bytes": 165,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/base.py",
+      "sha256": "882921a95410b36512c966deaf817ec88223df65c012b68dcdb453aabfa1648d"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/checkpoint.py",
+      "bytes": 4779,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/checkpoint.py",
+      "sha256": "83f509db7def6921ebd14d150e6d047a3ff4690d622baca63dec2fd362924460"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/eval_callback.py",
+      "bytes": 10790,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/eval_callback.py",
+      "sha256": "0d38ea1e4756199accf9de18a9002f4745c93f0626d014d12c1ea18f15c5cf45"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/latent_viz.py",
+      "bytes": 2674,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/latent_viz.py",
+      "sha256": "bf556731b1387f5e4e7956d79b1c69b7f91a8005620d6c65911ca2b381c22665"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/logger.py",
+      "bytes": 10082,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/logger.py",
+      "sha256": "cc5507cc2aaafaa21c63e4d8385ed9acb7a658d74c948bcdecc3bbd77a2658ac"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/monitor.py",
+      "bytes": 16670,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/monitor.py",
+      "sha256": "97244d1819ed2802f234bbdde834e3af7b67cae609e04c1582f9a005f68feef7"
+    },
+    {
+      "archive_member": "source/trainers/callbacks/noise.py",
+      "bytes": 353,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/callbacks/noise.py",
+      "sha256": "361d3b8b6581b75ab289874964412766e85213022b18522d682a28ec01c47b22"
+    },
+    {
+      "archive_member": "source/trainers/td3_trainer.py",
+      "bytes": 7992,
+      "path": "/home/tequila/UAV-Latent-RL/trainers/td3_trainer.py",
+      "sha256": "8553972e7ef7d8709c9fb11159ed86ff3be88ba16a2f172c3e8f0cab0e3498ae"
+    },
+    {
+      "archive_member": "checkpoints/latent_only_affordance_dim16/model_final_encoder",
+      "bytes": 146069,
+      "path": "/home/tequila/UAV-Latent-RL/checkpoints/latent_only_affordance_dim16/model_final_encoder",
+      "sha256": "bca99dcd51149dc306ca4d77fc46a51b516e2f50f9d6e1528c9a9211b783ff04"
+    },
+    {
+      "archive_member": "checkpoints/latent_only_affordance_dim16/model_final_actor",
+      "bytes": 287821,
+      "path": "/home/tequila/UAV-Latent-RL/checkpoints/latent_only_affordance_dim16/model_final_actor",
+      "sha256": "d1b8b6387ee0b8cb82b16d36094af283c912cc15a34c9d81b5617380a0c463de"
+    },
+    {
+      "archive_member": "checkpoints/reference_planner/latent_affordance_margin_v2/planner_final.pt",
+      "bytes": 326753,
+      "path": "/home/tequila/UAV-Latent-RL/checkpoints/reference_planner/latent_affordance_margin_v2/planner_final.pt",
+      "sha256": "e586ef24eb8f1fa8a37df52b1f39e4b256329dcee289c26f7d1411a6ff49f575"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_margin_v2/metadata.json",
+      "bytes": 2975,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_margin_v2/metadata.json",
+      "sha256": "5f82b33239051ae6d3f019ccf6c8ec0442f6857c49b76600855b4bedd044d7e2"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_margin_v2/samples.npz",
+      "bytes": 449033,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_margin_v2/samples.npz",
+      "sha256": "e02f724195d604a01a153b3879e1dc7cc888fd674e189143086e9d7476ab95f0"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_margin_v2/splits.npz",
+      "bytes": 656,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_margin_v2/splits.npz",
+      "sha256": "39835b7dbb332bd60939a169c618844948c0fdedd5b56e2fd2b7ab59151665f2"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_v1/metadata.json",
+      "bytes": 2967,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_v1/metadata.json",
+      "sha256": "3bcb8e2d58014b1860716e05686d6ee74ef7bbc2b9ebf71f5f96b6bf4bc54952"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_v1/samples.npz",
+      "bytes": 436069,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_v1/samples.npz",
+      "sha256": "198eb27cfbe00383c9e8edc9cde0306c6b9b2d0df29400f074dee26f008321bf"
+    },
+    {
+      "archive_member": "data/reference_planner/latent_affordance_v1/splits.npz",
+      "bytes": 656,
+      "path": "/home/tequila/UAV-Latent-RL/data/reference_planner/latent_affordance_v1/splits.npz",
+      "sha256": "9bb05a4b1d64a0cd2717f52204a15865844fdb8a6d5b837abbf66afc5a183bbe"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/__init__.py",
+      "bytes": 443,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/__init__.py",
+      "sha256": "737d759edb43e9995309ad615d2ba38bb374a1a45d123bb835178f5cc483d846"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/assets/architrave.urdf",
+      "bytes": 635,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/assets/architrave.urdf",
+      "sha256": "b8e2651fa15fbebd14da9928f7b844cf1e1200c61842359585a1d9e30c8aa447"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/assets/box.urdf",
+      "bytes": 390,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/assets/box.urdf",
+      "sha256": "87f132c778f0ce0c3909fa4fff7d08fb9efb1b0b0fe24944e88538a01bef5a12"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/assets/cf2p.urdf",
+      "bytes": 2830,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/assets/cf2p.urdf",
+      "sha256": "9c6acd425307103bb2f40e93afc5c951811eed77ee85a7baa246a265d845f2b9"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/assets/cf2x.urdf",
+      "bytes": 2836,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/assets/cf2x.urdf",
+      "sha256": "81494018056df2995351da62b9365d2ef4e1512112feaf73e88f9203e20c884b"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/assets/racer.urdf",
+      "bytes": 2565,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/assets/racer.urdf",
+      "sha256": "4ddcd3a8edd4a31654b3dde5d315490688545efdf79a40c434fdad3d4863d5c4"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/control/BaseControl.py",
+      "bytes": 9492,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/control/BaseControl.py",
+      "sha256": "c63db07052e9a49b6d1f908f08daba68a12271bbc6cef253e856405ac96f90d2"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/control/CTBRControl.py",
+      "bytes": 11123,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/control/CTBRControl.py",
+      "sha256": "477b8f150d3e1499b6d6162e83e494170c272f32f73cbdf420ecbe01ec686562"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/control/DSLPIDControl.py",
+      "bytes": 12981,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/control/DSLPIDControl.py",
+      "sha256": "b1b9f40b3289610c3b3dfdd5f9990294e4ee11ec1c1b8d1f966e5db3ed0d6312"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/control/MRAC.py",
+      "bytes": 5846,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/control/MRAC.py",
+      "sha256": "634826f7e7806f218068da2700893464e0104e248a812e19ffa780bf978e9908"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/control/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/control/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/BaseAviary.py",
+      "bytes": 54936,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/BaseAviary.py",
+      "sha256": "93ec818958c5a84d0a41fb1e8adc9bcd743c64d175da0c370a787eb8d555c5cb"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/BaseRLAviary.py",
+      "bytes": 16316,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/BaseRLAviary.py",
+      "sha256": "fca9be8e70949e5720069d743bed00749c9e69706f2375c2aefef83d0f11385e"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/BetaAviary.py",
+      "bytes": 13229,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/BetaAviary.py",
+      "sha256": "27058cb32aa1813a11168a9271f041afa32fa74a183d4e5219705338f30b5717"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/CFAviary.py",
+      "bytes": 33516,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/CFAviary.py",
+      "sha256": "38b8eee0f493b8b8a9d79b54a6885ba5023209ea184c4e11427a7c9c683f1781"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/CtrlAviary.py",
+      "bytes": 7580,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/CtrlAviary.py",
+      "sha256": "9e1f2bbd35129cd6d2a76a294e536c5ab9ce976bc5374bab3338db69a66ac957"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/HoverAviary.py",
+      "bytes": 4616,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/HoverAviary.py",
+      "sha256": "c6a2071c4d26a7e9da631d60cba627a0fa023000db84a829b156931dba7eb4cc"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/MultiHoverAviary.py",
+      "bytes": 5405,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/MultiHoverAviary.py",
+      "sha256": "5cd41ba972fa8148ed70303cfcee7712d9fd017e07415b0c49ff4726e0684667"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/VelocityAviary.py",
+      "bytes": 9340,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/VelocityAviary.py",
+      "sha256": "cedb04e876b2ee69935fb25af3c248c8e4f0c1e4fed6a3c89910ce2e23723768"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/envs/__init__.py",
+      "bytes": 380,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/envs/__init__.py",
+      "sha256": "d49e92af433a5650c46bf961c087c14ff4016ce342a61989f2bfa4aa15c97e5d"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/TD3.py",
+      "bytes": 19863,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/TD3.py",
+      "sha256": "b3286ca7ec5176a061d510a399aa797b571ef2172b018941463b945db619e943"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/beta.py",
+      "bytes": 7525,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/beta.py",
+      "sha256": "805cf352311da38b2651772808239e567d735fc1610dfab29f3a59590e9a1f20"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/cf.py",
+      "bytes": 5910,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/cf.py",
+      "sha256": "05dfd89ac5a96564f6a142cad5f29dcad247a8d09826d969d13c1e371d07a689"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/debug.py",
+      "bytes": 5957,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/debug.py",
+      "sha256": "cb8cc81ed353791bef2aa755e68acf6b28822ece684a173499f7b53ceeb7e860"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/downwash.py",
+      "bytes": 5932,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/downwash.py",
+      "sha256": "1ca8f88dc23584fc35c350c4f5330baaf8791f8ef88148d56735eb566e6d1f98"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/learn.py",
+      "bytes": 9417,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/learn.py",
+      "sha256": "617900cab78fb28790f23706c22238b0ec1d41920ac67be8379376229e3d717f"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/mrac.py",
+      "bytes": 3902,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/mrac.py",
+      "sha256": "95795482d0c0daf0659d993f4aa1620c0330f1aafd660b17b866f6181f15e932"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/pid.py",
+      "bytes": 10038,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/pid.py",
+      "sha256": "2bcc67e4b6b3adda71536739d69a73bf1a054a8cf80e66b067ef89dc5f4cbb02"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/pid_velocity.py",
+      "bytes": 7560,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/pid_velocity.py",
+      "sha256": "219feef51d921594148d75fc95f4f70209a235e11ffaecdf7173507697c5fb6a"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/play.py",
+      "bytes": 3188,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/play.py",
+      "sha256": "3cdb813a233ba9e4f7b7754683c4c41d966f39fc6177a009276823ababf9e726"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/td3_latent_uav.py",
+      "bytes": 63462,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/td3_latent_uav.py",
+      "sha256": "a5bb2f58a5e590fb2e3d03cf3081f810dfbb08b4d9e97436e98792811812b27d"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/td3_latent_uav_12.py",
+      "bytes": 59206,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/td3_latent_uav_12.py",
+      "sha256": "fb2b1b31c9f2b0fc09061f82b6f6f4418177bd1c93e1a2af0bf5e484036fceec"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/examples/td3_latent_uav_72.py",
+      "bytes": 58706,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/examples/td3_latent_uav_72.py",
+      "sha256": "6bf7b4cc4a29cb10f3132157a3acb013e19b8163cb6a8e0337ffad269f602308"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/utils/Logger.py",
+      "bytes": 19847,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/utils/Logger.py",
+      "sha256": "f8f853b620b4ca328d9aa3b0931c510740a8bdfc798dca2d3e2dbd76ea01d2dd"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/utils/__init__.py",
+      "bytes": 0,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/utils/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/utils/enums.py",
+      "bytes": 2004,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/utils/enums.py",
+      "sha256": "a23a35d2d4dbc248f470c10c4e5f5aab0e9d5e786087631fa3846c8c742f8d99"
+    },
+    {
+      "archive_member": "external/gym_pybullet_drones/utils/utils.py",
+      "bytes": 1473,
+      "path": "/home/tequila/gym-pybullet-drones/gym_pybullet_drones/utils/utils.py",
+      "sha256": "b6d7ba20103e78ed37dc4172f575297aaade7358fe48a2de6d0528fb1016f7fc"
+    }
+  ],
+  "clock": "deterministic simulation time, single Python thread",
+  "commands": [
+    "/home/tequila/miniconda3/envs/drones/bin/python -m unittest discover -s tests -v",
+    "/home/tequila/miniconda3/envs/drones/bin/python scripts/evaluate_latent_async_pid.py --episodes 3 --seed 0 --num-trees 0 --output analysis_outputs/logical_async_freeze_v1/async_results_reproduced.json"
+  ],
+  "dataset_sha256": "e02f724195d604a01a153b3879e1dc7cc888fd674e189143086e9d7476ab95f0",
+  "deadline_measured": false,
+  "encoder_sha256": "bca99dcd51149dc306ca4d77fc46a51b516e2f50f9d6e1528c9a9211b783ff04",
+  "environment_config": {
+    "episode_len_sec": 12.0,
+    "num_trees": 0,
+    "route_blocking_tree": false
+  },
+  "evaluation_seeds": [
+    0,
+    1,
+    2
+  ],
+  "git_blocker": null,
+  "git_commit": "bf78775e50c3de5f1af5fffb27b2e3e140f89253",
+  "git_commit_semantics": "Frozen source commit; the manifest is committed afterwards and the named tag points to that manifest commit.",
+  "git_freeze_complete": true,
+  "git_tag": "logical-async-reference-pid-v1",
+  "high_level_hz": 15,
+  "interruption_interpretation": "Logical control selections only; zero is NOT evidence of meeting a wall-clock deadline.",
+  "latent_dim": 16,
+  "low_level_hz": 120,
+  "motor_codec": "asymmetric_rpm",
+  "name": "logical-async-reference-pid-v1",
+  "observation_dim": 263,
+  "ownership": {
+    ".gitignore": "User change, excluded and archived for provenance.",
+    "analysis_outputs": "Only explicitly named async/planner results tracked; other analyses remain user-owned.",
+    "async_control_and_planner": "Prior phase deliverables, explicitly included in freeze source commit.",
+    "data/reference_planner": "Prior phase datasets included in model/data archive, not a map-isolated benchmark.",
+    "envs/forest/layout.py": "Pre-existing user diff. Alters tree sampling attempts (40->160, minimum 200->1000). Forest outputs depend on this generator; archived exact file+diff, not committed as our environment change. Clear num_trees=0 has no sampling dependency.",
+    "scripts/td3_latent_uav.py": "User change, unrelated legacy training entry; excluded and archived for provenance."
+  },
+  "package_versions": {
+    "gymnasium": "1.2.3",
+    "numpy": "2.2.6",
+    "pybullet": "3.2.7",
+    "scipy": "1.15.3",
+    "tensorboard": "2.20.0",
+    "torch": "2.11.0"
+  },
+  "planner_sha256": "e586ef24eb8f1fa8a37df52b1f39e4b256329dcee289c26f7d1411a6ff49f575",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python": "3.10.19 (main, Oct 21 2025, 16:43:05) [GCC 11.2.0]",
+  "python_executable": "/home/tequila/miniconda3/envs/drones/bin/python",
+  "recovery": [
+    "If git_freeze_complete is false, checkout git_commit separately and overlay archive source/; otherwise checkout the named tag.",
+    "Locate archive.path (same-machine archive; copy it off this computer for disaster recovery). Verify SHA-256 before use.",
+    "Extract checkpoints/ and data/ members into that checkout.",
+    "For exact forest reproduction restore workspace_files/envs/forest/layout.py in the separate checkout; this is an explicitly archived dependency.",
+    "Use the recorded environment or install matching packages plus archived editable gym_pybullet_drones sources/assets.",
+    "Run commands and compare JSON fields. Runtime deadline guarantees are outside this version."
+  ],
+  "reference_horizon_seconds": 0.5,
+  "regression_at_freeze": {
+    "failures": 0,
+    "tests_passed": 50
+  },
+  "reproduction": {
+    "actual": {
+      "bytes": 32990,
+      "path": "/home/tequila/UAV-Latent-RL/analysis_outputs/logical_async_freeze_v1/async_results_reproduced.json",
+      "sha256": "d62c8aa4d856eec6a5011ecaa1b6bfcc861f9651dae4bafa8d8c2096d66ba3bf"
+    },
+    "all_fields_equal": true,
+    "differences": [],
+    "expected": {
+      "bytes": 32990,
+      "path": "/home/tequila/UAV-Latent-RL/analysis_outputs/latent_async_pid/async_results.json",
+      "sha256": "d62c8aa4d856eec6a5011ecaa1b6bfcc861f9651dae4bafa8d8c2096d66ba3bf"
+    }
+  },
+  "runtime_async": false,
+  "schema_version": 1,
+  "source_files": [
+    {
+      "bytes": 769,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/__init__.py",
+      "sha256": "49fb372f8ca934c83a29040b34364d5844bcd5b64d87272551c40fbd5712d3cc"
+    },
+    {
+      "bytes": 1659,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/async_buffer.py",
+      "sha256": "2a5c09aa866643d1464f16e51680bed49204733235c65dc1d7525f015bd866db"
+    },
+    {
+      "bytes": 8704,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/async_scheduler.py",
+      "sha256": "9e21a9065095be6c7bd25e5be2d5d95b678f606d19c0c21b912591070ad10c8d"
+    },
+    {
+      "bytes": 6871,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/reference_generator.py",
+      "sha256": "bc725555c07c18dfc7af7c66c66915f3c2e40728a70049273f7d1f944256c0d7"
+    },
+    {
+      "bytes": 4950,
+      "path": "/home/tequila/UAV-Latent-RL/async_control/reference_packet.py",
+      "sha256": "c2996ff9acf2509cf39fedfc2ba0a3eeb7f6b0fd8ddb8a58432e4489554de4c9"
+    },
+    {
+      "bytes": 686,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/__init__.py",
+      "sha256": "819b26149ad22b7feed11e5144e0b7a5a6f741c524d7ed399e34c13fe5aa5f48"
+    },
+    {
+      "bytes": 6104,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_dataset.py",
+      "sha256": "f9581f998e0f2ee480ee4d07b68edbf9a3b468bc127f105fa41714f2f78e9f38"
+    },
+    {
+      "bytes": 3666,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_planner.py",
+      "sha256": "267863facc91143b19fb373b41fec312979b88c22fdeb3cbe23110261819fe4a"
+    },
+    {
+      "bytes": 9882,
+      "path": "/home/tequila/UAV-Latent-RL/high_level_planner/reference_utils.py",
+      "sha256": "ffc650c40456798d99c90a5c4824e6d6c3146030d63aca3bfdd00ee409f38478"
+    },
+    {
+      "bytes": 16064,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_latent_async_pid.py",
+      "sha256": "9a1b4396c94cb1d9279b051761aaf8f065ee005808a41ec3907459b874500e03"
+    },
+    {
+      "bytes": 12446,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/evaluate_reference_planner.py",
+      "sha256": "b7bc32da70ea298367eb65142067676a5ffc0b5dd70338a741c1cdfbada5b8b7"
+    },
+    {
+      "bytes": 17216,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/collect_reference_planner_dataset.py",
+      "sha256": "0d02a2840b37f6489836c239bb3027761de0ece2486b70c3ae92c0a2bae9601a"
+    },
+    {
+      "bytes": 7582,
+      "path": "/home/tequila/UAV-Latent-RL/scripts/train_reference_planner.py",
+      "sha256": "8e69476aac8e555bad4c3848122e6f8c602dc9069e384292df2fc56c3c9872b8"
+    },
+    {
+      "bytes": 19802,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/core.py",
+      "sha256": "e38876eb9925b3056e7e2e31817c640fbc0651c7adb8eedeeb08a6da8f77c01a"
+    },
+    {
+      "bytes": 12001,
+      "path": "/home/tequila/UAV-Latent-RL/envs/forest/layout.py",
+      "sha256": "6071bb274982034ada505fe4ce2a5bb30ccf6aab5c20fe6d4b3b80d48eea3602"
+    },
+    {
+      "bytes": 619,
+      "path": "/home/tequila/UAV-Latent-RL/envs/preprocess.py",
+      "sha256": "67b2a12aac79ad844abfcceb1b14dd611ce2e56a56cd08d873936d1cb626cc39"
+    },
+    {
+      "bytes": 7240,
+      "path": "/home/tequila/UAV-Latent-RL/models/motor_action_codec.py",
+      "sha256": "354de966ec47d437082b3fd61b3f9ec59554ab9a95fa80ce1560ff7c5cdaa5ed"
+    },
+    {
+      "bytes": 315,
+      "path": "/home/tequila/UAV-Latent-RL/models/encoder.py",
+      "sha256": "6bf744884f92f80f8dd1d0bc59bf69930036b909fd2757a9a03915464d6abc72"
+    },
+    {
+      "bytes": 4781,
+      "path": "/home/tequila/UAV-Latent-RL/algos/td3/networks.py",
+      "sha256": "edc4eb58dc3888c79e080aa3e24277e2b004ced761d58cfd2e3197d736390015"
+    }
+  ],
+  "startup_missing_cycles": {
+    "A_sync_baseline": 0,
+    "B_async_no_delay_15hz": 0,
+    "C_async_delay_0_100ms": 20,
+    "C_async_delay_0_20ms": 5,
+    "C_async_delay_0_50ms": 10,
+    "D_async_skip_10pct": 0
+  },
+  "sync_baseline_high_level_hz": 120
+}

@@ -1,0 +1,59 @@
+{
+  "generator_version": "ego_inspired_analytic_v1",
+  "seed": 43,
+  "config": {
+    "size_x": 20.0,
+    "size_y": 10.0,
+    "tree_count": 40,
+    "diameter_range": [
+      0.4,
+      0.6
+    ],
+    "height_range": [
+      3.0,
+      4.0
+    ],
+    "minimum_center_distance": 1.0,
+    "position_resolution": 0.1,
+    "endpoint_clearance": 0.8,
+    "start": [
+      -8.0,
+      0.0,
+      1.0
+    ],
+    "goal": [
+      8.0,
+      0.0,
+      1.0
+    ],
+    "sensor_range": 1.75,
+    "episode_len_sec": 40.0
+  },
+  "source_url": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm/blob/master/src/uav_simulator/map_generator/src/random_forest_sensing.cpp",
+  "sampling_attempts": 68,
+  "geometry_sha256": "56f6d6b3f5962029d18ba79d97e4341bf0898f14b669e8d7a8a2dcfce8a1a1bf",
+  "route_validation": {
+    "method": "4-neighbour BFS at task altitude",
+    "resolution_m": 0.1,
+    "vehicle_radius_m": 0.06,
+    "additional_clearance_m": 0.2,
+    "additional_cell_padding_m": 0.07071067811865477,
+    "reachable": true,
+    "path_length_m": 17.144222051018524,
+    "purpose": "Geometry QA only; never observation or policy input"
+  },
+  "physical_validation": {
+    "observation_dim": 917,
+    "upper_hz": 15,
+    "lower_hz": 120,
+    "hover_upper_steps": 60,
+    "lower_ticks": 480,
+    "episode_len_sec": 40.0,
+    "reset_collision": false,
+    "ray_hit_same_collision_tree": true,
+    "contact_inside_tree": true,
+    "rectangular_x_y_bounds_checked": true,
+    "reference_packet_valid": true,
+    "finite_observations_rewards": true
+  }
+}

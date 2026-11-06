@@ -1,0 +1,18 @@
+{
+  "README.md": "da61e0bb31318ea98f96611d7e065b4d4d3a8249c197045db7942d9b26de74a5",
+  "__init__.py": "7892c653cbaff651dd8869cf80db478a95895d2e007176d2bebd4961b9930ac5",
+  "audit_geometry.py": "75830977707f5b682b3cbd34205c06ef71f7049b312f5f746c4db2a44004fe6e",
+  "benchmark.py": "2b0fe9920124334ead416f488b5ebc82cf8349b4de04b6fb30b43876b5a23001",
+  "checkpoint.py": "1679e5271a08fd39f30fc0f27d67623b23246e2c505def3b92b09ab7e5753c28",
+  "codec.py": "2a9b1703dbd93d297465644bd261d111c96ae93e4a7c9d3580a696ffcdccbe25",
+  "environment.py": "a6a8b244c5843f187a63dad816bd50d78e95fca9dc149e7beb60dafdbf4cafa0",
+  "evaluate_challenge.py": "632b34d6af4c287223574c4ce64c380bc17e92ee872834cf9f6b83f46a1c7dc5",
+  "lidar.py": "2aa29ace3c00a4efb560520da094d01eae9a07b398a44c43ac77e46963c3821f",
+  "models.py": "eb7c376a29b0aaa8c668b5781c322233d750ce0cc697ad555bec25f6475c1517",
+  "provenance.py": "36fbeb5a47581ee5c6a8bacd1c2bf762fbfec44db383ba218ada42d6e5a2f8f9",
+  "replay.py": "35bf64c753c1bd9ef0ab34c55e833c4e97f0706756833841b399d766be126edc",
+  "td3.py": "37ddd4ef0423d290d6490a3b4f51c33471cce32b7820a4a81e74b25d54a8e0e5",
+  "tests/test_geometry.py": "02fdcf4b7a739a6f9b8ad08fcfd50c54d06f297472ab9d35b410c9b257e4d008",
+  "tests/test_learning.py": "95b5bef35134b7091af5bcb30ae1edcee7e224f9a5b28afb2b156717bc506b18",
+  "train_smoke.py": "7defe81b8d5f66ba28c8ca610237645ada612c5951ea01f659762861282d7a46"
+}
