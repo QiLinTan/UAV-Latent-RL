@@ -1,6 +1,6 @@
 # 感知冻结清单
 
-代码、评测和审计资产提交为 `87a1e3ef710e8f2a24d0793110bdf7d7c61e5559`。注释标签 `perception-v1.0-freeze` 指向包含本清单的最终提交。
+代码、评测和审计资产提交为 `5694855f3214e8a9a6ba2c4e3d9df444bbd5b581`。注释标签 `perception-v1.0-freeze` 指向包含本清单的最终提交。
 使用 `git rev-parse perception-v1.0-freeze^{commit}` 解析最终提交。
 
 ## 冻结考场
