@@ -1,0 +1,8 @@
+{
+  "exact_actor": true,
+  "exact_twin_critic": true,
+  "replay_next_frame": true,
+  "replay_checkpoint_roundtrip": true,
+  "parameter_counts_unchanged": true,
+  "static_checkpoint_sha256": "2f8adae99afee0d4f1f8dbbedfcf51a1311636e13946c0b9d009dd4a705839f5"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "PASS_STEP1_COMPLETE",
+  "final_run": "acceptance_v2",
+  "gate": [
+    {
+      "id": "U01-U04 / 1A-1C",
+      "name": "数值、单位、坐标、原子性、姿态与混控",
+      "passed": true,
+      "detail": "31 tests; failures=0"
+    },
+    {
+      "id": "H01",
+      "name": "hover",
+      "passed": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "V01",
+      "name": "step",
+      "passed": true,
+      "detail": "18/18"
+    },
+    {
+      "id": "V02",
+      "name": "diagonal",
+      "passed": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "V02",
+      "name": "circle",
+      "passed": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "T01",
+      "name": "turn",
+      "passed": true,
+      "detail": "6/6"
+    },
+    {
+      "id": "D01",
+      "name": "disturbance",
+      "passed": true,
+      "detail": "6/6"
+    },
+    {
+      "id": "D01",
+      "name": "initial_velocity",
+      "passed": true,
+      "detail": "6/6"
+    },
+    {
+      "id": "A01",
+      "name": "attitude",
+      "passed": true,
+      "detail": "24/24"
+    },
+    {
+      "id": "S01",
+      "name": "saturation",
+      "passed": true,
+      "detail": "3/3"
+    },
+    {
+      "id": "R01/P01",
+      "name": "复位、early done、120/240Hz、命令保持",
+      "passed": true,
+      "detail": "Full integration tests + every frozen trajectory"
+    },
+    {
+      "id": "1E",
+      "name": "配对tape与回归诊断",
+      "passed": true,
+      "detail": "45 pairs; circle regression retained and diagnosed"
+    },
+    {
+      "id": "保护",
+      "name": "旧源码/资产/原状态",
+      "passed": true,
+      "detail": "77 source hashes; 24635 asset metadata"
+    },
+    {
+      "id": "完整性",
+      "name": "固定24工况×3seed",
+      "passed": true,
+      "detail": "72 new cases; 45 pairs"
+    }
+  ],
+  "new_cases": 72,
+  "paired_cases": 45,
+  "tests": 31,
+  "unit_failures": [],
+  "calibration_and_prior_failures_preserved": true,
+  "training_runs": 0,
+  "step2_started": false
+}

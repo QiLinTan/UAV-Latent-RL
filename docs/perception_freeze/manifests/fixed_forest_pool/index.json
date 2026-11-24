@@ -1,0 +1,10 @@
+{
+  "runtime_path": "data/map_atlas/generated/ego20x10_curr_v1/manifest.json",
+  "bytes": 7632441,
+  "sha256": "19cdbd6a80b6cbdaa7135d1c513ba154d8b42d4a440fdae225cee060f8675498",
+  "fingerprint": "f8a871f25663cc0d6141c7cc9e42cefc1d7579b72a50a778833261a659dbdec2",
+  "pieces": [
+    "manifest.json.part01",
+    "manifest.json.part02"
+  ]
+}

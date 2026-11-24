@@ -1,0 +1,169 @@
+{
+  "archive_root": "/opt/uav-training-20261103/artifacts_frozen/perception_v1",
+  "count": 18,
+  "bytes": 6887801938,
+  "checkpoints": [
+    {
+      "model": "a1",
+      "seed": 43,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/formal_gpu_a1_seed43_240k_20261118a/checkpoint_200000.pt",
+      "archive_relative_path": "runs/formal_gpu_a1_seed43_240k_20261118a/checkpoint_200000.pt",
+      "bytes": 9057905,
+      "sha256": "d07e0aba739f2cf1768b074f364a5c00a5be02cbe09ca02fbbbc6f2356d1dcd8"
+    },
+    {
+      "model": "a1",
+      "seed": 43,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/formal_gpu_a1_seed43_240k_20261118a/checkpoint_240000.pt",
+      "archive_relative_path": "runs/formal_gpu_a1_seed43_240k_20261118a/checkpoint_240000.pt",
+      "bytes": 9074545,
+      "sha256": "1ecf07ff637aa4a28d17ec23ff6f825df061f57ee505f6f2c3c5797ee1a4ad85"
+    },
+    {
+      "model": "a1",
+      "seed": 44,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/rv1_baseline_seed44_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/rv1_baseline_seed44_240k/train/checkpoint_200000.pt",
+      "bytes": 9049649,
+      "sha256": "0c8f95119d896cc33ffd89baa73c261cb46eb755b88a29ebd1a3bf0899b3cb8a"
+    },
+    {
+      "model": "a1",
+      "seed": 44,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/rv1_baseline_seed44_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/rv1_baseline_seed44_240k/train/checkpoint_240000.pt",
+      "bytes": 9070641,
+      "sha256": "ca29b9295b941cba00f7bdb1a3b29efaa673a348638de4e155e994e7a983d12c"
+    },
+    {
+      "model": "a1",
+      "seed": 45,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/rv1_baseline_seed45_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/rv1_baseline_seed45_240k/train/checkpoint_200000.pt",
+      "bytes": 9055921,
+      "sha256": "0fdfbd4307e1dad332f94209926eec08141b2a3a145dea6406b159a04b07b956"
+    },
+    {
+      "model": "a1",
+      "seed": 45,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/rv1_baseline_seed45_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/rv1_baseline_seed45_240k/train/checkpoint_240000.pt",
+      "bytes": 9076465,
+      "sha256": "3e3d40b6eb3406975a544431211bd4ec6230444bcc6ca1d121431f896cbe983a"
+    },
+    {
+      "model": "t3",
+      "seed": 43,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed43_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed43_240k/train/checkpoint_200000.pt",
+      "bytes": 566360873,
+      "sha256": "bbd7467afd2ad8abcfd7a458241e6fde19bf058955a272bebacf2d6df7e96f93"
+    },
+    {
+      "model": "t3",
+      "seed": 43,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed43_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed43_240k/train/checkpoint_240000.pt",
+      "bytes": 571191017,
+      "sha256": "2f8adae99afee0d4f1f8dbbedfcf51a1311636e13946c0b9d009dd4a705839f5"
+    },
+    {
+      "model": "t3",
+      "seed": 44,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed44_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed44_240k/train/checkpoint_200000.pt",
+      "bytes": 567057257,
+      "sha256": "4bf299cf8bffdf297b9429f7900d30cf391d35c5b5b570ab4419d34933aed398"
+    },
+    {
+      "model": "t3",
+      "seed": 44,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed44_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed44_240k/train/checkpoint_240000.pt",
+      "bytes": 570726249,
+      "sha256": "478814e9db20c665eb3f7db07fad940618f15c4a413ad2b23ccad5baa8b0b705"
+    },
+    {
+      "model": "t3",
+      "seed": 45,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed45_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed45_240k/train/checkpoint_200000.pt",
+      "bytes": 566153577,
+      "sha256": "c5a18dd97c249a592ca02d535469abd08e046644dfe0a7bbec6b0474f064c57d"
+    },
+    {
+      "model": "t3",
+      "seed": 45,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dual_seed45_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dual_seed45_240k/train/checkpoint_240000.pt",
+      "bytes": 571479273,
+      "sha256": "76542e0fe69896f439eb6e9c339b2aed8169751a5d4f3ca80d37cf43ba3adddb"
+    },
+    {
+      "model": "dynamic",
+      "seed": 43,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed43_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed43_240k/train/checkpoint_200000.pt",
+      "bytes": 568336937,
+      "sha256": "d10a2abccba849dade30a71721499358d87ac944123b2b3473fc56425fcdd4f4"
+    },
+    {
+      "model": "dynamic",
+      "seed": 43,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed43_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed43_240k/train/checkpoint_240000.pt",
+      "bytes": 572965097,
+      "sha256": "12fece7c26f36d4b410be8ce560712acb4bd850a23dc937a1aa48595caa8a9c3"
+    },
+    {
+      "model": "dynamic",
+      "seed": 44,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed44_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed44_240k/train/checkpoint_200000.pt",
+      "bytes": 567285609,
+      "sha256": "7bcdc57b845718e411ac77dda9b19d0adeb59b21eea31d57faa2d0f66ef30f9f"
+    },
+    {
+      "model": "dynamic",
+      "seed": 44,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed44_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed44_240k/train/checkpoint_240000.pt",
+      "bytes": 572124841,
+      "sha256": "ec4f4022dcee70029012c03a343c4f4e3ba334b90b0c074d922e6b24ed79f3bd"
+    },
+    {
+      "model": "dynamic",
+      "seed": 45,
+      "step": 200000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed45_240k/train/checkpoint_200000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed45_240k/train/checkpoint_200000.pt",
+      "bytes": 566046185,
+      "sha256": "54c8bad94347abbec4d1142629194da4a9ad0fd0bd649b41cbcb36c9fd55c573"
+    },
+    {
+      "model": "dynamic",
+      "seed": 45,
+      "step": 240000,
+      "source": "/opt/uav-training-20261103/runs/msgp_conv7_circ16_dyn_v22_seed45_240k/train/checkpoint_240000.pt",
+      "archive_relative_path": "runs/msgp_conv7_circ16_dyn_v22_seed45_240k/train/checkpoint_240000.pt",
+      "bytes": 573689897,
+      "sha256": "1d9beb7bc83294108f6ccaf5cc5e8ddb1b36a1ce1f95d0ee9bb16efb75c5e9c7"
+    }
+  ]
+}

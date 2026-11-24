@@ -1,0 +1,33 @@
+{
+  "timestamp_utc": "2026-10-26T12:47:42.771788+00:00",
+  "source_hashes": {
+    "__init__.py": "8d994f7456a9223313db8e39ae374c7f3a022dd6a1ab06f6750eff70f3f338f1",
+    "contracts.py": "c866c3472dc626173c07d96af75e665bf152824b99119a26b56af8d049622f09",
+    "controls/__init__.py": "656ad313502a78bf38613b5aaf77cd2f39dcc398675e3b69bc8eb508d08e24fd",
+    "controls/velocity_control_adapter.py": "cca2e957a31c3b9a2527cc3508aec5be060432a8618d2a65e0a29965a354849a",
+    "controls/velocity_tracking.py": "90c72062e3fc323b2621778e2e7dcd56ade36209d51f59f5aabc41023460fe01",
+    "run_control_acceptance.py": "a14a1431990bf2502774c584aa8b1a4b57eb9e977b0f876c25954d9cc6eec990",
+    "testing/__init__.py": "1c01b0c9f047e77dd801579265c0f2f2dfa73ec01ddd2ce7499dbaf57d8f20bb",
+    "testing/control_fixture.py": "29114d1c95c7482c8b4e8bae2912b2921016b6cceef9941fc9efcbdabf89534d",
+    "testing/control_metrics.py": "eef4d32c1d31beead12dbdacc52a39d71073ea18f51b966b4433a04579efa95d",
+    "testing/scenarios.py": "ab20b8c3872684440fba475265451a916eaf385c30819fb2b7441013f7105607",
+    "tests/__init__.py": "add2434110287d7f37a85126724397731eb00c4f361a120c4fe47cbbae8dc0b0",
+    "tests/test_attitude_adapter.py": "e88155d0879fe246f322ae0a43ce695e1ecca4b5f7f12901de51c76618083db8",
+    "tests/test_contracts.py": "cf4892934f0fb8f8b294b0bd3d99ccc2e69b8bfe440d72c0f860cd521db53541",
+    "tests/test_control_full.py": "84a19fa86a3b5df32171bbf88158428906fb561039fbc6349ff639bf16f93e4d",
+    "tests/test_metrics.py": "dea83abd068bdf6512057cf8a8a17e9ba90a2ce81ded56af95000c865a809bed",
+    "tests/test_velocity_pi.py": "8f9540b720f53ad80bd8afff274f03493f8b49c847138ef5d6a62eda5c627b4a",
+    "/home/tan/UAV-Latent-RL/envs/learned_upper_dslpid.py": "51c703aea2d6884adaac3c66390b1b712a61d266d4a52ff2a850df3e33dc2bb0",
+    "/home/tan/UAV-Latent-RL/models/motor_action_codec.py": "354de966ec47d437082b3fd61b3f9ec59554ab9a95fa80ce1560ff7c5cdaa5ed",
+    "/home/tan/UAV-Latent-RL/models/reference_packet.py": "a7adfde6ecea06a894264db86d729d38e7d5d8120a1a3b10efd211454e29e5a3",
+    "/home/tan/UAV-Latent-RL/envs/forest/core.py": "a5ecf77b0b9ce292ef175e72cd3e3372351307f4d659c03484bc1e59c8a2e867",
+    "/home/tan/UAV-Latent-RL/.wsl2/drones-cpu/lib/python3.10/site-packages/gym_pybullet_drones/control/DSLPIDControl.py": "b1b9f40b3289610c3b3dfdd5f9990294e4ee11ec1c1b8d1f966e5db3ed0d6312",
+    "/home/tan/UAV-Latent-RL/.wsl2/drones-cpu/lib/python3.10/site-packages/gym_pybullet_drones/envs/BaseAviary.py": "93ec818958c5a84d0a41fb1e8adc9bcd743c64d175da0c370a787eb8d555c5cb",
+    "/home/tan/UAV-Latent-RL/.wsl2/drones-cpu/lib/python3.10/site-packages/gym_pybullet_drones/assets/cf2x.urdf": "81494018056df2995351da62b9365d2ef4e1512112feaf73e88f9203e20c884b"
+  },
+  "source_set_sha256": "8c0d64ecba5f60a1361841f554b04c13ee13ac5ff2eeb1a6a631a9120bead623",
+  "git_head": "871e83c24a34596cf5d30efc0917afff84f247a8",
+  "simulation_time_base": "integer lower tick / 120; physics tick / 240",
+  "wall_clock_not_used_for_control": true,
+  "rollout_type": "scripted control only; no RL"
+}

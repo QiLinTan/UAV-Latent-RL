@@ -1,0 +1,234 @@
+{
+  "passed": false,
+  "gates": {
+    "frame_alignment": true,
+    "all_alpha_steps": false,
+    "wall_alpha_steps": true,
+    "seed06_no_abrupt_step": true,
+    "level_ground_zero": true,
+    "descending_warning": true
+  },
+  "trace_frames": 4806,
+  "trace_count": 28,
+  "maximum_alignment_error": 0.0,
+  "per_trace_alignment": {
+    "stage0_seed01": 0.0,
+    "stage0_seed02": 0.0,
+    "stage0_seed00": 0.0,
+    "stage0_seed16": 0.0,
+    "stage0_seed06": 0.0,
+    "stage0_seed17": 0.0,
+    "stage3_seed00": 0.0,
+    "stage3_seed01": 0.0,
+    "stage3_seed02": 0.0,
+    "opening00_neg": 0.0,
+    "opening01_pos": 0.0,
+    "opening00_pos": 0.0,
+    "opening06_neg": 0.0,
+    "opening02_pos": 0.0,
+    "opening04_pos": 0.0,
+    "beam_below": 0.0,
+    "beam_direct": 0.0,
+    "cave_center": 0.0,
+    "cave_side_approach": 0.0,
+    "mine_stem_center": 0.0,
+    "mine_bar_center": 0.0,
+    "mine_end_approach": 0.0,
+    "C_43_C_map_02": 0.0,
+    "C_43_C_map_03": 0.0,
+    "C_44_C_map_00": 0.0,
+    "C_44_C_map_01": 0.0,
+    "D1_a1_45_240000_04": 0.0,
+    "D1_a1_45_240000_08": 0.0
+  },
+  "max_alpha_jump": {
+    "trace": "C_43_C_map_02",
+    "frame": 70,
+    "z_m": 0.18308532211066403,
+    "vz_mps": -0.14438361525535584,
+    "abs_delta_alpha": 0.10582148863777585,
+    "prior_abs_delta_alpha": 0.008122149646802357
+  },
+  "max_wall_alpha_jump": {
+    "trace": "opening02_pos",
+    "frame": 7,
+    "z_m": 0.9278660364147102,
+    "vz_mps": -0.2717803359031677,
+    "abs_delta_alpha": 0.038687895139704775,
+    "prior_abs_delta_alpha": 0.03975637458266057
+  },
+  "seed06_old_jump_frame": {
+    "trace": "stage0_seed06",
+    "frame": 209,
+    "z_m": 0.092707130330387,
+    "vz_mps": -0.014066245034337043,
+    "abs_delta_alpha": 0.0018785516477413111,
+    "prior_abs_delta_alpha": 0.11095877266060428
+  },
+  "exact_level_replay_frames": 380,
+  "analytic_cases": [
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.6,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.6,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.21384465579710144
+    },
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.6,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.3959330842391303
+    },
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.8,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.8,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.21384465579710144
+    },
+    {
+      "z_m": 0.25,
+      "vx_mps": 0.8,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.3959330842391303
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.6,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.6,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.10246723090277776
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.6,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.1897179361979166
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.8,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.8,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.10246723090277776
+    },
+    {
+      "z_m": 0.4,
+      "vx_mps": 0.8,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.1897179361979166
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.6,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.6,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.06047246413934427
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.6,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.11196468365778688
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.8,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.8,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.06047246413934427
+    },
+    {
+      "z_m": 0.6,
+      "vx_mps": 0.8,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.11196468365778688
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.6,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.6,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.03744995241116751
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.6,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.06933853505710658
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.8,
+      "vz_mps": 0.0,
+      "u_kin_ground": 0.0
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.8,
+      "vz_mps": -0.2,
+      "u_kin_ground": 0.03744995241116751
+    },
+    {
+      "z_m": 0.9,
+      "vx_mps": 0.8,
+      "vz_mps": -0.3,
+      "u_kin_ground": 0.06933853505710658
+    }
+  ],
+  "constants": {
+    "r_body": 0.062,
+    "d_margin": 0.1,
+    "r_safe": 0.162,
+    "tau_d": 0.0784,
+    "d_brake_0p8": 0.221289,
+    "R_N": 1.4,
+    "R_max": 8.0,
+    "d0": 1.2,
+    "kappa_near": 2.0,
+    "kappa_far": 1.5,
+    "z_ground_eps": 0.05,
+    "d_soft": 0.05,
+    "radial_m": [
+      1.0,
+      2.4
+    ]
+  },
+  "cpu_seconds": 107.823386586
+}

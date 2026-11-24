@@ -1,0 +1,66 @@
+{
+  "schema": "direct_velocity_control_v1",
+  "frozen": false,
+  "purpose": "Public recalibration after v1 circle/reversal/recovery performance failures; all old results retained; thresholds unchanged.",
+  "seeds": [
+    0
+  ],
+  "control_spec": {
+    "kp": [
+      5.0,
+      5.0,
+      4.0
+    ],
+    "ki": [
+      1.0,
+      1.0,
+      1.5
+    ],
+    "kaw": [
+      4.0,
+      4.0,
+      4.0
+    ],
+    "integral_limit_mps2": [
+      0.8,
+      0.8,
+      1.0
+    ],
+    "max_tilt_rad": 0.45,
+    "max_force_fraction": 0.9,
+    "min_vertical_weight_fraction": 0.45,
+    "attitude_integral_limit": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "thresholds": {
+    "steady_error_xyz_mps": [
+      0.05,
+      0.05,
+      0.03
+    ],
+    "response_s": 2.0,
+    "overshoot_fraction_plus_mps": [
+      0.25,
+      0.02
+    ],
+    "steady_rmse_xy_z_mps": [
+      0.1,
+      0.06
+    ],
+    "actual_roll_pitch_limit_rad": 0.6,
+    "hover20_max_speed_mps": 0.05,
+    "hover20_mean_component_mps": 0.02,
+    "hover20_drift_xy_z_m": [
+      0.25,
+      0.15
+    ],
+    "legacy_regression_ratio_and_absolute": [
+      1.25,
+      0.02
+    ],
+    "effort_regression_ratio": 1.25
+  }
+}

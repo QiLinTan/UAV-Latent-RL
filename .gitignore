@@ -19,5 +19,17 @@ runs/
 
 # Local workspace and experiment artifacts
 .codex
-experiments/
+/experiments/
 events.out.tfevents.*
+
+# Perception runtime and local freeze artifacts
+*.npz
+*.npy
+*.log
+*.trace.json.gz
+artifacts_frozen/
+replay*/
+ray_logs/
+local_reproductions/
+/src/perception_runtime/data/map_atlas/generated/ego20x10_curr_v1/manifest.json
+/src/perception_runtime/.wsl2/
