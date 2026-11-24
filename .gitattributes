@@ -1,0 +1,5 @@
+src/perception_runtime/** -text
+docs/perception_freeze/** -text
+tools/perception_reproduce.py text eol=lf
+tests/test_perception_freeze.py text eol=lf
+PERCEPTION_FREEZE_MANIFEST.md text eol=lf
